@@ -4,13 +4,17 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 
-/* the model ships as a base64 module so it can be hosted anywhere static */
-function loadModel(url, done) {
-  import(url).then(m => {
-    const bin = atob(m.default); const buf = new Uint8Array(bin.length);
-    for (let i = 0; i < bin.length; i++) buf[i] = bin.charCodeAt(i);
-    new GLTFLoader().parse(buf.buffer, '', done, e => console.warn(e));
-  });
+/* Load the model as a plain .glb first; fall back to the base64 copy if that fails. */
+function loadModel(name, done, fail) {
+  const parse = buf => new GLTFLoader().parse(buf, '', done, fail);
+  fetch(new URL(`../assets/${name}.glb`, import.meta.url))
+    .then(r => { if (!r.ok) throw new Error(r.status); return r.arrayBuffer(); })
+    .then(parse)
+    .catch(() => import(`../assets/${name}.js`).then(m => {
+      const bin = atob(m.default); const buf = new Uint8Array(bin.length);
+      for (let i = 0; i < bin.length; i++) buf[i] = bin.charCodeAt(i);
+      parse(buf.buffer);
+    }).catch(fail));
 }
 
 export function mountHero(host) {
@@ -19,11 +23,14 @@ export function mountHero(host) {
   try { renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' }); } catch (e) { return null; }
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const zoom = innerWidth >= 2500 ? 1.33 : innerWidth >= 2200 ? 1.2 : 1;
-  renderer.setPixelRatio(Math.min(devicePixelRatio || 1, 2) * zoom);
+  // phones get a lighter scene: iOS gives a tab little graphics memory
+  const light = innerWidth <= 960 || matchMedia('(pointer: coarse)').matches;
+  renderer.setPixelRatio(Math.min(devicePixelRatio || 1, light ? 1.75 : 2) * zoom);
+  renderer.domElement.addEventListener('webglcontextlost', e => { e.preventDefault(); host.classList.remove('ready'); host.classList.add('failed'); });
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
   renderer.toneMappingExposure = 1.05;
-  renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  renderer.shadowMap.enabled = !light; renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   host.appendChild(renderer.domElement);
   renderer.domElement.style.touchAction = 'pan-y';
 
@@ -36,7 +43,7 @@ export function mountHero(host) {
 
   // sunlight: hard, warm-white, from upper left behind; earthshine: soft blue from below
   const sun = new THREE.DirectionalLight(0xfff4e6, 3.4); sun.position.set(-6, 5, 3); scene.add(sun);
-  sun.castShadow = true; sun.shadow.mapSize.set(2048, 2048); sun.shadow.bias = -0.0004; sun.shadow.normalBias = 0.02;
+  sun.castShadow = !light; sun.shadow.mapSize.set(2048, 2048); sun.shadow.bias = -0.0004; sun.shadow.normalBias = 0.02;
   Object.assign(sun.shadow.camera, { left: -4, right: 4, top: 4, bottom: -4, near: 0.5, far: 30 });
   const earthshine = new THREE.DirectionalLight(0x6f9bff, 0.9); earthshine.position.set(0, -6, 2); scene.add(earthshine);
   const rim = new THREE.DirectionalLight(0xffa060, 1.4); rim.position.set(5, 1, -6); scene.add(rim);
@@ -45,9 +52,9 @@ export function mountHero(host) {
   /* Earth */
   const tl = new THREE.TextureLoader();
   const base = 'assets/';
-  const earthMap = tl.load(base + 'earth.jpg'); earthMap.colorSpace = THREE.SRGBColorSpace; earthMap.anisotropy = 8;
+  const earthMap = tl.load(base + (light ? 'earth_m.jpg' : 'earth.jpg')); earthMap.colorSpace = THREE.SRGBColorSpace; earthMap.anisotropy = light ? 4 : 8;
   const earthN = tl.load(base + 'earth_n.jpg');
-  const clouds = tl.load(base + 'clouds.jpg');
+  const clouds = tl.load(base + (light ? 'clouds_m.jpg' : 'clouds.jpg'));
   const R = 60;
   const earthGroup = new THREE.Group(); scene.add(earthGroup);
   const earth = new THREE.Mesh(new THREE.SphereGeometry(R, 128, 96), new THREE.MeshStandardMaterial({ color: 0xffffff, map: earthMap, normalMap: earthN, normalScale: new THREE.Vector2(0.6, 0.6), roughness: 0.85, metalness: 0 }));
@@ -79,7 +86,7 @@ export function mountHero(host) {
   const pivot = new THREE.Group(); scene.add(pivot);
   const craft = new THREE.Group(); pivot.add(craft);
   let loaded = false;
-  loadModel('../assets/satellite.js', g => {
+  loadModel('satellite', g => {
     const m = g.scene;
     m.traverse(o => { if (o.isMesh) { o.castShadow = o.receiveShadow = true; o.material.envMapIntensity = /MLI|Aluminium|Solar|Radiator/.test(o.material.name) ? 1.1 : 0.5; } });
     // centre it
@@ -87,7 +94,7 @@ export function mountHero(host) {
     m.position.sub(c);
     craft.add(m); loaded = true;
     host.classList.add('ready');
-  });
+  }, e => { console.warn('satellite model failed', e); host.classList.add('failed'); });
 
   /* sizing */
   let W = 1, H = 1, layout = 'wide';

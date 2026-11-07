@@ -120,7 +120,9 @@ h1, h2, h3 { margin: 0; font-family: var(--display); font-weight: 600; letter-sp
 .hero-vis { position: absolute; inset: 0; z-index: 0; }
 .hero::after { content: ""; position: absolute; inset: auto 0 0 0; height: 18%; background: linear-gradient(transparent, var(--bg)); pointer-events: none; z-index: 1; }
 .hero-copy { max-width: 780px; }
-.hero-vis canvas { display: block; }
+.hero-vis canvas { display: block; position: relative; z-index: 1; }
+.hero-vis .poster { position: absolute; z-index: 0; left: 73%; top: 43%; width: 44%; height: auto; transform: translate(-50%, -50%); pointer-events: none; transition: opacity .8s ease; }
+.hero-vis.ready .poster { opacity: 0; }
 .hero-vis .cap { position: absolute; font-size: .75rem; color: var(--text-3); display: flex; align-items: center; gap: 8px; pointer-events: none; }
 .hero-vis .cap i { width: 7px; height: 7px; border-radius: 50%; background: var(--orange); box-shadow: 0 0 12px var(--orange); }
 .hero-vis .c1 { right: 26%; bottom: 16%; }
@@ -281,6 +283,7 @@ footer .legal { grid-column: 1 / -1; display: flex; flex-wrap: wrap; justify-con
   .actions { justify-content: center; }
   .scroll-cue { display: none; }
   .hero-vis .cap { display: none; }
+  .hero-vis .poster { left: 50%; top: 42%; width: 96%; }
   .proof-grid { grid-template-columns: 1fr; }
   .stat { grid-template-columns: 1fr; justify-items: center; text-align: center; gap: 16px; }
   .stat .ring { display: none; }
@@ -357,6 +360,7 @@ footer .legal { grid-column: 1 / -1; display: flex; flex-wrap: wrap; justify-con
       </div>
     </div>
     <div class="hero-vis" id="hero3d" role="img" aria-label="A spacecraft with gold insulation and blue solar wings above the Earth. Drag to turn it.">
+      <img class="poster" src="img/satellite.webp" alt="" width="1101" height="403" fetchpriority="high">
       <span class="cap c1"><i></i>Drag to turn</span>
     </div>
   </div>
@@ -605,7 +609,13 @@ footer .legal { grid-column: 1 / -1; display: flex; flex-wrap: wrap; justify-con
     stepsEl.forEach((li, i) => li.classList.toggle('on', i === active));
     if (chip) { chip.setProgress(p); chip.setActive(active); }
   }
-  import('./js/chip3d.js').then(m => { chip = m.mountChip(document.getElementById('stack'), chipLabels); layoutStack(stackP); }).catch(() => {});
+  // the chip loads only when you get near it, so the hero has the phone's memory to itself first
+  const stackEl = document.getElementById('stack');
+  const chipIO = new IntersectionObserver(es => {
+    if (!es[0].isIntersecting) return; chipIO.disconnect();
+    import('./js/chip3d.js').then(m => { chip = m.mountChip(stackEl, chipLabels); layoutStack(stackP); }).catch(() => {});
+  }, { rootMargin: '600px 0px' });
+  chipIO.observe(stackEl);
   layoutStack(stackP);
 
   /* hero 3D (module) */

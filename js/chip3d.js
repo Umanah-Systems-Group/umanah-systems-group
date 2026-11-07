@@ -4,13 +4,17 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 
-/* the model ships as a base64 module so it can be hosted anywhere static */
-function loadModel(url, done) {
-  import(url).then(m => {
-    const bin = atob(m.default); const buf = new Uint8Array(bin.length);
-    for (let i = 0; i < bin.length; i++) buf[i] = bin.charCodeAt(i);
-    new GLTFLoader().parse(buf.buffer, '', done, e => console.warn(e));
-  });
+/* Load the model as a plain .glb first; fall back to the base64 copy if that fails. */
+function loadModel(name, done, fail) {
+  const parse = buf => new GLTFLoader().parse(buf, '', done, fail);
+  fetch(new URL(`../assets/${name}.glb`, import.meta.url))
+    .then(r => { if (!r.ok) throw new Error(r.status); return r.arrayBuffer(); })
+    .then(parse)
+    .catch(() => import(`../assets/${name}.js`).then(m => {
+      const bin = atob(m.default); const buf = new Uint8Array(bin.length);
+      for (let i = 0; i < bin.length; i++) buf[i] = bin.charCodeAt(i);
+      parse(buf.buffer);
+    }).catch(fail));
 }
 
 const ORDER = ['layer_intent', 'layer_check', 'layer_action', 'layer_record'];
@@ -22,7 +26,7 @@ export function mountChip(host, labels) {
   try { renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true }); } catch (e) { return null; }
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const zoom = innerWidth >= 2500 ? 1.33 : innerWidth >= 2200 ? 1.2 : 1;
-  renderer.setPixelRatio(Math.min(devicePixelRatio || 1, 2) * zoom);
+  renderer.setPixelRatio(Math.min(devicePixelRatio || 1, innerWidth <= 960 ? 1.75 : 2) * zoom);
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.0;
   host.prepend(renderer.domElement);
@@ -49,7 +53,7 @@ export function mountChip(host, labels) {
   const frameGeo = new THREE.EdgesGeometry(new THREE.BoxGeometry(1, 0.001, 1));
   const frame = new THREE.LineSegments(frameGeo, new THREE.LineBasicMaterial({ color: 0xe8611a, transparent: true, opacity: 0.9 })); pivot.add(frame);
 
-  loadModel('../assets/chip.js', g => {
+  loadModel('chip', g => {
     ORDER.forEach((name, i) => {
       const o = g.scene.getObjectByName(name); if (!o) return;
       o.traverse(m => { if (m.isMesh) m.material.envMapIntensity = 0.9; });
@@ -58,7 +62,7 @@ export function mountChip(host, labels) {
       layers[i] = { o, w: sz.x, d: sz.z };
     });
     host.classList.add('ready');
-  });
+  }, e => console.warn('chip model failed', e));
 
   let W = 1, H = 1;
   function size() { const r = host.getBoundingClientRect(); W = Math.max(1, r.width); H = Math.max(1, r.height); renderer.setSize(W, H, false); renderer.domElement.style.width = '100%'; renderer.domElement.style.height = '100%'; cam.aspect = W / H; cam.updateProjectionMatrix(); }
