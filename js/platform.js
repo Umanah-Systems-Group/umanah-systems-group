@@ -6,12 +6,15 @@ export function mountPlatform(host) {
   const q = s => [...host.querySelectorAll(s)];
   const stages = q('.st'), stLabels = q('.st-lb'), tools = q('.tbi'), prods = q('.pd'), machines = q('.mc'), ask = q('.bm-ask'), act = q('.bm-act');
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  let active = -1, driven = 0, pair = 0;
+  let active = -1, driven = 0, pair = 0, p3 = null, prog = null;
+  // the real 3D version sits over the drawing when WebGL is there; the drawing stays as the fallback
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) import('./platform3d.js').then(m => { p3 = m.mountPlatform3D(host); if (p3) { if (active >= 0) p3.setActive(active); if (prog != null) p3.setProgress(prog); } }).catch(() => {});
   const pairs = [[0, 2], [1, 0], [2, 3], [3, 1], [4, 1], [5, 4]]; // product -> machine it acts on (Easley is not live)
 
   function show(i) {
     if (i === active) return;
     active = i;
+    if (p3) p3.setActive(i);
     const [p, m] = pairs[pair % pairs.length];
     stages.forEach((s, k) => { s.classList.toggle('on', k === i); s.classList.toggle('done', k < i); });
     stLabels.forEach((s, k) => s.classList.toggle('on', k === i));
@@ -36,7 +39,7 @@ export function mountPlatform(host) {
     show(next);
   }, 1400);
   return {
-    setProgress() {},
+    setProgress(v) { prog = v; if (p3) p3.setProgress(v); },
     setActive(i) { driven = Date.now(); show(Math.max(0, Math.min(3, i))); }
   };
 }

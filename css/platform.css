@@ -93,3 +93,6 @@
   .platform .rplat, .workshop .rplat { align-self: start; margin-top: clamp(0px, 4vh, 48px); }
   .platform .rplat .stk, .workshop .rplat .stk { height: min(calc(100svh - 150px), 820px); width: auto; max-width: 100%; margin: 0 auto; }
 }
+/* real 3D version over the drawing (js/platform3d.js) */
+.rplat .stk3d { position: absolute; display: block; z-index: 1; }
+.rplat.is3d svg.stk { visibility: hidden; }
