@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>USG Radius | Umanah Systems Group</title>
+<meta name="description" content="USG Radius is the shared foundation Umanah Systems Group products run on. Before anything acts, it checks that it is allowed and keeps a signed record.">
+<meta name="theme-color" content="#08090c">
+<link rel="icon" href="/images/favicon.png">
+<link rel="canonical" href="https://www.umanahsystems.com/radius/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="USG Radius | Umanah Systems Group">
+<meta property="og:description" content="Nothing acts without permission. Nothing happens off the record.">
+<meta property="og:url" content="https://www.umanahsystems.com/radius/">
+<meta property="og:image" content="https://www.umanahsystems.com/img/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="/css/platform.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
+<script type="importmap">{ "imports": { "three": "/vendor/three.module.min.js", "three/addons/": "/vendor/addons/" } }</script>
+<script>document.documentElement.classList.add('js');</script>
+<style>
+/* USG: jet black, one orange. Space Grotesk for display, Inter for reading. The page reads like an engineering drawing
+   that has come alive: hairline edges, cut planes in orange, parts that come apart to show how things work. */
+:root {
+  --bg: #08090c;
+  --bg-2: #0d0f14;
+  --card: #11141c;
+  --card-2: #171b26;
+  --line: rgba(255,255,255,.07);
+  --line-2: rgba(255,255,255,.13);
+  --orange: #e8611a;
+  --orange-hi: #f08040;
+  --orange-dim: rgba(232,97,26,.14);
+  --blue: #5b8dee;
+  --green: #4ade80;
+  --text: #f0f2f5;
+  --text-2: #9aa0ae;
+  --text-3: #5d6477;
+  --display: "Space Grotesk", system-ui, sans-serif;
+  --body: "Inter", system-ui, sans-serif;
+  --s-small: clamp(.8125rem, .79rem + .1vw, .875rem);
+  --s-body: clamp(1rem, .96rem + .2vw, 1.125rem);
+  --s-lead: clamp(1.125rem, 1rem + .6vw, 1.45rem);
+  --s-h2: clamp(2.1rem, 1.3rem + 3.3vw, 4.4rem);
+  --s-h1: clamp(2.7rem, 1rem + 5vw, 5.4rem);
+  --gutter: clamp(20px, 4vw, 64px);
+  --max: 1360px;
+  --ease: cubic-bezier(.16, 1, .3, 1);
+  --r: 18px;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body { margin: 0; background: var(--bg); color: var(--text); font-family: var(--body); font-size: var(--s-body); line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: clip; }
+@media (min-width: 2200px) { body { zoom: 1.2; } }
+@media (min-width: 2500px) { body { zoom: 1.33; } }
+a { color: inherit; }
+p { margin: 0; }
+h1, h2, h3 { margin: 0; font-family: var(--display); font-weight: 600; letter-spacing: -.035em; line-height: .98; text-wrap: balance; }
+::selection { background: var(--orange); color: #08090c; }
+:focus-visible { outline: 2px solid var(--orange-hi); outline-offset: 4px; border-radius: 6px; }
+.wrap { width: 100%; max-width: calc(var(--max) + 2 * var(--gutter)); margin: 0 auto; padding-left: max(var(--gutter), env(safe-area-inset-left, 0px)); padding-right: max(var(--gutter), env(safe-area-inset-right, 0px)); }
+.skip { position: absolute; left: 12px; top: -60px; z-index: 100; background: var(--orange); color: #08090c; padding: 10px 16px; border-radius: 8px; font-weight: 600; text-decoration: none; }
+.skip:focus { top: 12px; }
+.tick { display: inline-flex; align-items: center; gap: .6em; font-size: var(--s-small); color: var(--text-2); font-weight: 500; }
+.tick::before { content: ""; width: 18px; height: 2px; background: var(--orange); border-radius: 2px; }
+.lede { font-size: var(--s-lead); color: var(--text-2); line-height: 1.5; max-width: 34em; text-wrap: pretty; }
+.line { display: block; overflow: hidden; padding-bottom: .08em; margin-bottom: -.08em; }
+
+/* blueprint grid that sits behind everything */
+.grid-bg { position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 96px 96px; mask-image: radial-gradient(ellipse 80% 70% at 50% 30%, #000 20%, transparent 75%); opacity: .55; }
+
+/* buttons */
+.btn { --bg: var(--orange); --fg: #0b0b0d; position: relative; display: inline-flex; align-items: center; justify-content: center; gap: .65em; min-height: 52px; padding: 0 1.55em; background: var(--bg); color: var(--fg); font-weight: 600; font-size: 1rem; text-decoration: none; border-radius: 999px; border: 1px solid transparent; overflow: hidden; isolation: isolate; transition: transform .5s var(--ease), box-shadow .5s var(--ease), color .4s; will-change: transform; }
+.btn::before { content: ""; position: absolute; inset: 0; background: var(--text); transform: translateY(101%); border-radius: inherit; transition: transform .6s var(--ease); z-index: -1; }
+.btn:hover::before, .btn:focus-visible::before { transform: none; }
+.btn:hover { box-shadow: 0 10px 40px -10px rgba(232,97,26,.55); }
+.btn .arr { transition: transform .5s var(--ease); }
+.btn:hover .arr { transform: translateX(4px); }
+.btn.ghost { --bg: transparent; --fg: var(--text); border-color: var(--line-2); }
+.btn.ghost::before { background: rgba(255,255,255,.08); }
+.btn.ghost:hover { box-shadow: none; }
+
+/* header */
+.top { position: fixed; inset: 0 0 auto 0; z-index: 50; transition: background .5s, border-color .5s, transform .6s var(--ease); border-bottom: 1px solid transparent; padding-top: env(safe-area-inset-top, 0px); }
+.top.solid { background: rgba(8,9,12,.78); backdrop-filter: blur(14px) saturate(1.4); -webkit-backdrop-filter: blur(14px) saturate(1.4); border-color: var(--line); }
+.top.hide { transform: translateY(-100%); }
+.top .wrap { display: flex; align-items: center; justify-content: space-between; height: 76px; gap: 24px; }
+.brand { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; font-family: var(--display); font-weight: 600; font-size: 1.05rem; letter-spacing: -.01em; }
+.brand svg { width: 34px; height: 34px; flex: none; }
+.brand small { display: block; font-family: var(--body); font-size: .72rem; color: var(--text-3); font-weight: 500; letter-spacing: 0; margin-top: 1px; }
+.nav { display: flex; align-items: center; gap: 6px; }
+.nav a:not(.btn) { position: relative; padding: 10px 14px; text-decoration: none; color: var(--text-2); font-size: .95rem; font-weight: 500; border-radius: 999px; transition: color .3s, background .3s; }
+.nav a:not(.btn):hover { color: var(--text); background: rgba(255,255,255,.05); }
+.nav .btn { min-height: 44px; margin-left: 10px; font-size: .92rem; }
+.menu-btn { display: none; width: 46px; height: 46px; border-radius: 50%; border: 1px solid var(--line-2); background: transparent; color: var(--text); cursor: pointer; place-items: center; }
+.menu-btn span { display: block; width: 18px; height: 1.5px; background: currentColor; margin: 4px auto; transition: transform .45s var(--ease), opacity .3s; }
+.menu-open .menu-btn span:nth-child(1) { transform: translateY(5.5px) rotate(45deg); }
+.menu-open .menu-btn span:nth-child(2) { opacity: 0; }
+.menu-open .menu-btn span:nth-child(3) { transform: translateY(-5.5px) rotate(-45deg); }
+.sheet { position: fixed; inset: 0; z-index: 45; background: rgba(8,9,12,.97); display: grid; place-content: center; text-align: center; gap: 8px; opacity: 0; visibility: hidden; transition: opacity .5s var(--ease), visibility .5s; }
+.sheet a { font-family: var(--display); font-size: clamp(2rem, 9vw, 3rem); font-weight: 600; letter-spacing: -.03em; text-decoration: none; padding: 6px 20px; }
+.sheet a:hover { color: var(--orange); }
+.sheet .btn { font-family: var(--body); font-size: 1rem; margin-top: 22px; justify-self: center; }
+.menu-open .sheet { opacity: 1; visibility: visible; }
+@media (max-width: 860px) { .nav { display: none; } .menu-btn { display: grid; } }
+
+/* hero */
+.hero { position: relative; min-height: 100svh; display: grid; align-items: center; padding-top: 96px; padding-bottom: 72px; overflow: hidden; }
+.hero .wrap { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); align-items: center; gap: clamp(24px, 4vw, 64px); }
+.hero-copy { position: relative; z-index: 2; }
+.hero h1 { font-size: var(--s-h1); margin: 22px 0 26px; }
+.hero h1 em { font-style: normal; color: var(--orange); }
+.hero .lede { margin-bottom: 36px; }
+.actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.hero-vis { position: absolute; inset: 0; z-index: 0; }
+.hero::after { content: ""; position: absolute; inset: auto 0 0 0; height: 18%; background: linear-gradient(transparent, var(--bg)); pointer-events: none; z-index: 1; }
+.hero-copy { max-width: 780px; }
+.hero-vis canvas { display: block; position: relative; z-index: 1; }
+.hero-vis .poster { position: absolute; z-index: 0; left: 73%; top: 43%; width: 44%; height: auto; transform: translate(-50%, -50%); pointer-events: none; transition: opacity .8s ease; }
+.hero-vis.ready .poster { opacity: 0; }
+.hero-vis .cap { position: absolute; font-size: .75rem; color: var(--text-3); display: flex; align-items: center; gap: 8px; pointer-events: none; }
+.hero-vis .cap i { width: 7px; height: 7px; border-radius: 50%; background: var(--orange); box-shadow: 0 0 12px var(--orange); }
+.hero-vis .c1 { right: 26%; bottom: 16%; }
+.scroll-cue { position: absolute; left: 50%; bottom: 22px; transform: translateX(-50%); width: 24px; height: 38px; border: 1.5px solid var(--line-2); border-radius: 14px; }
+.scroll-cue::after { content: ""; position: absolute; left: 50%; top: 8px; width: 3px; height: 7px; margin-left: -1.5px; border-radius: 2px; background: var(--orange); animation: cue 2s var(--ease) infinite; }
+@keyframes cue { 0% { transform: translateY(0); opacity: 0; } 30% { opacity: 1; } 100% { transform: translateY(14px); opacity: 0; } }
+
+/* proof band */
+.proof { position: relative; padding: clamp(72px, 10vw, 140px) 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: linear-gradient(180deg, rgba(232,97,26,.045), transparent 60%); }
+.proof .head { display: grid; justify-items: center; text-align: center; gap: 14px; margin-bottom: clamp(40px, 6vw, 72px); }
+.proof .head h2 { font-size: var(--s-h2); max-width: 16ch; }
+.proof .head .lede { max-width: 38em; }
+.proof-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(14px, 2vw, 24px); }
+.stat { position: relative; padding: clamp(28px, 4vw, 52px); border: 1px solid var(--line-2); border-radius: var(--r); background: linear-gradient(160deg, var(--card-2), var(--card) 55%); overflow: hidden; display: grid; grid-template-columns: auto 1fr; align-items: center; gap: clamp(20px, 3vw, 44px); }
+.stat::after { content: ""; position: absolute; inset: auto -20% -60% auto; width: 70%; aspect-ratio: 1; background: radial-gradient(circle, rgba(232,97,26,.22), transparent 65%); pointer-events: none; }
+.stat .num { font-family: var(--display); font-weight: 600; font-size: clamp(5rem, 3rem + 8vw, 10.5rem); line-height: .8; letter-spacing: -.06em; color: var(--orange); font-variant-numeric: tabular-nums; text-shadow: 0 0 60px rgba(232,97,26,.35); }
+.stat h3 { font-size: clamp(1.35rem, 1.1rem + .9vw, 1.9rem); letter-spacing: -.02em; line-height: 1.12; margin-bottom: 10px; }
+.stat p { color: var(--text-2); font-size: var(--s-small); line-height: 1.55; }
+.stat .ring { position: absolute; right: 18px; top: 18px; width: 54px; height: 54px; opacity: .8; }
+.proof .note { margin-top: 22px; text-align: center; color: var(--text-3); font-size: .8rem; }
+
+/* thesis */
+.thesis { padding: clamp(110px, 16vw, 220px) 0; text-align: center; }
+.thesis .tick { margin-bottom: 30px; }
+.thesis p.big { font-family: var(--display); font-weight: 500; font-size: clamp(1.7rem, 1rem + 3.1vw, 3.9rem); line-height: 1.12; letter-spacing: -.03em; max-width: 24ch; margin: 0 auto; text-wrap: balance; }
+.thesis .w { color: var(--text-3); transition: color .2s; }
+.thesis .w.on { color: var(--text); }
+.thesis .w.hot.on { color: var(--orange); }
+.no-js .thesis .w, .reduce .thesis .w { color: var(--text); }
+.thesis .after { margin: 36px auto 0; max-width: 36em; color: var(--text-2); font-size: var(--s-lead); line-height: 1.5; }
+
+/* platform */
+.platform { position: relative; padding: clamp(80px, 10vw, 140px) 0; }
+.platform .wrap { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: clamp(32px, 6vw, 96px); align-items: center; }
+.platform h2 { font-size: var(--s-h2); margin: 18px 0 22px; }
+.steps { list-style: none; margin: 36px 0 0; padding: 0; display: grid; gap: 4px; counter-reset: s; }
+.steps li { position: relative; padding: 18px 20px 18px 64px; border-radius: 14px; border: 1px solid transparent; transition: background .5s, border-color .5s; }
+.steps li::before { counter-increment: s; content: "0" counter(s); position: absolute; left: 20px; top: 19px; font-family: var(--display); font-size: .9rem; color: var(--text-3); font-variant-numeric: tabular-nums; transition: color .4s; }
+.steps li b { display: block; font-family: var(--display); font-weight: 600; font-size: 1.15rem; letter-spacing: -.01em; margin-bottom: 2px; }
+.steps li span { color: var(--text-2); font-size: var(--s-small); }
+.steps li.on { background: rgba(255,255,255,.03); border-color: var(--line-2); }
+.steps li.on::before { color: var(--orange); }
+.stack-vis { position: relative; aspect-ratio: 1 / 1.05; width: 100%; max-width: 680px; justify-self: center; }
+.stack-vis canvas { position: absolute; inset: 0; display: block; }
+.stack-vis .tag { position: absolute; left: 0; top: 0; z-index: 2; pointer-events: none; font-size: .8rem; color: var(--text-3); padding: 5px 10px; border-radius: 999px; border: 1px solid var(--line); background: rgba(8,9,12,.6); backdrop-filter: blur(6px); white-space: nowrap; transition: color .4s, border-color .4s; will-change: transform; }
+.stack-vis .tag.on { color: var(--text); border-color: rgba(232,97,26,.6); }
+.stack-vis .hint { position: absolute; left: 50%; bottom: 2%; transform: translateX(-50%); font-size: .75rem; color: var(--text-3); pointer-events: none; }
+.platform .more { margin-top: 30px; }
+
+/* products */
+.products { padding: clamp(80px, 10vw, 140px) 0; border-top: 1px solid var(--line); }
+.sec-head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px 48px; align-items: end; margin-bottom: clamp(40px, 6vw, 72px); }
+.sec-head h2 { font-size: var(--s-h2); margin-top: 18px; }
+.sec-head .lede { justify-self: end; max-width: 30em; }
+.cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(14px, 1.6vw, 22px); }
+.card { position: relative; display: flex; flex-direction: column; border: 1px solid var(--line-2); border-radius: var(--r); background: var(--card); overflow: hidden; text-decoration: none; transform-style: preserve-3d; transition: border-color .5s, box-shadow .6s var(--ease); }
+.card:hover { border-color: rgba(232,97,26,.45); box-shadow: 0 30px 80px -40px rgba(232,97,26,.45); }
+.card .art { position: relative; aspect-ratio: 16 / 11; background: radial-gradient(120% 90% at 50% 0%, #161b29, var(--card) 70%); border-bottom: 1px solid var(--line); overflow: hidden; }
+.card .art.shot { background: #0b0d12; padding: 14px 14px 0; aspect-ratio: 16 / 11.2; }
+.card .art .bar { display: flex; align-items: center; gap: 6px; height: 26px; padding: 0 10px; background: #161a24; border: 1px solid var(--line-2); border-bottom: 0; border-radius: 10px 10px 0 0; }
+.card .art .bar i { width: 8px; height: 8px; border-radius: 50%; background: #2a3040; }
+.card .art .bar span { margin-left: 8px; font-size: .7rem; color: var(--text-3); }
+.card .art img { display: block; width: 100%; height: calc(100% - 26px); object-fit: cover; object-position: top center; border: 1px solid var(--line-2); border-top: 0; transition: transform 1.2s var(--ease); transform-origin: top center; }
+.card:hover .art img { transform: scale(1.04); }
+.card .q { font-family: var(--display); color: var(--text); font-size: 1.12rem; line-height: 1.3; letter-spacing: -.01em; }
+.card .badge { align-self: flex-start; display: inline-flex; align-items: center; gap: 8px; font-size: .75rem; color: var(--orange-hi); border: 1px solid rgba(232,97,26,.35); background: var(--orange-dim); padding: 5px 11px; border-radius: 999px; }
+.card .badge::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--orange); }
+.card .body { padding: 26px 26px 28px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+.card .k { font-size: .8rem; color: var(--orange); font-weight: 600; }
+.card h3 { font-size: clamp(1.6rem, 1.3rem + 1vw, 2.2rem); letter-spacing: -.03em; }
+.card p { color: var(--text-2); font-size: var(--s-small); line-height: 1.6; }
+.card .go { margin-top: auto; padding-top: 14px; display: inline-flex; align-items: center; gap: 8px; font-weight: 600; font-size: .92rem; }
+.card .go i { font-style: normal; transition: transform .5s var(--ease); }
+.card:hover .go i { transform: translate(3px, -3px); }
+.card .live { position: absolute; top: 50px; right: 26px; z-index: 2; display: inline-flex; align-items: center; gap: 7px; padding: 6px 11px; border-radius: 999px; background: rgba(8,9,12,.7); border: 1px solid var(--line-2); font-size: .74rem; color: var(--text-2); backdrop-filter: blur(6px); }
+.card .live::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--green); box-shadow: 0 0 10px var(--green); animation: blink 2.4s infinite; }
+@keyframes blink { 50% { opacity: .35; } }
+
+/* svg art animation */
+.orb { animation: spin var(--d, 18s) linear infinite; transform-origin: 160px 110px; transform-box: view-box; }
+.orb.rev { animation-direction: reverse; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.dash { stroke-dasharray: 4 6; animation: dash 1.6s linear infinite; }
+@keyframes dash { to { stroke-dashoffset: -20; } }
+.pulse { animation: pulse 2.4s var(--ease) infinite; transform-box: fill-box; transform-origin: center; }
+@keyframes pulse { 0% { transform: scale(.4); opacity: .9; } 100% { transform: scale(2.6); opacity: 0; } }
+.trace { stroke-dasharray: 260; stroke-dashoffset: 260; animation: trace 4.5s var(--ease) infinite; }
+.trace.t2 { animation-delay: .6s; } .trace.t3 { animation-delay: 1.2s; } .trace.t4 { animation-delay: 1.8s; }
+@keyframes trace { 0% { stroke-dashoffset: 260; } 45%, 80% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: -260; } }
+.scan { animation: scan 3.6s ease-in-out infinite; }
+@keyframes scan { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(150px); } }
+.ok { animation: ok 3.6s infinite; opacity: 0; }
+@keyframes ok { 0%, 40% { opacity: 0; } 50%, 90% { opacity: 1; } 100% { opacity: 0; } }
+
+/* programs */
+.programs { padding: clamp(80px, 10vw, 140px) 0; border-top: 1px solid var(--line); background: linear-gradient(180deg, transparent, rgba(91,141,238,.03)); }
+.fields { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; }
+.field { position: relative; background: var(--bg); padding: clamp(26px, 3vw, 40px); min-height: 0; display: flex; flex-direction: column; gap: 12px; transition: background .5s; }
+.field:hover { background: var(--bg-2); }
+.field .ph { margin: calc(-1 * clamp(26px, 3vw, 40px)) calc(-1 * clamp(26px, 3vw, 40px)) 14px; aspect-ratio: 4 / 3; overflow: hidden; position: relative; }
+.field .ph::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 55%, var(--bg)); transition: opacity .6s; }
+.field .ph img { width: 100%; height: 100%; object-fit: cover; display: block; transform: scale(1.02); transition: transform 1.4s var(--ease), filter .8s; filter: saturate(.85) brightness(.9); }
+.field:hover .ph img { transform: scale(1.08); filter: saturate(1) brightness(1); }
+.field svg * { vector-effect: non-scaling-stroke; }
+.field svg .mv { transition: transform .8s var(--ease); transform-box: fill-box; transform-origin: center; }
+.field:hover svg .mv.up { transform: translateY(-6px); }
+.field:hover svg .mv.rot { transform: rotate(60deg); }
+.field:hover svg .mv.out { transform: translateX(6px); }
+.field h3 { font-size: 1.35rem; letter-spacing: -.02em; line-height: 1.15; }
+.field p { color: var(--text-2); font-size: var(--s-small); }
+.field .stage { margin-top: auto; padding-top: 16px; font-size: .78rem; color: var(--text-3); display: inline-flex; align-items: center; gap: 8px; }
+.field .stage::before { content: ""; width: 6px; height: 6px; border-radius: 50%; border: 1.5px solid var(--blue); }
+
+/* principles strip */
+.principles { padding: clamp(60px, 8vw, 110px) 0; border-top: 1px solid var(--line); }
+.principles .row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(20px, 3vw, 48px); }
+.pr h3 { font-size: clamp(1.3rem, 1.1rem + .6vw, 1.7rem); letter-spacing: -.02em; margin: 14px 0 10px; }
+.pr p { color: var(--text-2); font-size: var(--s-small); max-width: 30em; }
+.pr .bar { height: 2px; background: var(--line-2); border-radius: 2px; overflow: hidden; }
+.pr .bar i { display: block; height: 100%; width: 100%; background: var(--orange); transform-origin: left; transform: scaleX(.18); transition: transform 1.4s var(--ease); }
+.pr.in .bar i { transform: scaleX(1); }
+
+/* contact */
+.contact { position: relative; padding: clamp(100px, 14vw, 200px) 0; text-align: center; overflow: hidden; border-top: 1px solid var(--line); }
+.contact::before { content: ""; position: absolute; left: 50%; top: 100%; width: 140vw; max-width: 2200px; aspect-ratio: 1; transform: translate(-50%, -22%); border-radius: 50%; background: radial-gradient(circle at 50% 0%, rgba(232,97,26,.28), rgba(232,97,26,.06) 35%, transparent 60%); pointer-events: none; }
+.contact::after { content: ""; position: absolute; left: 50%; top: 100%; width: 140vw; max-width: 2200px; aspect-ratio: 1; transform: translate(-50%, -22%); border-radius: 50%; border-top: 1px solid rgba(232,97,26,.55); pointer-events: none; }
+.contact .wrap { position: relative; z-index: 1; display: grid; justify-items: center; gap: 22px; }
+.contact h2 { font-size: clamp(2.6rem, 1.4rem + 5vw, 6rem); max-width: 14ch; }
+.contact .lede { max-width: 32em; }
+.contact .actions { justify-content: center; margin-top: 10px; }
+.contact .mail { font-family: var(--display); font-size: clamp(1.1rem, 1rem + .6vw, 1.5rem); color: var(--text); text-decoration: none; border-bottom: 1px solid var(--line-2); padding-bottom: 4px; transition: border-color .3s, color .3s; }
+.contact .mail:hover { color: var(--orange); border-color: var(--orange); }
+.copied { font-size: .8rem; color: var(--green); min-height: 1.2em; }
+
+footer { border-top: 1px solid var(--line); padding: 48px 0 calc(40px + env(safe-area-inset-bottom, 0px)); color: var(--text-3); font-size: .85rem; }
+footer .wrap { display: grid; grid-template-columns: 1fr auto; gap: 28px 40px; align-items: start; }
+footer .brand { color: var(--text); }
+footer nav { display: flex; flex-wrap: wrap; gap: 6px 22px; }
+footer nav a { color: var(--text-2); text-decoration: none; }
+footer nav a:hover { color: var(--text); }
+footer .legal { grid-column: 1 / -1; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px 24px; padding-top: 24px; border-top: 1px solid var(--line); }
+
+/* reveal states (only when JS runs and motion is allowed) */
+.js:not(.reduce) [data-rise] { opacity: 0; transform: translateY(36px); }
+.js:not(.reduce) .hero-vis canvas { opacity: 0; }
+
+/* ---------- stacked layouts: centre groups (Amaete's alignment rule) ---------- */
+@media (max-width: 60rem) {
+  .hero { padding-top: 92px; align-items: start; }
+  .hero .wrap { grid-template-columns: 1fr; gap: 8px; }
+  .hero-vis { position: relative; inset: auto; order: -1; width: calc(100% + 2 * var(--gutter)); max-width: none; aspect-ratio: 1 / .82; max-height: 48svh; justify-self: center; margin: -8px calc(-1 * var(--gutter)) 0; }
+  .hero::after { display: none; }
+  .hero-vis { -webkit-mask-image: linear-gradient(#000 70%, transparent); mask-image: linear-gradient(#000 70%, transparent); }
+  .hero-copy { max-width: none; }
+  .hero-copy { text-align: center; display: grid; justify-items: center; }
+  .hero h1 { margin: 16px 0 18px; }
+  .hero .lede { margin-left: auto; margin-right: auto; margin-bottom: 28px; }
+  .actions { justify-content: center; }
+  .scroll-cue { display: none; }
+  .hero-vis .cap { display: none; }
+  .hero-vis .poster { left: 50%; top: 42%; width: 96%; }
+  .proof-grid { grid-template-columns: 1fr; }
+  .stat { grid-template-columns: 1fr; justify-items: center; text-align: center; gap: 16px; }
+  .stat .ring { display: none; }
+  .platform .wrap { grid-template-columns: 1fr; }
+  .platform .intro { text-align: center; display: grid; justify-items: center; }
+  .platform .intro .lede { margin: 0 auto; }
+  .steps { text-align: left; width: 100%; max-width: 560px; }
+  .stack-vis { max-width: 520px; order: -1; aspect-ratio: 1 / .82; }
+  .sec-head { grid-template-columns: 1fr; justify-items: center; text-align: center; }
+  .sec-head .lede { justify-self: center; }
+  .cards { grid-template-columns: 1fr; max-width: 560px; margin: 0 auto; }
+  .card .body { align-items: center; text-align: center; }
+  .card .badge { align-self: center; }
+  .fields { grid-template-columns: 1fr 1fr; }
+  .field { align-items: center; text-align: center; min-height: 0; }
+  .principles .row { grid-template-columns: 1fr; text-align: center; max-width: 520px; margin: 0 auto; }
+  .pr p { margin: 0 auto; }
+  footer .wrap { grid-template-columns: 1fr; justify-items: center; text-align: center; }
+  footer nav { justify-content: center; }
+  footer .legal { justify-content: center; text-align: center; }
+}
+@media (max-width: 560px) {
+  .fields { grid-template-columns: 1fr; }
+  .actions .btn { flex: none; width: 100%; max-width: 340px; }
+  .actions { flex-direction: column; align-items: center; width: 100%; }
+  .stat .num { font-size: 6.2rem; }
+  .card .body { padding: 22px 22px 26px; }
+}
+@media (min-width: 2200px) { .hero { min-height: calc(100svh / 1.2); } }
+@media (min-width: 2500px) { .hero { min-height: calc(100svh / 1.33); } }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
+  .trace { stroke-dashoffset: 0; } .ok { opacity: 1; }
+}
+
+/* ---------- USG Radius page ---------- */
+.r-hero { position: relative; min-height: 100svh; display: grid; align-items: center; padding: 120px 0 80px; overflow: hidden; }
+.r-hero .wrap { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(24px, 5vw, 80px); align-items: center; }
+.r-hero h1 { font-size: clamp(2.5rem, 1rem + 4.2vw, 4.8rem); margin: 22px 0 26px; }
+.r-hero h1 em { font-style: normal; color: var(--orange); }
+.r-hero .lede + .lede { margin-top: 14px; }
+.r-hero .actions { margin-top: 34px; }
+.crumb { display: flex; width: fit-content; gap: 8px; align-items: center; font-size: var(--s-small); color: var(--text-3); text-decoration: none; margin-bottom: 18px; }
+.crumb:hover { color: var(--text); }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
+.chips span { display: inline-flex; align-items: center; gap: 8px; font-size: .78rem; color: var(--text-2); border: 1px solid var(--line-2); padding: 6px 12px; border-radius: 999px; }
+.chips span::before { content: "✓"; color: var(--green); font-weight: 700; }
+
+/* permission panel (illustrative) */
+.panel { position: relative; border: 1px solid var(--line-2); border-radius: var(--r); background: linear-gradient(160deg, var(--card-2), var(--card) 60%); padding: clamp(20px, 2.6vw, 32px); box-shadow: 0 40px 120px -50px rgba(232,97,26,.45); }
+.panel .ph-top { display: flex; justify-content: space-between; align-items: center; font-size: .75rem; color: var(--text-3); margin-bottom: 18px; }
+.panel .ph-top b { color: var(--text-2); font-weight: 500; }
+.panel .ask { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding-bottom: 16px; border-bottom: 1px solid var(--line); }
+.panel .ask h3 { font-size: clamp(1.2rem, 1rem + .8vw, 1.6rem); letter-spacing: -.02em; line-height: 1.15; }
+.panel .ask small { display: block; color: var(--text-3); font-size: .78rem; margin-bottom: 6px; }
+.panel .state { flex: none; font-size: .72rem; font-weight: 600; letter-spacing: .04em; padding: 5px 10px; border-radius: 999px; color: var(--orange-hi); background: var(--orange-dim); border: 1px solid rgba(232,97,26,.35); }
+.panel ul { list-style: none; margin: 14px 0; padding: 0; display: grid; gap: 2px; }
+.panel li { display: flex; justify-content: space-between; align-items: center; padding: 11px 4px; border-bottom: 1px dashed var(--line); font-size: .95rem; color: var(--text-2); opacity: .35; transition: opacity .5s, color .5s; }
+.panel li.on { opacity: 1; color: var(--text); }
+.panel li i { font-style: normal; font-size: .78rem; font-weight: 600; color: var(--green); }
+.panel li.no i { color: var(--orange-hi); }
+.panel .answer { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 6px; padding: 16px 18px; border-radius: 14px; background: rgba(74,222,128,.08); border: 1px solid rgba(74,222,128,.3); opacity: 0; transform: translateY(8px); transition: opacity .6s var(--ease), transform .6s var(--ease), background .4s, border-color .4s; }
+.panel .answer.on { opacity: 1; transform: none; }
+.panel .answer b { font-family: var(--display); font-size: 1.35rem; letter-spacing: -.02em; }
+.panel .answer span { font-size: .78rem; color: var(--text-2); }
+.panel.refused .answer { background: rgba(232,97,26,.1); border-color: rgba(232,97,26,.4); }
+.panel .foot { margin-top: 14px; font-size: .72rem; color: var(--text-3); }
+
+/* generic section */
+.sec { padding: clamp(80px, 10vw, 140px) 0; border-top: 1px solid var(--line); }
+.sec h2 { font-size: var(--s-h2); margin-top: 18px; }
+.sec .center { display: grid; justify-items: center; text-align: center; gap: 16px; margin-bottom: clamp(40px, 6vw, 72px); }
+.sec .center .lede { max-width: 40em; }
+
+/* problems */
+.three { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(14px, 1.6vw, 22px); }
+.box { border: 1px solid var(--line-2); border-radius: var(--r); background: var(--card); padding: clamp(24px, 3vw, 36px); display: flex; flex-direction: column; gap: 12px; }
+.box .n { font-family: var(--display); color: var(--orange); font-size: .9rem; font-variant-numeric: tabular-nums; }
+.box h3 { font-size: clamp(1.3rem, 1.1rem + .6vw, 1.7rem); letter-spacing: -.02em; line-height: 1.12; }
+.box p { color: var(--text-2); font-size: var(--s-small); }
+
+/* workshop stack */
+.workshop .wrap { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: clamp(32px, 6vw, 96px); align-items: center; }
+.layers { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; counter-reset: l; }
+.layers li { position: relative; display: grid; grid-template-columns: 56px 1fr; gap: 4px 16px; align-items: baseline; padding: 20px 22px; border: 1px solid var(--line-2); border-radius: 14px; background: var(--card); transition: border-color .5s, transform .6s var(--ease), background .5s; }
+.layers li::before { counter-increment: l; content: "0" counter(l); grid-row: span 2; font-family: var(--display); color: var(--text-3); font-variant-numeric: tabular-nums; }
+.layers li b { font-family: var(--display); font-weight: 600; font-size: 1.15rem; letter-spacing: -.01em; }
+.layers li span { color: var(--text-2); font-size: var(--s-small); }
+.layers li:hover { border-color: rgba(232,97,26,.5); background: var(--card-2); transform: translateX(6px); }
+.layers li:hover::before { color: var(--orange); }
+
+/* flow demo */
+.toggle { display: inline-flex; padding: 4px; border: 1px solid var(--line-2); border-radius: 999px; gap: 4px; }
+.toggle button { font: inherit; font-weight: 600; font-size: .92rem; color: var(--text-2); background: transparent; border: 0; border-radius: 999px; padding: 10px 18px; cursor: pointer; transition: background .3s, color .3s; }
+.toggle button[aria-pressed="true"] { background: var(--orange); color: #0b0b0d; }
+.flow { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin: 36px 0 22px; }
+.flow div { position: relative; border: 1px solid var(--line-2); border-radius: 14px; padding: 18px; background: var(--card); transition: border-color .4s, background .4s; }
+.flow div small { display: block; color: var(--text-3); font-size: .75rem; font-variant-numeric: tabular-nums; }
+.flow div b { display: block; font-family: var(--display); font-size: 1.1rem; margin: 4px 0 2px; }
+.flow div span { color: var(--text-2); font-size: .82rem; }
+.flow div.on { border-color: rgba(74,222,128,.45); background: rgba(74,222,128,.05); }
+.flow.refused div.on.stop { border-color: rgba(232,97,26,.6); background: rgba(232,97,26,.08); }
+.flow.refused div.off { opacity: .35; }
+.verdict { border: 1px solid var(--line-2); border-radius: var(--r); background: var(--card); padding: clamp(22px, 3vw, 32px); display: grid; grid-template-columns: 1fr auto; gap: 18px; align-items: center; }
+.verdict b { font-family: var(--display); font-size: clamp(1.4rem, 1.1rem + 1vw, 2rem); letter-spacing: -.02em; }
+.verdict p { color: var(--text-2); font-size: var(--s-small); margin-top: 6px; }
+.verdict .ev { font-size: .8rem; color: var(--text-3); text-align: right; }
+.verdict .ev code { color: var(--text-2); }
+.small-note { margin-top: 14px; color: var(--text-3); font-size: .8rem; text-align: center; }
+
+/* connected products: status pill */
+.card .live.next::before { background: var(--blue); box-shadow: 0 0 10px var(--blue); }
+.card.plain { cursor: default; }
+.card.plain:hover { border-color: var(--line-2); box-shadow: none; }
+.cards.four { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.waiting .row { display: flex; flex-wrap: wrap; gap: 10px 12px; align-items: center; width: 100%; }
+.waiting { margin-top: 26px; flex-direction: column; align-items: flex-start; border: 1px dashed var(--line-2); border-radius: var(--r); padding: 22px 26px; display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: center; color: var(--text-2); font-size: var(--s-small); }
+.waiting b { color: var(--text); font-weight: 600; margin-right: 6px; }
+.waiting span { border: 1px solid var(--line); padding: 4px 10px; border-radius: 999px; font-size: .8rem; }
+
+/* plug in */
+.plug .wrap { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(32px, 6vw, 96px); align-items: center; }
+.plug h2 { margin-bottom: 20px; }
+.plug ul { list-style: none; padding: 0; margin: 26px 0 0; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.plug ul li { display: flex; gap: 10px; align-items: center; color: var(--text-2); font-size: var(--s-small); }
+.plug ul li::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--orange); flex: none; }
+pre.code { margin: 0; border: 1px solid var(--line-2); border-radius: var(--r); background: #0b0d12; padding: 24px 26px; overflow-x: auto; font: 500 .9rem/1.65 ui-monospace, SFMono-Regular, Menlo, monospace; color: var(--text-2); }
+pre.code .k { color: var(--orange-hi); } pre.code .s { color: #9fd3a8; }
+.code-cap { margin-top: 10px; font-size: .78rem; color: var(--text-3); }
+
+@media (max-width: 60rem) {
+  .r-hero .wrap, .workshop .wrap, .plug .wrap { grid-template-columns: 1fr; }
+  .r-hero .copy { text-align: center; display: grid; justify-items: center; }
+  .r-hero .lede { margin-left: auto; margin-right: auto; }
+  .chips { justify-content: center; }
+  .crumb { margin-left: auto; margin-right: auto; }
+  .waiting { align-items: center; text-align: center; } .waiting .row { justify-content: center; }
+  .three { grid-template-columns: 1fr; max-width: 560px; margin: 0 auto; }
+  .box { text-align: center; align-items: center; }
+  .workshop .intro, .plug .intro { text-align: center; display: grid; justify-items: center; }
+  .workshop .rplat { order: -1; }
+  .flow { grid-template-columns: 1fr; }
+  .verdict { grid-template-columns: 1fr; text-align: center; }
+  .verdict .ev { text-align: center; }
+  .cards.four { grid-template-columns: 1fr; max-width: 560px; margin: 0 auto; }
+  .plug ul { grid-template-columns: 1fr; justify-items: start; max-width: 320px; }
+}
+@media (min-width: 961px) and (max-width: 1240px) { .cards.four { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.iso { width: 100%; height: auto; display: block; font-family: var(--body, Inter, system-ui, sans-serif); }
+.iso text { fill: #f0f2f5; }
+.iso .iso-cap { font: 600 13px/1 var(--display, system-ui); letter-spacing: .14em; fill: #f0f2f5; }
+.iso .iso-h { font: 600 12.5px/1 var(--display, system-ui); letter-spacing: .08em; }
+.iso .iso-big { font: 600 17px/1 var(--display, system-ui); letter-spacing: .16em; fill: #f08040; }
+.iso .iso-s { font-size: 11.5px; }
+.iso .iso-t { font-size: 9.5px; letter-spacing: .1em; fill: #9aa0ae; }
+.iso .iso-or { fill: #f08040; }
+.iso .iso-dark { fill: #0b0b0d; font-weight: 600; }
+.iso .iso-flow { stroke-dasharray: 10 400; stroke-dashoffset: 410; animation: isoflow 3.2s linear infinite; }
+@keyframes isoflow { to { stroke-dashoffset: 0; } }
+.iso .iso-pulse { stroke-dasharray: 6 300; stroke-dashoffset: 306; animation: isopulse 2.6s linear infinite; }
+@keyframes isopulse { to { stroke-dashoffset: 0; } }
+.iso .iso-ring { transform-box: fill-box; transform-origin: center; animation: isoring 2.8s ease-out infinite; }
+@keyframes isoring { 0% { transform: scale(.85); opacity: .9; } 100% { transform: scale(1.5); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .iso .iso-flow, .iso .iso-pulse, .iso .iso-ring { animation: none; opacity: 0; } }
+
+/* positioning (one line + capability list) */
+.pos { padding: clamp(80px, 10vw, 140px) 0; border-top: 1px solid var(--line); }
+.pos .wrap { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(32px, 6vw, 96px); align-items: start; }
+.pos .say { font-family: var(--display); font-weight: 500; font-size: clamp(1.4rem, 1rem + 1.5vw, 2.3rem); line-height: 1.22; letter-spacing: -.02em; margin-top: 22px; text-wrap: pretty; }
+.pos .say em { font-style: normal; color: var(--orange); }
+.caps { border-top: 1px solid var(--line-2); margin-top: 6px; }
+.caps details { border-bottom: 1px solid var(--line-2); }
+.caps summary { list-style: none; cursor: pointer; display: flex; align-items: center; gap: 14px; padding: 18px 2px; font-family: var(--display); font-size: clamp(1.1rem, 1rem + .5vw, 1.4rem); letter-spacing: -.01em; }
+.caps summary::-webkit-details-marker { display: none; }
+.caps summary::before { content: "+"; color: var(--orange); font-weight: 400; width: 16px; transition: transform .4s var(--ease); }
+.caps details[open] summary::before { transform: rotate(45deg); }
+.caps details p { color: var(--text-2); font-size: var(--s-small); padding: 0 2px 20px 30px; max-width: 36em; }
+.caps .k-cap { font-size: .75rem; color: var(--text-3); letter-spacing: .12em; }
+
+/* diagram */
+.diag { padding: clamp(80px, 10vw, 140px) 0; border-top: 1px solid var(--line); }
+.diag .frame { margin-top: clamp(32px, 5vw, 56px); border: 1px solid var(--line-2); border-radius: 22px; background: radial-gradient(120% 80% at 50% 0%, rgba(232,97,26,.06), transparent 60%), #0a0b10; padding: clamp(10px, 2vw, 28px); overflow-x: auto; }
+.diag .frame .iso { min-width: 760px; }
+.diag .read { margin-top: 16px; color: var(--text-3); font-size: .8rem; text-align: center; }
+
+/* industries */
+.ind { padding: clamp(80px, 10vw, 140px) 0; border-top: 1px solid var(--line); }
+.ind h2.huge { font-size: clamp(2.6rem, 1.4rem + 5vw, 6rem); margin: 18px 0 clamp(40px, 6vw, 80px); }
+.ind-row { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 2fr); gap: 24px 48px; padding: clamp(28px, 4vw, 48px) 0; border-top: 1px solid var(--line); }
+.ind-row h3 { font-size: clamp(1.5rem, 1.2rem + 1vw, 2.2rem); letter-spacing: -.02em; line-height: 1.1; }
+.ind-row h3 small { display: block; font-family: var(--body); font-size: var(--s-small); color: var(--text-3); font-weight: 400; letter-spacing: 0; margin-top: 10px; line-height: 1.5; }
+.ind-cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.ic { display: flex; flex-direction: column; gap: 8px; text-decoration: none; color: inherit; }
+.ic .lab { font-size: .7rem; letter-spacing: .12em; color: var(--text-3); text-transform: uppercase; }
+.ic .ph { aspect-ratio: 16 / 10; border-radius: 12px; overflow: hidden; border: 1px solid var(--line-2); background: radial-gradient(120% 90% at 50% 0%, #161b29, var(--card) 70%); display: grid; place-items: center; }
+.ic .ph img { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; transition: transform 1.2s var(--ease); }
+.ic:hover .ph img { transform: scale(1.05); }
+.ic .ph b { font-family: var(--display); font-size: 1.4rem; font-weight: 600; letter-spacing: -.02em; color: var(--text-2); }
+.ic p { color: var(--text-2); font-size: var(--s-small); line-height: 1.55; }
+.ic .st { align-self: flex-start; display: inline-flex; align-items: center; gap: 7px; font-size: .72rem; color: var(--text-2); }
+.ic .st::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--text-3); }
+.ic .st.on::before { background: var(--green); box-shadow: 0 0 8px var(--green); }
+.ic .st.next::before { background: var(--blue); }
+@media (max-width: 60rem) {
+  .pos .wrap { grid-template-columns: 1fr; }
+  .pos .intro { text-align: center; display: grid; justify-items: center; }
+  .ind-row { grid-template-columns: 1fr; text-align: center; }
+  .ind-cards { grid-template-columns: 1fr 1fr; text-align: left; }
+  .ind h2.huge { text-align: center; }
+  .ind .tick { display: flex; justify-content: center; }
+}
+@media (max-width: 560px) { .ind-cards { grid-template-columns: 1fr; max-width: 420px; margin: 0 auto; } }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="grid-bg" aria-hidden="true"></div>
+
+<header class="top" id="top">
+  <div class="wrap">
+    <a class="brand" href="/" aria-label="Umanah Systems Group, home">
+      <svg viewBox="0 0 40 40" aria-hidden="true"><path d="M20 3 35 11.5v17L20 37 5 28.5v-17Z" fill="none" stroke="#e8611a" stroke-width="1.6"/><path d="M20 3v17m0 0 15 8.5M20 20 5 28.5" stroke="#f0f2f5" stroke-opacity=".5" stroke-width="1.2"/><circle cx="20" cy="20" r="2.6" fill="#e8611a"/></svg>
+      <span>Umanah Systems Group</span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="#how">How it works</a>
+      <a href="#see">See it work</a>
+      <a href="#connected">Industries</a>
+      <a href="/">Home</a>
+      <a class="btn" href="#contact">Work with us <span class="arr" aria-hidden="true">→</span></a>
+    </nav>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="sheet" aria-label="Open menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+<div class="sheet" id="sheet" aria-label="Menu">
+  <a href="#how">How it works</a>
+  <a href="#see">See it work</a>
+  <a href="#connected">Industries</a>
+  <a href="/">Home</a>
+  <a class="btn" href="#contact">Work with us <span class="arr" aria-hidden="true">→</span></a>
+</div>
+
+<main id="main">
+
+<section class="r-hero" aria-labelledby="h1">
+  <div class="wrap">
+    <div class="copy">
+      <a class="crumb" href="/"><span aria-hidden="true">←</span> Umanah Systems Group</a>
+      <span class="tick" data-intro>USG Radius · One foundation for machines, AI and software</span>
+      <h1 id="h1">Nothing acts without permission. <em>Nothing happens off the record.</em></h1>
+      <p class="lede" data-intro>USG Radius is the shared foundation every Umanah Systems Group product is designed to run on. Tools are made once, and every product reuses them.</p>
+      <p class="lede" data-intro>Before anything acts, USG Radius checks that it is allowed, and writes it down in a signed record nobody can quietly change.</p>
+      <div class="actions" data-intro>
+        <a class="btn" href="#idea">See the idea <span class="arr" aria-hidden="true">→</span></a>
+        <a class="btn ghost" href="#contact">Get in touch</a>
+      </div>
+      <div class="chips" data-intro><span>Permission checked</span><span>Limits kept</span><span>Record signed</span></div>
+    </div>
+
+    <div class="panel" id="panel" role="img" aria-label="An illustrative permission check: a robot arm asks to load a new part program. Four checks pass and the answer is Allowed, written in the logbook.">
+      <div class="ph-top"><b>USG Radius · Permission check</b><span>Illustrative</span></div>
+      <div class="ask">
+        <div><small>New request</small><h3>Robot arm wants to load a new part program</h3></div>
+        <span class="state" id="pstate">CHECKING</span>
+      </div>
+      <ul id="plist">
+        <li>Who is asking<i>KNOWN</i></li>
+        <li>Has permission<i>YES</i></li>
+        <li>Inside the limits<i>YES</i></li>
+        <li>Approved version<i>MATCHES</i></li>
+      </ul>
+      <div class="answer" id="pans"><b>Allowed</b><span>Logbook entry EV-000418</span></div>
+      <p class="foot">Ask, check, decide, record. Every time.</p>
+    </div>
+  </div>
+</section>
+
+<section class="pos" aria-labelledby="pos-h">
+  <div class="wrap">
+    <div class="intro" data-rise>
+      <span class="tick">USG Radius</span>
+      <h2 id="pos-h" class="say">USG Radius is the software platform every Umanah Systems Group product runs on. It connects machines, sensors, AI and software from any maker into <em>one governed network</em>, checks every action before it happens, and keeps a signed record of all of it.</h2>
+    </div>
+    <div data-rise>
+      <span class="k-cap">USG RADIUS</span>
+      <div class="caps">
+        <details open><summary>Permissions + limits</summary><p>Who may do what, where, and until when. Every permission has an owner and an end date, and every machine has lines it must stay inside.</p></details>
+        <details><summary>Signed logbook</summary><p>Every request, yes and no, is written into a signed record nobody can quietly change, ready for a review, an audit or an investigation.</p></details>
+        <details><summary>Shared toolbox</summary><p>AI, memory, simulation and design tools, made once and reused by every product instead of rebuilt each time.</p></details>
+        <details><summary>Digital twins</summary><p>Try a proposed action on a virtual copy first. The copy gives advice; the permission check still makes the call.</p></details>
+        <details><summary>Radius SDK + plug-in kits</summary><p>Small kits so any software, robot or sensor can connect, from our products or another maker's, without being rewritten.</p></details>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="diag" id="how" aria-labelledby="how-h">
+  <div class="wrap">
+    <div class="sec-head" data-rise>
+      <div><span class="tick">How it fits together</span><h2 id="how-h">One layer between every decision and every machine.</h2></div>
+      <p class="lede">People, AI agents and our products ask. USG Radius checks, connects and records. Data, rules, AI models and machines plug in underneath.</p>
+    </div>
+    <div class="frame" data-rise>
+<svg class="iso" viewBox="0 0 1200 1021" role="img" aria-labelledby="iso-t iso-d" xmlns="http://www.w3.org/2000/svg">
+<title id="iso-t">How USG Radius works</title>
+<desc id="iso-d">People, AI agents and Umanah Systems Group products sit on top and reach USG Radius through its kits. In the middle, the USG Radius plate connects satellites, robots, sensors, power grids, chip design tools, factory machines and networks, with every request checked and recorded. Underneath, Radius plugs into data, rules, AI models and machines.</desc>
+<defs><linearGradient id="plateTop" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1a1f2c"/><stop offset="1" stop-color="#121621"/></linearGradient><radialGradient id="glow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#e8611a" stop-opacity=".28"/><stop offset="1" stop-color="#e8611a" stop-opacity="0"/></radialGradient></defs>
+<line x1="40" y1="44" x2="1160" y2="44" stroke="rgba(255,255,255,.14)"/>
+<rect x="470" y="30" width="260" height="28" rx="14" fill="#08090c" stroke="rgba(255,255,255,.14)"/>
+<text x="600" y="49" class="iso-cap" text-anchor="middle">PEOPLE + AI AGENTS</text>
+<g class="iso-panel"><rect x="80" y="78" width="300" height="122" rx="14" fill="#11141c" stroke="rgba(255,255,255,.14)"/>
+<text x="230.0" y="104" class="iso-h" text-anchor="middle">PRODUCTS</text>
+<rect x="96.0" y="120" width="57.6" height="24" rx="12" fill="rgba(255,255,255,.03)" stroke="rgba(255,255,255,.14)"/><text x="124.8" y="136" class="iso-s" text-anchor="middle">Daedyl</text>
+<rect x="159.6" y="120" width="57.6" height="24" rx="12" fill="rgba(255,255,255,.03)" stroke="rgba(255,255,255,.14)"/><text x="188.4" y="136" class="iso-s" text-anchor="middle">LoqSat</text>
+<rect x="223.2" y="120" width="64.2" height="24" rx="12" fill="rgba(255,255,255,.03)" stroke="rgba(255,255,255,.14)"/><text x="255.3" y="136" class="iso-s" text-anchor="middle">Spattio</text>
+<rect x="293.4" y="120" width="57.6" height="24" rx="12" fill="rgba(255,255,255,.03)" stroke="rgba(255,255,255,.14)"/><text x="322.2" y="136" class="iso-s" text-anchor="middle">Lucent</text>
+<rect x="96.0" y="152" width="97.2" height="24" rx="12" fill="rgba(255,255,255,.03)" stroke="rgba(255,255,255,.14)"/><text x="144.6" y="168" class="iso-s" text-anchor="middle">McCoy Studio</text>
+<rect x="199.2" y="152" width="84.0" height="24" rx="12" fill="rgba(255,255,255,.03)" stroke="rgba(255,255,255,.14)"/><text x="241.2" y="168" class="iso-s" text-anchor="middle">Vigilantyx</text>
+</g>
+<g class="iso-panel"><rect x="450" y="78" width="300" height="122" rx="14" fill="#11141c" stroke="rgba(255,255,255,.14)"/>
+<text x="600.0" y="104" class="iso-h" text-anchor="middle">AGENTS + AUTOMATION</text>
+<rect x="466.0" y="120" width="97.2" height="24" rx="12" fill="rgba(255,255,255,.03)" stroke="rgba(255,255,255,.14)"/><text x="514.6" y="136" class="iso-s" text-anchor="middle">Design agent</text>
+<rect x="569.2" y="120" width="64.2" height="24" rx="12" fill="rgba(255,255,255,.03)" stroke="rgba(255,255,255,.14)"/><text x="601.3" y="136" class="iso-s" text-anchor="middle">Planner</text>
+<rect x="639.4" y="120" width="77.4" height="24" rx="12" fill="rgba(255,255,255,.03)" stroke="rgba(255,255,255,.14)"/><text x="678.1" y="136" class="iso-s" text-anchor="middle">Inspector</text>
+<rect x="466.0" y="152" width="70.8" height="24" rx="12" fill="rgba(255,255,255,.03)" stroke="rgba(255,255,255,.14)"/><text x="501.4" y="168" class="iso-s" text-anchor="middle">Watchdog</text>
+</g>
+<g class="iso-panel"><rect x="820" y="78" width="300" height="122" rx="14" fill="#11141c" stroke="rgba(255,255,255,.14)"/>
+<text x="970.0" y="104" class="iso-h" text-anchor="middle">KITS + SDK</text>
+<rect x="836.0" y="120" width="84.0" height="24" rx="12" fill="rgba(255,255,255,.03)" stroke="rgba(255,255,255,.14)"/><text x="878.0" y="136" class="iso-s" text-anchor="middle">Radius SDK</text>
+<rect x="926.0" y="120" width="97.2" height="24" rx="12" fill="rgba(255,255,255,.03)" stroke="rgba(255,255,255,.14)"/><text x="974.6" y="136" class="iso-s" text-anchor="middle">Plug-in kits</text>
+<rect x="1029.2" y="120" width="44.4" height="24" rx="12" fill="rgba(255,255,255,.03)" stroke="rgba(255,255,255,.14)"/><text x="1051.4" y="136" class="iso-s" text-anchor="middle">Keys</text>
+<rect x="836.0" y="152" width="70.8" height="24" rx="12" fill="rgba(255,255,255,.03)" stroke="rgba(255,255,255,.14)"/><text x="871.4" y="168" class="iso-s" text-anchor="middle">Webhooks</text>
+</g>
+<path d="M170,200 C170,283.375 475.7,283.4 475.7,366.8" fill="none" stroke="rgba(255,255,255,.14)" stroke-width="1.2"/>
+<path d="M170,200 C170,283.375 475.7,283.4 475.7,366.8" fill="none" stroke="#e8611a" stroke-width="1.6" class="iso-flow" style="animation-delay:0.00s"/>
+<rect x="302.9" y="278.4" width="40" height="20" rx="10" fill="#08090c" stroke="rgba(255,255,255,.14)"/><text x="322.9" y="292.4" class="iso-t" text-anchor="middle">ASK</text>
+<path d="M290,200 C290,268.0 529.0,268.0 529.0,336.0" fill="none" stroke="rgba(255,255,255,.14)" stroke-width="1.2"/>
+<path d="M290,200 C290,268.0 529.0,268.0 529.0,336.0" fill="none" stroke="#e8611a" stroke-width="1.6" class="iso-flow" style="animation-delay:0.45s"/>
+<rect x="389.5" y="263.0" width="40" height="20" rx="10" fill="#08090c" stroke="rgba(255,255,255,.14)"/><text x="409.5" y="277.0" class="iso-t" text-anchor="middle">ASK</text>
+<path d="M560,200 C560,252.625 582.2,252.6 582.2,305.2" fill="none" stroke="rgba(255,255,255,.14)" stroke-width="1.2"/>
+<path d="M560,200 C560,252.625 582.2,252.6 582.2,305.2" fill="none" stroke="#e8611a" stroke-width="1.6" class="iso-flow" style="animation-delay:0.90s"/>
+<rect x="551.1" y="247.6" width="40" height="20" rx="10" fill="#08090c" stroke="rgba(255,255,255,.14)"/><text x="571.1" y="261.6" class="iso-t" text-anchor="middle">ASK</text>
+<path d="M640,200 C640,252.625 617.8,252.6 617.8,305.2" fill="none" stroke="rgba(255,255,255,.14)" stroke-width="1.2"/>
+<path d="M640,200 C640,252.625 617.8,252.6 617.8,305.2" fill="none" stroke="#e8611a" stroke-width="1.6" class="iso-flow" style="animation-delay:1.35s"/>
+<rect x="608.9" y="247.6" width="40" height="20" rx="10" fill="#08090c" stroke="rgba(255,255,255,.14)"/><text x="628.9" y="261.6" class="iso-t" text-anchor="middle">SDK</text>
+<path d="M910,200 C910,268.0 671.0,268.0 671.0,336.0" fill="none" stroke="rgba(255,255,255,.14)" stroke-width="1.2"/>
+<path d="M910,200 C910,268.0 671.0,268.0 671.0,336.0" fill="none" stroke="#e8611a" stroke-width="1.6" class="iso-flow" style="animation-delay:1.80s"/>
+<rect x="770.5" y="263.0" width="40" height="20" rx="10" fill="#08090c" stroke="rgba(255,255,255,.14)"/><text x="790.5" y="277.0" class="iso-t" text-anchor="middle">SDK</text>
+<path d="M1030,200 C1030,283.375 724.3,283.4 724.3,366.8" fill="none" stroke="rgba(255,255,255,.14)" stroke-width="1.2"/>
+<path d="M1030,200 C1030,283.375 724.3,283.4 724.3,366.8" fill="none" stroke="#e8611a" stroke-width="1.6" class="iso-flow" style="animation-delay:2.25s"/>
+<rect x="857.1" y="278.4" width="40" height="20" rx="10" fill="#08090c" stroke="rgba(255,255,255,.14)"/><text x="877.1" y="292.4" class="iso-t" text-anchor="middle">KIT</text>
+<text x="200" y="250" class="iso-t" text-anchor="middle">↑ READS + WRITES ↓</text>
+<text x="1000" y="250" class="iso-t" text-anchor="middle">↑ READS + WRITES ↓</text>
+<ellipse cx="600" cy="520" rx="430" ry="230" fill="url(#glow)"/>
+<polygon points="244.9,500.0 600.0,705.0 600.0,727.0 244.9,522.0" fill="#0c0e14" stroke="rgba(255,255,255,.14)"/>
+<polygon points="955.1,500.0 600.0,705.0 600.0,727.0 955.1,522.0" fill="#0f121a" stroke="rgba(255,255,255,.14)"/>
+<polygon points="600.0,295.0 955.1,500.0 600.0,705.0 244.9,500.0" fill="url(#plateTop)" stroke="rgba(232,97,26,.55)" stroke-width="1.4"/>
+<line x1="635.5" y1="315.5" x2="280.4" y2="520.5" stroke="rgba(255,255,255,.05)"/>
+<line x1="564.5" y1="315.5" x2="919.6" y2="520.5" stroke="rgba(255,255,255,.05)"/>
+<line x1="671.0" y1="336.0" x2="315.9" y2="541.0" stroke="rgba(255,255,255,.05)"/>
+<line x1="529.0" y1="336.0" x2="884.1" y2="541.0" stroke="rgba(255,255,255,.05)"/>
+<line x1="706.5" y1="356.5" x2="351.5" y2="561.5" stroke="rgba(255,255,255,.05)"/>
+<line x1="493.5" y1="356.5" x2="848.5" y2="561.5" stroke="rgba(255,255,255,.05)"/>
+<line x1="742.0" y1="377.0" x2="387.0" y2="582.0" stroke="rgba(255,255,255,.05)"/>
+<line x1="458.0" y1="377.0" x2="813.0" y2="582.0" stroke="rgba(255,255,255,.05)"/>
+<line x1="777.5" y1="397.5" x2="422.5" y2="602.5" stroke="rgba(255,255,255,.05)"/>
+<line x1="422.5" y1="397.5" x2="777.5" y2="602.5" stroke="rgba(255,255,255,.05)"/>
+<line x1="813.0" y1="418.0" x2="458.0" y2="623.0" stroke="rgba(255,255,255,.05)"/>
+<line x1="387.0" y1="418.0" x2="742.0" y2="623.0" stroke="rgba(255,255,255,.05)"/>
+<line x1="848.5" y1="438.5" x2="493.5" y2="643.5" stroke="rgba(255,255,255,.05)"/>
+<line x1="351.5" y1="438.5" x2="706.5" y2="643.5" stroke="rgba(255,255,255,.05)"/>
+<line x1="884.1" y1="459.0" x2="529.0" y2="664.0" stroke="rgba(255,255,255,.05)"/>
+<line x1="315.9" y1="459.0" x2="671.0" y2="664.0" stroke="rgba(255,255,255,.05)"/>
+<line x1="919.6" y1="479.5" x2="564.5" y2="684.5" stroke="rgba(255,255,255,.05)"/>
+<line x1="280.4" y1="479.5" x2="635.5" y2="684.5" stroke="rgba(255,255,255,.05)"/>
+<line x1="591.3" y1="375.0" x2="600.0" y2="500.0" stroke="rgba(232,97,26,.28)" stroke-width="1.2"/>
+<line x1="591.3" y1="375.0" x2="600.0" y2="500.0" stroke="#f08040" stroke-width="2" class="iso-pulse" style="animation-delay:0.00s"/>
+<line x1="721.2" y1="420.0" x2="600.0" y2="500.0" stroke="rgba(232,97,26,.28)" stroke-width="1.2"/>
+<line x1="721.2" y1="420.0" x2="600.0" y2="500.0" stroke="#f08040" stroke-width="2" class="iso-pulse" style="animation-delay:0.37s"/>
+<line x1="807.8" y1="500.0" x2="600.0" y2="500.0" stroke="rgba(232,97,26,.28)" stroke-width="1.2"/>
+<line x1="807.8" y1="500.0" x2="600.0" y2="500.0" stroke="#f08040" stroke-width="2" class="iso-pulse" style="animation-delay:0.74s"/>
+<line x1="461.4" y1="440.0" x2="600.0" y2="500.0" stroke="rgba(232,97,26,.28)" stroke-width="1.2"/>
+<line x1="461.4" y1="440.0" x2="600.0" y2="500.0" stroke="#f08040" stroke-width="2" class="iso-pulse" style="animation-delay:1.11s"/>
+<line x1="755.9" y1="560.0" x2="600.0" y2="500.0" stroke="rgba(232,97,26,.28)" stroke-width="1.2"/>
+<line x1="755.9" y1="560.0" x2="600.0" y2="500.0" stroke="#f08040" stroke-width="2" class="iso-pulse" style="animation-delay:1.48s"/>
+<line x1="400.8" y1="520.0" x2="600.0" y2="500.0" stroke="rgba(232,97,26,.28)" stroke-width="1.2"/>
+<line x1="400.8" y1="520.0" x2="600.0" y2="500.0" stroke="#f08040" stroke-width="2" class="iso-pulse" style="animation-delay:1.85s"/>
+<line x1="496.1" y1="605.0" x2="600.0" y2="500.0" stroke="rgba(232,97,26,.28)" stroke-width="1.2"/>
+<line x1="496.1" y1="605.0" x2="600.0" y2="500.0" stroke="#f08040" stroke-width="2" class="iso-pulse" style="animation-delay:2.22s"/>
+<line x1="660.6" y1="630.0" x2="496.1" y2="605.0" stroke="rgba(232,97,26,.28)" stroke-width="1.2"/>
+<line x1="660.6" y1="630.0" x2="496.1" y2="605.0" stroke="#f08040" stroke-width="2" class="iso-pulse" style="animation-delay:2.59s"/>
+<line x1="591.3" y1="375.0" x2="721.2" y2="420.0" stroke="rgba(232,97,26,.28)" stroke-width="1.2"/>
+<line x1="591.3" y1="375.0" x2="721.2" y2="420.0" stroke="#f08040" stroke-width="2" class="iso-pulse" style="animation-delay:2.96s"/>
+<line x1="461.4" y1="440.0" x2="400.8" y2="520.0" stroke="rgba(232,97,26,.28)" stroke-width="1.2"/>
+<line x1="461.4" y1="440.0" x2="400.8" y2="520.0" stroke="#f08040" stroke-width="2" class="iso-pulse" style="animation-delay:3.33s"/>
+<line x1="807.8" y1="500.0" x2="755.9" y2="560.0" stroke="rgba(232,97,26,.28)" stroke-width="1.2"/>
+<line x1="807.8" y1="500.0" x2="755.9" y2="560.0" stroke="#f08040" stroke-width="2" class="iso-pulse" style="animation-delay:3.70s"/>
+<ellipse cx="591.3" cy="375.0" rx="36.6" ry="21.3" fill="rgba(232,97,26,.06)" stroke="rgba(232,97,26,.35)" stroke-width="1.2"/>
+<polygon points="570.6,349.0 591.3,361.0 591.3,387.0 570.6,375.0" fill="#141821"/>
+<polygon points="612.1,349.0 591.3,361.0 591.3,387.0 612.1,375.0" fill="#1b202c"/>
+<polygon points="591.3,337.0 612.1,349.0 591.3,361.0 570.6,349.0" fill="#262c3b" stroke="rgba(255,255,255,.18)" stroke-width=".8"/>
+<g class="iso-node"><rect x="552.3" y="305.0" width="78.0" height="22" rx="11" fill="#1b2030" stroke="rgba(255,255,255,.14)"/><text x="591.3" y="320.0" class="iso-s" text-anchor="middle">Satellites</text><text x="591.3" y="299.0" class="iso-t" text-anchor="middle">LoqSat</text></g>
+<ellipse cx="721.2" cy="420.0" rx="36.6" ry="21.3" fill="rgba(232,97,26,.06)" stroke="rgba(232,97,26,.35)" stroke-width="1.2"/>
+<polygon points="700.5,404.0 721.2,416.0 721.2,432.0 700.5,420.0" fill="#141821"/>
+<polygon points="742.0,404.0 721.2,416.0 721.2,432.0 742.0,420.0" fill="#1b202c"/>
+<polygon points="721.2,392.0 742.0,404.0 721.2,416.0 700.5,404.0" fill="#262c3b" stroke="rgba(255,255,255,.18)" stroke-width=".8"/>
+<g class="iso-node"><rect x="682.2" y="360.0" width="78.0" height="22" rx="11" fill="#1b2030" stroke="rgba(255,255,255,.14)"/><text x="721.2" y="375.0" class="iso-s" text-anchor="middle">Earth data</text><text x="721.2" y="354.0" class="iso-t" text-anchor="middle">Spattio</text></g>
+<ellipse cx="461.4" cy="440.0" rx="36.6" ry="21.3" fill="rgba(232,97,26,.06)" stroke="rgba(232,97,26,.35)" stroke-width="1.2"/>
+<polygon points="440.7,410.0 461.4,422.0 461.4,452.0 440.7,440.0" fill="#141821"/>
+<polygon points="482.2,410.0 461.4,422.0 461.4,452.0 482.2,440.0" fill="#1b202c"/>
+<polygon points="461.4,398.0 482.2,410.0 461.4,422.0 440.7,410.0" fill="#262c3b" stroke="rgba(255,255,255,.18)" stroke-width=".8"/>
+<g class="iso-node"><rect x="435.2" y="366.0" width="52.4" height="22" rx="11" fill="#1b2030" stroke="rgba(255,255,255,.14)"/><text x="461.4" y="381.0" class="iso-s" text-anchor="middle">Robots</text><text x="461.4" y="360.0" class="iso-t" text-anchor="middle">Lucent</text></g>
+<ellipse cx="807.8" cy="500.0" rx="36.6" ry="21.3" fill="rgba(232,97,26,.06)" stroke="rgba(232,97,26,.35)" stroke-width="1.2"/>
+<polygon points="787.1,488.0 807.8,500.0 807.8,512.0 787.1,500.0" fill="#141821"/>
+<polygon points="828.6,488.0 807.8,500.0 807.8,512.0 828.6,500.0" fill="#1b202c"/>
+<polygon points="807.8,476.0 828.6,488.0 807.8,500.0 787.1,488.0" fill="#262c3b" stroke="rgba(255,255,255,.18)" stroke-width=".8"/>
+<g class="iso-node"><rect x="765.6" y="444.0" width="84.4" height="22" rx="11" fill="#1b2030" stroke="rgba(255,255,255,.14)"/><text x="807.8" y="459.0" class="iso-s" text-anchor="middle">Chip design</text><text x="807.8" y="438.0" class="iso-t" text-anchor="middle">Daedyl</text></g>
+<ellipse cx="600.0" cy="500.0" rx="56.1" ry="32.7" fill="rgba(232,97,26,.06)" stroke="rgba(232,97,26,.75)" stroke-width="1.2"/>
+<ellipse cx="600.0" cy="500.0" rx="56.1" ry="32.7" fill="none" stroke="#e8611a" stroke-width="1.5" class="iso-ring"/>
+<polygon points="555.0,486.0 600.0,512.0 600.0,526.0 555.0,500.0" fill="#1a100a"/>
+<polygon points="645.0,486.0 600.0,512.0 600.0,526.0 645.0,500.0" fill="#22150d"/>
+<polygon points="600.0,460.0 645.0,486.0 600.0,512.0 555.0,486.0" fill="#2a1a10" stroke="rgba(255,255,255,.18)" stroke-width=".8"/>
+<polygon points="568.8,470.0 600.0,488.0 600.0,518.0 568.8,500.0" fill="#22140b"/>
+<polygon points="631.2,470.0 600.0,488.0 600.0,518.0 631.2,500.0" fill="#2c190e"/>
+<polygon points="600.0,452.0 631.2,470.0 600.0,488.0 568.8,470.0" fill="#3a2213" stroke="rgba(255,255,255,.18)" stroke-width=".8"/>
+<polygon points="582.7,456.0 600.0,466.0 600.0,510.0 582.7,500.0" fill="#a8460f"/>
+<polygon points="617.3,456.0 600.0,466.0 600.0,510.0 617.3,500.0" fill="#c25213"/>
+<polygon points="600.0,446.0 617.3,456.0 600.0,466.0 582.7,456.0" fill="#e8611a" stroke="rgba(255,255,255,.18)" stroke-width=".8"/>
+<g class="iso-node"><rect x="545.0" y="416.0" width="110.0" height="22" rx="11" fill="#e8611a" stroke="#e8611a"/><text x="600.0" y="431.0" class="iso-s iso-dark" text-anchor="middle">Guard + logbook</text><text x="600.0" y="410.0" class="iso-t" text-anchor="middle">USG Radius</text></g>
+<ellipse cx="400.8" cy="520.0" rx="36.6" ry="21.3" fill="rgba(232,97,26,.06)" stroke="rgba(232,97,26,.35)" stroke-width="1.2"/>
+<polygon points="380.0,498.0 400.8,510.0 400.8,532.0 380.0,520.0" fill="#141821"/>
+<polygon points="421.6,498.0 400.8,510.0 400.8,532.0 421.6,520.0" fill="#1b202c"/>
+<polygon points="400.8,486.0 421.6,498.0 400.8,510.0 380.0,498.0" fill="#262c3b" stroke="rgba(255,255,255,.18)" stroke-width=".8"/>
+<g class="iso-node"><rect x="342.6" y="454.0" width="116.4" height="22" rx="11" fill="#1b2030" stroke="rgba(255,255,255,.14)"/><text x="400.8" y="469.0" class="iso-s" text-anchor="middle">Factory machines</text><text x="400.8" y="448.0" class="iso-t" text-anchor="middle">Crucible</text></g>
+<ellipse cx="755.9" cy="560.0" rx="36.6" ry="21.3" fill="rgba(232,97,26,.06)" stroke="rgba(232,97,26,.35)" stroke-width="1.2"/>
+<polygon points="735.1,542.0 755.9,554.0 755.9,572.0 735.1,560.0" fill="#141821"/>
+<polygon points="776.7,542.0 755.9,554.0 755.9,572.0 776.7,560.0" fill="#1b202c"/>
+<polygon points="755.9,530.0 776.7,542.0 755.9,554.0 735.1,542.0" fill="#262c3b" stroke="rgba(255,255,255,.18)" stroke-width=".8"/>
+<g class="iso-node"><rect x="723.3" y="498.0" width="65.2" height="22" rx="11" fill="#1b2030" stroke="rgba(255,255,255,.14)"/><text x="755.9" y="513.0" class="iso-s" text-anchor="middle">Networks</text><text x="755.9" y="492.0" class="iso-t" text-anchor="middle">Vigilantyx</text></g>
+<ellipse cx="496.1" cy="605.0" rx="36.6" ry="21.3" fill="rgba(232,97,26,.06)" stroke="rgba(232,97,26,.35)" stroke-width="1.2"/>
+<polygon points="475.3,571.0 496.1,583.0 496.1,617.0 475.3,605.0" fill="#141821"/>
+<polygon points="516.9,571.0 496.1,583.0 496.1,617.0 516.9,605.0" fill="#1b202c"/>
+<polygon points="496.1,559.0 516.9,571.0 496.1,583.0 475.3,571.0" fill="#262c3b" stroke="rgba(255,255,255,.18)" stroke-width=".8"/>
+<g class="iso-node"><rect x="453.9" y="527.0" width="84.4" height="22" rx="11" fill="#1b2030" stroke="rgba(255,255,255,.14)"/><text x="496.1" y="542.0" class="iso-s" text-anchor="middle">Power grids</text><text x="496.1" y="521.0" class="iso-t" text-anchor="middle">Hyve / Rehzon</text></g>
+<ellipse cx="660.6" cy="630.0" rx="36.6" ry="21.3" fill="rgba(232,97,26,.06)" stroke="rgba(232,97,26,.35)" stroke-width="1.2"/>
+<polygon points="639.8,616.0 660.6,628.0 660.6,642.0 639.8,630.0" fill="#141821"/>
+<polygon points="681.4,616.0 660.6,628.0 660.6,642.0 681.4,630.0" fill="#1b202c"/>
+<polygon points="660.6,604.0 681.4,616.0 660.6,628.0 639.8,616.0" fill="#262c3b" stroke="rgba(255,255,255,.18)" stroke-width=".8"/>
+<g class="iso-node"><rect x="631.2" y="572.0" width="58.8" height="22" rx="11" fill="#1b2030" stroke="rgba(255,255,255,.14)"/><text x="660.6" y="587.0" class="iso-s" text-anchor="middle">Sensors</text><text x="660.6" y="566.0" class="iso-t" text-anchor="middle">Rehzon Grid</text></g>
+<g><rect x="480" y="697.0" width="240" height="34" rx="8" fill="#08090c" stroke="#e8611a"/><text x="600" y="720.0" class="iso-big" text-anchor="middle">USG RADIUS</text></g>
+<g class="iso-card"><rect x="24" y="330" width="232" height="190" rx="12" fill="#11141c" stroke="rgba(255,255,255,.14)"/><text x="40" y="356" class="iso-h">SAT-12  ·  Satellite</text>
+<text x="40" y="384" class="iso-s" fill="#9aa0ae">Status</text><text x="240" y="384" class="iso-s" text-anchor="end" fill="#4ade80">In orbit</text>
+<text x="40" y="406" class="iso-s" fill="#9aa0ae">Asks to</text><text x="240" y="406" class="iso-s" text-anchor="end" fill="#f0f2f5">Change orbit</text>
+<text x="40" y="428" class="iso-s" fill="#9aa0ae">Permission</text><text x="240" y="428" class="iso-s" text-anchor="end" fill="#f0f2f5">Until 28 Jan</text>
+<text x="40" y="450" class="iso-s" fill="#9aa0ae">Inside limits</text><text x="240" y="450" class="iso-s" text-anchor="end" fill="#4ade80">Yes</text>
+<text x="40" y="472" class="iso-s" fill="#9aa0ae">Decision</text><text x="240" y="472" class="iso-s" text-anchor="end" fill="#f08040">Allowed</text>
+<text x="40" y="494" class="iso-s" fill="#9aa0ae">Logbook</text><text x="240" y="494" class="iso-s" text-anchor="end" fill="#9aa0ae">EV-000418</text>
+<text x="40" y="512" class="iso-t">Illustrative</text></g>
+<g class="iso-card"><rect x="944" y="330" width="232" height="150" rx="12" fill="#11141c" stroke="rgba(255,255,255,.14)"/><text x="960" y="356" class="iso-h">Who may do what</text><text x="960" y="378" class="iso-t">WHO</text><text x="1040" y="378" class="iso-t">MAY</text><text x="1112" y="378" class="iso-t">UNTIL</text>
+<text x="960" y="402" class="iso-s">LoqSat</text><text x="1040" y="402" class="iso-s" fill="#9aa0ae">Propose</text><text x="1112" y="402" class="iso-s" fill="#f08040">Jan 28</text>
+<text x="960" y="422" class="iso-s">Daedyl</text><text x="1040" y="422" class="iso-s" fill="#9aa0ae">Run tools</text><text x="1112" y="422" class="iso-s" fill="#f08040">Owner</text>
+<text x="960" y="442" class="iso-s">Agent</text><text x="1040" y="442" class="iso-s" fill="#9aa0ae">Read</text><text x="1112" y="442" class="iso-s" fill="#f08040">1 hour</text>
+<text x="960" y="462" class="iso-s">Operator</text><text x="1040" y="462" class="iso-s" fill="#9aa0ae">Approve</text><text x="1112" y="462" class="iso-s" fill="#f08040">Shift</text>
+</g>
+<rect x="230" y="771.0" width="740" height="30" rx="8" fill="#0d0f14" stroke="rgba(255,255,255,.14)"/><text x="600" y="791.0" class="iso-s" text-anchor="middle">Permissions  ·  Limits  ·  Approvals  ·  End dates   |   Signed logbook  ·  Replay  ·  Audit</text>
+<rect x="230" y="809.0" width="740" height="26" rx="8" fill="#0d0f14" stroke="rgba(232,97,26,.4)"/><text x="600" y="827.0" class="iso-t iso-or" text-anchor="middle">YOUR HARDWARE  ·  YOUR CLOUD  ·  THE EDGE</text>
+<line x1="140.5" y1="837.0" x2="128.5" y2="877.0" stroke="rgba(255,255,255,.14)" stroke-dasharray="2 5"/>
+<line x1="156.5" y1="837.0" x2="150.5" y2="877.0" stroke="rgba(255,255,255,.14)" stroke-dasharray="2 5"/>
+<line x1="172.5" y1="837.0" x2="172.5" y2="877.0" stroke="rgba(255,255,255,.14)" stroke-dasharray="2 5"/>
+<line x1="188.5" y1="837.0" x2="194.5" y2="877.0" stroke="rgba(255,255,255,.14)" stroke-dasharray="2 5"/>
+<line x1="204.5" y1="837.0" x2="216.5" y2="877.0" stroke="rgba(255,255,255,.14)" stroke-dasharray="2 5"/>
+<rect x="40" y="881.0" width="265" height="98" rx="12" fill="#11141c" stroke="rgba(255,255,255,.14)"/>
+<rect x="52" y="893.0" width="117" height="32" rx="8" fill="rgba(255,255,255,.02)" stroke="rgba(255,255,255,.14)"/><circle cx="67" cy="909.0" r="4" fill="#e8611a"/><text x="78" y="913.5" class="iso-s">Telemetry</text>
+<rect x="176" y="893.0" width="117" height="32" rx="8" fill="rgba(255,255,255,.02)" stroke="rgba(255,255,255,.14)"/><circle cx="191" cy="909.0" r="4" fill="#e8611a"/><text x="202" y="913.5" class="iso-s">Sensors</text>
+<rect x="52" y="933.0" width="117" height="32" rx="8" fill="rgba(255,255,255,.02)" stroke="rgba(255,255,255,.14)"/><circle cx="67" cy="949.0" r="4" fill="#e8611a"/><text x="78" y="953.5" class="iso-s">Geospatial</text>
+<rect x="176" y="933.0" width="117" height="32" rx="8" fill="rgba(255,255,255,.02)" stroke="rgba(255,255,255,.14)"/><circle cx="191" cy="949.0" r="4" fill="#e8611a"/><text x="202" y="953.5" class="iso-s">Files</text>
+<text x="172.5" y="1007.0" class="iso-h" text-anchor="middle">DATA</text>
+<line x1="425.5" y1="837.0" x2="413.5" y2="877.0" stroke="rgba(255,255,255,.14)" stroke-dasharray="2 5"/>
+<line x1="441.5" y1="837.0" x2="435.5" y2="877.0" stroke="rgba(255,255,255,.14)" stroke-dasharray="2 5"/>
+<line x1="457.5" y1="837.0" x2="457.5" y2="877.0" stroke="rgba(255,255,255,.14)" stroke-dasharray="2 5"/>
+<line x1="473.5" y1="837.0" x2="479.5" y2="877.0" stroke="rgba(255,255,255,.14)" stroke-dasharray="2 5"/>
+<line x1="489.5" y1="837.0" x2="501.5" y2="877.0" stroke="rgba(255,255,255,.14)" stroke-dasharray="2 5"/>
+<rect x="325" y="881.0" width="265" height="98" rx="12" fill="#11141c" stroke="rgba(255,255,255,.14)"/>
+<rect x="337" y="893.0" width="117" height="32" rx="8" fill="rgba(255,255,255,.02)" stroke="rgba(255,255,255,.14)"/><circle cx="352" cy="909.0" r="4" fill="#e8611a"/><text x="363" y="913.5" class="iso-s">Permissions</text>
+<rect x="461" y="893.0" width="117" height="32" rx="8" fill="rgba(255,255,255,.02)" stroke="rgba(255,255,255,.14)"/><circle cx="476" cy="909.0" r="4" fill="#e8611a"/><text x="487" y="913.5" class="iso-s">Limits</text>
+<rect x="337" y="933.0" width="117" height="32" rx="8" fill="rgba(255,255,255,.02)" stroke="rgba(255,255,255,.14)"/><circle cx="352" cy="949.0" r="4" fill="#e8611a"/><text x="363" y="953.5" class="iso-s">Schedules</text>
+<rect x="461" y="933.0" width="117" height="32" rx="8" fill="rgba(255,255,255,.02)" stroke="rgba(255,255,255,.14)"/><circle cx="476" cy="949.0" r="4" fill="#e8611a"/><text x="487" y="953.5" class="iso-s">Approvals</text>
+<text x="457.5" y="1007.0" class="iso-h" text-anchor="middle">RULES</text>
+<line x1="710.5" y1="837.0" x2="698.5" y2="877.0" stroke="rgba(255,255,255,.14)" stroke-dasharray="2 5"/>
+<line x1="726.5" y1="837.0" x2="720.5" y2="877.0" stroke="rgba(255,255,255,.14)" stroke-dasharray="2 5"/>
+<line x1="742.5" y1="837.0" x2="742.5" y2="877.0" stroke="rgba(255,255,255,.14)" stroke-dasharray="2 5"/>
+<line x1="758.5" y1="837.0" x2="764.5" y2="877.0" stroke="rgba(255,255,255,.14)" stroke-dasharray="2 5"/>
+<line x1="774.5" y1="837.0" x2="786.5" y2="877.0" stroke="rgba(255,255,255,.14)" stroke-dasharray="2 5"/>
+<rect x="610" y="881.0" width="265" height="98" rx="12" fill="#11141c" stroke="rgba(255,255,255,.14)"/>
+<rect x="622" y="893.0" width="117" height="32" rx="8" fill="rgba(255,255,255,.02)" stroke="rgba(255,255,255,.14)"/><circle cx="637" cy="909.0" r="4" fill="#e8611a"/><text x="648" y="913.5" class="iso-s">Local models</text>
+<rect x="746" y="893.0" width="117" height="32" rx="8" fill="rgba(255,255,255,.02)" stroke="rgba(255,255,255,.14)"/><circle cx="761" cy="909.0" r="4" fill="#e8611a"/><text x="772" y="913.5" class="iso-s">Simulation</text>
+<rect x="622" y="933.0" width="117" height="32" rx="8" fill="rgba(255,255,255,.02)" stroke="rgba(255,255,255,.14)"/><circle cx="637" cy="949.0" r="4" fill="#e8611a"/><text x="648" y="953.5" class="iso-s">Digital twins</text>
+<rect x="746" y="933.0" width="117" height="32" rx="8" fill="rgba(255,255,255,.02)" stroke="rgba(255,255,255,.14)"/><circle cx="761" cy="949.0" r="4" fill="#e8611a"/><text x="772" y="953.5" class="iso-s">Memory</text>
+<text x="742.5" y="1007.0" class="iso-h" text-anchor="middle">AI MODELS</text>
+<line x1="995.5" y1="837.0" x2="983.5" y2="877.0" stroke="rgba(255,255,255,.14)" stroke-dasharray="2 5"/>
+<line x1="1011.5" y1="837.0" x2="1005.5" y2="877.0" stroke="rgba(255,255,255,.14)" stroke-dasharray="2 5"/>
+<line x1="1027.5" y1="837.0" x2="1027.5" y2="877.0" stroke="rgba(255,255,255,.14)" stroke-dasharray="2 5"/>
+<line x1="1043.5" y1="837.0" x2="1049.5" y2="877.0" stroke="rgba(255,255,255,.14)" stroke-dasharray="2 5"/>
+<line x1="1059.5" y1="837.0" x2="1071.5" y2="877.0" stroke="rgba(255,255,255,.14)" stroke-dasharray="2 5"/>
+<rect x="895" y="881.0" width="265" height="98" rx="12" fill="#11141c" stroke="rgba(255,255,255,.14)"/>
+<rect x="907" y="893.0" width="117" height="32" rx="8" fill="rgba(255,255,255,.02)" stroke="rgba(255,255,255,.14)"/><circle cx="922" cy="909.0" r="4" fill="#e8611a"/><text x="933" y="913.5" class="iso-s">Satellites</text>
+<rect x="1031" y="893.0" width="117" height="32" rx="8" fill="rgba(255,255,255,.02)" stroke="rgba(255,255,255,.14)"/><circle cx="1046" cy="909.0" r="4" fill="#e8611a"/><text x="1057" y="913.5" class="iso-s">Robots</text>
+<rect x="907" y="933.0" width="117" height="32" rx="8" fill="rgba(255,255,255,.02)" stroke="rgba(255,255,255,.14)"/><circle cx="922" cy="949.0" r="4" fill="#e8611a"/><text x="933" y="953.5" class="iso-s">CNC + motors</text>
+<rect x="1031" y="933.0" width="117" height="32" rx="8" fill="rgba(255,255,255,.02)" stroke="rgba(255,255,255,.14)"/><circle cx="1046" cy="949.0" r="4" fill="#e8611a"/><text x="1057" y="953.5" class="iso-s">Power grids</text>
+<text x="1027.5" y="1007.0" class="iso-h" text-anchor="middle">MACHINES</text>
+</svg>
+    </div>
+    <p class="read">Illustrative. On a phone, swipe the drawing sideways to see all of it.</p>
+  </div>
+</section>
+
+<section class="sec" aria-labelledby="prob-h">
+  <div class="wrap">
+    <div class="center" data-rise>
+      <span class="tick">The problem</span>
+      <h2 id="prob-h">Machines and AI are starting to act on their own.</h2>
+      <p class="lede">Most can't prove who allowed it. Rules live in documents, not inside the systems. When something goes wrong, the logs show what happened, but not who said yes or why.</p>
+    </div>
+    <div class="three">
+      <article class="box" data-rise><span class="n">01</span><h3>Nobody can prove who said yes</h3><p>A machine or AI can act without a clear, written permission that has an end date.</p></article>
+      <article class="box" data-rise><span class="n">02</span><h3>Things change without anyone noticing</h3><p>Software, settings and AI models get swapped out without anyone signing off.</p></article>
+      <article class="box" data-rise><span class="n">03</span><h3>The record has gaps</h3><p>Ordinary logs can be edited, lost, or missing the one detail an investigator needs.</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="sec workshop" id="idea" aria-labelledby="idea-h">
+  <div class="wrap">
+    <div class="intro" data-rise>
+      <span class="tick">The idea</span>
+      <h2 id="idea-h">A shared workshop for real systems.</h2>
+      <p class="lede" style="margin-top:22px">Every product is a builder. The builders borrow the same tools, a guard checks every use, and a logbook writes it all down. Make a tool once, and every product gets it.</p>
+      <ol class="layers" style="margin-top:34px">
+        <li><b>The shared toolbox</b><span>AI, design tools, memory and simulation, made once and reused by every product.</span></li>
+        <li><b>The limits</b><span>The lines each machine and product has to stay inside, written where the system can check them.</span></li>
+        <li><b>The permissions</b><span>Who may do what, where, and until when. Every permission has an owner and an end date.</span></li>
+        <li><b>The double-check</b><span>Keeps confirming that software, settings and AI versions still match what was approved.</span></li>
+        <li><b>The plug-in kits</b><span>Simple kits so any software, robot or sensor can connect without being rewritten.</span></li>
+        <li><b>The logbook</b><span>A signed record of every decision, ready for a review, an audit or an investigation.</span></li>
+      </ol>
+    </div>
+    <div class="rplat" id="stack" role="img" aria-label="USG Radius as a platform. Products sit on top, USG Radius in the middle, and machines and systems underneath. A request from a product is asked, checked, acted on and recorded before it reaches a machine.">
+      <div class="pf-row pf-top"><span class="pf-cap">Products</span><div class="pf-items"><span>Daedyl</span><span>LoqSat</span><span>Spattio</span><span>Lucent Robotics</span><span>McCoy Studio</span><span>Vigilantyx</span><span class="soon">Easley <em>soon</em></span></div></div>
+      <div class="pf-link l1"><i></i></div>
+      <div class="pf-core">
+        <div class="pf-name"><b>USG Radius</b><small>Every request passes through here</small></div>
+        <div class="pf-stages">
+          <div class="pf-stage"><small>01</small><b>Ask</b><span>Who wants to do what</span></div>
+          <div class="pf-stage"><small>02</small><b>Check</b><span>Allowed and inside the limits?</span></div>
+          <div class="pf-stage"><small>03</small><b>Act</b><span>Only a yes goes through</span></div>
+          <div class="pf-stage"><small>04</small><b>Record</b><span>Signed in the logbook</span></div>
+        </div>
+        <div class="pf-tools">Shared toolbox: <i>AI</i><i>Memory</i><i>Simulation</i><i>Design tools</i><i>Plug-in kits</i></div>
+      </div>
+      <div class="pf-link l2"><i></i></div>
+      <div class="pf-row pf-bot"><span class="pf-cap">Machines and systems</span><div class="pf-items"><span>Satellites</span><span>Robots</span><span>Chip tools</span><span>Sensors</span><span>Power grids</span></div>
+        <div class="pf-log"><span>Logbook</span><b>Signed</b></div></div>
+    </div>
+
+  </div>
+</section>
+
+<section class="sec" id="see" aria-labelledby="see-h">
+  <div class="wrap">
+    <div class="center" data-rise>
+      <span class="tick">See it work</span>
+      <h2 id="see-h">From request to record. Every step checked.</h2>
+      <p class="lede">Pick a sample request to see what USG Radius does with it.</p>
+      <div class="toggle" role="group" aria-label="Sample request">
+        <button type="button" data-mode="allow" aria-pressed="true">Allowed request</button>
+        <button type="button" data-mode="refuse" aria-pressed="false">Refused request</button>
+      </div>
+    </div>
+    <div class="flow" id="flow">
+      <div class="on"><small>01</small><b>Request</b><span>Something asks to act</span></div>
+      <div class="on"><small>02</small><b>Check</b><span>Is it allowed?</span></div>
+      <div class="on" data-stop><small>03</small><b>Limits</b><span>Inside the lines?</span></div>
+      <div class="on" data-after><small>04</small><b>Decide</b><span>Yes or no</span></div>
+      <div class="on"><small>05</small><b>Record</b><span>Signed in the logbook</span></div>
+    </div>
+    <div class="verdict" id="verdict" aria-live="polite">
+      <div><b id="vt">Allowed</b><p id="vd">An approved operator asks to deploy an approved configuration. The permission is active and the version matches, so it goes ahead.</p></div>
+      <div class="ev">Written in the logbook<br><code id="ve">EV-EXAMPLE-01</code></div>
+    </div>
+    <p class="small-note">Sample data for illustration. Real decisions need a connected system and real rules.</p>
+  </div>
+</section>
+
+<section class="sec" aria-labelledby="twin-h">
+  <div class="wrap">
+    <div class="center" data-rise>
+      <span class="tick">Try it first</span>
+      <h2 id="twin-h">Test the future before it happens.</h2>
+      <p class="lede">A digital twin is a virtual copy of a real system. USG Radius can try a proposed action on the copy first and show what might go wrong. The copy gives advice. The permission check still makes the call.</p>
+    </div>
+    <div class="three">
+      <article class="box" data-rise><span class="n">01</span><h3>Proposed action</h3><p>A person, a model or a machine asks to do something.</p></article>
+      <article class="box" data-rise><span class="n">02</span><h3>Simulated outcomes</h3><p>The copy plays out the possible paths and flags any that cross a limit.</p></article>
+      <article class="box" data-rise><span class="n">03</span><h3>Checked before it runs</h3><p>Only then does the real request go to the permission check.</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="ind" id="connected" aria-labelledby="ind-h">
+  <div class="wrap">
+    <span class="tick">Where it plugs in</span>
+    <h2 id="ind-h" class="huge">One platform. Every kind of machine.</h2>
+    <div class="ind-row" data-rise><h3>Space<small>Satellites, orbits and the ground systems that talk to them.</small></h3><div class="ind-cards"><a class="ic" href="https://loqsat.com" rel="noopener"><span class="lab">LoqSat</span><div class="ph"><img src="/img/loqsat.webp" alt="The LoqSat home page" loading="lazy" width="1200" height="750"></div><p>Routes collision warnings between satellite operators and asks USG Radius before it proposes a manoeuvre. Advice, never a command.</p><span class="st on">Connected</span></a><div class="ic"><span class="lab">Ibom Space</span><div class="ph"><b>Ibom Space</b></div><p>Space systems from Umanah Systems Group.</p><span class="st ">Signed up, waiting for its software</span></div><div class="ic"><span class="lab">Ravionics</span><div class="ph"><b>Ravionics</b></div><p>Avionics from Umanah Systems Group.</p><span class="st ">Signed up, waiting for its software</span></div></div></div>
+    <div class="ind-row" data-rise><h3>Earth data<small>Answers about place and time you can prove.</small></h3><div class="ind-cards"><a class="ic" href="https://spattio.com" rel="noopener"><span class="lab">Spattio GroundTruth</span><div class="ph"><img src="/img/spattio.webp" alt="The Spattio GroundTruth home page" loading="lazy" width="1200" height="750"></div><p>Checks every answer against an independent source and keeps a signed record you can hand to an adjuster, a court or an auditor.</p><span class="st on">Connected</span></a></div></div>
+    <div class="ind-row" data-rise><h3>Robotics + inspection<small>Machines that move, inspect and report.</small></h3><div class="ind-cards"><a class="ic" href="/lucent-robotics.html"><span class="lab">Lucent Robotics</span><div class="ph"><img src="/img/robotics.webp" alt="A robotic arm with a sensor head" loading="lazy" width="1200" height="750"></div><p>Robots for infrastructure inspection that stay inside the limits you set, with every action on the record.</p><span class="st on">Connected</span></a><div class="ic"><span class="lab">McCoy Studio</span><div class="ph"><b>McCoy Studio</b></div><p>From Lucent Robotics.</p><span class="st on">Connected</span></div></div></div>
+    <div class="ind-row" data-rise><h3>Semiconductors<small>Chips designed, simulated and proven.</small></h3><div class="ind-cards"><a class="ic" href="https://daedyl.com" rel="noopener"><span class="lab">Daedyl</span><div class="ph"><img src="/img/daedyl.webp" alt="The Daedyl home page" loading="lazy" width="1200" height="750"></div><p>Every design tool job in Daedyl asks USG Radius first, and every answer goes in the logbook. The first product connected.</p><span class="st on">Connected</span></a></div></div>
+    <div class="ind-row" data-rise><h3>Cybersecurity<small>Keeping critical systems running and recoverable.</small></h3><div class="ind-cards"><a class="ic" href="/vigilantyx.html"><span class="lab">Vigilantyx</span><div class="ph"><b>Vigilantyx</b></div><p>Autonomous cyber recovery for mission-critical systems.</p><span class="st next">Next to connect</span></a><div class="ic"><span class="lab">Easley</span><div class="ph"><b>Easley</b></div><p>Coming soon.</p><span class="st ">Coming soon</span></div></div></div>
+    <div class="ind-row" data-rise><h3>Energy + sensing<small>Grids and the sensors that watch them.</small></h3><div class="ind-cards"><div class="ic"><span class="lab">Hyve Grid</span><div class="ph"><b>Hyve Grid</b></div><p>Sensor company from Umanah Systems Group.</p><span class="st ">Signed up, waiting for its software</span></div><a class="ic" href="/rehzon-grid.html"><span class="lab">Rehzon Grid</span><div class="ph"><b>Rehzon Grid</b></div><p>Sensor company from Umanah Systems Group.</p><span class="st ">Signed up, waiting for its software</span></a></div></div>
+    <div class="ind-row" data-rise><h3>Hardware + manufacturing<small>Parts designed, made and traced from design to delivery.</small></h3><div class="ind-cards"><a class="ic" href="/crucible.html"><span class="lab">Crucible</span><div class="ph"><b>Crucible</b></div><p>The USG hardware foundation: design, CNC, motors, sensors and actuators.</p><span class="st ">Signed up, waiting for its software</span></a><div class="ic"><span class="lab">Torrqe</span><div class="ph"><b>Torrqe</b></div><p>Motors from Umanah Systems Group.</p><span class="st ">Signed up, waiting for its software</span></div><div class="ic"><span class="lab">Maeviq</span><div class="ph"><b>Maeviq</b></div><p>From Umanah Systems Group.</p><span class="st ">Signed up, waiting for its software</span></div><div class="ic"><span class="lab">Caelyx Systems</span><div class="ph"><b>Caelyx</b></div><p>From Umanah Systems Group.</p><span class="st ">Signed up, waiting for its software</span></div></div></div>
+  </div>
+</section>
+
+<section class="sec plug" aria-labelledby="plug-h">
+  <div class="wrap">
+    <div class="intro" data-rise>
+      <span class="tick">Plugging in</span>
+      <h2 id="plug-h">Plugs in. Doesn't take over.</h2>
+      <p class="lede">USG Radius doesn't drive your machines. It answers one question before they act: is this allowed? Your software keeps doing its job, and a small kit connects it.</p>
+      <ul><li>Simple kits</li><li>Clear permissions</li><li>Constant checks</li><li>Signed records</li></ul>
+    </div>
+    <div data-rise>
+<pre class="code" aria-label="Illustrative request"><code>{
+  <span class="k">"action"</span>: <span class="s">"deploy.configuration"</span>,
+  <span class="k">"actor"</span>: <span class="s">"operator-01"</span>,
+  <span class="k">"authority"</span>: <span class="s">"lease-ref"</span>,
+  <span class="k">"scope"</span>: <span class="s">"mission-application"</span>,
+  <span class="k">"context"</span>: { <span class="k">"config_version"</span>: <span class="s">"v1.8"</span> }
+}</code></pre>
+      <p class="code-cap">Conceptual example. Not a public API contract.</p>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact" aria-labelledby="ct-h">
+  <div class="wrap">
+    <span class="tick">Work with us</span>
+    <h2 id="ct-h">Set the rules. Check every action. Keep the record.</h2>
+    <p class="lede">USG Radius is not available to the public. We speak with teams whose machines, software or AI can't afford to get it wrong.</p>
+    <a class="mail" href="mailto:contact@umanahsystems.com">contact@umanahsystems.com</a>
+    <div class="actions">
+      <a class="btn" href="mailto:contact@umanahsystems.com?subject=USG%20Radius">Email us <span class="arr" aria-hidden="true">→</span></a>
+      <a class="btn ghost" href="/">Back to Umanah Systems Group</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <a class="brand" href="/">
+      <svg viewBox="0 0 40 40" aria-hidden="true"><path d="M20 3 35 11.5v17L20 37 5 28.5v-17Z" fill="none" stroke="#e8611a" stroke-width="1.6"/><path d="M20 3v17m0 0 15 8.5M20 20 5 28.5" stroke="#f0f2f5" stroke-opacity=".5" stroke-width="1.2"/><circle cx="20" cy="20" r="2.6" fill="#e8611a"/></svg>
+      <span>USG Radius<small>One foundation for trustworthy machines, AI and software.</small></span>
+    </a>
+    <nav aria-label="Footer">
+      <a href="/">Home</a><a href="#idea">The idea</a><a href="#see">See it work</a><a href="#connected">Industries</a><a href="#contact">Contact</a><a href="/privacy.html">Privacy</a>
+    </nav>
+    <div class="legal">
+      <span>© 2026 Umanah Systems Group. USG Radius is a Umanah Systems Group architecture.</span>
+      <span>Interface examples on this page are illustrative. Motion: GSAP.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="/vendor/gsap.min.js"></script>
+<script src="/vendor/ScrollTrigger.min.js"></script>
+<script>
+(function () {
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const hasG = !!window.gsap;
+  if (reduce || !hasG) document.documentElement.classList.add('reduce');
+  if (hasG) gsap.registerPlugin(ScrollTrigger);
+
+  /* header */
+  const top = document.getElementById('top'); let lastY = 0;
+  addEventListener('scroll', () => { const y = scrollY; top.classList.toggle('solid', y > 30); top.classList.toggle('hide', y > 500 && y > lastY && !document.body.classList.contains('menu-open')); lastY = y; }, { passive: true });
+
+  /* mobile menu */
+  const mb = document.querySelector('.menu-btn');
+  const setMenu = open => { document.body.classList.toggle('menu-open', open); mb.setAttribute('aria-expanded', open); mb.setAttribute('aria-label', open ? 'Close menu' : 'Open menu'); };
+  mb.addEventListener('click', () => setMenu(!document.body.classList.contains('menu-open')));
+  document.querySelectorAll('#sheet a').forEach(a => a.addEventListener('click', () => setMenu(false)));
+  addEventListener('keydown', e => { if (e.key === 'Escape') setMenu(false); });
+
+  /* hero panel: checks tick through, then the answer lands; repeats */
+  const items = [...document.querySelectorAll('#plist li')], ans = document.getElementById('pans'), st = document.getElementById('pstate');
+  function runPanel() {
+    items.forEach(li => li.classList.remove('on')); ans.classList.remove('on'); st.textContent = 'CHECKING';
+    if (reduce) { items.forEach(li => li.classList.add('on')); ans.classList.add('on'); st.textContent = 'DECIDED'; return; }
+    items.forEach((li, i) => setTimeout(() => li.classList.add('on'), 600 + i * 550));
+    setTimeout(() => { ans.classList.add('on'); st.textContent = 'DECIDED'; }, 600 + items.length * 550 + 200);
+    setTimeout(runPanel, 8000);
+  }
+  runPanel();
+
+  /* allowed / refused demo */
+  const flow = document.getElementById('flow');
+  const copy = {
+    allow: ['Allowed', 'An approved operator asks to deploy an approved configuration. The permission is active and the version matches, so it goes ahead.', 'EV-EXAMPLE-01'],
+    refuse: ['Refused', 'The same request, but the configuration version was never approved. It stops at the limits check and never reaches the system. The refusal is recorded too.', 'EV-EXAMPLE-02']
+  };
+  document.querySelectorAll('.toggle button').forEach(b => b.addEventListener('click', () => {
+    const m = b.dataset.mode;
+    document.querySelectorAll('.toggle button').forEach(x => x.setAttribute('aria-pressed', x === b));
+    flow.classList.toggle('refused', m === 'refuse');
+    flow.querySelectorAll('div').forEach(d => { d.classList.remove('stop', 'off'); if (m === 'refuse') { if (d.hasAttribute('data-stop')) d.classList.add('stop'); if (d.hasAttribute('data-after')) d.classList.add('off'); } });
+    document.getElementById('vt').textContent = copy[m][0];
+    document.getElementById('vd').textContent = copy[m][1];
+    document.getElementById('ve').textContent = copy[m][2];
+  }));
+
+  /* platform picture */
+  const stackEl = document.getElementById('stack');
+  let chip = null;
+  const io = new IntersectionObserver(es => {
+    if (!es[0].isIntersecting) return; io.disconnect();
+    import('/js/platform.js').then(m => { chip = m.mountPlatform(stackEl); }).catch(() => {});
+  }, { rootMargin: '600px 0px' });
+  io.observe(stackEl);
+
+  if (!hasG || reduce) return;
+
+  gsap.from('[data-intro]', { y: 24, opacity: 0, duration: 1.1, stagger: .1, ease: 'expo.out', delay: .2 });
+  gsap.from('#h1', { y: 30, opacity: 0, duration: 1.3, ease: 'expo.out' });
+  gsap.from('#panel', { y: 40, opacity: 0, duration: 1.4, ease: 'expo.out', delay: .35 });
+  gsap.utils.toArray('[data-rise]').forEach(el => gsap.to(el, { y: 0, opacity: 1, duration: 1.2, ease: 'expo.out', scrollTrigger: { trigger: el, start: 'top 88%' } }));
+  ScrollTrigger.create({ trigger: '#stack', start: 'top 85%', end: 'bottom 15%', scrub: true, onUpdate: s => { if (chip) { chip.setActive(Math.min(3, Math.floor(s.progress * 4))); } } });
+  if (matchMedia('(hover: hover)').matches) {
+    document.querySelectorAll('.card').forEach(c => {
+      c.addEventListener('pointermove', e => { const r = c.getBoundingClientRect(); const x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5; gsap.to(c, { rotateY: x * 6, rotateX: -y * 6, transformPerspective: 900, duration: .6, ease: 'power3.out' }); });
+      c.addEventListener('pointerleave', () => gsap.to(c, { rotateY: 0, rotateX: 0, duration: .9, ease: 'expo.out' }));
+    });
+  }
+  gsap.from('.contact h2', { scale: .92, opacity: 0, duration: 1.4, ease: 'expo.out', scrollTrigger: { trigger: '.contact', start: 'top 75%' } });
+  addEventListener('load', () => ScrollTrigger.refresh());
+})();
+</script>
+</body>
+</html>
