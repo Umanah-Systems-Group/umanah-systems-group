@@ -1,4 +1,4 @@
-/* Reydious as a chip package, modelled in Blender: lid (intent), die (check), substrate (action), board (record).
+/* USG Radius as a chip package, modelled in Blender: lid (intent), die (check), substrate (action), board (record).
    Scroll pulls the layers apart; drag turns the whole package. A request of light drops through each layer. */
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
