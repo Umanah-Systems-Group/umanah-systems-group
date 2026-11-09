@@ -17,7 +17,7 @@
 <link rel="stylesheet" href="/css/platform.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter+Tight:wght@400..700&family=Inter:wght@300..700&display=swap" rel="stylesheet">
 <script type="importmap">{ "imports": { "three": "/vendor/three.module.min.js", "three/addons/": "/vendor/addons/" } }</script>
 <script>document.documentElement.classList.add('js');</script>
 <style>
@@ -38,7 +38,7 @@
   --text: #f0f2f5;
   --text-2: #9aa0ae;
   --text-3: #5d6477;
-  --display: "Space Grotesk", system-ui, sans-serif;
+  --display: "Inter Tight", "Inter", system-ui, sans-serif;
   --body: "Inter", system-ui, sans-serif;
   --s-small: clamp(.8125rem, .79rem + .1vw, .875rem);
   --s-body: clamp(1rem, .96rem + .2vw, 1.125rem);
@@ -59,7 +59,7 @@ body { margin: 0; background: var(--bg); color: var(--text); font-family: var(--
 @media (min-width: 2500px) { body { zoom: 1.33; } }
 a { color: inherit; }
 p { margin: 0; }
-h1, h2, h3 { margin: 0; font-family: var(--display); font-weight: 600; letter-spacing: -.035em; line-height: .98; text-wrap: balance; }
+h1, h2, h3 { margin: 0; font-family: var(--display); font-weight: 600; letter-spacing: -.012em; line-height: .98; text-wrap: balance; }
 ::selection { background: var(--orange); color: #08090c; }
 :focus-visible { outline: 2px solid var(--orange-hi); outline-offset: 4px; border-radius: 6px; }
 .wrap { width: 100%; max-width: calc(var(--max) + 2 * var(--gutter)); margin: 0 auto; padding-left: max(var(--gutter), env(safe-area-inset-left, 0px)); padding-right: max(var(--gutter), env(safe-area-inset-right, 0px)); }

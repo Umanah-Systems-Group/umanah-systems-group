@@ -17,7 +17,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="css/platform.css">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter+Tight:wght@400..700&family=Inter:wght@300..700&display=swap" rel="stylesheet">
 <link rel="preload" as="image" href="media/reel-poster.webp" media="(min-width: 961px)">
 <link rel="preload" as="image" href="media/reel-poster-m.webp" media="(max-width: 960px)">
 <script type="importmap">{ "imports": { "three": "./vendor/three.module.min.js", "three/addons/": "./vendor/addons/" } }</script>
@@ -43,7 +43,8 @@
   --paper: #e9e7e1;
   --ink: #101114;
   --ink-2: #4c4f57;
-  --display: "Space Grotesk", system-ui, sans-serif;
+  --display: "Inter Tight", "Inter", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
   --body: "Inter", system-ui, sans-serif;
   --s-small: clamp(.8125rem, .79rem + .1vw, .875rem);
   --s-body: clamp(1rem, .96rem + .2vw, 1.125rem);
@@ -64,18 +65,18 @@ body { margin: 0; background: var(--bg); color: var(--text); font-family: var(--
 @media (min-width: 2500px) { body { zoom: 1.33; } }
 a { color: inherit; }
 p { margin: 0; }
-h1, h2, h3 { margin: 0; font-family: var(--display); font-weight: 600; letter-spacing: -.035em; line-height: .98; text-wrap: balance; }
+h1, h2, h3 { margin: 0; font-family: var(--display); font-weight: 600; letter-spacing: -.012em; line-height: .98; text-wrap: balance; }
 ::selection { background: var(--orange); color: #08090c; }
 :focus-visible { outline: 2px solid var(--orange-hi); outline-offset: 4px; border-radius: 4px; }
 img, video { display: block; max-width: 100%; }
 .wrap { width: 100%; max-width: calc(var(--max) + 2 * var(--gutter)); margin: 0 auto; padding-left: max(var(--gutter), env(safe-area-inset-left, 0px)); padding-right: max(var(--gutter), env(safe-area-inset-right, 0px)); }
 .skip { position: absolute; left: 12px; top: -60px; z-index: 100; background: var(--orange); color: #08090c; padding: 10px 16px; border-radius: 4px; font-weight: 600; text-decoration: none; }
 .skip:focus { top: 12px; }
-.tick { display: inline-flex; align-items: center; gap: .6em; font-size: var(--s-small); color: var(--text-2); font-weight: 500; }
+.tick { display: inline-flex; align-items: center; gap: .7em; font-family: var(--mono); font-size: .8rem; color: var(--text-2); font-weight: 500; letter-spacing: .01em; }
 .tick::before { content: ""; width: 18px; height: 2px; background: var(--orange); border-radius: 2px; }
 .lede { font-size: var(--s-lead); color: var(--text-2); line-height: 1.5; max-width: 34em; text-wrap: pretty; }
 .line { display: block; overflow: hidden; padding-bottom: .08em; margin-bottom: -.08em; }
-.num-k { font-family: var(--display); font-variant-numeric: tabular-nums; color: var(--text-3); font-size: .8rem; }
+.num-k { font-family: var(--mono); letter-spacing: 0; font-variant-numeric: tabular-nums; color: var(--text-3); font-size: .8rem; }
 
 /* buttons */
 .btn { --bg: var(--orange); --fg: #0b0b0d; position: relative; display: inline-flex; align-items: center; justify-content: center; gap: .65em; min-height: 50px; padding: 0 1.5em; background: var(--bg); color: var(--fg); font-weight: 600; font-size: .98rem; text-decoration: none; border-radius: 4px; border: 1px solid transparent; overflow: hidden; isolation: isolate; transition: transform .5s var(--ease), box-shadow .5s var(--ease), color .4s; will-change: transform; cursor: pointer; font-family: inherit; }
@@ -123,7 +124,7 @@ img, video { display: block; max-width: 100%; }
 .hero-inner { position: absolute; inset: auto 0 0 0; z-index: 2; padding-bottom: clamp(28px, 5vh, 64px); }
 .hero-inner .wrap { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 40px; }
 .hero-inner { text-shadow: 0 2px 30px rgba(0,0,0,.45); }
-.hero h1 { font-size: var(--s-h1); max-width: 13ch; margin: 18px 0 22px; letter-spacing: -.045em; line-height: .94; }
+.hero h1 { font-size: var(--s-h1); max-width: 13ch; margin: 18px 0 22px; letter-spacing: -.018em; line-height: .98; }
 .hero h1 em { font-style: normal; color: var(--orange); }
 .hero .lede { color: rgba(240,242,245,.82); max-width: 33em; margin-bottom: 30px; }
 .actions { display: flex; flex-wrap: wrap; gap: 12px; }
@@ -135,17 +136,27 @@ img, video { display: block; max-width: 100%; }
 .chapters .bar { grid-column: 2; height: 1px; background: rgba(255,255,255,.18); position: relative; overflow: hidden; margin-top: 4px; }
 .chapters .bar i { position: absolute; inset: 0; background: var(--orange); transform: scaleX(0); transform-origin: left; }
 .chapter-m { display: none; }
-.credit { position: absolute; z-index: 2; right: clamp(16px, 2vw, 28px); top: calc(84px + env(safe-area-inset-top, 0px)); font-size: .7rem; color: rgba(240,242,245,.5); }
+.credit { font-family: var(--mono); position: absolute; z-index: 2; right: clamp(16px, 2vw, 28px); top: calc(84px + env(safe-area-inset-top, 0px)); font-size: .7rem; color: rgba(240,242,245,.5); }
 
-/* proof strip */
-.proof { border-bottom: 1px solid var(--line); }
-.proof .wrap { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
-.pf { padding: clamp(32px, 4vw, 56px) clamp(16px, 2.4vw, 40px); border-left: 1px solid var(--line); display: grid; grid-template-columns: auto 1fr; gap: 6px 22px; align-items: center; }
-.pf:first-child { border-left: 0; padding-left: 0; }
-.pf .n { grid-row: span 2; font-family: var(--display); font-weight: 600; font-size: clamp(3.4rem, 2rem + 4vw, 6.2rem); line-height: .85; letter-spacing: -.06em; color: var(--orange); font-variant-numeric: tabular-nums; }
-.pf h3 { font-size: clamp(1.05rem, .95rem + .4vw, 1.3rem); letter-spacing: -.015em; line-height: 1.2; }
-.pf p { font-size: .82rem; color: var(--text-3); line-height: 1.5; }
-.pf .glyph { grid-row: span 2; width: clamp(54px, 5vw, 76px); height: clamp(54px, 5vw, 76px); }
+/* awardable band */
+.award { padding: clamp(80px, 10vw, 140px) 0 clamp(64px, 8vw, 110px); border-bottom: 1px solid var(--line); background: radial-gradient(60% 50% at 50% 0%, rgba(232,97,26,.08), transparent 70%); }
+.award .head { display: grid; justify-items: center; text-align: center; gap: 18px; margin-bottom: clamp(40px, 5vw, 64px); }
+.award h2 { font-size: clamp(2.6rem, 1.2rem + 5.4vw, 6.4rem); font-weight: 700; letter-spacing: -.025em; line-height: .96; }
+.award h2 em { font-style: normal; color: var(--orange); }
+.award .head .lede { max-width: 40em; }
+.award-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; max-width: 1160px; margin: 0 auto; }
+.aw { position: relative; display: grid; grid-template-columns: auto 1fr; align-items: center; gap: clamp(20px, 3vw, 40px); padding: clamp(22px, 3vw, 40px); border: 1px solid var(--line-2); border-radius: var(--r); background: linear-gradient(160deg, var(--card-2), var(--card) 60%); text-decoration: none; color: var(--text); overflow: hidden; transition: border-color .5s, transform .6s var(--ease); }
+.aw:hover { border-color: rgba(232,97,26,.5); transform: translateY(-3px); }
+.aw .seal { width: clamp(124px, 11vw, 168px); aspect-ratio: 1; border-radius: 22%; background: #fff; display: block; padding: clamp(10px, 1.1vw, 16px); box-shadow: 0 24px 60px -24px rgba(0,0,0,.8), 0 0 0 1px rgba(255,255,255,.08); transition: transform .8s var(--ease); }
+.aw:hover .seal { transform: rotate(-4deg) scale(1.03); }
+.aw .seal img { display: block; width: 100%; height: auto; }
+.aw .n { display: block; font-family: var(--display); font-weight: 700; font-size: clamp(3.6rem, 2rem + 4.4vw, 6.4rem); line-height: .8; letter-spacing: -.03em; color: var(--orange); font-variant-numeric: tabular-nums; }
+.aw .txt { display: grid; justify-items: start; }
+.aw h3 { font-size: clamp(1.15rem, 1rem + .5vw, 1.45rem); letter-spacing: -.02em; line-height: 1.2; margin: 14px 0 8px; }
+.aw .src { font-family: var(--mono); font-size: .76rem; color: var(--text-3); display: inline-flex; gap: 8px; align-items: center; }
+.aw .src i { font-style: normal; transition: transform .5s var(--ease); }
+.aw:hover .src i { transform: translate(3px, -3px); }
+.award .fine { margin: 26px auto 0; max-width: 46em; text-align: center; font-size: .78rem; color: var(--text-3); line-height: 1.55; }
 
 /* section heads */
 .sec { padding: clamp(84px, 11vw, 160px) 0; }
@@ -172,7 +183,7 @@ img, video { display: block; max-width: 100%; }
 .tile.t-space h3, .tile.t-auto h3 { font-size: clamp(1.8rem, 1.2rem + 2vw, 3.4rem); }
 .tile p { font-size: var(--s-small); color: rgba(240,242,245,.78); max-width: 38em; line-height: 1.5; }
 .tile .num-k { position: absolute; z-index: 2; top: clamp(16px, 1.6vw, 24px); left: clamp(18px, 2vw, 30px); color: rgba(240,242,245,.7); }
-.tile .st { flex: none; display: inline-flex; align-items: center; gap: 7px; font-size: .72rem; padding: 5px 10px; border-radius: 3px; border: 1px solid rgba(255,255,255,.22); background: rgba(8,9,12,.45); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); color: rgba(240,242,245,.85); }
+.tile .st { flex: none; font-family: var(--mono); display: inline-flex; align-items: center; gap: 7px; font-size: .72rem; padding: 5px 10px; border-radius: 3px; border: 1px solid rgba(255,255,255,.22); background: rgba(8,9,12,.45); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); color: rgba(240,242,245,.85); }
 .tile .st::before { content: ""; width: 6px; height: 6px; border-radius: 50%; border: 1.5px solid var(--blue); }
 .tile .st.live::before { border: 0; background: var(--green); box-shadow: 0 0 8px var(--green); }
 .tile .go { position: absolute; z-index: 2; top: clamp(14px, 1.6vw, 22px); right: clamp(14px, 1.6vw, 22px); width: 38px; height: 38px; border-radius: 3px; display: grid; place-items: center; border: 1px solid rgba(255,255,255,.25); background: rgba(8,9,12,.35); transition: background .4s, border-color .4s, transform .6s var(--ease); }
@@ -200,14 +211,14 @@ img, video { display: block; max-width: 100%; }
 .platform h2 { font-size: var(--s-h2); margin: 18px 0 22px; }
 .steps { list-style: none; margin: 36px 0 0; padding: 0; display: grid; gap: 4px; counter-reset: s; }
 .steps li { position: relative; padding: 18px 20px 18px 64px; border-radius: 14px; border: 1px solid transparent; transition: background .5s, border-color .5s; }
-.steps li::before { counter-increment: s; content: "0" counter(s); position: absolute; left: 20px; top: 19px; font-family: var(--display); font-size: .9rem; color: var(--text-3); font-variant-numeric: tabular-nums; transition: color .4s; }
+.steps li::before { counter-increment: s; content: "0" counter(s); position: absolute; left: 20px; top: 20px; font-family: var(--mono); font-size: .9rem; color: var(--text-3); font-variant-numeric: tabular-nums; transition: color .4s; }
 .steps li b { display: block; font-family: var(--display); font-weight: 600; font-size: 1.15rem; letter-spacing: -.01em; margin-bottom: 2px; }
 .steps li span { color: var(--text-2); font-size: var(--s-small); }
 .steps li.on { background: rgba(255,255,255,.03); border-color: var(--line-2); }
 .steps li.on::before { color: var(--orange); }
 .stack-vis { position: relative; aspect-ratio: 1 / 1.05; width: 100%; max-width: 680px; justify-self: center; }
 .stack-vis canvas { position: absolute; inset: 0; display: block; }
-.stack-vis .tag { position: absolute; left: 0; top: 0; z-index: 2; pointer-events: none; font-size: .8rem; color: var(--text-3); padding: 5px 10px; border-radius: 999px; border: 1px solid var(--line); background: rgba(8,9,12,.6); backdrop-filter: blur(6px); white-space: nowrap; transition: color .4s, border-color .4s; will-change: transform; }
+.stack-vis .tag { font-family: var(--mono); position: absolute; left: 0; top: 0; z-index: 2; pointer-events: none; font-size: .8rem; color: var(--text-3); padding: 5px 10px; border-radius: 999px; border: 1px solid var(--line); background: rgba(8,9,12,.6); backdrop-filter: blur(6px); white-space: nowrap; transition: color .4s, border-color .4s; will-change: transform; }
 .stack-vis .tag.on { color: var(--text); border-color: rgba(232,97,26,.6); }
 .stack-vis .hint { position: absolute; left: 50%; bottom: 2%; transform: translateX(-50%); font-size: .75rem; color: var(--text-3); pointer-events: none; }
 .platform .more { margin-top: 30px; }
@@ -231,7 +242,7 @@ img, video { display: block; max-width: 100%; }
 .card .badge { align-self: flex-start; display: inline-flex; align-items: center; gap: 8px; font-size: .75rem; color: var(--orange-hi); border: 1px solid rgba(232,97,26,.35); background: var(--orange-dim); padding: 5px 11px; border-radius: 999px; }
 .card .badge::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--orange); }
 .card .body { padding: 26px 26px 28px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
-.card .k { font-size: .8rem; color: var(--orange); font-weight: 600; }
+.card .k { font-family: var(--mono); font-size: .76rem; color: var(--orange); font-weight: 600; }
 .card h3 { font-size: clamp(1.6rem, 1.3rem + 1vw, 2.2rem); letter-spacing: -.03em; }
 .card p { color: var(--text-2); font-size: var(--s-small); line-height: 1.6; }
 .card .go { margin-top: auto; padding-top: 14px; display: inline-flex; align-items: center; gap: 8px; font-weight: 600; font-size: .92rem; }
@@ -272,7 +283,7 @@ img, video { display: block; max-width: 100%; }
 /* footer with the name at the bottom */
 footer { padding: clamp(56px, 7vw, 96px) 0 0; color: var(--text-3); font-size: .85rem; border-top: 1px solid var(--line); overflow: hidden; }
 .foot { display: grid; grid-template-columns: minmax(0, 1.4fr) repeat(3, minmax(0, 1fr)); gap: 32px; }
-.foot h4 { margin: 0 0 14px; font-size: .78rem; font-weight: 500; color: var(--text-3); }
+.foot h4 { margin: 0 0 14px; font-family: var(--mono); font-size: .74rem; font-weight: 500; color: var(--text-3); }
 .foot ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
 .foot a { color: var(--text-2); text-decoration: none; transition: color .3s; }
 .foot a:hover { color: var(--text); }
@@ -303,10 +314,10 @@ footer { padding: clamp(56px, 7vw, 96px) 0 0; color: var(--text-3); font-size: .
   .chapter-m .segs i { width: 22px; height: 2px; background: rgba(255,255,255,.25); position: relative; overflow: hidden; }
   .chapter-m .segs i b { position: absolute; inset: 0; background: var(--orange); transform: scaleX(0); transform-origin: left; }
   .credit { top: auto; bottom: 10px; right: 50%; transform: translateX(50%); white-space: nowrap; }
-  .proof .wrap { grid-template-columns: 1fr; }
-  .pf { border-left: 0; border-top: 1px solid var(--line); padding: 34px 0; grid-template-columns: 1fr; justify-items: center; text-align: center; gap: 10px; }
-  .pf:first-child { border-top: 0; }
-  .pf .n, .pf .glyph { grid-row: auto; }
+  .award-grid { grid-template-columns: 1fr; max-width: 560px; }
+  .aw { grid-template-columns: 1fr; justify-items: center; text-align: center; gap: 22px; }
+  .aw .txt { justify-items: center; }
+  .aw .seal { width: 150px; }
   .sec-head { grid-template-columns: 1fr; justify-items: center; text-align: center; }
   .sec-head .lede { justify-self: center; }
   .mosaic { grid-template-columns: 1fr 1fr; grid-auto-rows: auto; }
@@ -394,7 +405,7 @@ footer { padding: clamp(56px, 7vw, 96px) 0 0; color: var(--text-3); font-size: .
     <div class="wrap">
       <div>
         <span class="tick" data-intro>Aerospace, robotics and semiconductors</span>
-        <h1 id="h1">Engineered for the frontier that <em>doesn't forgive.</em></h1>
+        <h1 id="h1">Engineered for the frontier that <em>doesn’t forgive.</em></h1>
         <p class="lede" data-intro>Umanah Systems Group builds technology for orbit, flight, autonomous machines and the chips beneath them, governed by one platform from the silicon up.</p>
         <div class="actions" data-intro>
           <a class="btn" href="#capabilities">Our capabilities <span class="arr" aria-hidden="true">→</span></a>
@@ -415,23 +426,24 @@ footer { padding: clamp(56px, 7vw, 96px) 0 0; color: var(--text-3); font-size: .
   </div>
 </section>
 
-<section class="proof" aria-label="Independent assessments">
+<section class="award" aria-labelledby="award-h">
   <div class="wrap">
-    <div class="pf" data-rise>
-      <span class="n" data-count="12">12</span>
-      <h3>Solutions assessed as awardable on Tradewinds</h3>
-      <p>Department of Defense, Chief Digital and Artificial Intelligence Office</p>
+    <div class="head" data-rise>
+      <span class="tick">Defense innovation marketplaces</span>
+      <h2 id="award-h">Assessed as awardable. <em>Twice over.</em></h2>
+      <p class="lede">Our solutions have been through independent assessment on two separate defense innovation marketplaces: the CDAO Tradewinds Solutions Marketplace and DARPA's ERIS Marketplace.</p>
     </div>
-    <div class="pf" data-rise>
-      <span class="n" data-count="2">2</span>
-      <h3>Solutions assessed as awardable by DARPA</h3>
-      <p>Defense Advanced Research Projects Agency</p>
+    <div class="award-grid">
+      <a class="aw" href="https://www.tradewindai.com" rel="noopener" data-rise>
+        <span class="seal"><img src="img/badges/tradewinds.webp" width="400" height="400" alt="Awardable badge, Chief Digital and Artificial Intelligence Office Tradewinds Solutions Marketplace" loading="lazy"></span>
+        <span class="txt"><span class="n" data-count="12">12</span><h3>Solutions assessed as awardable</h3><span class="src">CDAO Tradewinds Solutions Marketplace <i aria-hidden="true">↗</i></span></span>
+      </a>
+      <a class="aw" href="https://www.darpaconnect.us/eris" rel="noopener" data-rise>
+        <span class="seal"><img src="img/badges/eris.webp" width="399" height="400" alt="Awardable badge, ERIS Marketplace" loading="lazy"></span>
+        <span class="txt"><span class="n" data-count="2">2</span><h3>Solutions assessed as awardable</h3><span class="src">DARPA ERIS Marketplace <i aria-hidden="true">↗</i></span></span>
+      </a>
     </div>
-    <div class="pf" data-rise>
-      <svg class="glyph" viewBox="0 0 80 80" aria-hidden="true"><rect x="14" y="14" width="52" height="52" rx="3" fill="none" stroke="#e8611a" stroke-width="1.5"/><rect x="28" y="28" width="24" height="24" rx="2" fill="rgba(232,97,26,.18)" stroke="#e8611a" stroke-width="1.2"/><g stroke="rgba(240,242,245,.45)" stroke-width="1.2"><path d="M24 14V6M34 14V6M46 14V6M56 14V6M24 74v-8M34 74v-8M46 74v-8M56 74v-8M14 24H6M14 34H6M14 46H6M14 56H6M74 24h-8M74 34h-8M74 46h-8M74 56h-8"/></g></svg>
-      <h3>One platform from the chip to orbit</h3>
-      <p>USG Radius governs every system we build</p>
-    </div>
+    <p class="fine" data-rise>Awardable status does not constitute a government contract, funding commitment, endorsement, or guarantee of an award.</p>
   </div>
 </section>
 
@@ -618,7 +630,7 @@ footer { padding: clamp(56px, 7vw, 96px) 0 0; color: var(--text-3); font-size: .
     </div>
     <div class="legal">
       <span>© 2026 Umanah Systems Group</span>
-      <span>Film and photographs: NASA, public domain (Earth views from the ISS, Landsat, X-59, Alta X, Mars 2020 test rover, Psyche, Europa Clipper, ISS solar array, DSOC detector). Use of NASA imagery does not imply endorsement by NASA. Type: Space Grotesk and Inter (SIL Open Font License). 3D: three.js (MIT); model made in Blender. Motion: GSAP.</span>
+      <span>Film and photographs: NASA, public domain (Earth views from the ISS, Landsat, X-59, Alta X, Mars 2020 test rover, Psyche, Europa Clipper, ISS solar array, DSOC detector). Use of NASA imagery does not imply endorsement by NASA. Type: Inter Tight, Inter and IBM Plex Mono (SIL Open Font License). Awardable badges: CDAO Tradewinds Solutions Marketplace and ERIS Marketplace. 3D: three.js (MIT); model made in Blender. Motion: GSAP.</span>
     </div>
   </div>
   <div class="wordmark" aria-hidden="true">
@@ -756,7 +768,7 @@ footer { padding: clamp(56px, 7vw, 96px) 0 0; color: var(--text-3); font-size: .
   gsap.utils.toArray('[data-rise]').forEach(el => {
     gsap.to(el, { y: 0, opacity: 1, duration: 1.2, ease: 'expo.out', scrollTrigger: { trigger: el, start: 'top 90%' } });
   });
-  ['.cards', '.proof .wrap', '.how-rows', '.cta'].forEach(sel => {
+  ['.cards', '.award-grid', '.how-rows', '.cta'].forEach(sel => {
     const kids = document.querySelectorAll(sel + ' > [data-rise]');
     ScrollTrigger.create({ trigger: sel, start: 'top 88%', once: true, onEnter: () => gsap.to(kids, { y: 0, opacity: 1, duration: 1.2, ease: 'expo.out', stagger: .12, overwrite: true }) });
   });
