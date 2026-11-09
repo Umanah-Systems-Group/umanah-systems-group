@@ -177,11 +177,11 @@ h1, h2, h3 { margin: 0; font-family: var(--display); font-weight: 600; letter-sp
 .sec-head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px 48px; align-items: end; margin-bottom: clamp(40px, 6vw, 72px); }
 .sec-head h2 { font-size: var(--s-h2); margin-top: 18px; }
 .sec-head .lede { justify-self: end; max-width: 30em; }
-.cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(14px, 1.6vw, 22px); }
+.cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(14px, 1.6vw, 22px); }
 .card { position: relative; display: flex; flex-direction: column; border: 1px solid var(--line-2); border-radius: var(--r); background: var(--card); overflow: hidden; text-decoration: none; transform-style: preserve-3d; transition: border-color .5s, box-shadow .6s var(--ease); }
 .card:hover { border-color: rgba(232,97,26,.45); box-shadow: 0 30px 80px -40px rgba(232,97,26,.45); }
 .card .art { position: relative; aspect-ratio: 16 / 11; background: radial-gradient(120% 90% at 50% 0%, #161b29, var(--card) 70%); border-bottom: 1px solid var(--line); overflow: hidden; }
-.card .art.shot { background: #0b0d12; padding: 14px 14px 0; aspect-ratio: 16 / 11.2; }
+.card .art.shot { background: #0b0d12; padding: 14px 14px 0; aspect-ratio: 16 / 10; }
 .card .art .bar { display: flex; align-items: center; gap: 6px; height: 26px; padding: 0 10px; background: #161a24; border: 1px solid var(--line-2); border-bottom: 0; border-radius: 10px 10px 0 0; }
 .card .art .bar i { width: 8px; height: 8px; border-radius: 50%; background: #2a3040; }
 .card .art .bar span { margin-left: 8px; font-size: .7rem; color: var(--text-3); }
@@ -431,6 +431,34 @@ footer .legal { grid-column: 1 / -1; display: flex; flex-wrap: wrap; justify-con
       <p class="lede">Each product answers one hard question, checks its answer, and keeps a record anyone can verify.</p>
     </div>
     <div class="cards">
+      <a class="card" href="https://daedyl.com" rel="noopener" data-rise>
+        <span class="live">Live</span>
+        <div class="art shot">
+          <div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>daedyl.com</span></div>
+          <img src="img/daedyl.webp" alt="The Daedyl home page: a chip design workspace with a schematic, S-parameters and a noise figure chart." loading="lazy" width="1200" height="750">
+        </div>
+        <div class="body">
+          <span class="k">Semiconductor design</span>
+          <h3>Daedyl</h3>
+          <p class="q">Design chips you can trust.</p>
+          <p>An AI-native engineering environment to design, simulate, optimise and prove your work, with Daedyln, an engineering agent that works alongside you.</p>
+          <span class="go">daedyl.com <i aria-hidden="true">↗</i></span>
+        </div>
+      </a>
+      <a class="card" href="#contact" data-rise>
+        <span class="live">Private preview</span>
+        <div class="art shot">
+          <div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>McCoy Studio</span></div>
+          <img src="img/mccoy.webp" alt="McCoy Studio: a bracket under a stress test, coloured by stress, beside a chat where the assistant reports a safety factor of 3.99 and starts making the part lighter." loading="lazy" width="1200" height="720">
+        </div>
+        <div class="body">
+          <span class="k">Engineering design</span>
+          <h3>McCoy Studio</h3>
+          <p class="q">Describe a part. Get one you can build.</p>
+          <p>A conversational engineering design studio. Describe a part in plain words, by voice or with an image, and it builds a real parametric CAD model, checks it, simulates its strength, poses robots in McCoy Motion, designs the board inside and keeps every revision. Reydious decides and records every step.</p>
+          <span class="go">Ask for early access <i aria-hidden="true">→</i></span>
+        </div>
+      </a>
       <a class="card" href="https://loqsat.com" rel="noopener" data-rise>
         <span class="live">Live</span>
         <div class="art shot">
@@ -459,20 +487,6 @@ footer .legal { grid-column: 1 / -1; display: flex; flex-wrap: wrap; justify-con
           <p>Checks every answer against an independent source, says plainly when the sources disagree, and signs a record you can hand to an adjuster, a court or an auditor.</p>
           <span class="badge">Assessed as Awardable on Tradewinds</span>
           <span class="go">spattio.com <i aria-hidden="true">↗</i></span>
-        </div>
-      </a>
-      <a class="card" href="https://daedyl.com" rel="noopener" data-rise>
-        <span class="live">Live</span>
-        <div class="art shot">
-          <div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>daedyl.com</span></div>
-          <img src="img/daedyl.webp" alt="The Daedyl home page: a chip design workspace with a schematic, S-parameters and a noise figure chart." loading="lazy" width="1200" height="750">
-        </div>
-        <div class="body">
-          <span class="k">Semiconductor design</span>
-          <h3>Daedyl</h3>
-          <p class="q">Design chips you can trust.</p>
-          <p>An AI-native engineering environment to design, simulate, optimise and prove your work, with Daedyln, an engineering agent that works alongside you.</p>
-          <span class="go">daedyl.com <i aria-hidden="true">↗</i></span>
         </div>
       </a>
     </div>
