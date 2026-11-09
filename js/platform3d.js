@@ -37,6 +37,10 @@ export function mountPlatform3D(host) {
   try { renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true }); } catch (e) { return null; }
   if (!renderer.getContext()) return null;
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // phones: HTML callouts name each layer, the in-scene labels grow and the smallest ones step aside
+  const cos = [...host.querySelectorAll('.co[data-l]')];
+  const small = () => innerWidth <= 600;
+  const LS = small() ? 1.6 : innerWidth <= 960 ? 1.25 : 1;
   renderer.setPixelRatio(Math.min(devicePixelRatio || 1, innerWidth <= 960 ? 1.75 : 2));
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.35;
@@ -61,7 +65,7 @@ export function mountPlatform3D(host) {
     const e = edges(g, o.edge ?? 0xffffff, o.edgeOpacity ?? .22); e.position.copy(m.position); group.add(e);
     return m;
   }
-  function tag(group, x, y, yy, text, h, opts) { const s = label(text, h, opts); const [wx, wz] = at(x, y); s.position.set(wx, yy, wz); group.add(s); return s; }
+  function tag(group, x, y, yy, text, h, opts) { if (LS > 1 && h < .13) return null; const s = label(text, h * LS, opts); const [wx, wz] = at(x, y); s.position.set(wx, yy, wz); group.add(s); return s; }
 
   /* the five layers, top to bottom */
   const defs = [
@@ -82,7 +86,7 @@ export function mountPlatform3D(host) {
     const { tex, aspect } = textCanvas(d.name, { size: 60, mono: true, color: d.radius ? '#ffb27a' : '#aab0bd', pad: 26 });
     const ph = TH * .7, side = new THREE.Mesh(new THREE.PlaneGeometry(ph * aspect, ph), new THREE.MeshBasicMaterial({ map: tex, transparent: true, depthWrite: false }));
     side.position.set(-H + ph * aspect / 2 + .04, 0, H + .002); g.add(side);
-    pivot.add(g); g.userData = { slab, i };
+    pivot.add(g); g.userData = { slab, i, side, edge: g.children[1] };
     return g;
   });
   const [L0, L1, L2, L3, L4] = layers;
@@ -155,11 +159,14 @@ export function mountPlatform3D(host) {
   const beam = new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(), new THREE.Vector3()]), beamMat); beam.renderOrder = 19; pivot.add(beam);
 
   /* layout: gap between layers opens with scroll; layers drop in the first time */
-  let gap = .95, gapTo = .95, enter = reduce ? 1 : 0, seen = reduce;
+  let gap = .95 * (LS > 1.3 ? 1.32 : 1), gapTo = gap, enter = reduce ? 1 : 0, seen = reduce, focus = -1;
+  const lift = layers.map(() => 0);
   function place() {
     layers.forEach((g, i) => {
       const k = 4 - i, drop = (1 - easeOut(clamp01(enter * 1.6 - (4 - k) * .12))) * (1.6 + k * .3);
-      g.position.y = (k - 2) * gap + drop;
+      lift[i] += ((focus === i ? .32 : 0) - lift[i]) * .12;
+      g.position.y = (k - 2) * gap + drop + lift[i];
+      g.userData.edge.material.opacity = focus === i ? 1 : (i === 2 ? .8 : .2);
       g.visible = enter > (4 - k) * .07 || reduce;
     });
   }
@@ -167,14 +174,15 @@ export function mountPlatform3D(host) {
   const world = (obj, out = new THREE.Vector3()) => { obj.updateWorldMatrix(true, false); return obj.getWorldPosition(out).applyMatrix4(new THREE.Matrix4().copy(pivot.matrixWorld).invert()); };
 
   /* size: match the flat drawing it covers */
-  let W = 1, Hh = 1;
+  let W = 1, Hh = 1, cvX = 0, cvY = 0;
   function resize() {
     const r = svg.getBoundingClientRect(), hr = host.getBoundingClientRect();
     W = Math.max(1, r.width); Hh = Math.max(1, r.height);
-    cv.style.left = (r.left - hr.left) + 'px'; cv.style.top = (r.top - hr.top) + 'px';
+    cvX = r.left - hr.left; cvY = r.top - hr.top;
+    cv.style.left = cvX + 'px'; cv.style.top = cvY + 'px';
     renderer.setSize(W, Hh, false); cv.style.width = W + 'px'; cv.style.height = Hh + 'px';
     cam.aspect = W / Hh; cam.updateProjectionMatrix();
-    const d = 22; cam.position.set(d * .6, d * .52, d * .6); cam.lookAt(0, .05, 0);
+    const d = (W < 600 ? 19.5 : 22) * Math.max(1, (780 / 890) / (W / Hh)); cam.position.set(d * .6, d * .52, d * .6); cam.lookAt(0, .05, 0);
   }
   new ResizeObserver(resize).observe(host); resize();
 
@@ -235,11 +243,32 @@ export function mountPlatform3D(host) {
       beam.geometry.setFromPoints([from.clone(), to.clone()]); beamMat.opacity = .55;
     } else { orb.visible = false; beamMat.opacity = 0; }
     renderer.render(scene, cam);
+    if (useCos) placeCallouts();
   }
   requestAnimationFrame(frame);
 
+  /* callouts: each pill sits at its layer's left corner, so you can read what every layer is */
+  let useCos = false;
+  const anchor = new THREE.Vector3();
+  function placeCallouts() {
+    layers.forEach((g, i) => {
+      const el = cos[i]; if (!el) return;
+      anchor.set(-H, 0, H); g.localToWorld(anchor); anchor.project(cam);
+      const x = (anchor.x + 1) / 2 * W + cvX, y = (1 - anchor.y) / 2 * Hh + cvY;
+      el.style.transform = `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px)`;
+      el.classList.toggle('on', focus === i);
+      el.style.opacity = g.visible ? '' : '0';
+    });
+  }
+  function checkCos() {
+    useCos = cos.length > 0 && cos[0].offsetParent !== null;
+    layers.forEach(g => { g.userData.side.visible = !useCos; });
+  }
+  addEventListener('resize', checkCos); checkCos();
+
   return {
-    setProgress(pr) { gapTo = .82 + clamp01(pr) * .22; },
+    setProgress(pr) { gapTo = (.82 + clamp01(pr) * .22) * (LS > 1.3 ? 1.32 : 1); },
     setActive(i) { show(Math.max(0, Math.min(3, i))); },
+    setFocus(i) { focus = i; },
   };
 }

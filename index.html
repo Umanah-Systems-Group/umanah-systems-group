@@ -298,22 +298,60 @@ footer { padding: clamp(56px, 7vw, 96px) 0 0; color: var(--text-3); font-size: .
 /* reveal states (only when JS runs and motion is allowed) */
 .js:not(.reduce) [data-rise] { opacity: 0; transform: translateY(36px); }
 
+
+/* layer callouts and legend (phones and tablets; desktop keeps the labels on the slabs) */
+.rplat .cos, .platform .layers, .platform .steps-h { display: none; }
+
 /* ---------- stacked layouts: centre groups (Amaete's alignment rule) ---------- */
 @media (max-width: 60rem) {
-  .hero { padding: 0; height: 100svh; min-height: 600px; }
-  .film { border-radius: 0; background-image: url(media/reel-poster-m.webp); }
-  .film::after { background: linear-gradient(180deg, rgba(8,9,12,.65) 0%, rgba(8,9,12,0) 18%, rgba(8,9,12,.35) 38%, rgba(8,9,12,.94) 74%); }
+  /* hero on phones: the film gets its own clear window, the words sit underneath it */
+  .hero { padding: 0; height: auto; min-height: 0; display: flex; flex-direction: column; }
+  .film { height: 56svh; min-height: 330px; max-height: 620px; border-radius: 0; background-image: url(media/reel-poster-m.webp); }
+  .film::after { background: linear-gradient(180deg, rgba(8,9,12,.7) 0%, rgba(8,9,12,0) 22%, rgba(8,9,12,0) 70%, var(--bg) 100%); }
+  .hero-inner { position: relative; inset: auto; margin-top: -34px; padding-bottom: 56px; text-shadow: none; }
   .hero-inner .wrap { grid-template-columns: 1fr; justify-items: center; text-align: center; }
   .hero-inner .wrap > div { display: grid; justify-items: center; }
-  .hero h1 { margin: 14px auto 16px; }
-  .hero .lede { margin: 0 auto 24px; }
+  .hero h1 { margin: 16px auto 18px; }
+  .hero .lede { margin: 0 auto 28px; color: var(--text-2); }
+  .chapter-m { order: -1; margin: 0 0 26px !important; }
+  .credit { top: calc(min(max(56svh, 330px), 620px) - 70px); bottom: auto; right: 16px !important; transform: none !important; }
+  .thesis { padding: 96px 0; }
+  /* platform on phones: heading, the 3D stack with callouts, the legend, then the four steps */
+  .platform .intro { display: contents; }
+  .platform .wrap { justify-items: center; text-align: center; gap: 0; }
+  .platform .intro .tick { order: 1; }
+  .platform h2 { order: 2; max-width: 14ch; }
+  .platform .intro .lede { order: 3; max-width: 32em; }
+  .platform .rplat { order: 4; margin-top: 8px; }
+  .platform .rplat.is3d .stk { height: min(132vw, 820px); }
+  .platform .layers { order: 5; }
+  .platform .steps-h { display: block; order: 6; margin: 56px 0 0; font-family: var(--display); font-weight: 600; font-size: 1.35rem; letter-spacing: -.015em; color: var(--text); }
+  .platform .steps { order: 7; margin-top: 18px; }
+  .platform .more { order: 8; }
+  .rplat .cos { display: block; position: absolute; inset: 0; z-index: 3; pointer-events: none; }
+  .co { position: absolute; left: 0; top: 0; pointer-events: auto; cursor: pointer; display: inline-flex; align-items: center; gap: 7px; white-space: nowrap;
+    margin: 12px 0 0 0; padding: 5px 11px 5px 6px; border-radius: 999px; font-size: .78rem; font-weight: 500; color: var(--text);
+    background: rgba(12,14,20,.78); border: 1px solid rgba(255,255,255,.16); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    box-shadow: 0 8px 24px -10px rgba(0,0,0,.8); transition: border-color .4s, background .4s, opacity .4s; will-change: transform; }
+  .co b { font-family: var(--mono); font-weight: 500; font-size: .68rem; color: var(--text-3); min-width: 20px; height: 20px; border-radius: 50%; display: grid; place-items: center; background: rgba(255,255,255,.07); }
+  .co-or { border-color: rgba(232,97,26,.65); color: #ffd2b0; }
+  .co-or b { background: var(--orange); color: #0b0b0d; }
+  .co.on { border-color: var(--orange); background: rgba(40,20,10,.9); }
+  .platform .layers { display: grid; list-style: none; margin: 26px 0 0; padding: 0; width: 100%; max-width: 560px; gap: 8px; text-align: left; }
+  .layers button { all: unset; box-sizing: border-box; width: 100%; cursor: pointer; display: grid; grid-template-columns: 34px 1fr; gap: 12px; align-items: start; padding: 14px 16px; border-radius: 12px; border: 1px solid var(--line); background: rgba(255,255,255,.02); transition: border-color .4s, background .4s; }
+  .layers button:focus-visible { outline: 2px solid var(--orange); outline-offset: 3px; }
+  .layers b { font-family: var(--mono); font-weight: 500; font-size: .78rem; color: var(--text-3); padding-top: 3px; }
+  .layers strong { display: block; font-family: var(--display); font-weight: 600; font-size: 1.02rem; letter-spacing: -.01em; color: var(--text); margin-bottom: 3px; }
+  .layers span { font-size: .9rem; line-height: 1.45; color: var(--text-2); }
+  .layers .or b, .layers .or strong { color: var(--orange-hi, #f08040); }
+  .layers button.on, .layers button[aria-pressed="true"] { border-color: rgba(232,97,26,.6); background: rgba(232,97,26,.07); }
   .actions { justify-content: center; }
   .chapters { display: none; }
   .chapter-m { display: grid; justify-items: center; gap: 10px; margin-top: 24px; font-size: .82rem; color: rgba(240,242,245,.75); }
   .chapter-m .segs { display: flex; gap: 4px; }
   .chapter-m .segs i { width: 22px; height: 2px; background: rgba(255,255,255,.25); position: relative; overflow: hidden; }
   .chapter-m .segs i b { position: absolute; inset: 0; background: var(--orange); transform: scaleX(0); transform-origin: left; }
-  .credit { top: auto; bottom: 10px; right: 50%; transform: translateX(50%); white-space: nowrap; }
+  .credit { right: 50%; transform: translateX(50%); white-space: nowrap; }
   .award-grid { grid-template-columns: 1fr; max-width: 560px; }
   .aw { grid-template-columns: 1fr; justify-items: center; text-align: center; gap: 22px; }
   .aw .txt { justify-items: center; }
@@ -328,7 +366,6 @@ footer { padding: clamp(56px, 7vw, 96px) 0 0; color: var(--text-3); font-size: .
   .tile p { margin: 0 auto; }
   .mosaic-note { text-align: center; }
   .platform .wrap { grid-template-columns: 1fr; }
-  .platform .intro { text-align: center; display: grid; justify-items: center; }
   .platform .intro .lede { margin: 0 auto; }
   .steps { text-align: left; width: 100%; max-width: 560px; }
   .stack-vis { max-width: 520px; order: -1; aspect-ratio: 1 / .82; }
@@ -349,7 +386,7 @@ footer { padding: clamp(56px, 7vw, 96px) 0 0; color: var(--text-3); font-size: .
   .tile.t-air, .tile.t-robotics, .tile.t-chips, .tile.t-energy { grid-column: span 1; aspect-ratio: 4 / 4.6; }
 }
 @media (max-width: 560px) {
-  .actions .btn { flex: none; width: 100%; max-width: 340px; }
+  .actions .btn { flex: none; width: 100%; max-width: 360px; }
   .actions { flex-direction: column; align-items: center; width: 100%; }
   .hero h1 { font-size: clamp(2.5rem, 11.4vw, 3.3rem); }
   .hero .lede { font-size: 1.02rem; }
@@ -357,7 +394,6 @@ footer { padding: clamp(56px, 7vw, 96px) 0 0; color: var(--text-3); font-size: .
   .foot { grid-template-columns: 1fr 1fr; }
   .foot > div:last-child { grid-column: 1 / -1; }
 }
-@media (max-height: 700px) and (max-width: 60rem) { .hero .lede { display: none; } }
 @media (min-width: 2200px) { .hero { height: calc(100svh / 1.2); min-height: 0; } .band { min-height: calc(80svh / 1.2); } }
 @media (min-width: 2500px) { .hero { height: calc(100svh / 1.33); } .band { min-height: calc(80svh / 1.33); } }
 @media (prefers-reduced-motion: reduce) {
@@ -482,7 +518,7 @@ footer { padding: clamp(56px, 7vw, 96px) 0 0; color: var(--text-3); font-size: .
       <a class="tile t-auto" href="#platform" data-video="media/tile-autonomy.mp4">
         <img src="img/cap/autonomy.webp" alt="A six-rotor drone carrying a sensor mast against a clear blue sky" loading="lazy" width="1280" height="720">
         <span class="num-k">06</span><span class="go" aria-hidden="true">→</span>
-        <span class="cap"><span class="row"><h3>Governed autonomy</h3><span class="st live">USG Radius live</span></span><p>Every machine we build asks before it acts. USG Radius checks each request against defined limits and signs a record of what happened.</p></span>
+        <span class="cap"><span class="row"><h3>Autonomy with limits</h3><span class="st live">USG Radius live</span></span><p>Every machine we build asks before it acts. USG Radius checks each request against defined limits and signs a record of what happened.</p></span>
       </a>
     </div>
     <p class="mosaic-note">Film and photographs on this page are NASA public domain footage showing the kind of work each domain serves. They are not Umanah Systems Group hardware.</p>
@@ -503,6 +539,7 @@ footer { padding: clamp(56px, 7vw, 96px) 0 0; color: var(--text-3); font-size: .
       <span class="tick">The platform</span>
       <h2 id="plat-h">USG Radius sits between intent and action.</h2>
       <p class="lede">One foundation for machines, AI and software. Before anything acts, USG Radius checks that it is allowed, and keeps a signed record of what happened.</p>
+      <p class="steps-h">How a request moves through it</p>
       <ol class="steps" id="steps">
         <li class="on"><b>Ask</b><span>A person, a model or a machine asks to do something.</span></li>
         <li><b>Check</b><span>The request is tested against defined limits before it runs.</span></li>
@@ -756,7 +793,21 @@ footer { padding: clamp(56px, 7vw, 96px) 0 0; color: var(--text-3); font-size: .
 <text class="lb xs" x="640.0" y="389.0">Watchdog</text>
 <text class="lb xs" x="225.5" y="388.0" text-anchor="middle">SDK + plug-in kits</text>
 </svg>
+      <div class="cos" aria-hidden="true">
+      <span class="co" data-l="0"><b>01</b>Products</span>
+      <span class="co" data-l="1"><b>02</b>People + AI agents</span>
+      <span class="co co-or" data-l="2"><b>03</b>USG Radius</span>
+      <span class="co" data-l="3"><b>04</b>Shared toolbox</span>
+      <span class="co" data-l="4"><b>05</b>Machines + systems</span>
+      </div>
     </div>
+    <ol class="layers" aria-label="The five layers of USG Radius, top to bottom">
+      <li><button type="button" data-layer="0" aria-pressed="false"><b>01</b><span><strong>Products</strong>Chip design, space, Earth data, robotics, cybersecurity and energy, each built on the Radius SDK.</span></button></li>
+      <li><button type="button" data-layer="1" aria-pressed="false"><b>02</b><span><strong>People + AI agents</strong>Design agents, planners, inspectors and watchdogs that work alongside people.</span></button></li>
+      <li><button type="button" data-layer="2" aria-pressed="false" class="or"><b>03</b><span><strong>USG Radius</strong>Every request is asked, checked by the guard, acted on, and written to a signed logbook.</span></button></li>
+      <li><button type="button" data-layer="3" aria-pressed="false"><b>04</b><span><strong>Shared toolbox</strong>AI, memory, simulation, design tools and plug-in kits that every product shares.</span></button></li>
+      <li><button type="button" data-layer="4" aria-pressed="false"><b>05</b><span><strong>Machines + systems</strong>Satellites, robots, chip tools, sensors and power grids: the hardware that acts.</span></button></li>
+    </ol>
 
   </div>
 </section>
@@ -837,7 +888,7 @@ footer { padding: clamp(56px, 7vw, 96px) 0 0; color: var(--text-3); font-size: .
       <p class="lede">We say plainly what is running and what is in development, and we let evidence move each program forward.</p>
     </div>
     <div class="how-rows">
-      <div class="how-row" data-rise><span class="num-k">01</span><h3>Governed by design</h3><p>Limits are written into the system and checked at the moment of action, never added afterwards.</p></div>
+      <div class="how-row" data-rise><span class="num-k">01</span><h3>Bounded by design</h3><p>Limits are written into the system and checked at the moment of action, never added afterwards.</p></div>
       <div class="how-row" data-rise><span class="num-k">02</span><h3>Assessed, not self-declared</h3><p>Twelve of our solutions have been assessed as awardable on Tradewinds, and two by DARPA.</p></div>
       <div class="how-row" data-rise><span class="num-k">03</span><h3>Accountable on record</h3><p>Every decision leaves a signed trail that partners, regulators and insurers can check.</p></div>
     </div>
@@ -1005,7 +1056,7 @@ footer { padding: clamp(56px, 7vw, 96px) 0 0; color: var(--text-3); font-size: .
 
   /* the film recedes as you scroll past */
   gsap.to('.film', { scale: .94, borderRadius: 14, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } });
-  gsap.to('.hero-inner', { yPercent: -30, opacity: 0, ease: 'none', scrollTrigger: { trigger: '.hero', start: '20% top', end: '80% top', scrub: true } });
+  if (matchMedia('(min-width: 961px)').matches) gsap.to('.hero-inner', { yPercent: -30, opacity: 0, ease: 'none', scrollTrigger: { trigger: '.hero', start: '20% top', end: '80% top', scrub: true } });
 
   /* generic reveals */
   gsap.utils.toArray('[data-rise]').forEach(el => {
