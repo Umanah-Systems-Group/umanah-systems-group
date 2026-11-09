@@ -1,39 +1,95 @@
-/* USG Radius as a platform: products on top, the Radius layer in the middle, machines underneath.
-   A request drops from a product, passes the four checks, reaches a machine, and lands in the logbook. */
-.rplat { position: relative; width: 100%; max-width: 640px; justify-self: center; display: grid; gap: 14px; font-family: var(--body); }
-.pf-row { border: 1px solid var(--line-2); border-radius: 16px; background: var(--card); padding: 16px 18px; }
-.pf-cap { display: block; font-size: .72rem; color: var(--text-3); margin-bottom: 10px; letter-spacing: .02em; }
-.pf-items { display: flex; flex-wrap: wrap; gap: 8px; }
-.pf-items span { font-size: .82rem; color: var(--text-2); border: 1px solid var(--line-2); padding: 6px 12px; border-radius: 999px; background: rgba(255,255,255,.02); transition: color .4s, border-color .4s, background .4s; }
-.pf-items span.hot { color: var(--text); border-color: rgba(232,97,26,.6); background: var(--orange-dim); }
-.pf-core { position: relative; border: 1px solid rgba(232,97,26,.55); border-radius: 20px; padding: 20px 18px 18px; background: linear-gradient(160deg, rgba(232,97,26,.10), var(--card) 55%); box-shadow: 0 30px 90px -40px rgba(232,97,26,.55); }
-.pf-core .pf-name { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 14px; }
-.pf-core .pf-name b { font-family: var(--display); font-size: 1.35rem; font-weight: 600; letter-spacing: -.02em; }
-.pf-core .pf-name small { font-size: .74rem; color: var(--text-3); }
-.pf-stages { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
-.pf-stage { position: relative; border: 1px solid var(--line-2); border-radius: 12px; padding: 12px 12px 14px; background: rgba(8,9,12,.5); transition: border-color .45s, background .45s, transform .45s var(--ease); }
-.pf-stage small { display: block; font-size: .7rem; color: var(--text-3); font-variant-numeric: tabular-nums; transition: color .4s; }
-.pf-stage b { display: block; font-family: var(--display); font-weight: 600; font-size: 1rem; margin-top: 2px; }
-.pf-stage span { display: block; font-size: .72rem; color: var(--text-2); line-height: 1.35; margin-top: 3px; }
-.pf-stage.on { border-color: rgba(232,97,26,.75); background: rgba(232,97,26,.12); transform: translateY(-3px); }
-.pf-stage.on small { color: var(--orange); }
-.pf-stage.done small::after { content: " ✓"; color: var(--green); }
-.pf-tools { display: flex; flex-wrap: wrap; gap: 6px 14px; margin-top: 14px; padding-top: 12px; border-top: 1px dashed var(--line-2); font-size: .74rem; color: var(--text-3); }
-.pf-tools i { font-style: normal; color: var(--text-2); }
-.pf-link { position: relative; height: 34px; margin: -7px 0; }
-.pf-link::before { content: ""; position: absolute; left: 50%; top: 0; bottom: 0; width: 1px; background: linear-gradient(var(--line-2), rgba(232,97,26,.6), var(--line-2)); }
-.pf-link i { position: absolute; left: 50%; top: 0; width: 8px; height: 8px; margin-left: -4px; border-radius: 50%; background: var(--orange); box-shadow: 0 0 14px var(--orange); opacity: 0; }
-.rplat.pf-go1 .pf-link.l1 i { animation: pfdrop .7s var(--ease) forwards; }
-.rplat.pf-go2 .pf-link.l2 i { animation: pfdrop .7s var(--ease) forwards; }
-@keyframes pfdrop { 0% { top: 0; opacity: 0; } 20% { opacity: 1; } 100% { top: calc(100% - 8px); opacity: 0; } }
-.pf-bot .pf-items span.hot { color: var(--text); border-color: rgba(74,222,128,.55); background: rgba(74,222,128,.08); }
-.pf-log { margin-top: 2px; display: flex; justify-content: space-between; gap: 10px; font-size: .74rem; color: var(--text-3); }
-.pf-log b { color: var(--green); font-weight: 600; opacity: 0; transition: opacity .5s; }
-.rplat.logged .pf-log b { opacity: 1; }
-@media (max-width: 560px) {
-  .pf-stages { grid-template-columns: 1fr 1fr; }
-  .pf-core .pf-name { flex-direction: column; gap: 2px; }
+/* USG Radius as an isometric platform: products on top, the Radius layer in the middle, machines underneath. */
+.rplat { position: relative; width: 100%; max-width: 720px; margin: 0 auto; }
+.rplat .stk { display: block; width: 100%; height: auto; overflow: visible; font-family: var(--body, system-ui); }
+.stk .pl-top { fill: rgba(22,26,37,.82); stroke: rgba(255,255,255,.16); stroke-width: 1; }
+.stk .pl-side.l { fill: #0d1017; stroke: rgba(255,255,255,.08); }
+.stk .pl-side.r { fill: #0a0c12; stroke: rgba(255,255,255,.08); }
+.stk .pl-grid { stroke: rgba(255,255,255,.045); stroke-width: 1; }
+.stk .pl-mid .pl-top { fill: rgba(30,22,18,.9); stroke: rgba(232,97,26,.75); stroke-width: 1.4; }
+.stk .pl-mid .pl-side.l { fill: #2a1508; stroke: rgba(232,97,26,.5); }
+.stk .pl-mid .pl-side.r { fill: #1e0f06; stroke: rgba(232,97,26,.5); }
+.stk .pl-mid .pl-grid { stroke: rgba(232,97,26,.08); }
+.stk .glow { opacity: .9; }
+.stk .bx-t { fill: #2a3040; stroke: rgba(255,255,255,.18); }
+.stk .bx-l { fill: #1a1e29; stroke: rgba(255,255,255,.1); }
+.stk .bx-r { fill: #12151d; stroke: rgba(255,255,255,.1); }
+.stk .core-bx .bx-t { fill: #f08040; stroke: #ffb27a; }
+.stk .core-bx .bx-l { fill: #e8611a; stroke: #f08040; }
+.stk .core-bx .bx-r { fill: #b84a10; stroke: #e8611a; }
+.stk .core-ring { fill: rgba(232,97,26,.12); stroke: rgba(232,97,26,.7); }
+.stk .loop { fill: none; stroke: rgba(232,97,26,.45); stroke-width: 1.2; stroke-dasharray: 4 6; }
+.stk .lg .bx-t { fill: #3a2a20; stroke: rgba(232,97,26,.55); }
+.stk .lg .bx-l, .stk .lg .bx-r { fill: #22160f; stroke: rgba(232,97,26,.3); }
+.stk .mc-ring { fill: rgba(255,255,255,.02); stroke: rgba(255,255,255,.12); transition: fill .5s, stroke .5s; }
+.stk .st-dot { fill: #1a120d; stroke: rgba(232,97,26,.55); stroke-width: 1.2; transition: fill .4s, stroke .4s; }
+.stk .pd-tile { fill: rgba(255,255,255,.05); stroke: rgba(255,255,255,.22); transition: fill .5s, stroke .5s; }
+.stk .pd.soon .pd-tile { stroke-dasharray: 3 3; fill: transparent; }
+.stk text { fill: #c9ced8; font-size: 13.5px; letter-spacing: .01em; }
+.stk .lb { paint-order: stroke; stroke: #08090c; stroke-width: 4px; stroke-linejoin: round; }
+.stk .lb.sm { font-size: 11.5px; fill: #9aa0ae; }
+.stk .soon-t { fill: #7fa7ff; font-size: 11px; }
+.stk .pd.soon text { fill: #8a90a0; }
+.stk .cap { font-family: var(--mono, ui-monospace, monospace); font-size: 12px; letter-spacing: .14em; fill: #8a90a0; }
+.stk .cap-or { fill: #f08040; }
+.stk .st-lb { font-family: var(--display, inherit); font-weight: 600; font-size: 14px; fill: #f0f2f5; paint-order: stroke; stroke: #1a0f08; stroke-width: 4px; }
+.stk .core-lb { font-weight: 600; fill: #ffd2b0; }
+.stk .tools { font-size: 12px; fill: #9aa0ae; }
+.stk .bm { stroke: #f08040; stroke-width: 1.6; stroke-dasharray: 6 8; opacity: 0; transition: opacity .4s; }
+/* states driven by js/platform.js */
+.stk .pd.hot .pd-tile { fill: rgba(232,97,26,.28); stroke: #f08040; }
+.stk .pd.hot text { fill: #fff; }
+.stk .mc.hot .mc-ring { fill: rgba(232,97,26,.22); stroke: #f08040; }
+.stk .mc.hot text { fill: #fff; }
+.stk .bm.hot { opacity: 1; animation: stkFlow .9s linear infinite; }
+.stk .st.on .st-dot { fill: #e8611a; stroke: #ffb27a; }
+.stk .st.done .st-dot { fill: rgba(232,97,26,.35); }
+.stk .core { transform-box: fill-box; transform-origin: center; }
+.rplat.checking .stk .core-ring { animation: stkPulse 1.2s ease-out infinite; }
+.rplat.logged .stk .lg .bx-t { fill: #e8611a; stroke: #ffb27a; }
+@keyframes stkFlow { to { stroke-dashoffset: -28; } }
+@keyframes stkPulse { 0% { fill: rgba(232,97,26,.45); } 100% { fill: rgba(232,97,26,.08); } }
+@media (prefers-reduced-motion: reduce) { .stk .bm.hot, .rplat.checking .stk .core-ring { animation: none; } }
+/* layered stack */
+.stk .fl { font-family: var(--mono, ui-monospace, monospace); font-size: 13px; letter-spacing: .04em; fill: #9aa0ae; }
+.stk .fl-or { fill: #f08040; }
+.stk .wire { fill: none; stroke: rgba(140,160,255,.35); stroke-width: 1.2; }
+.stk .wire.or { stroke: rgba(232,97,26,.55); stroke-dasharray: 3 5; }
+.stk .hub .bx-t { fill: #f08040; stroke: #ffb27a; } .stk .hub .bx-l { fill: #e8611a; } .stk .hub .bx-r { fill: #b84a10; }
+.stk .hub-ring { fill: rgba(232,97,26,.12); stroke: rgba(232,97,26,.6); }
+.stk .pd-ring { fill: rgba(255,255,255,.03); stroke: rgba(255,255,255,.14); transition: fill .5s, stroke .5s; }
+.stk .pd.soon .pdb { opacity: .45; } .stk .pd.soon .pd-ring { stroke-dasharray: 3 3; }
+.stk .pd.hot .pd-ring { fill: rgba(232,97,26,.3); stroke: #f08040; }
+.stk .pd.hot .bx-t { fill: #f08040; }
+.stk .tb .bx-t, .stk .ag .bx-t { fill: #2d3550; stroke: rgba(140,160,255,.45); }
+.stk .sdk .bx-t { fill: #1d2233; stroke: rgba(255,255,255,.3); }
+.stk .dot { fill: rgba(255,255,255,.25); stroke: none; }
+.stk .lb.sm { font-size: 11.5px; fill: #9aa0ae; }
+.stk .pd-lb { font-size: 13px; }
+.stk .mc-lb { font-size: 12.5px; fill: #aab0bd; }
+.stk .st-lb { font-size: 13px; }
+.stk .st-lb.on { fill: #ffb27a; }
+.stk .sd { font-family: var(--mono, ui-monospace, monospace); font-size: 12.5px; letter-spacing: .05em; fill: #aab0bd; }
+.stk .sd-or { fill: #ffb27a; }
+.stk .lb.xs { font-size: 11px; fill: #8a90a0; }
+.stk .wire-f { fill: none; stroke: #9db0ff; stroke-width: 1.6; stroke-dasharray: 2 26; stroke-linecap: round; animation: stkFlow2 2.2s linear infinite; opacity: .8; }
+@keyframes stkFlow2 { to { stroke-dashoffset: -112; } }
+.stk .tbi.hot .bx-t { fill: #e8611a; stroke: #ffb27a; }
+.stk .mc.hot .bx-t { fill: #f08040; stroke: #ffb27a; }
+/* entrance: layers drop into place, top first */
+.rplat .ly { transform: translateY(calc(-60px - var(--k) * 26px)); opacity: 0; transition: transform 1.3s cubic-bezier(.16,1,.3,1), opacity .9s ease; transition-delay: calc((4 - var(--k)) * .14s); }
+.rplat.in .ly { transform: none; opacity: 1; }
+.rplat .bm, .rplat .lb, .rplat .st-lb { transition-property: opacity; }
+.rplat:not(.in) .stk > text, .rplat:not(.in) .stk > line { opacity: 0; }
+.stk > text { transition: opacity .8s ease 1.1s; }
+/* logbook: on Record a new signed page drops onto the stack */
+.stk .lg-new { opacity: 0; transform: translateY(-18px); transition: opacity .3s, transform .5s cubic-bezier(.3,1.4,.5,1); }
+.rplat.logged .stk .lg-new { opacity: 1; transform: none; }
+.rplat.logged .stk .lg-new .bx-t { fill: #e8611a; stroke: #ffb27a; }
+.stk .ly-rad .pl-top { transition: fill .5s; }
+.rplat.checking .stk .ly-rad .pl-top { fill: rgba(48,26,14,.95); }
+@media (hover: hover) { .stk .ly { cursor: default; } }
+@media (prefers-reduced-motion: reduce) { .rplat .ly { transition: none; transform: none; opacity: 1; } .stk .wire-f { animation: none; } }
+@media (min-width: 961px) {
+  .platform .rplat, .workshop .rplat { align-self: start; margin-top: clamp(0px, 4vh, 48px); }
+  .platform .rplat .stk, .workshop .rplat .stk { height: min(calc(100svh - 150px), 820px); width: auto; max-width: 100%; margin: 0 auto; }
 }
-@media (prefers-reduced-motion: reduce) { .pf-link i { display: none; } }
-.pf-items span.soon { border-style: dashed; color: var(--text-3); }
-.pf-items span.soon em { font-style: normal; font-size: .7rem; color: var(--blue); margin-left: 4px; }
