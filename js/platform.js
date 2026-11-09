@@ -38,6 +38,15 @@ export function mountPlatform(host) {
     if (next === 0) pair++;
     show(next);
   }, 1400);
+  // tapping a layer's name (callout or legend row) lifts that layer
+  const named = [...host.querySelectorAll('.co[data-l]'), ...document.querySelectorAll('[data-layer]')];
+  let focus = -1;
+  function setFocus(i) {
+    focus = focus === i ? -1 : i;
+    if (p3 && p3.setFocus) p3.setFocus(focus);
+    named.forEach(el => { const k = +(el.dataset.l ?? el.dataset.layer); el.classList.toggle('on', k === focus); if (el.matches('button')) el.setAttribute('aria-pressed', k === focus); });
+  }
+  named.forEach(el => el.addEventListener('click', () => setFocus(+(el.dataset.l ?? el.dataset.layer))));
   return {
     setProgress(v) { prog = v; if (p3) p3.setProgress(v); },
     setActive(i) { driven = Date.now(); show(Math.max(0, Math.min(3, i))); }
