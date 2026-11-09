@@ -1,6 +1,6 @@
 /* USG Radius as a platform: products on top, the Radius layer in the middle, machines underneath.
    A request drops from a product, passes the four checks, reaches a machine, and lands in the logbook. */
-.pf { position: relative; width: 100%; max-width: 640px; justify-self: center; display: grid; gap: 14px; font-family: var(--body); }
+.rplat { position: relative; width: 100%; max-width: 640px; justify-self: center; display: grid; gap: 14px; font-family: var(--body); }
 .pf-row { border: 1px solid var(--line-2); border-radius: 16px; background: var(--card); padding: 16px 18px; }
 .pf-cap { display: block; font-size: .72rem; color: var(--text-3); margin-bottom: 10px; letter-spacing: .02em; }
 .pf-items { display: flex; flex-wrap: wrap; gap: 8px; }
@@ -23,13 +23,13 @@
 .pf-link { position: relative; height: 34px; margin: -7px 0; }
 .pf-link::before { content: ""; position: absolute; left: 50%; top: 0; bottom: 0; width: 1px; background: linear-gradient(var(--line-2), rgba(232,97,26,.6), var(--line-2)); }
 .pf-link i { position: absolute; left: 50%; top: 0; width: 8px; height: 8px; margin-left: -4px; border-radius: 50%; background: var(--orange); box-shadow: 0 0 14px var(--orange); opacity: 0; }
-.pf.pf-go1 .pf-link.l1 i { animation: pfdrop .7s var(--ease) forwards; }
-.pf.pf-go2 .pf-link.l2 i { animation: pfdrop .7s var(--ease) forwards; }
+.rplat.pf-go1 .pf-link.l1 i { animation: pfdrop .7s var(--ease) forwards; }
+.rplat.pf-go2 .pf-link.l2 i { animation: pfdrop .7s var(--ease) forwards; }
 @keyframes pfdrop { 0% { top: 0; opacity: 0; } 20% { opacity: 1; } 100% { top: calc(100% - 8px); opacity: 0; } }
 .pf-bot .pf-items span.hot { color: var(--text); border-color: rgba(74,222,128,.55); background: rgba(74,222,128,.08); }
 .pf-log { margin-top: 2px; display: flex; justify-content: space-between; gap: 10px; font-size: .74rem; color: var(--text-3); }
 .pf-log b { color: var(--green); font-weight: 600; opacity: 0; transition: opacity .5s; }
-.pf.logged .pf-log b { opacity: 1; }
+.rplat.logged .pf-log b { opacity: 1; }
 @media (max-width: 560px) {
   .pf-stages { grid-template-columns: 1fr 1fr; }
   .pf-core .pf-name { flex-direction: column; gap: 2px; }
