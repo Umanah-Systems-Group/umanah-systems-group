@@ -433,6 +433,70 @@ pre.code .k { color: var(--orange-hi); } pre.code .s { color: #9fd3a8; }
   .plug ul { grid-template-columns: 1fr; justify-items: start; max-width: 320px; }
 }
 @media (min-width: 961px) and (max-width: 1240px) { .cards.four { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.iso { width: 100%; height: auto; display: block; font-family: var(--body, Inter, system-ui, sans-serif); }
+.iso text { fill: #f0f2f5; }
+.iso .iso-cap { font: 600 13px/1 var(--display, system-ui); letter-spacing: .14em; fill: #f0f2f5; }
+.iso .iso-h { font: 600 12.5px/1 var(--display, system-ui); letter-spacing: .08em; }
+.iso .iso-big { font: 600 17px/1 var(--display, system-ui); letter-spacing: .16em; fill: #f08040; }
+.iso .iso-s { font-size: 11.5px; }
+.iso .iso-t { font-size: 9.5px; letter-spacing: .1em; fill: #9aa0ae; }
+.iso .iso-or { fill: #f08040; }
+.iso .iso-dark { fill: #0b0b0d; font-weight: 600; }
+.iso .iso-flow { stroke-dasharray: 10 400; stroke-dashoffset: 410; animation: isoflow 3.2s linear infinite; }
+@keyframes isoflow { to { stroke-dashoffset: 0; } }
+.iso .iso-pulse { stroke-dasharray: 6 300; stroke-dashoffset: 306; animation: isopulse 2.6s linear infinite; }
+@keyframes isopulse { to { stroke-dashoffset: 0; } }
+.iso .iso-ring { transform-box: fill-box; transform-origin: center; animation: isoring 2.8s ease-out infinite; }
+@keyframes isoring { 0% { transform: scale(.85); opacity: .9; } 100% { transform: scale(1.5); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .iso .iso-flow, .iso .iso-pulse, .iso .iso-ring { animation: none; opacity: 0; } }
+
+/* positioning (one line + capability list) */
+.pos { padding: clamp(80px, 10vw, 140px) 0; border-top: 1px solid var(--line); }
+.pos .wrap { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(32px, 6vw, 96px); align-items: start; }
+.pos .say { font-family: var(--display); font-weight: 500; font-size: clamp(1.4rem, 1rem + 1.5vw, 2.3rem); line-height: 1.22; letter-spacing: -.02em; margin-top: 22px; text-wrap: pretty; }
+.pos .say em { font-style: normal; color: var(--orange); }
+.caps { border-top: 1px solid var(--line-2); margin-top: 6px; }
+.caps details { border-bottom: 1px solid var(--line-2); }
+.caps summary { list-style: none; cursor: pointer; display: flex; align-items: center; gap: 14px; padding: 18px 2px; font-family: var(--display); font-size: clamp(1.1rem, 1rem + .5vw, 1.4rem); letter-spacing: -.01em; }
+.caps summary::-webkit-details-marker { display: none; }
+.caps summary::before { content: "+"; color: var(--orange); font-weight: 400; width: 16px; transition: transform .4s var(--ease); }
+.caps details[open] summary::before { transform: rotate(45deg); }
+.caps details p { color: var(--text-2); font-size: var(--s-small); padding: 0 2px 20px 30px; max-width: 36em; }
+.caps .k-cap { font-size: .75rem; color: var(--text-3); letter-spacing: .12em; }
+
+/* diagram */
+.diag { padding: clamp(80px, 10vw, 140px) 0; border-top: 1px solid var(--line); }
+.diag .frame { margin-top: clamp(32px, 5vw, 56px); border: 1px solid var(--line-2); border-radius: 22px; background: radial-gradient(120% 80% at 50% 0%, rgba(232,97,26,.06), transparent 60%), #0a0b10; padding: clamp(10px, 2vw, 28px); overflow-x: auto; }
+.diag .frame .iso { min-width: 760px; }
+.diag .read { margin-top: 16px; color: var(--text-3); font-size: .8rem; text-align: center; }
+
+/* industries */
+.ind { padding: clamp(80px, 10vw, 140px) 0; border-top: 1px solid var(--line); }
+.ind h2.huge { font-size: clamp(2.6rem, 1.4rem + 5vw, 6rem); margin: 18px 0 clamp(40px, 6vw, 80px); }
+.ind-row { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 2fr); gap: 24px 48px; padding: clamp(28px, 4vw, 48px) 0; border-top: 1px solid var(--line); }
+.ind-row h3 { font-size: clamp(1.5rem, 1.2rem + 1vw, 2.2rem); letter-spacing: -.02em; line-height: 1.1; }
+.ind-row h3 small { display: block; font-family: var(--body); font-size: var(--s-small); color: var(--text-3); font-weight: 400; letter-spacing: 0; margin-top: 10px; line-height: 1.5; }
+.ind-cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.ic { display: flex; flex-direction: column; gap: 8px; text-decoration: none; color: inherit; }
+.ic .lab { font-size: .7rem; letter-spacing: .12em; color: var(--text-3); text-transform: uppercase; }
+.ic .ph { aspect-ratio: 16 / 10; border-radius: 12px; overflow: hidden; border: 1px solid var(--line-2); background: radial-gradient(120% 90% at 50% 0%, #161b29, var(--card) 70%); display: grid; place-items: center; }
+.ic .ph img { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; transition: transform 1.2s var(--ease); }
+.ic:hover .ph img { transform: scale(1.05); }
+.ic .ph b { font-family: var(--display); font-size: 1.4rem; font-weight: 600; letter-spacing: -.02em; color: var(--text-2); }
+.ic p { color: var(--text-2); font-size: var(--s-small); line-height: 1.55; }
+.ic .st { align-self: flex-start; display: inline-flex; align-items: center; gap: 7px; font-size: .72rem; color: var(--text-2); }
+.ic .st::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--text-3); }
+.ic .st.on::before { background: var(--green); box-shadow: 0 0 8px var(--green); }
+.ic .st.next::before { background: var(--blue); }
+@media (max-width: 60rem) {
+  .pos .wrap { grid-template-columns: 1fr; }
+  .pos .intro { text-align: center; display: grid; justify-items: center; }
+  .ind-row { grid-template-columns: 1fr; text-align: center; }
+  .ind-cards { grid-template-columns: 1fr 1fr; text-align: left; }
+  .ind h2.huge { text-align: center; }
+  .ind .tick { display: flex; justify-content: center; }
+}
+@media (max-width: 560px) { .ind-cards { grid-template-columns: 1fr; max-width: 420px; margin: 0 auto; } }
 </style>
 </head>
 <body>
@@ -446,9 +510,9 @@ pre.code .k { color: var(--orange-hi); } pre.code .s { color: #9fd3a8; }
       <span>Umanah Systems Group</span>
     </a>
     <nav class="nav" aria-label="Main">
-      <a href="#idea">The idea</a>
+      <a href="#how">How it works</a>
       <a href="#see">See it work</a>
-      <a href="#connected">Connected</a>
+      <a href="#connected">Industries</a>
       <a href="/">Home</a>
       <a class="btn" href="#contact">Work with us <span class="arr" aria-hidden="true">→</span></a>
     </nav>
@@ -456,9 +520,9 @@ pre.code .k { color: var(--orange-hi); } pre.code .s { color: #9fd3a8; }
   </div>
 </header>
 <div class="sheet" id="sheet" aria-label="Menu">
-  <a href="#idea">The idea</a>
+  <a href="#how">How it works</a>
   <a href="#see">See it work</a>
-  <a href="#connected">Connected</a>
+  <a href="#connected">Industries</a>
   <a href="/">Home</a>
   <a class="btn" href="#contact">Work with us <span class="arr" aria-hidden="true">→</span></a>
 </div>
@@ -495,6 +559,245 @@ pre.code .k { color: var(--orange-hi); } pre.code .s { color: #9fd3a8; }
       <div class="answer" id="pans"><b>Allowed</b><span>Logbook entry EV-000418</span></div>
       <p class="foot">Ask, check, decide, record. Every time.</p>
     </div>
+  </div>
+</section>
+
+<section class="pos" aria-labelledby="pos-h">
+  <div class="wrap">
+    <div class="intro" data-rise>
+      <span class="tick">USG Radius</span>
+      <h2 id="pos-h" class="say">USG Radius is the software platform every Umanah Systems Group product runs on. It connects machines, sensors, AI and software from any maker into <em>one governed network</em>, checks every action before it happens, and keeps a signed record of all of it.</h2>
+    </div>
+    <div data-rise>
+      <span class="k-cap">USG RADIUS</span>
+      <div class="caps">
+        <details open><summary>Permissions + limits</summary><p>Who may do what, where, and until when. Every permission has an owner and an end date, and every machine has lines it must stay inside.</p></details>
+        <details><summary>Signed logbook</summary><p>Every request, yes and no, is written into a signed record nobody can quietly change, ready for a review, an audit or an investigation.</p></details>
+        <details><summary>Shared toolbox</summary><p>AI, memory, simulation and design tools, made once and reused by every product instead of rebuilt each time.</p></details>
+        <details><summary>Digital twins</summary><p>Try a proposed action on a virtual copy first. The copy gives advice; the permission check still makes the call.</p></details>
+        <details><summary>Radius SDK + plug-in kits</summary><p>Small kits so any software, robot or sensor can connect, from our products or another maker's, without being rewritten.</p></details>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="diag" id="how" aria-labelledby="how-h">
+  <div class="wrap">
+    <div class="sec-head" data-rise>
+      <div><span class="tick">How it fits together</span><h2 id="how-h">One layer between every decision and every machine.</h2></div>
+      <p class="lede">People, AI agents and our products ask. USG Radius checks, connects and records. Data, rules, AI models and machines plug in underneath.</p>
+    </div>
+    <div class="frame" data-rise>
+<svg class="iso" viewBox="0 0 1200 1021" role="img" aria-labelledby="iso-t iso-d" xmlns="http://www.w3.org/2000/svg">
+<title id="iso-t">How USG Radius works</title>
+<desc id="iso-d">People, AI agents and Umanah Systems Group products sit on top and reach USG Radius through its kits. In the middle, the USG Radius plate connects satellites, robots, sensors, power grids, chip design tools, factory machines and networks, with every request checked and recorded. Underneath, Radius plugs into data, rules, AI models and machines.</desc>
+<defs><linearGradient id="plateTop" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1a1f2c"/><stop offset="1" stop-color="#121621"/></linearGradient><radialGradient id="glow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#e8611a" stop-opacity=".28"/><stop offset="1" stop-color="#e8611a" stop-opacity="0"/></radialGradient></defs>
+<line x1="40" y1="44" x2="1160" y2="44" stroke="rgba(255,255,255,.14)"/>
+<rect x="470" y="30" width="260" height="28" rx="14" fill="#08090c" stroke="rgba(255,255,255,.14)"/>
+<text x="600" y="49" class="iso-cap" text-anchor="middle">PEOPLE + AI AGENTS</text>
+<g class="iso-panel"><rect x="80" y="78" width="300" height="122" rx="14" fill="#11141c" stroke="rgba(255,255,255,.14)"/>
+<text x="230.0" y="104" class="iso-h" text-anchor="middle">PRODUCTS</text>
+<rect x="96.0" y="120" width="57.6" height="24" rx="12" fill="rgba(255,255,255,.03)" stroke="rgba(255,255,255,.14)"/><text x="124.8" y="136" class="iso-s" text-anchor="middle">Daedyl</text>
+<rect x="159.6" y="120" width="57.6" height="24" rx="12" fill="rgba(255,255,255,.03)" stroke="rgba(255,255,255,.14)"/><text x="188.4" y="136" class="iso-s" text-anchor="middle">LoqSat</text>
+<rect x="223.2" y="120" width="64.2" height="24" rx="12" fill="rgba(255,255,255,.03)" stroke="rgba(255,255,255,.14)"/><text x="255.3" y="136" class="iso-s" text-anchor="middle">Spattio</text>
+<rect x="293.4" y="120" width="57.6" height="24" rx="12" fill="rgba(255,255,255,.03)" stroke="rgba(255,255,255,.14)"/><text x="322.2" y="136" class="iso-s" text-anchor="middle">Lucent</text>
+<rect x="96.0" y="152" width="97.2" height="24" rx="12" fill="rgba(255,255,255,.03)" stroke="rgba(255,255,255,.14)"/><text x="144.6" y="168" class="iso-s" text-anchor="middle">McCoy Studio</text>
+<rect x="199.2" y="152" width="84.0" height="24" rx="12" fill="rgba(255,255,255,.03)" stroke="rgba(255,255,255,.14)"/><text x="241.2" y="168" class="iso-s" text-anchor="middle">Vigilantyx</text>
+</g>
+<g class="iso-panel"><rect x="450" y="78" width="300" height="122" rx="14" fill="#11141c" stroke="rgba(255,255,255,.14)"/>
+<text x="600.0" y="104" class="iso-h" text-anchor="middle">AGENTS + AUTOMATION</text>
+<rect x="466.0" y="120" width="97.2" height="24" rx="12" fill="rgba(255,255,255,.03)" stroke="rgba(255,255,255,.14)"/><text x="514.6" y="136" class="iso-s" text-anchor="middle">Design agent</text>
+<rect x="569.2" y="120" width="64.2" height="24" rx="12" fill="rgba(255,255,255,.03)" stroke="rgba(255,255,255,.14)"/><text x="601.3" y="136" class="iso-s" text-anchor="middle">Planner</text>
+<rect x="639.4" y="120" width="77.4" height="24" rx="12" fill="rgba(255,255,255,.03)" stroke="rgba(255,255,255,.14)"/><text x="678.1" y="136" class="iso-s" text-anchor="middle">Inspector</text>
+<rect x="466.0" y="152" width="70.8" height="24" rx="12" fill="rgba(255,255,255,.03)" stroke="rgba(255,255,255,.14)"/><text x="501.4" y="168" class="iso-s" text-anchor="middle">Watchdog</text>
+</g>
+<g class="iso-panel"><rect x="820" y="78" width="300" height="122" rx="14" fill="#11141c" stroke="rgba(255,255,255,.14)"/>
+<text x="970.0" y="104" class="iso-h" text-anchor="middle">KITS + SDK</text>
+<rect x="836.0" y="120" width="84.0" height="24" rx="12" fill="rgba(255,255,255,.03)" stroke="rgba(255,255,255,.14)"/><text x="878.0" y="136" class="iso-s" text-anchor="middle">Radius SDK</text>
+<rect x="926.0" y="120" width="97.2" height="24" rx="12" fill="rgba(255,255,255,.03)" stroke="rgba(255,255,255,.14)"/><text x="974.6" y="136" class="iso-s" text-anchor="middle">Plug-in kits</text>
+<rect x="1029.2" y="120" width="44.4" height="24" rx="12" fill="rgba(255,255,255,.03)" stroke="rgba(255,255,255,.14)"/><text x="1051.4" y="136" class="iso-s" text-anchor="middle">Keys</text>
+<rect x="836.0" y="152" width="70.8" height="24" rx="12" fill="rgba(255,255,255,.03)" stroke="rgba(255,255,255,.14)"/><text x="871.4" y="168" class="iso-s" text-anchor="middle">Webhooks</text>
+</g>
+<path d="M170,200 C170,283.375 475.7,283.4 475.7,366.8" fill="none" stroke="rgba(255,255,255,.14)" stroke-width="1.2"/>
+<path d="M170,200 C170,283.375 475.7,283.4 475.7,366.8" fill="none" stroke="#e8611a" stroke-width="1.6" class="iso-flow" style="animation-delay:0.00s"/>
+<rect x="302.9" y="278.4" width="40" height="20" rx="10" fill="#08090c" stroke="rgba(255,255,255,.14)"/><text x="322.9" y="292.4" class="iso-t" text-anchor="middle">ASK</text>
+<path d="M290,200 C290,268.0 529.0,268.0 529.0,336.0" fill="none" stroke="rgba(255,255,255,.14)" stroke-width="1.2"/>
+<path d="M290,200 C290,268.0 529.0,268.0 529.0,336.0" fill="none" stroke="#e8611a" stroke-width="1.6" class="iso-flow" style="animation-delay:0.45s"/>
+<rect x="389.5" y="263.0" width="40" height="20" rx="10" fill="#08090c" stroke="rgba(255,255,255,.14)"/><text x="409.5" y="277.0" class="iso-t" text-anchor="middle">ASK</text>
+<path d="M560,200 C560,252.625 582.2,252.6 582.2,305.2" fill="none" stroke="rgba(255,255,255,.14)" stroke-width="1.2"/>
+<path d="M560,200 C560,252.625 582.2,252.6 582.2,305.2" fill="none" stroke="#e8611a" stroke-width="1.6" class="iso-flow" style="animation-delay:0.90s"/>
+<rect x="551.1" y="247.6" width="40" height="20" rx="10" fill="#08090c" stroke="rgba(255,255,255,.14)"/><text x="571.1" y="261.6" class="iso-t" text-anchor="middle">ASK</text>
+<path d="M640,200 C640,252.625 617.8,252.6 617.8,305.2" fill="none" stroke="rgba(255,255,255,.14)" stroke-width="1.2"/>
+<path d="M640,200 C640,252.625 617.8,252.6 617.8,305.2" fill="none" stroke="#e8611a" stroke-width="1.6" class="iso-flow" style="animation-delay:1.35s"/>
+<rect x="608.9" y="247.6" width="40" height="20" rx="10" fill="#08090c" stroke="rgba(255,255,255,.14)"/><text x="628.9" y="261.6" class="iso-t" text-anchor="middle">SDK</text>
+<path d="M910,200 C910,268.0 671.0,268.0 671.0,336.0" fill="none" stroke="rgba(255,255,255,.14)" stroke-width="1.2"/>
+<path d="M910,200 C910,268.0 671.0,268.0 671.0,336.0" fill="none" stroke="#e8611a" stroke-width="1.6" class="iso-flow" style="animation-delay:1.80s"/>
+<rect x="770.5" y="263.0" width="40" height="20" rx="10" fill="#08090c" stroke="rgba(255,255,255,.14)"/><text x="790.5" y="277.0" class="iso-t" text-anchor="middle">SDK</text>
+<path d="M1030,200 C1030,283.375 724.3,283.4 724.3,366.8" fill="none" stroke="rgba(255,255,255,.14)" stroke-width="1.2"/>
+<path d="M1030,200 C1030,283.375 724.3,283.4 724.3,366.8" fill="none" stroke="#e8611a" stroke-width="1.6" class="iso-flow" style="animation-delay:2.25s"/>
+<rect x="857.1" y="278.4" width="40" height="20" rx="10" fill="#08090c" stroke="rgba(255,255,255,.14)"/><text x="877.1" y="292.4" class="iso-t" text-anchor="middle">KIT</text>
+<text x="200" y="250" class="iso-t" text-anchor="middle">↑ READS + WRITES ↓</text>
+<text x="1000" y="250" class="iso-t" text-anchor="middle">↑ READS + WRITES ↓</text>
+<ellipse cx="600" cy="520" rx="430" ry="230" fill="url(#glow)"/>
+<polygon points="244.9,500.0 600.0,705.0 600.0,727.0 244.9,522.0" fill="#0c0e14" stroke="rgba(255,255,255,.14)"/>
+<polygon points="955.1,500.0 600.0,705.0 600.0,727.0 955.1,522.0" fill="#0f121a" stroke="rgba(255,255,255,.14)"/>
+<polygon points="600.0,295.0 955.1,500.0 600.0,705.0 244.9,500.0" fill="url(#plateTop)" stroke="rgba(232,97,26,.55)" stroke-width="1.4"/>
+<line x1="635.5" y1="315.5" x2="280.4" y2="520.5" stroke="rgba(255,255,255,.05)"/>
+<line x1="564.5" y1="315.5" x2="919.6" y2="520.5" stroke="rgba(255,255,255,.05)"/>
+<line x1="671.0" y1="336.0" x2="315.9" y2="541.0" stroke="rgba(255,255,255,.05)"/>
+<line x1="529.0" y1="336.0" x2="884.1" y2="541.0" stroke="rgba(255,255,255,.05)"/>
+<line x1="706.5" y1="356.5" x2="351.5" y2="561.5" stroke="rgba(255,255,255,.05)"/>
+<line x1="493.5" y1="356.5" x2="848.5" y2="561.5" stroke="rgba(255,255,255,.05)"/>
+<line x1="742.0" y1="377.0" x2="387.0" y2="582.0" stroke="rgba(255,255,255,.05)"/>
+<line x1="458.0" y1="377.0" x2="813.0" y2="582.0" stroke="rgba(255,255,255,.05)"/>
+<line x1="777.5" y1="397.5" x2="422.5" y2="602.5" stroke="rgba(255,255,255,.05)"/>
+<line x1="422.5" y1="397.5" x2="777.5" y2="602.5" stroke="rgba(255,255,255,.05)"/>
+<line x1="813.0" y1="418.0" x2="458.0" y2="623.0" stroke="rgba(255,255,255,.05)"/>
+<line x1="387.0" y1="418.0" x2="742.0" y2="623.0" stroke="rgba(255,255,255,.05)"/>
+<line x1="848.5" y1="438.5" x2="493.5" y2="643.5" stroke="rgba(255,255,255,.05)"/>
+<line x1="351.5" y1="438.5" x2="706.5" y2="643.5" stroke="rgba(255,255,255,.05)"/>
+<line x1="884.1" y1="459.0" x2="529.0" y2="664.0" stroke="rgba(255,255,255,.05)"/>
+<line x1="315.9" y1="459.0" x2="671.0" y2="664.0" stroke="rgba(255,255,255,.05)"/>
+<line x1="919.6" y1="479.5" x2="564.5" y2="684.5" stroke="rgba(255,255,255,.05)"/>
+<line x1="280.4" y1="479.5" x2="635.5" y2="684.5" stroke="rgba(255,255,255,.05)"/>
+<line x1="591.3" y1="375.0" x2="600.0" y2="500.0" stroke="rgba(232,97,26,.28)" stroke-width="1.2"/>
+<line x1="591.3" y1="375.0" x2="600.0" y2="500.0" stroke="#f08040" stroke-width="2" class="iso-pulse" style="animation-delay:0.00s"/>
+<line x1="721.2" y1="420.0" x2="600.0" y2="500.0" stroke="rgba(232,97,26,.28)" stroke-width="1.2"/>
+<line x1="721.2" y1="420.0" x2="600.0" y2="500.0" stroke="#f08040" stroke-width="2" class="iso-pulse" style="animation-delay:0.37s"/>
+<line x1="807.8" y1="500.0" x2="600.0" y2="500.0" stroke="rgba(232,97,26,.28)" stroke-width="1.2"/>
+<line x1="807.8" y1="500.0" x2="600.0" y2="500.0" stroke="#f08040" stroke-width="2" class="iso-pulse" style="animation-delay:0.74s"/>
+<line x1="461.4" y1="440.0" x2="600.0" y2="500.0" stroke="rgba(232,97,26,.28)" stroke-width="1.2"/>
+<line x1="461.4" y1="440.0" x2="600.0" y2="500.0" stroke="#f08040" stroke-width="2" class="iso-pulse" style="animation-delay:1.11s"/>
+<line x1="755.9" y1="560.0" x2="600.0" y2="500.0" stroke="rgba(232,97,26,.28)" stroke-width="1.2"/>
+<line x1="755.9" y1="560.0" x2="600.0" y2="500.0" stroke="#f08040" stroke-width="2" class="iso-pulse" style="animation-delay:1.48s"/>
+<line x1="400.8" y1="520.0" x2="600.0" y2="500.0" stroke="rgba(232,97,26,.28)" stroke-width="1.2"/>
+<line x1="400.8" y1="520.0" x2="600.0" y2="500.0" stroke="#f08040" stroke-width="2" class="iso-pulse" style="animation-delay:1.85s"/>
+<line x1="496.1" y1="605.0" x2="600.0" y2="500.0" stroke="rgba(232,97,26,.28)" stroke-width="1.2"/>
+<line x1="496.1" y1="605.0" x2="600.0" y2="500.0" stroke="#f08040" stroke-width="2" class="iso-pulse" style="animation-delay:2.22s"/>
+<line x1="660.6" y1="630.0" x2="496.1" y2="605.0" stroke="rgba(232,97,26,.28)" stroke-width="1.2"/>
+<line x1="660.6" y1="630.0" x2="496.1" y2="605.0" stroke="#f08040" stroke-width="2" class="iso-pulse" style="animation-delay:2.59s"/>
+<line x1="591.3" y1="375.0" x2="721.2" y2="420.0" stroke="rgba(232,97,26,.28)" stroke-width="1.2"/>
+<line x1="591.3" y1="375.0" x2="721.2" y2="420.0" stroke="#f08040" stroke-width="2" class="iso-pulse" style="animation-delay:2.96s"/>
+<line x1="461.4" y1="440.0" x2="400.8" y2="520.0" stroke="rgba(232,97,26,.28)" stroke-width="1.2"/>
+<line x1="461.4" y1="440.0" x2="400.8" y2="520.0" stroke="#f08040" stroke-width="2" class="iso-pulse" style="animation-delay:3.33s"/>
+<line x1="807.8" y1="500.0" x2="755.9" y2="560.0" stroke="rgba(232,97,26,.28)" stroke-width="1.2"/>
+<line x1="807.8" y1="500.0" x2="755.9" y2="560.0" stroke="#f08040" stroke-width="2" class="iso-pulse" style="animation-delay:3.70s"/>
+<ellipse cx="591.3" cy="375.0" rx="36.6" ry="21.3" fill="rgba(232,97,26,.06)" stroke="rgba(232,97,26,.35)" stroke-width="1.2"/>
+<polygon points="570.6,349.0 591.3,361.0 591.3,387.0 570.6,375.0" fill="#141821"/>
+<polygon points="612.1,349.0 591.3,361.0 591.3,387.0 612.1,375.0" fill="#1b202c"/>
+<polygon points="591.3,337.0 612.1,349.0 591.3,361.0 570.6,349.0" fill="#262c3b" stroke="rgba(255,255,255,.18)" stroke-width=".8"/>
+<g class="iso-node"><rect x="552.3" y="305.0" width="78.0" height="22" rx="11" fill="#1b2030" stroke="rgba(255,255,255,.14)"/><text x="591.3" y="320.0" class="iso-s" text-anchor="middle">Satellites</text><text x="591.3" y="299.0" class="iso-t" text-anchor="middle">LoqSat</text></g>
+<ellipse cx="721.2" cy="420.0" rx="36.6" ry="21.3" fill="rgba(232,97,26,.06)" stroke="rgba(232,97,26,.35)" stroke-width="1.2"/>
+<polygon points="700.5,404.0 721.2,416.0 721.2,432.0 700.5,420.0" fill="#141821"/>
+<polygon points="742.0,404.0 721.2,416.0 721.2,432.0 742.0,420.0" fill="#1b202c"/>
+<polygon points="721.2,392.0 742.0,404.0 721.2,416.0 700.5,404.0" fill="#262c3b" stroke="rgba(255,255,255,.18)" stroke-width=".8"/>
+<g class="iso-node"><rect x="682.2" y="360.0" width="78.0" height="22" rx="11" fill="#1b2030" stroke="rgba(255,255,255,.14)"/><text x="721.2" y="375.0" class="iso-s" text-anchor="middle">Earth data</text><text x="721.2" y="354.0" class="iso-t" text-anchor="middle">Spattio</text></g>
+<ellipse cx="461.4" cy="440.0" rx="36.6" ry="21.3" fill="rgba(232,97,26,.06)" stroke="rgba(232,97,26,.35)" stroke-width="1.2"/>
+<polygon points="440.7,410.0 461.4,422.0 461.4,452.0 440.7,440.0" fill="#141821"/>
+<polygon points="482.2,410.0 461.4,422.0 461.4,452.0 482.2,440.0" fill="#1b202c"/>
+<polygon points="461.4,398.0 482.2,410.0 461.4,422.0 440.7,410.0" fill="#262c3b" stroke="rgba(255,255,255,.18)" stroke-width=".8"/>
+<g class="iso-node"><rect x="435.2" y="366.0" width="52.4" height="22" rx="11" fill="#1b2030" stroke="rgba(255,255,255,.14)"/><text x="461.4" y="381.0" class="iso-s" text-anchor="middle">Robots</text><text x="461.4" y="360.0" class="iso-t" text-anchor="middle">Lucent</text></g>
+<ellipse cx="807.8" cy="500.0" rx="36.6" ry="21.3" fill="rgba(232,97,26,.06)" stroke="rgba(232,97,26,.35)" stroke-width="1.2"/>
+<polygon points="787.1,488.0 807.8,500.0 807.8,512.0 787.1,500.0" fill="#141821"/>
+<polygon points="828.6,488.0 807.8,500.0 807.8,512.0 828.6,500.0" fill="#1b202c"/>
+<polygon points="807.8,476.0 828.6,488.0 807.8,500.0 787.1,488.0" fill="#262c3b" stroke="rgba(255,255,255,.18)" stroke-width=".8"/>
+<g class="iso-node"><rect x="765.6" y="444.0" width="84.4" height="22" rx="11" fill="#1b2030" stroke="rgba(255,255,255,.14)"/><text x="807.8" y="459.0" class="iso-s" text-anchor="middle">Chip design</text><text x="807.8" y="438.0" class="iso-t" text-anchor="middle">Daedyl</text></g>
+<ellipse cx="600.0" cy="500.0" rx="56.1" ry="32.7" fill="rgba(232,97,26,.06)" stroke="rgba(232,97,26,.75)" stroke-width="1.2"/>
+<ellipse cx="600.0" cy="500.0" rx="56.1" ry="32.7" fill="none" stroke="#e8611a" stroke-width="1.5" class="iso-ring"/>
+<polygon points="555.0,486.0 600.0,512.0 600.0,526.0 555.0,500.0" fill="#1a100a"/>
+<polygon points="645.0,486.0 600.0,512.0 600.0,526.0 645.0,500.0" fill="#22150d"/>
+<polygon points="600.0,460.0 645.0,486.0 600.0,512.0 555.0,486.0" fill="#2a1a10" stroke="rgba(255,255,255,.18)" stroke-width=".8"/>
+<polygon points="568.8,470.0 600.0,488.0 600.0,518.0 568.8,500.0" fill="#22140b"/>
+<polygon points="631.2,470.0 600.0,488.0 600.0,518.0 631.2,500.0" fill="#2c190e"/>
+<polygon points="600.0,452.0 631.2,470.0 600.0,488.0 568.8,470.0" fill="#3a2213" stroke="rgba(255,255,255,.18)" stroke-width=".8"/>
+<polygon points="582.7,456.0 600.0,466.0 600.0,510.0 582.7,500.0" fill="#a8460f"/>
+<polygon points="617.3,456.0 600.0,466.0 600.0,510.0 617.3,500.0" fill="#c25213"/>
+<polygon points="600.0,446.0 617.3,456.0 600.0,466.0 582.7,456.0" fill="#e8611a" stroke="rgba(255,255,255,.18)" stroke-width=".8"/>
+<g class="iso-node"><rect x="545.0" y="416.0" width="110.0" height="22" rx="11" fill="#e8611a" stroke="#e8611a"/><text x="600.0" y="431.0" class="iso-s iso-dark" text-anchor="middle">Guard + logbook</text><text x="600.0" y="410.0" class="iso-t" text-anchor="middle">USG Radius</text></g>
+<ellipse cx="400.8" cy="520.0" rx="36.6" ry="21.3" fill="rgba(232,97,26,.06)" stroke="rgba(232,97,26,.35)" stroke-width="1.2"/>
+<polygon points="380.0,498.0 400.8,510.0 400.8,532.0 380.0,520.0" fill="#141821"/>
+<polygon points="421.6,498.0 400.8,510.0 400.8,532.0 421.6,520.0" fill="#1b202c"/>
+<polygon points="400.8,486.0 421.6,498.0 400.8,510.0 380.0,498.0" fill="#262c3b" stroke="rgba(255,255,255,.18)" stroke-width=".8"/>
+<g class="iso-node"><rect x="342.6" y="454.0" width="116.4" height="22" rx="11" fill="#1b2030" stroke="rgba(255,255,255,.14)"/><text x="400.8" y="469.0" class="iso-s" text-anchor="middle">Factory machines</text><text x="400.8" y="448.0" class="iso-t" text-anchor="middle">Crucible</text></g>
+<ellipse cx="755.9" cy="560.0" rx="36.6" ry="21.3" fill="rgba(232,97,26,.06)" stroke="rgba(232,97,26,.35)" stroke-width="1.2"/>
+<polygon points="735.1,542.0 755.9,554.0 755.9,572.0 735.1,560.0" fill="#141821"/>
+<polygon points="776.7,542.0 755.9,554.0 755.9,572.0 776.7,560.0" fill="#1b202c"/>
+<polygon points="755.9,530.0 776.7,542.0 755.9,554.0 735.1,542.0" fill="#262c3b" stroke="rgba(255,255,255,.18)" stroke-width=".8"/>
+<g class="iso-node"><rect x="723.3" y="498.0" width="65.2" height="22" rx="11" fill="#1b2030" stroke="rgba(255,255,255,.14)"/><text x="755.9" y="513.0" class="iso-s" text-anchor="middle">Networks</text><text x="755.9" y="492.0" class="iso-t" text-anchor="middle">Vigilantyx</text></g>
+<ellipse cx="496.1" cy="605.0" rx="36.6" ry="21.3" fill="rgba(232,97,26,.06)" stroke="rgba(232,97,26,.35)" stroke-width="1.2"/>
+<polygon points="475.3,571.0 496.1,583.0 496.1,617.0 475.3,605.0" fill="#141821"/>
+<polygon points="516.9,571.0 496.1,583.0 496.1,617.0 516.9,605.0" fill="#1b202c"/>
+<polygon points="496.1,559.0 516.9,571.0 496.1,583.0 475.3,571.0" fill="#262c3b" stroke="rgba(255,255,255,.18)" stroke-width=".8"/>
+<g class="iso-node"><rect x="453.9" y="527.0" width="84.4" height="22" rx="11" fill="#1b2030" stroke="rgba(255,255,255,.14)"/><text x="496.1" y="542.0" class="iso-s" text-anchor="middle">Power grids</text><text x="496.1" y="521.0" class="iso-t" text-anchor="middle">Hyve / Rehzon</text></g>
+<ellipse cx="660.6" cy="630.0" rx="36.6" ry="21.3" fill="rgba(232,97,26,.06)" stroke="rgba(232,97,26,.35)" stroke-width="1.2"/>
+<polygon points="639.8,616.0 660.6,628.0 660.6,642.0 639.8,630.0" fill="#141821"/>
+<polygon points="681.4,616.0 660.6,628.0 660.6,642.0 681.4,630.0" fill="#1b202c"/>
+<polygon points="660.6,604.0 681.4,616.0 660.6,628.0 639.8,616.0" fill="#262c3b" stroke="rgba(255,255,255,.18)" stroke-width=".8"/>
+<g class="iso-node"><rect x="631.2" y="572.0" width="58.8" height="22" rx="11" fill="#1b2030" stroke="rgba(255,255,255,.14)"/><text x="660.6" y="587.0" class="iso-s" text-anchor="middle">Sensors</text><text x="660.6" y="566.0" class="iso-t" text-anchor="middle">Rehzon Grid</text></g>
+<g><rect x="480" y="697.0" width="240" height="34" rx="8" fill="#08090c" stroke="#e8611a"/><text x="600" y="720.0" class="iso-big" text-anchor="middle">USG RADIUS</text></g>
+<g class="iso-card"><rect x="24" y="330" width="232" height="190" rx="12" fill="#11141c" stroke="rgba(255,255,255,.14)"/><text x="40" y="356" class="iso-h">SAT-12  ·  Satellite</text>
+<text x="40" y="384" class="iso-s" fill="#9aa0ae">Status</text><text x="240" y="384" class="iso-s" text-anchor="end" fill="#4ade80">In orbit</text>
+<text x="40" y="406" class="iso-s" fill="#9aa0ae">Asks to</text><text x="240" y="406" class="iso-s" text-anchor="end" fill="#f0f2f5">Change orbit</text>
+<text x="40" y="428" class="iso-s" fill="#9aa0ae">Permission</text><text x="240" y="428" class="iso-s" text-anchor="end" fill="#f0f2f5">Until 28 Jan</text>
+<text x="40" y="450" class="iso-s" fill="#9aa0ae">Inside limits</text><text x="240" y="450" class="iso-s" text-anchor="end" fill="#4ade80">Yes</text>
+<text x="40" y="472" class="iso-s" fill="#9aa0ae">Decision</text><text x="240" y="472" class="iso-s" text-anchor="end" fill="#f08040">Allowed</text>
+<text x="40" y="494" class="iso-s" fill="#9aa0ae">Logbook</text><text x="240" y="494" class="iso-s" text-anchor="end" fill="#9aa0ae">EV-000418</text>
+<text x="40" y="512" class="iso-t">Illustrative</text></g>
+<g class="iso-card"><rect x="944" y="330" width="232" height="150" rx="12" fill="#11141c" stroke="rgba(255,255,255,.14)"/><text x="960" y="356" class="iso-h">Who may do what</text><text x="960" y="378" class="iso-t">WHO</text><text x="1040" y="378" class="iso-t">MAY</text><text x="1112" y="378" class="iso-t">UNTIL</text>
+<text x="960" y="402" class="iso-s">LoqSat</text><text x="1040" y="402" class="iso-s" fill="#9aa0ae">Propose</text><text x="1112" y="402" class="iso-s" fill="#f08040">Jan 28</text>
+<text x="960" y="422" class="iso-s">Daedyl</text><text x="1040" y="422" class="iso-s" fill="#9aa0ae">Run tools</text><text x="1112" y="422" class="iso-s" fill="#f08040">Owner</text>
+<text x="960" y="442" class="iso-s">Agent</text><text x="1040" y="442" class="iso-s" fill="#9aa0ae">Read</text><text x="1112" y="442" class="iso-s" fill="#f08040">1 hour</text>
+<text x="960" y="462" class="iso-s">Operator</text><text x="1040" y="462" class="iso-s" fill="#9aa0ae">Approve</text><text x="1112" y="462" class="iso-s" fill="#f08040">Shift</text>
+</g>
+<rect x="230" y="771.0" width="740" height="30" rx="8" fill="#0d0f14" stroke="rgba(255,255,255,.14)"/><text x="600" y="791.0" class="iso-s" text-anchor="middle">Permissions  ·  Limits  ·  Approvals  ·  End dates   |   Signed logbook  ·  Replay  ·  Audit</text>
+<rect x="230" y="809.0" width="740" height="26" rx="8" fill="#0d0f14" stroke="rgba(232,97,26,.4)"/><text x="600" y="827.0" class="iso-t iso-or" text-anchor="middle">YOUR HARDWARE  ·  YOUR CLOUD  ·  THE EDGE</text>
+<line x1="140.5" y1="837.0" x2="128.5" y2="877.0" stroke="rgba(255,255,255,.14)" stroke-dasharray="2 5"/>
+<line x1="156.5" y1="837.0" x2="150.5" y2="877.0" stroke="rgba(255,255,255,.14)" stroke-dasharray="2 5"/>
+<line x1="172.5" y1="837.0" x2="172.5" y2="877.0" stroke="rgba(255,255,255,.14)" stroke-dasharray="2 5"/>
+<line x1="188.5" y1="837.0" x2="194.5" y2="877.0" stroke="rgba(255,255,255,.14)" stroke-dasharray="2 5"/>
+<line x1="204.5" y1="837.0" x2="216.5" y2="877.0" stroke="rgba(255,255,255,.14)" stroke-dasharray="2 5"/>
+<rect x="40" y="881.0" width="265" height="98" rx="12" fill="#11141c" stroke="rgba(255,255,255,.14)"/>
+<rect x="52" y="893.0" width="117" height="32" rx="8" fill="rgba(255,255,255,.02)" stroke="rgba(255,255,255,.14)"/><circle cx="67" cy="909.0" r="4" fill="#e8611a"/><text x="78" y="913.5" class="iso-s">Telemetry</text>
+<rect x="176" y="893.0" width="117" height="32" rx="8" fill="rgba(255,255,255,.02)" stroke="rgba(255,255,255,.14)"/><circle cx="191" cy="909.0" r="4" fill="#e8611a"/><text x="202" y="913.5" class="iso-s">Sensors</text>
+<rect x="52" y="933.0" width="117" height="32" rx="8" fill="rgba(255,255,255,.02)" stroke="rgba(255,255,255,.14)"/><circle cx="67" cy="949.0" r="4" fill="#e8611a"/><text x="78" y="953.5" class="iso-s">Geospatial</text>
+<rect x="176" y="933.0" width="117" height="32" rx="8" fill="rgba(255,255,255,.02)" stroke="rgba(255,255,255,.14)"/><circle cx="191" cy="949.0" r="4" fill="#e8611a"/><text x="202" y="953.5" class="iso-s">Files</text>
+<text x="172.5" y="1007.0" class="iso-h" text-anchor="middle">DATA</text>
+<line x1="425.5" y1="837.0" x2="413.5" y2="877.0" stroke="rgba(255,255,255,.14)" stroke-dasharray="2 5"/>
+<line x1="441.5" y1="837.0" x2="435.5" y2="877.0" stroke="rgba(255,255,255,.14)" stroke-dasharray="2 5"/>
+<line x1="457.5" y1="837.0" x2="457.5" y2="877.0" stroke="rgba(255,255,255,.14)" stroke-dasharray="2 5"/>
+<line x1="473.5" y1="837.0" x2="479.5" y2="877.0" stroke="rgba(255,255,255,.14)" stroke-dasharray="2 5"/>
+<line x1="489.5" y1="837.0" x2="501.5" y2="877.0" stroke="rgba(255,255,255,.14)" stroke-dasharray="2 5"/>
+<rect x="325" y="881.0" width="265" height="98" rx="12" fill="#11141c" stroke="rgba(255,255,255,.14)"/>
+<rect x="337" y="893.0" width="117" height="32" rx="8" fill="rgba(255,255,255,.02)" stroke="rgba(255,255,255,.14)"/><circle cx="352" cy="909.0" r="4" fill="#e8611a"/><text x="363" y="913.5" class="iso-s">Permissions</text>
+<rect x="461" y="893.0" width="117" height="32" rx="8" fill="rgba(255,255,255,.02)" stroke="rgba(255,255,255,.14)"/><circle cx="476" cy="909.0" r="4" fill="#e8611a"/><text x="487" y="913.5" class="iso-s">Limits</text>
+<rect x="337" y="933.0" width="117" height="32" rx="8" fill="rgba(255,255,255,.02)" stroke="rgba(255,255,255,.14)"/><circle cx="352" cy="949.0" r="4" fill="#e8611a"/><text x="363" y="953.5" class="iso-s">Schedules</text>
+<rect x="461" y="933.0" width="117" height="32" rx="8" fill="rgba(255,255,255,.02)" stroke="rgba(255,255,255,.14)"/><circle cx="476" cy="949.0" r="4" fill="#e8611a"/><text x="487" y="953.5" class="iso-s">Approvals</text>
+<text x="457.5" y="1007.0" class="iso-h" text-anchor="middle">RULES</text>
+<line x1="710.5" y1="837.0" x2="698.5" y2="877.0" stroke="rgba(255,255,255,.14)" stroke-dasharray="2 5"/>
+<line x1="726.5" y1="837.0" x2="720.5" y2="877.0" stroke="rgba(255,255,255,.14)" stroke-dasharray="2 5"/>
+<line x1="742.5" y1="837.0" x2="742.5" y2="877.0" stroke="rgba(255,255,255,.14)" stroke-dasharray="2 5"/>
+<line x1="758.5" y1="837.0" x2="764.5" y2="877.0" stroke="rgba(255,255,255,.14)" stroke-dasharray="2 5"/>
+<line x1="774.5" y1="837.0" x2="786.5" y2="877.0" stroke="rgba(255,255,255,.14)" stroke-dasharray="2 5"/>
+<rect x="610" y="881.0" width="265" height="98" rx="12" fill="#11141c" stroke="rgba(255,255,255,.14)"/>
+<rect x="622" y="893.0" width="117" height="32" rx="8" fill="rgba(255,255,255,.02)" stroke="rgba(255,255,255,.14)"/><circle cx="637" cy="909.0" r="4" fill="#e8611a"/><text x="648" y="913.5" class="iso-s">Local models</text>
+<rect x="746" y="893.0" width="117" height="32" rx="8" fill="rgba(255,255,255,.02)" stroke="rgba(255,255,255,.14)"/><circle cx="761" cy="909.0" r="4" fill="#e8611a"/><text x="772" y="913.5" class="iso-s">Simulation</text>
+<rect x="622" y="933.0" width="117" height="32" rx="8" fill="rgba(255,255,255,.02)" stroke="rgba(255,255,255,.14)"/><circle cx="637" cy="949.0" r="4" fill="#e8611a"/><text x="648" y="953.5" class="iso-s">Digital twins</text>
+<rect x="746" y="933.0" width="117" height="32" rx="8" fill="rgba(255,255,255,.02)" stroke="rgba(255,255,255,.14)"/><circle cx="761" cy="949.0" r="4" fill="#e8611a"/><text x="772" y="953.5" class="iso-s">Memory</text>
+<text x="742.5" y="1007.0" class="iso-h" text-anchor="middle">AI MODELS</text>
+<line x1="995.5" y1="837.0" x2="983.5" y2="877.0" stroke="rgba(255,255,255,.14)" stroke-dasharray="2 5"/>
+<line x1="1011.5" y1="837.0" x2="1005.5" y2="877.0" stroke="rgba(255,255,255,.14)" stroke-dasharray="2 5"/>
+<line x1="1027.5" y1="837.0" x2="1027.5" y2="877.0" stroke="rgba(255,255,255,.14)" stroke-dasharray="2 5"/>
+<line x1="1043.5" y1="837.0" x2="1049.5" y2="877.0" stroke="rgba(255,255,255,.14)" stroke-dasharray="2 5"/>
+<line x1="1059.5" y1="837.0" x2="1071.5" y2="877.0" stroke="rgba(255,255,255,.14)" stroke-dasharray="2 5"/>
+<rect x="895" y="881.0" width="265" height="98" rx="12" fill="#11141c" stroke="rgba(255,255,255,.14)"/>
+<rect x="907" y="893.0" width="117" height="32" rx="8" fill="rgba(255,255,255,.02)" stroke="rgba(255,255,255,.14)"/><circle cx="922" cy="909.0" r="4" fill="#e8611a"/><text x="933" y="913.5" class="iso-s">Satellites</text>
+<rect x="1031" y="893.0" width="117" height="32" rx="8" fill="rgba(255,255,255,.02)" stroke="rgba(255,255,255,.14)"/><circle cx="1046" cy="909.0" r="4" fill="#e8611a"/><text x="1057" y="913.5" class="iso-s">Robots</text>
+<rect x="907" y="933.0" width="117" height="32" rx="8" fill="rgba(255,255,255,.02)" stroke="rgba(255,255,255,.14)"/><circle cx="922" cy="949.0" r="4" fill="#e8611a"/><text x="933" y="953.5" class="iso-s">CNC + motors</text>
+<rect x="1031" y="933.0" width="117" height="32" rx="8" fill="rgba(255,255,255,.02)" stroke="rgba(255,255,255,.14)"/><circle cx="1046" cy="949.0" r="4" fill="#e8611a"/><text x="1057" y="953.5" class="iso-s">Power grids</text>
+<text x="1027.5" y="1007.0" class="iso-h" text-anchor="middle">MACHINES</text>
+</svg>
+    </div>
+    <p class="read">Illustrative. On a phone, swipe the drawing sideways to see all of it.</p>
   </div>
 </section>
 
@@ -590,39 +893,17 @@ pre.code .k { color: var(--orange-hi); } pre.code .s { color: #9fd3a8; }
   </div>
 </section>
 
-<section class="products" id="connected" aria-labelledby="con-h">
+<section class="ind" id="connected" aria-labelledby="ind-h">
   <div class="wrap">
-    <div class="sec-head" data-rise>
-      <div><span class="tick">Connected today</span><h2 id="con-h">Products running on USG Radius.</h2></div>
-      <p class="lede">Each one asks USG Radius before it acts and keeps its record in the same logbook. Connected is not the same as proven in the field, and we say plainly which is which.</p>
-    </div>
-    <div class="cards four">
-      <a class="card" href="https://daedyl.com" rel="noopener" data-rise>
-        <span class="live">Connected</span>
-        <div class="art shot"><div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>daedyl.com</span></div><img src="/img/daedyl.webp" alt="The Daedyl home page: a chip design workspace." loading="lazy" width="1200" height="750"></div>
-        <div class="body"><span class="k">Semiconductor design</span><h3>Daedyl</h3><p>Every design tool job in Daedyl asks USG Radius first, and every answer goes in the logbook. The first product connected.</p><span class="go">daedyl.com <i aria-hidden="true">↗</i></span></div>
-      </a>
-      <a class="card" href="https://loqsat.com" rel="noopener" data-rise>
-        <span class="live">Connected</span>
-        <div class="art shot"><div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>loqsat.com</span></div><img src="/img/loqsat.webp" alt="The LoqSat home page: a globe of tracked satellites." loading="lazy" width="1200" height="750"></div>
-        <div class="body"><span class="k">Space traffic coordination</span><h3>LoqSat</h3><p>Asks USG Radius before it proposes a satellite manoeuvre, and records each proposal. Advice to operators, never a command.</p><span class="go">loqsat.com <i aria-hidden="true">↗</i></span></div>
-      </a>
-      <a class="card" href="https://spattio.com" rel="noopener" data-rise>
-        <span class="live">Connected</span>
-        <div class="art shot"><div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>spattio.com</span></div><img src="/img/spattio.webp" alt="The Spattio GroundTruth home page: Earth lit by the real sun." loading="lazy" width="1200" height="750"></div>
-        <div class="body"><span class="k">Verified Earth data</span><h3>Spattio GroundTruth</h3><p>Answers about place and time, checked against an independent source and kept in a signed record.</p><span class="go">spattio.com <i aria-hidden="true">↗</i></span></div>
-      </a>
-      <a class="card" href="/lucent-robotics.html" data-rise>
-        <span class="live">Connected</span>
-        <div class="art" style="aspect-ratio:16/11.2"><img src="/img/robotics.webp" alt="A robotic arm with a sensor head in a dark lab." loading="lazy" width="1200" height="900" style="height:100%;border:0"></div>
-        <div class="body"><span class="k">Robotics</span><h3>Lucent Robotics</h3><p>Robots for infrastructure inspection that stay inside the limits you set, with every action on the record.</p><span class="go">Lucent Robotics <i aria-hidden="true">→</i></span></div>
-      </a>
-    </div>
-    <div class="waiting" data-rise>
-      <div class="row"><b>Next to connect</b><a href="/vigilantyx.html" style="color:var(--text);text-decoration:none;border:1px solid rgba(91,141,238,.5);padding:4px 10px;border-radius:999px;font-size:.8rem">Vigilantyx</a></div>
-      <div class="row"><b>Signed up and waiting for their software</b>
-      <span>Ravionics</span><span>Maeviq</span><span>Torrqe</span><span>Caelyx Systems</span><span>Ibom Space</span><span>Crucible</span><span>Hyve Grid</span><span>Rehzon Grid</span></div>
-    </div>
+    <span class="tick">Where it plugs in</span>
+    <h2 id="ind-h" class="huge">One platform. Every kind of machine.</h2>
+    <div class="ind-row" data-rise><h3>Space<small>Satellites, orbits and the ground systems that talk to them.</small></h3><div class="ind-cards"><a class="ic" href="https://loqsat.com" rel="noopener"><span class="lab">LoqSat</span><div class="ph"><img src="/img/loqsat.webp" alt="The LoqSat home page" loading="lazy" width="1200" height="750"></div><p>Routes collision warnings between satellite operators and asks USG Radius before it proposes a manoeuvre. Advice, never a command.</p><span class="st on">Connected</span></a><div class="ic"><span class="lab">Ibom Space</span><div class="ph"><b>Ibom Space</b></div><p>Space systems from Umanah Systems Group.</p><span class="st ">Signed up, waiting for its software</span></div><div class="ic"><span class="lab">Ravionics</span><div class="ph"><b>Ravionics</b></div><p>Avionics from Umanah Systems Group.</p><span class="st ">Signed up, waiting for its software</span></div></div></div>
+    <div class="ind-row" data-rise><h3>Earth data<small>Answers about place and time you can prove.</small></h3><div class="ind-cards"><a class="ic" href="https://spattio.com" rel="noopener"><span class="lab">Spattio GroundTruth</span><div class="ph"><img src="/img/spattio.webp" alt="The Spattio GroundTruth home page" loading="lazy" width="1200" height="750"></div><p>Checks every answer against an independent source and keeps a signed record you can hand to an adjuster, a court or an auditor.</p><span class="st on">Connected</span></a></div></div>
+    <div class="ind-row" data-rise><h3>Robotics + inspection<small>Machines that move, inspect and report.</small></h3><div class="ind-cards"><a class="ic" href="/lucent-robotics.html"><span class="lab">Lucent Robotics</span><div class="ph"><img src="/img/robotics.webp" alt="A robotic arm with a sensor head" loading="lazy" width="1200" height="750"></div><p>Robots for infrastructure inspection that stay inside the limits you set, with every action on the record.</p><span class="st on">Connected</span></a><div class="ic"><span class="lab">McCoy Studio</span><div class="ph"><b>McCoy Studio</b></div><p>From Lucent Robotics.</p><span class="st on">Connected</span></div></div></div>
+    <div class="ind-row" data-rise><h3>Semiconductors<small>Chips designed, simulated and proven.</small></h3><div class="ind-cards"><a class="ic" href="https://daedyl.com" rel="noopener"><span class="lab">Daedyl</span><div class="ph"><img src="/img/daedyl.webp" alt="The Daedyl home page" loading="lazy" width="1200" height="750"></div><p>Every design tool job in Daedyl asks USG Radius first, and every answer goes in the logbook. The first product connected.</p><span class="st on">Connected</span></a></div></div>
+    <div class="ind-row" data-rise><h3>Cybersecurity<small>Keeping critical systems running and recoverable.</small></h3><div class="ind-cards"><a class="ic" href="/vigilantyx.html"><span class="lab">Vigilantyx</span><div class="ph"><b>Vigilantyx</b></div><p>Autonomous cyber recovery for mission-critical systems.</p><span class="st next">Next to connect</span></a><div class="ic"><span class="lab">Easley</span><div class="ph"><b>Easley</b></div><p>Coming soon.</p><span class="st ">Coming soon</span></div></div></div>
+    <div class="ind-row" data-rise><h3>Energy + sensing<small>Grids and the sensors that watch them.</small></h3><div class="ind-cards"><div class="ic"><span class="lab">Hyve Grid</span><div class="ph"><b>Hyve Grid</b></div><p>Sensor company from Umanah Systems Group.</p><span class="st ">Signed up, waiting for its software</span></div><a class="ic" href="/rehzon-grid.html"><span class="lab">Rehzon Grid</span><div class="ph"><b>Rehzon Grid</b></div><p>Sensor company from Umanah Systems Group.</p><span class="st ">Signed up, waiting for its software</span></a></div></div>
+    <div class="ind-row" data-rise><h3>Hardware + manufacturing<small>Parts designed, made and traced from design to delivery.</small></h3><div class="ind-cards"><a class="ic" href="/crucible.html"><span class="lab">Crucible</span><div class="ph"><b>Crucible</b></div><p>The USG hardware foundation: design, CNC, motors, sensors and actuators.</p><span class="st ">Signed up, waiting for its software</span></a><div class="ic"><span class="lab">Torrqe</span><div class="ph"><b>Torrqe</b></div><p>Motors from Umanah Systems Group.</p><span class="st ">Signed up, waiting for its software</span></div><div class="ic"><span class="lab">Maeviq</span><div class="ph"><b>Maeviq</b></div><p>From Umanah Systems Group.</p><span class="st ">Signed up, waiting for its software</span></div><div class="ic"><span class="lab">Caelyx Systems</span><div class="ph"><b>Caelyx</b></div><p>From Umanah Systems Group.</p><span class="st ">Signed up, waiting for its software</span></div></div></div>
   </div>
 </section>
 
@@ -669,7 +950,7 @@ pre.code .k { color: var(--orange-hi); } pre.code .s { color: #9fd3a8; }
       <span>USG Radius<small>One foundation for trustworthy machines, AI and software.</small></span>
     </a>
     <nav aria-label="Footer">
-      <a href="/">Home</a><a href="#idea">The idea</a><a href="#see">See it work</a><a href="#connected">Connected</a><a href="#contact">Contact</a><a href="/privacy.html">Privacy</a>
+      <a href="/">Home</a><a href="#idea">The idea</a><a href="#see">See it work</a><a href="#connected">Industries</a><a href="#contact">Contact</a><a href="/privacy.html">Privacy</a>
     </nav>
     <div class="legal">
       <span>© 2026 Umanah Systems Group. USG Radius is a Umanah Systems Group architecture.</span>
