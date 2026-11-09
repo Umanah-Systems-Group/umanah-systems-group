@@ -1,0 +1,39 @@
+/* USG Radius as a platform: products on top, the Radius layer in the middle, machines underneath.
+   A request drops from a product, passes the four checks, reaches a machine, and lands in the logbook. */
+.pf { position: relative; width: 100%; max-width: 640px; justify-self: center; display: grid; gap: 14px; font-family: var(--body); }
+.pf-row { border: 1px solid var(--line-2); border-radius: 16px; background: var(--card); padding: 16px 18px; }
+.pf-cap { display: block; font-size: .72rem; color: var(--text-3); margin-bottom: 10px; letter-spacing: .02em; }
+.pf-items { display: flex; flex-wrap: wrap; gap: 8px; }
+.pf-items span { font-size: .82rem; color: var(--text-2); border: 1px solid var(--line-2); padding: 6px 12px; border-radius: 999px; background: rgba(255,255,255,.02); transition: color .4s, border-color .4s, background .4s; }
+.pf-items span.hot { color: var(--text); border-color: rgba(232,97,26,.6); background: var(--orange-dim); }
+.pf-core { position: relative; border: 1px solid rgba(232,97,26,.55); border-radius: 20px; padding: 20px 18px 18px; background: linear-gradient(160deg, rgba(232,97,26,.10), var(--card) 55%); box-shadow: 0 30px 90px -40px rgba(232,97,26,.55); }
+.pf-core .pf-name { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 14px; }
+.pf-core .pf-name b { font-family: var(--display); font-size: 1.35rem; font-weight: 600; letter-spacing: -.02em; }
+.pf-core .pf-name small { font-size: .74rem; color: var(--text-3); }
+.pf-stages { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+.pf-stage { position: relative; border: 1px solid var(--line-2); border-radius: 12px; padding: 12px 12px 14px; background: rgba(8,9,12,.5); transition: border-color .45s, background .45s, transform .45s var(--ease); }
+.pf-stage small { display: block; font-size: .7rem; color: var(--text-3); font-variant-numeric: tabular-nums; transition: color .4s; }
+.pf-stage b { display: block; font-family: var(--display); font-weight: 600; font-size: 1rem; margin-top: 2px; }
+.pf-stage span { display: block; font-size: .72rem; color: var(--text-2); line-height: 1.35; margin-top: 3px; }
+.pf-stage.on { border-color: rgba(232,97,26,.75); background: rgba(232,97,26,.12); transform: translateY(-3px); }
+.pf-stage.on small { color: var(--orange); }
+.pf-stage.done small::after { content: " ✓"; color: var(--green); }
+.pf-tools { display: flex; flex-wrap: wrap; gap: 6px 14px; margin-top: 14px; padding-top: 12px; border-top: 1px dashed var(--line-2); font-size: .74rem; color: var(--text-3); }
+.pf-tools i { font-style: normal; color: var(--text-2); }
+.pf-link { position: relative; height: 34px; margin: -7px 0; }
+.pf-link::before { content: ""; position: absolute; left: 50%; top: 0; bottom: 0; width: 1px; background: linear-gradient(var(--line-2), rgba(232,97,26,.6), var(--line-2)); }
+.pf-link i { position: absolute; left: 50%; top: 0; width: 8px; height: 8px; margin-left: -4px; border-radius: 50%; background: var(--orange); box-shadow: 0 0 14px var(--orange); opacity: 0; }
+.pf.pf-go1 .pf-link.l1 i { animation: pfdrop .7s var(--ease) forwards; }
+.pf.pf-go2 .pf-link.l2 i { animation: pfdrop .7s var(--ease) forwards; }
+@keyframes pfdrop { 0% { top: 0; opacity: 0; } 20% { opacity: 1; } 100% { top: calc(100% - 8px); opacity: 0; } }
+.pf-bot .pf-items span.hot { color: var(--text); border-color: rgba(74,222,128,.55); background: rgba(74,222,128,.08); }
+.pf-log { margin-top: 2px; display: flex; justify-content: space-between; gap: 10px; font-size: .74rem; color: var(--text-3); }
+.pf-log b { color: var(--green); font-weight: 600; opacity: 0; transition: opacity .5s; }
+.pf.logged .pf-log b { opacity: 1; }
+@media (max-width: 560px) {
+  .pf-stages { grid-template-columns: 1fr 1fr; }
+  .pf-core .pf-name { flex-direction: column; gap: 2px; }
+}
+@media (prefers-reduced-motion: reduce) { .pf-link i { display: none; } }
+.pf-items span.soon { border-style: dashed; color: var(--text-3); }
+.pf-items span.soon em { font-style: normal; font-size: .7rem; color: var(--blue); margin-left: 4px; }

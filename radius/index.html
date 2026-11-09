@@ -14,6 +14,7 @@
 <meta property="og:url" content="https://www.umanahsystems.com/radius/">
 <meta property="og:image" content="https://www.umanahsystems.com/img/og.jpg">
 <meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="/css/platform.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
@@ -424,7 +425,7 @@ pre.code .k { color: var(--orange-hi); } pre.code .s { color: #9fd3a8; }
   .three { grid-template-columns: 1fr; max-width: 560px; margin: 0 auto; }
   .box { text-align: center; align-items: center; }
   .workshop .intro, .plug .intro { text-align: center; display: grid; justify-items: center; }
-  .workshop .stack-vis { order: -1; max-width: 480px; aspect-ratio: 1 / .82; }
+  .workshop .pf { order: -1; }
   .flow { grid-template-columns: 1fr; }
   .verdict { grid-template-columns: 1fr; text-align: center; }
   .verdict .ev { text-align: center; }
@@ -527,10 +528,24 @@ pre.code .k { color: var(--orange-hi); } pre.code .s { color: #9fd3a8; }
         <li><b>The logbook</b><span>A signed record of every decision, ready for a review, an audit or an investigation.</span></li>
       </ol>
     </div>
-    <div class="stack-vis" id="stack" role="img" aria-label="USG Radius shown as a chip package taken apart into four layers: intent, check, action and record. Drag to turn it.">
-      <span class="tag">01 Intent</span><span class="tag">02 Check</span><span class="tag">03 Action</span><span class="tag">04 Record</span>
-      <span class="hint">Drag to turn</span>
+    <div class="pf" id="stack" role="img" aria-label="USG Radius as a platform. Products sit on top, USG Radius in the middle, and machines and systems underneath. A request from a product is asked, checked, acted on and recorded before it reaches a machine.">
+      <div class="pf-row pf-top"><span class="pf-cap">Products</span><div class="pf-items"><span>Daedyl</span><span>LoqSat</span><span>Spattio</span><span>Lucent Robotics</span><span>McCoy Studio</span><span>Vigilantyx</span><span class="soon">Easley <em>soon</em></span></div></div>
+      <div class="pf-link l1"><i></i></div>
+      <div class="pf-core">
+        <div class="pf-name"><b>USG Radius</b><small>Every request passes through here</small></div>
+        <div class="pf-stages">
+          <div class="pf-stage"><small>01</small><b>Ask</b><span>Who wants to do what</span></div>
+          <div class="pf-stage"><small>02</small><b>Check</b><span>Allowed and inside the limits?</span></div>
+          <div class="pf-stage"><small>03</small><b>Act</b><span>Only a yes goes through</span></div>
+          <div class="pf-stage"><small>04</small><b>Record</b><span>Signed in the logbook</span></div>
+        </div>
+        <div class="pf-tools">Shared toolbox: <i>AI</i><i>Memory</i><i>Simulation</i><i>Design tools</i><i>Plug-in kits</i></div>
+      </div>
+      <div class="pf-link l2"><i></i></div>
+      <div class="pf-row pf-bot"><span class="pf-cap">Machines and systems</span><div class="pf-items"><span>Satellites</span><span>Robots</span><span>Chip tools</span><span>Sensors</span><span>Power grids</span></div>
+        <div class="pf-log"><span>Logbook</span><b>Signed</b></div></div>
     </div>
+
   </div>
 </section>
 
@@ -658,7 +673,7 @@ pre.code .k { color: var(--orange-hi); } pre.code .s { color: #9fd3a8; }
     </nav>
     <div class="legal">
       <span>© 2026 Umanah Systems Group. USG Radius is a Umanah Systems Group architecture.</span>
-      <span>Interface examples on this page are illustrative. 3D: three.js (MIT); model made in Blender. Motion: GSAP.</span>
+      <span>Interface examples on this page are illustrative. Motion: GSAP.</span>
     </div>
   </div>
 </footer>
@@ -710,12 +725,12 @@ pre.code .k { color: var(--orange-hi); } pre.code .s { color: #9fd3a8; }
     document.getElementById('ve').textContent = copy[m][2];
   }));
 
-  /* 3D chip package: loads when near */
-  const stackEl = document.getElementById('stack'); const labels = [...stackEl.querySelectorAll('.tag')];
+  /* platform picture */
+  const stackEl = document.getElementById('stack');
   let chip = null;
   const io = new IntersectionObserver(es => {
     if (!es[0].isIntersecting) return; io.disconnect();
-    import('/js/chip3d.js').then(m => { chip = m.mountChip(stackEl, labels); if (chip) { chip.setProgress(.6); chip.setActive(0); } }).catch(() => {});
+    import('/js/platform.js').then(m => { chip = m.mountPlatform(stackEl); }).catch(() => {});
   }, { rootMargin: '600px 0px' });
   io.observe(stackEl);
 
@@ -725,7 +740,7 @@ pre.code .k { color: var(--orange-hi); } pre.code .s { color: #9fd3a8; }
   gsap.from('#h1', { y: 30, opacity: 0, duration: 1.3, ease: 'expo.out' });
   gsap.from('#panel', { y: 40, opacity: 0, duration: 1.4, ease: 'expo.out', delay: .35 });
   gsap.utils.toArray('[data-rise]').forEach(el => gsap.to(el, { y: 0, opacity: 1, duration: 1.2, ease: 'expo.out', scrollTrigger: { trigger: el, start: 'top 88%' } }));
-  ScrollTrigger.create({ trigger: '#stack', start: 'top 85%', end: 'bottom 15%', scrub: true, onUpdate: s => { if (chip) { chip.setProgress(Math.min(1, .3 + s.progress * 1.2)); chip.setActive(Math.min(3, Math.floor(s.progress * 4))); } } });
+  ScrollTrigger.create({ trigger: '#stack', start: 'top 85%', end: 'bottom 15%', scrub: true, onUpdate: s => { if (chip) { chip.setActive(Math.min(3, Math.floor(s.progress * 4))); } } });
   if (matchMedia('(hover: hover)').matches) {
     document.querySelectorAll('.card').forEach(c => {
       c.addEventListener('pointermove', e => { const r = c.getBoundingClientRect(); const x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5; gsap.to(c, { rotateY: x * 6, rotateX: -y * 6, transformPerspective: 900, duration: .6, ease: 'power3.out' }); });

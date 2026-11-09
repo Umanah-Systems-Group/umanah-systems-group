@@ -16,6 +16,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="css/platform.css">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
 <script type="importmap">{ "imports": { "three": "./vendor/three.module.min.js", "three/addons/": "./vendor/addons/" } }</script>
 <script>document.documentElement.classList.add('js');</script>
@@ -412,17 +413,31 @@ footer .legal { grid-column: 1 / -1; display: flex; flex-wrap: wrap; justify-con
       <h2 id="plat-h">USG Radius sits between intent and action.</h2>
       <p class="lede">One foundation for machines, AI and software. Before anything acts, USG Radius checks that it is allowed, and keeps a signed record of what happened.</p>
       <ol class="steps" id="steps">
-        <li class="on"><b>Intent</b><span>A person, a model or a machine asks to do something.</span></li>
+        <li class="on"><b>Ask</b><span>A person, a model or a machine asks to do something.</span></li>
         <li><b>Check</b><span>The request is tested against defined limits before it runs.</span></li>
-        <li><b>Action</b><span>Only what passes reaches the hardware or the system.</span></li>
+        <li><b>Act</b><span>Only what passes reaches the hardware or the system.</span></li>
         <li><b>Record</b><span>Every decision is signed, so anyone can check it later.</span></li>
       </ol>
       <div class="more"><a class="btn ghost" href="/radius/">Explore USG Radius <span class="arr" aria-hidden="true">→</span></a></div>
     </div>
-    <div class="stack-vis" id="stack" role="img" aria-label="The USG Radius package taken apart into four layers: lid, die, substrate and board. Drag to turn it.">
-      <span class="tag">01 Intent</span><span class="tag">02 Check</span><span class="tag">03 Action</span><span class="tag">04 Record</span>
-      <span class="hint">Drag to turn</span>
+    <div class="pf" id="stack" role="img" aria-label="USG Radius as a platform. Products sit on top, USG Radius in the middle, and machines and systems underneath. A request from a product is asked, checked, acted on and recorded before it reaches a machine.">
+      <div class="pf-row pf-top"><span class="pf-cap">Products</span><div class="pf-items"><span>Daedyl</span><span>LoqSat</span><span>Spattio</span><span>Lucent Robotics</span><span>McCoy Studio</span><span>Vigilantyx</span><span class="soon">Easley <em>soon</em></span></div></div>
+      <div class="pf-link l1"><i></i></div>
+      <div class="pf-core">
+        <div class="pf-name"><b>USG Radius</b><small>Every request passes through here</small></div>
+        <div class="pf-stages">
+          <div class="pf-stage"><small>01</small><b>Ask</b><span>Who wants to do what</span></div>
+          <div class="pf-stage"><small>02</small><b>Check</b><span>Allowed and inside the limits?</span></div>
+          <div class="pf-stage"><small>03</small><b>Act</b><span>Only a yes goes through</span></div>
+          <div class="pf-stage"><small>04</small><b>Record</b><span>Signed in the logbook</span></div>
+        </div>
+        <div class="pf-tools">Shared toolbox: <i>AI</i><i>Memory</i><i>Simulation</i><i>Design tools</i><i>Plug-in kits</i></div>
+      </div>
+      <div class="pf-link l2"><i></i></div>
+      <div class="pf-row pf-bot"><span class="pf-cap">Machines and systems</span><div class="pf-items"><span>Satellites</span><span>Robots</span><span>Chip tools</span><span>Sensors</span><span>Power grids</span></div>
+        <div class="pf-log"><span>Logbook</span><b>Signed</b></div></div>
     </div>
+
   </div>
 </section>
 
@@ -603,7 +618,7 @@ footer .legal { grid-column: 1 / -1; display: flex; flex-wrap: wrap; justify-con
   wrapWords(th, false);
   const words = th.querySelectorAll('.w');
 
-  /* USG Radius chip package (Blender model) */
+  /* USG Radius as a platform: products, the Radius layer, machines */
   const stepsEl = [...document.querySelectorAll('#steps li')];
   let chip = null, active = 0, stackP = 0.6;
   const chipLabels = [...document.querySelectorAll('#stack .tag')];
@@ -615,7 +630,7 @@ footer .legal { grid-column: 1 / -1; display: flex; flex-wrap: wrap; justify-con
   const stackEl = document.getElementById('stack');
   const chipIO = new IntersectionObserver(es => {
     if (!es[0].isIntersecting) return; chipIO.disconnect();
-    import('./js/chip3d.js').then(m => { chip = m.mountChip(stackEl, chipLabels); layoutStack(stackP); }).catch(() => {});
+    import('./js/platform.js').then(m => { chip = m.mountPlatform(stackEl); layoutStack(stackP); }).catch(() => {});
   }, { rootMargin: '600px 0px' });
   chipIO.observe(stackEl);
   layoutStack(stackP);
