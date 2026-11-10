@@ -1,0 +1,3 @@
+/* The UMANAH wordmark at the foot of every page. */
+.umanah-wm { display: block; padding: 0 clamp(12px, 3vw, 48px) 4px; max-width: 1440px; margin: clamp(18px, 3vw, 40px) auto 0; overflow: hidden; }
+.umanah-wm svg { display: block; width: 100%; height: auto; }
