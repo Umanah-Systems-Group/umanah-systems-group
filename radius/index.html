@@ -98,6 +98,7 @@ h1, h2, h3 { margin: 0; font-family: var(--display); font-weight: 600; letter-sp
 .nav { display: flex; align-items: center; gap: 6px; }
 .nav a:not(.btn) { position: relative; padding: 10px 14px; text-decoration: none; color: var(--text-2); font-size: .95rem; font-weight: 500; border-radius: 999px; transition: color .3s, background .3s; }
 .nav a:not(.btn):hover { color: var(--text); background: rgba(255,255,255,.05); }
+.sheet a[aria-current="page"] { color: var(--orange); }
 .nav .btn { min-height: 44px; margin-left: 10px; font-size: .92rem; }
 .menu-btn { display: none; width: 46px; height: 46px; border-radius: 50%; border: 1px solid var(--line-2); background: transparent; color: var(--text); cursor: pointer; place-items: center; }
 .menu-btn span { display: block; width: 18px; height: 1.5px; background: currentColor; margin: 4px auto; transition: transform .45s var(--ease), opacity .3s; }
@@ -110,6 +111,17 @@ h1, h2, h3 { margin: 0; font-family: var(--display); font-weight: 600; letter-sp
 .sheet .btn { font-family: var(--body); font-size: 1rem; margin-top: 22px; justify-self: center; }
 .menu-open .sheet { opacity: 1; visibility: visible; }
 @media (max-width: 860px) { .nav { display: none; } .menu-btn { display: grid; } }
+/* The top bar matches the home page exactly, so the menu never changes between pages. */
+.top .wrap { max-width: calc(1440px + 2 * var(--gutter)); height: 68px; }
+.top .brand { gap: 11px; font-size: 1rem; } .top .brand svg { width: 30px; height: 30px; }
+.top .nav { gap: 2px; }
+.top .nav a:not(.btn) { padding: 8px 14px; color: rgba(240,242,245,.78); font-size: .9rem; border-radius: 0; background: none; }
+.top .nav a:not(.btn)::after { content: ""; position: absolute; left: 14px; right: 14px; bottom: 2px; height: 1px; border-radius: 0; background: var(--orange); transform: scaleX(0); transform-origin: left; transition: transform .5s var(--ease); }
+.top .nav a:not(.btn):hover { color: var(--text); background: none; }
+.top .nav a:not(.btn):hover::after, .top .nav a[aria-current="page"]::after { transform: none; }
+.top .nav a[aria-current="page"] { color: var(--text); }
+.top .nav .btn { border-radius: 4px; min-height: 40px; margin-left: 12px; font-size: .88rem; padding: 0 1.2em; }
+@media (max-width: 960px) { .top .nav { display: none; } .top .menu-btn { display: grid; } }
 
 /* hero */
 .hero { position: relative; min-height: 100svh; display: grid; align-items: center; padding-top: 96px; padding-bottom: 72px; overflow: hidden; }
@@ -368,8 +380,47 @@ footer .legal { grid-column: 1 / -1; display: flex; flex-wrap: wrap; justify-con
 .box h3 { font-size: clamp(1.3rem, 1.1rem + .6vw, 1.7rem); letter-spacing: -.02em; line-height: 1.12; }
 .box p { color: var(--text-2); font-size: var(--s-small); }
 
+
+/* problem cards: each one acts out its problem */
+.pbox { position: relative; overflow: hidden; transition: transform .6s var(--ease), border-color .5s, background .5s; }
+.pbox::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 2px; background: linear-gradient(90deg, transparent, var(--orange), transparent); transform: translateX(-100%); animation: pb-sweep 5s var(--ease) infinite; }
+.pbox:nth-child(2)::before { animation-delay: 1.6s; } .pbox:nth-child(3)::before { animation-delay: 3.2s; }
+.pbox::after { content: ""; position: absolute; inset: auto -20% -60% -20%; height: 80%; background: radial-gradient(closest-side, rgba(232,97,26,.16), transparent); opacity: 0; transition: opacity .6s; pointer-events: none; }
+.pbox:hover { transform: translateY(-6px); border-color: rgba(232,97,26,.45); background: var(--card-2, var(--card)); }
+.pbox:hover::after { opacity: 1; }
+@keyframes pb-sweep { 0% { transform: translateX(-100%); } 40%, 100% { transform: translateX(100%); } }
+.pv { width: 100%; max-width: 300px; height: auto; margin: 4px 0 6px; overflow: visible; }
+.pv-frame { fill: rgba(255,255,255,.02); stroke: var(--line-2); }
+.pv-k { font: 600 8px var(--body); letter-spacing: .14em; fill: var(--text-3); }
+.pv-v { font: 500 13px var(--display); fill: var(--text); }
+.pv-q { font: 700 13px var(--display); fill: var(--orange); animation: pv-blink 1.4s steps(2) infinite; }
+.pv-line { stroke: var(--line-2); }
+.pv-sig { fill: none; stroke: var(--text-2); stroke-width: 1.6; stroke-linecap: round; stroke-dasharray: 160; stroke-dashoffset: 160; animation: pv-draw 4.5s var(--ease) infinite; }
+.pv-stamp rect { fill: rgba(232,97,26,.1); stroke: var(--orange); stroke-width: 1.4; }
+.pv-stamp text { font: 700 10px var(--display); letter-spacing: .08em; fill: var(--orange); }
+.pv-stamp { transform-box: fill-box; transform-origin: center; animation: pv-stamp 4.5s var(--ease) infinite; }
+.pv-roll text { animation: pv-roll-a 4s var(--ease) infinite; }
+.pv-roll .pv-bad { fill: var(--orange); animation-name: pv-roll-b; }
+.pv-dot { fill: var(--orange); animation: pv-blink 1.4s steps(2) infinite; }
+.pv-rows rect { fill: rgba(255,255,255,.12); transform-box: fill-box; transform-origin: left; animation: pv-type 4s var(--ease) infinite; }
+.pv-rows rect:nth-child(2) { animation-delay: .2s; } .pv-rows rect:nth-child(3) { animation-delay: .4s; } .pv-rows rect:nth-child(4) { animation-delay: .6s; } .pv-rows rect:nth-child(5) { animation-delay: .8s; }
+.pv-rows .pv-gap { fill: none; stroke: var(--orange); stroke-dasharray: 4 4; animation: pv-gap 4s var(--ease) infinite; }
+@keyframes pv-draw { 0% { stroke-dashoffset: 160; } 45%, 100% { stroke-dashoffset: 0; } }
+@keyframes pv-stamp { 0%, 50% { opacity: 0; transform: scale(1.6) rotate(-12deg); } 60%, 92% { opacity: 1; transform: scale(1) rotate(-8deg); } 100% { opacity: 0; transform: scale(1) rotate(-8deg); } }
+@keyframes pv-roll-a { 0%, 40% { opacity: 1; transform: translateY(0); } 50%, 100% { opacity: 0; transform: translateY(-10px); } }
+@keyframes pv-roll-b { 0%, 40% { opacity: 0; transform: translateY(10px); } 50%, 95% { opacity: 1; transform: translateY(0); } 100% { opacity: 0; } }
+@keyframes pv-type { 0% { transform: scaleX(0); } 30%, 100% { transform: scaleX(1); } }
+@keyframes pv-gap { 0%, 35% { opacity: 0; } 45%, 100% { opacity: 1; } }
+@keyframes pv-blink { 50% { opacity: .2; } }
+@media (prefers-reduced-motion: reduce) { .pbox::before, .pv *, .pv-stamp, .pv-roll text { animation: none !important; } .pv-sig { stroke-dashoffset: 0; } .pv-roll text:first-child { opacity: 0; } }
+@media (max-width: 60rem) { .pv { margin-left: auto; margin-right: auto; } }
 /* workshop stack */
-.workshop .wrap { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: clamp(32px, 6vw, 96px); align-items: center; }
+.workshop .wrap { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: clamp(28px, 4vw, 64px) clamp(32px, 6vw, 96px); align-items: center; }
+.workshop .ws-head { grid-column: 1 / -1; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px clamp(32px, 6vw, 96px); align-items: end; }
+.workshop .ws-head .tick { grid-column: 1 / -1; }
+.workshop .ws-head h2 { margin-top: 0; }
+.workshop .ws-head .lede { margin: 0; }
+.workshop .rplat { align-self: center; }
 .layers { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; counter-reset: l; }
 .layers li { position: relative; display: grid; grid-template-columns: 56px 1fr; gap: 4px 16px; align-items: baseline; padding: 20px 22px; border: 1px solid var(--line-2); border-radius: 14px; background: var(--card); transition: border-color .5s, transform .6s var(--ease), background .5s; }
 .layers li::before { counter-increment: l; content: "0" counter(l); grid-row: span 2; font-family: var(--display); color: var(--text-3); font-variant-numeric: tabular-nums; }
@@ -427,6 +478,8 @@ pre.code .k { color: var(--orange-hi); } pre.code .s { color: #9fd3a8; }
   .three { grid-template-columns: 1fr; max-width: 560px; margin: 0 auto; }
   .box { text-align: center; align-items: center; }
   .workshop .intro, .plug .intro { text-align: center; display: grid; justify-items: center; }
+  .workshop .ws-head { grid-template-columns: 1fr; text-align: center; justify-items: center; }
+  .workshop .ws-head { order: -2; }
   .workshop .rplat { order: -1; }
   .flow { grid-template-columns: 1fr; }
   .verdict { grid-template-columns: 1fr; text-align: center; }
@@ -474,6 +527,7 @@ pre.code .k { color: var(--orange-hi); } pre.code .s { color: #9fd3a8; }
 
 /* industries */
 .ind { padding: clamp(80px, 10vw, 140px) 0; border-top: 1px solid var(--line); }
+.ind h2.huge .ln, .plug h2 .ln { display: block; }
 .ind h2.huge { font-size: clamp(2.6rem, 1.4rem + 5vw, 6rem); margin: 18px 0 clamp(40px, 6vw, 80px); }
 .ind-row { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 2fr); gap: 24px 48px; padding: clamp(28px, 4vw, 48px) 0; border-top: 1px solid var(--line); }
 .ind-row h3 { font-size: clamp(1.5rem, 1.2rem + 1vw, 2.2rem); letter-spacing: -.02em; line-height: 1.1; }
@@ -512,21 +566,23 @@ pre.code .k { color: var(--orange-hi); } pre.code .s { color: #9fd3a8; }
       <span>Umanah Systems Group</span>
     </a>
     <nav class="nav" aria-label="Main">
-      <a href="#how">How it works</a>
-      <a href="#see">See it work</a>
-      <a href="#connected">Industries</a>
-      <a href="/">Home</a>
-      <a class="btn" href="#contact">Work with us <span class="arr" aria-hidden="true">→</span></a>
+      <a href="/#capabilities">Capabilities</a>
+      <a href="/#platform">Platform</a>
+      <a href="/radius/" aria-current="page">Radius</a>
+      <a href="/#products">Products</a>
+      <a href="/#how">Company</a>
+      <a class="btn" href="#contact">Contact <span class="arr" aria-hidden="true">→</span></a>
     </nav>
     <button class="menu-btn" type="button" aria-expanded="false" aria-controls="sheet" aria-label="Open menu"><span></span><span></span><span></span></button>
   </div>
 </header>
 <div class="sheet" id="sheet" aria-label="Menu">
-  <a href="#how">How it works</a>
-  <a href="#see">See it work</a>
-  <a href="#connected">Industries</a>
-  <a href="/">Home</a>
-  <a class="btn" href="#contact">Work with us <span class="arr" aria-hidden="true">→</span></a>
+  <a href="/#capabilities">Capabilities</a>
+  <a href="/#platform">Platform</a>
+  <a href="/radius/" aria-current="page">Radius</a>
+  <a href="/#products">Products</a>
+  <a href="/#how">Company</a>
+  <a class="btn" href="#contact">Contact <span class="arr" aria-hidden="true">→</span></a>
 </div>
 
 <main id="main">
@@ -822,20 +878,22 @@ pre.code .k { color: var(--orange-hi); } pre.code .s { color: #9fd3a8; }
       <p class="lede">Most can't prove who allowed it. Rules live in documents, not inside the systems. When something goes wrong, the logs show what happened, but not who said yes or why.</p>
     </div>
     <div class="three">
-      <article class="box" data-rise><span class="n">01</span><h3>Nobody can prove who said yes</h3><p>A machine or AI can act without a clear, written permission that has an end date.</p></article>
-      <article class="box" data-rise><span class="n">02</span><h3>Things change without anyone noticing</h3><p>Software, settings and AI models get swapped out without anyone signing off.</p></article>
-      <article class="box" data-rise><span class="n">03</span><h3>The record has gaps</h3><p>Ordinary logs can be edited, lost, or missing the one detail an investigator needs.</p></article>
+      <article class="box pbox" data-rise><span class="n">01</span><svg class="pv pv-sign" viewBox="0 0 220 92" aria-hidden="true"><rect x="1" y="1" width="218" height="90" rx="10" class="pv-frame"/><text x="18" y="28" class="pv-k">PERMISSION</text><path class="pv-sig" d="M18 62c10-14 18-16 22-6s10 10 18-2 14-12 18 0 12 8 22-4"/><line x1="18" y1="72" x2="118" y2="72" class="pv-line"/><text x="18" y="86" class="pv-k">signed by</text><text x="70" y="86" class="pv-q">???</text><g class="pv-stamp"><rect x="138" y="34" width="66" height="30" rx="5"/><text x="171" y="54" text-anchor="middle">NO OWNER</text></g></svg><h3>Nobody can prove who said yes</h3><p>A machine or AI can act without a clear, written permission that has an end date.</p></article>
+      <article class="box pbox" data-rise><span class="n">02</span><svg class="pv pv-swap" viewBox="0 0 220 92" aria-hidden="true"><rect x="1" y="1" width="218" height="90" rx="10" class="pv-frame"/><text x="18" y="28" class="pv-k">APPROVED</text><text x="18" y="50" class="pv-v">model v1.4</text><text x="122" y="28" class="pv-k">RUNNING</text><g class="pv-roll"><text x="122" y="50" class="pv-v">model v1.4</text><text x="122" y="50" class="pv-v pv-bad">model v2.0</text></g><line x1="18" y1="66" x2="202" y2="66" class="pv-line"/><circle cx="24" cy="78" r="4" class="pv-dot"/><text x="34" y="82" class="pv-k pv-status">nobody signed off</text></svg><h3>Things change without anyone noticing</h3><p>Software, settings and AI models get swapped out without anyone signing off.</p></article>
+      <article class="box pbox" data-rise><span class="n">03</span><svg class="pv pv-log" viewBox="0 0 220 92" aria-hidden="true"><rect x="1" y="1" width="218" height="90" rx="10" class="pv-frame"/><g class="pv-rows"><rect x="16" y="14" width="150" height="6" rx="3"/><rect x="16" y="28" width="120" height="6" rx="3"/><rect x="16" y="42" width="140" height="6" rx="3" class="pv-gap"/><rect x="16" y="56" width="100" height="6" rx="3"/><rect x="16" y="70" width="132" height="6" rx="3"/></g><text x="178" y="49" class="pv-q" text-anchor="middle">?</text></svg><h3>The record has gaps</h3><p>Ordinary logs can be edited, lost, or missing the one detail an investigator needs.</p></article>
     </div>
   </div>
 </section>
 
 <section class="sec workshop" id="idea" aria-labelledby="idea-h">
   <div class="wrap">
-    <div class="intro" data-rise>
+    <div class="ws-head" data-rise>
       <span class="tick">The idea</span>
       <h2 id="idea-h">A shared workshop for real systems.</h2>
-      <p class="lede" style="margin-top:22px">Every product is a builder. The builders borrow the same tools, a guard checks every use, and a logbook writes it all down. Make a tool once, and every product gets it.</p>
-      <ol class="layers" style="margin-top:34px">
+      <p class="lede">Every product is a builder. The builders borrow the same tools, a guard checks every use, and a logbook writes it all down. Make a tool once, and every product gets it.</p>
+    </div>
+    <div class="intro" data-rise>
+      <ol class="layers">
         <li><b>The shared toolbox</b><span>AI, design tools, memory and simulation, made once and reused by every product.</span></li>
         <li><b>The limits</b><span>The lines each machine and product has to stay inside, written where the system can check them.</span></li>
         <li><b>The permissions</b><span>Who may do what, where, and until when. Every permission has an owner and an end date.</span></li>
@@ -1147,14 +1205,15 @@ pre.code .k { color: var(--orange-hi); } pre.code .s { color: #9fd3a8; }
 <section class="ind" id="connected" aria-labelledby="ind-h">
   <div class="wrap">
     <span class="tick">Where it plugs in</span>
-    <h2 id="ind-h" class="huge">One platform. Every kind of machine.</h2>
-    <div class="ind-row" data-rise><h3>Space<small>Satellites, orbits and the ground systems that talk to them.</small></h3><div class="ind-cards"><a class="ic" href="https://loqsat.com" rel="noopener"><span class="lab">LoqSat</span><div class="ph"><img src="/img/loqsat.webp" alt="The LoqSat home page" loading="lazy" width="1200" height="750"></div><p>Routes collision warnings between satellite operators and asks USG Radius before it proposes a manoeuvre. Advice, never a command.</p><span class="st on">Connected</span></a><div class="ic"><span class="lab">Ibom Space</span><div class="ph"><b>Ibom Space</b></div><p>Space systems from Umanah Systems Group.</p><span class="st ">Signed up, waiting for its software</span></div><div class="ic"><span class="lab">Ravionics</span><div class="ph"><b>Ravionics</b></div><p>Avionics from Umanah Systems Group.</p><span class="st ">Signed up, waiting for its software</span></div></div></div>
+    <h2 id="ind-h" class="huge"><span class="ln">One platform.</span> <span class="ln">Every kind of machine.</span></h2>
+    <div class="ind-row" data-rise><h3>Space<small>Satellites, orbits and the ground systems that talk to them.</small></h3><div class="ind-cards"><a class="ic" href="https://loqsat.com" rel="noopener"><span class="lab">LoqSat</span><div class="ph"><img src="/img/loqsat.webp" alt="The LoqSat home page" loading="lazy" width="1200" height="750"></div><p>Routes collision warnings between satellite operators and asks USG Radius before it proposes a manoeuvre. Advice, never a command.</p><span class="st on">Connected</span></a><a class="ic" href="https://ibomspace.com" rel="noopener"><span class="lab">Ibom Space</span><div class="ph"><img src="/img/satellite.webp" alt="An Ibom Space satellite with its solar wings open" loading="lazy"></div><p>Satellite parts and an in-orbit servicing tug, designed and simulated in Easley.</p><span class="st ">Signed up, waiting for its software</span></a><a class="ic" href="https://easley.umanahsystems.com" rel="noopener"><span class="lab">Easley</span><div class="ph"><img src="/img/easley.webp" alt="The Easley home page" loading="lazy"></div><p>The mission engineering platform for spacecraft: one living model, every analysis run against it, and agents that show their work.</p><span class="st on">Connected</span></a></div></div>
     <div class="ind-row" data-rise><h3>Earth data<small>Answers about place and time you can prove.</small></h3><div class="ind-cards"><a class="ic" href="https://spattio.com" rel="noopener"><span class="lab">Spattio GroundTruth</span><div class="ph"><img src="/img/spattio.webp" alt="The Spattio GroundTruth home page" loading="lazy" width="1200" height="750"></div><p>Checks every answer against an independent source and keeps a signed record you can hand to an adjuster, a court or an auditor.</p><span class="st on">Connected</span></a></div></div>
-    <div class="ind-row" data-rise><h3>Robotics + inspection<small>Machines that move, inspect and report.</small></h3><div class="ind-cards"><a class="ic" href="/lucent-robotics.html"><span class="lab">Lucent Robotics</span><div class="ph"><img src="/img/robotics.webp" alt="A robotic arm with a sensor head" loading="lazy" width="1200" height="750"></div><p>Robots for infrastructure inspection that stay inside the limits you set, with every action on the record.</p><span class="st on">Connected</span></a><div class="ic"><span class="lab">McCoy Studio</span><div class="ph"><b>McCoy Studio</b></div><p>From Lucent Robotics.</p><span class="st on">Connected</span></div></div></div>
-    <div class="ind-row" data-rise><h3>Semiconductors<small>Chips designed, simulated and proven.</small></h3><div class="ind-cards"><a class="ic" href="https://daedyl.com" rel="noopener"><span class="lab">Daedyl</span><div class="ph"><img src="/img/daedyl.webp" alt="The Daedyl home page" loading="lazy" width="1200" height="750"></div><p>Every design tool job in Daedyl asks USG Radius first, and every answer goes in the logbook. The first product connected.</p><span class="st on">Connected</span></a></div></div>
-    <div class="ind-row" data-rise><h3>Cybersecurity<small>Keeping critical systems running and recoverable.</small></h3><div class="ind-cards"><a class="ic" href="/vigilantyx.html"><span class="lab">Vigilantyx</span><div class="ph"><b>Vigilantyx</b></div><p>Autonomous cyber recovery for mission-critical systems.</p><span class="st next">Next to connect</span></a><div class="ic"><span class="lab">Easley</span><div class="ph"><b>Easley</b></div><p>Coming soon.</p><span class="st ">Coming soon</span></div></div></div>
+    <div class="ind-row" data-rise><h3>Robotics + inspection<small>Machines that move, inspect and report.</small></h3><div class="ind-cards"><a class="ic" href="/lucent-robotics.html"><span class="lab">Lucent Robotics</span><div class="ph"><img src="/img/robotics.webp" alt="A robotic arm with a sensor head" loading="lazy" width="1200" height="750"></div><p>Robots for infrastructure inspection that stay inside the limits you set, with every action on the record.</p><span class="st on">Connected</span></a><div class="ic"><span class="lab">McCoy Studio</span><div class="ph"><img src="/img/mccoy.webp" alt="McCoy Studio running a simulation" loading="lazy"></div><p>Design studio from Lucent Robotics: parts, boards and simulations, each change a new revision.</p><span class="st on">Connected</span></div></div></div>
+    <div class="ind-row" data-rise><h3>Semiconductors<small>Chips designed, simulated and proven.</small></h3><div class="ind-cards"><a class="ic" href="https://daedyl.com" rel="noopener"><span class="lab">Daedyl</span><div class="ph"><img src="/img/daedyl.webp" alt="The Daedyl home page" loading="lazy" width="1200" height="750"></div><p>Every design tool job in Daedyl asks USG Radius first, and every answer goes in the logbook. The first product connected.</p><span class="st on">Connected</span></a><a class="ic" href="/titanym.html" rel="noopener"><span class="lab">Titanym</span><div class="ph"><img src="/images/titanym-preview.jpg" alt="Titanym SiGe-on-sapphire process qualification" loading="lazy"></div><p>Qualifies SiGe-on-sapphire materials for extreme-environment electronics. Its process runs through Daedyl, so every step is checked and recorded.</p><span class="st next">Builds on Daedyl</span></a></div></div>
+    <div class="ind-row" data-rise><h3>Cybersecurity<small>Keeping critical systems running and recoverable.</small></h3><div class="ind-cards"><a class="ic" href="/vigilantyx.html" rel="noopener"><span class="lab">Vigilantyx</span><div class="ph"><img src="/img/vigilantyx.webp" alt="The Vigilantyx home page" loading="lazy"></div><p>Proof of what your software actually does: watches code, packages, servers and firmware, and seals it all in signed evidence.</p><span class="st next">Next to connect</span></a></div></div>
     <div class="ind-row" data-rise><h3>Energy + sensing<small>Grids and the sensors that watch them.</small></h3><div class="ind-cards"><div class="ic"><span class="lab">Hyve Grid</span><div class="ph"><b>Hyve Grid</b></div><p>Sensor company from Umanah Systems Group.</p><span class="st ">Signed up, waiting for its software</span></div><a class="ic" href="/rehzon-grid.html"><span class="lab">Rehzon Grid</span><div class="ph"><b>Rehzon Grid</b></div><p>Sensor company from Umanah Systems Group.</p><span class="st ">Signed up, waiting for its software</span></a></div></div>
-    <div class="ind-row" data-rise><h3>Hardware + manufacturing<small>Parts designed, made and traced from design to delivery.</small></h3><div class="ind-cards"><a class="ic" href="/crucible.html"><span class="lab">Crucible</span><div class="ph"><b>Crucible</b></div><p>The USG hardware foundation: design, CNC, motors, sensors and actuators.</p><span class="st ">Signed up, waiting for its software</span></a><div class="ic"><span class="lab">Torrqe</span><div class="ph"><b>Torrqe</b></div><p>Motors from Umanah Systems Group.</p><span class="st ">Signed up, waiting for its software</span></div><div class="ic"><span class="lab">Maeviq</span><div class="ph"><b>Maeviq</b></div><p>From Umanah Systems Group.</p><span class="st ">Signed up, waiting for its software</span></div><div class="ic"><span class="lab">Caelyx Systems</span><div class="ph"><b>Caelyx</b></div><p>From Umanah Systems Group.</p><span class="st ">Signed up, waiting for its software</span></div></div></div>
+    <div class="ind-row" data-rise><h3>Drones + uncrewed systems<small>Aircraft, boats and ground vehicles that run without a crew: UAS, UAVs and USVs.</small></h3><div class="ind-cards"><div class="ic"><span class="lab">Ravionics</span><div class="ph"><img src="/img/cap/air.webp" alt="An uncrewed aircraft in flight" loading="lazy"></div><p>Avionics for uncrewed aircraft, boats and ground vehicles.</p><span class="st ">Signed up, waiting for its software</span></div><div class="ic"><span class="lab">Maeviq</span><div class="ph"><img src="/img/cap/autonomy.webp" alt="An autonomous vehicle at work" loading="lazy"></div><p>Uncrewed systems from Umanah Systems Group.</p><span class="st ">Signed up, waiting for its software</span></div></div></div>
+    <div class="ind-row" data-rise><h3>Hardware + manufacturing<small>Parts designed, made and traced from design to delivery.</small></h3><div class="ind-cards"><a class="ic" href="/crucible.html"><span class="lab">Crucible</span><div class="ph"><b>Crucible</b></div><p>The USG hardware foundation: design, CNC, motors, sensors and actuators.</p><span class="st ">Signed up, waiting for its software</span></a><div class="ic"><span class="lab">Torrqe</span><div class="ph"><b>Torrqe</b></div><p>Motors from Umanah Systems Group.</p><span class="st ">Signed up, waiting for its software</span></div><div class="ic"><span class="lab">Caelyx Systems</span><div class="ph"><b>Caelyx</b></div><p>From Umanah Systems Group.</p><span class="st ">Signed up, waiting for its software</span></div></div></div>
   </div>
 </section>
 
@@ -1162,7 +1221,7 @@ pre.code .k { color: var(--orange-hi); } pre.code .s { color: #9fd3a8; }
   <div class="wrap">
     <div class="intro" data-rise>
       <span class="tick">Plugging in</span>
-      <h2 id="plug-h">Plugs in. Doesn't take over.</h2>
+      <h2 id="plug-h"><span class="ln">Plugs in.</span> <span class="ln">Doesn't take over.</span></h2>
       <p class="lede">USG Radius doesn't drive your machines. It answers one question before they act: is this allowed? Your software keeps doing its job, and a small kit connects it.</p>
       <ul><li>Simple kits</li><li>Clear permissions</li><li>Constant checks</li><li>Signed records</li></ul>
     </div>
@@ -1206,7 +1265,7 @@ pre.code .k { color: var(--orange-hi); } pre.code .s { color: #9fd3a8; }
     </nav>
     <div class="legal">
       <span>© 2026 Umanah Systems Group. USG Radius is a Umanah Systems Group architecture.</span>
-      <span>Motion: GSAP. 3D: three.js (MIT). Globe outline from NASA Blue Marble imagery via the three.js examples.</span>
+      <span>Motion: GSAP. 3D: three.js (MIT).</span>
     </div>
   </div>
   <div class="umanah-wm" aria-hidden="true">
