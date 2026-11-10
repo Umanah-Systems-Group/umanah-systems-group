@@ -257,6 +257,27 @@ img, video { display: block; max-width: 100%; }
 .how { background: var(--paper); color: var(--ink); padding: clamp(84px, 10vw, 150px) 0; }
 .how .tick { color: var(--ink-2); }
 .how .sec-head .lede { color: var(--ink-2); }
+.how-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(14px, 1.6vw, 24px); }
+.hw { display: flex; flex-direction: column; border-radius: var(--r); background: #f4f3ef; border: 1px solid rgba(16,17,20,.12); overflow: hidden; transition: transform .7s var(--ease), box-shadow .7s var(--ease); }
+.hw:hover { transform: translateY(-6px); box-shadow: 0 40px 80px -50px rgba(16,17,20,.55); }
+.hw-viz { position: relative; margin: 10px 10px 0; border-radius: calc(var(--r) - 6px); background: radial-gradient(120% 100% at 30% 0%, #171b27, #0a0c11 70%); aspect-ratio: 16 / 11; overflow: hidden; }
+.hw-viz canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.hw-tag { position: absolute; left: 14px; bottom: 12px; font-family: var(--mono); font-size: .7rem; color: rgba(240,242,245,.6); display: inline-flex; gap: 8px; align-items: center; }
+.hw-tag::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--orange); box-shadow: 0 0 8px var(--orange); }
+.hw-txt { padding: clamp(22px, 2.4vw, 32px); display: grid; gap: 10px; }
+.hw-txt .num-k { color: var(--orange); font-size: .85rem; }
+.hw-txt h3 { font-size: clamp(1.5rem, 1.1rem + 1.1vw, 2.2rem); letter-spacing: -.035em; line-height: 1.02; }
+.hw-txt p { color: var(--ink-2); font-size: var(--s-small); line-height: 1.55; }
+.hw-badges { display: flex; align-items: center; justify-content: center; gap: clamp(18px, 3vw, 40px); }
+.hw-badges .bd { display: grid; justify-items: center; gap: 8px; color: #f0f2f5; }
+.hw-badges img { width: clamp(70px, 7vw, 104px); height: auto; padding: 8px; background: #fff; border-radius: 16px; box-shadow: 0 18px 40px -18px rgba(232,97,26,.6); animation: bdfloat 5s ease-in-out infinite; }
+.hw-badges .bd:nth-child(2) img { animation-delay: -2.5s; }
+.hw-badges b { font-family: var(--display); font-size: clamp(1.8rem, 1.2rem + 1.6vw, 2.8rem); line-height: 1; color: var(--orange); letter-spacing: -.03em; }
+.hw-badges small { font-family: var(--mono); font-size: .7rem; color: rgba(240,242,245,.6); }
+.hw-badges .scan { position: absolute; top: 0; bottom: 0; width: 34%; left: -40%; background: linear-gradient(90deg, transparent, rgba(232,97,26,.22), transparent); animation: bdscan 4.2s cubic-bezier(.6,0,.4,1) infinite; pointer-events: none; }
+@keyframes bdfloat { 50% { transform: translateY(-6px); } }
+@keyframes bdscan { 0% { left: -40%; } 70%, 100% { left: 110%; } }
+@media (prefers-reduced-motion: reduce) { .hw-badges img, .hw-badges .scan { animation: none; } }
 .how-rows { border-top: 1px solid rgba(16,17,20,.18); }
 .how-row { display: grid; grid-template-columns: 90px minmax(0, 1.1fr) minmax(0, 1fr); gap: 24px; align-items: baseline; padding: clamp(24px, 3vw, 40px) 0; border-bottom: 1px solid rgba(16,17,20,.18); }
 .how-row .num-k { color: var(--orange); font-size: .9rem; }
@@ -373,6 +394,8 @@ footer { padding: clamp(56px, 7vw, 96px) 0 0; color: var(--text-3); font-size: .
   .card .body { align-items: center; text-align: center; }
   .card .badge { align-self: center; }
   .how-row { grid-template-columns: 1fr; justify-items: center; text-align: center; gap: 12px; }
+  .how-grid { grid-template-columns: 1fr; max-width: 560px; margin: 0 auto; }
+  .hw-txt { justify-items: center; text-align: center; }
   .how-row p { margin: 0 auto; }
   .cta { grid-template-columns: 1fr; }
   .cta a, .cta button { align-items: center; text-align: center; }
@@ -887,10 +910,23 @@ footer { padding: clamp(56px, 7vw, 96px) 0 0; color: var(--text-3); font-size: .
       <div><span class="tick">How we work</span><h2 id="how-h">Proven, then promised.</h2></div>
       <p class="lede">We say plainly what is running and what is in development, and we let evidence move each program forward.</p>
     </div>
-    <div class="how-rows">
-      <div class="how-row" data-rise><span class="num-k">01</span><h3>Bounded by design</h3><p>Limits are written into the system and checked at the moment of action, never added afterwards.</p></div>
-      <div class="how-row" data-rise><span class="num-k">02</span><h3>Assessed, not self-declared</h3><p>Twelve of our solutions have been assessed as awardable on Tradewinds, and two by DARPA.</p></div>
-      <div class="how-row" data-rise><span class="num-k">03</span><h3>Accountable on record</h3><p>Every decision leaves a signed trail that partners, regulators and insurers can check.</p></div>
+    <div class="how-grid">
+      <article class="hw" data-rise>
+        <div class="hw-viz"><canvas data-viz="bound" aria-hidden="true"></canvas><span class="hw-tag">limit enforced</span></div>
+        <div class="hw-txt"><span class="num-k">01</span><h3>Bounded by design</h3><p>Limits are written into the system and checked at the moment of action, never added afterwards.</p></div>
+      </article>
+      <article class="hw" data-rise>
+        <div class="hw-viz hw-badges" aria-hidden="true">
+          <span class="bd"><img src="img/badges/tradewinds.webp" alt="" width="400" height="400" loading="lazy"><b data-count="12">12</b><small>Tradewinds</small></span>
+          <span class="bd"><img src="img/badges/eris.webp" alt="" width="400" height="400" loading="lazy"><b data-count="2">2</b><small>DARPA ERIS</small></span>
+          <i class="scan"></i>
+        </div>
+        <div class="hw-txt"><span class="num-k">02</span><h3>Assessed, not self-declared</h3><p>Twelve of our solutions have been assessed as awardable on Tradewinds, and two by DARPA.</p></div>
+      </article>
+      <article class="hw" data-rise>
+        <div class="hw-viz"><canvas data-viz="chain" aria-hidden="true"></canvas><span class="hw-tag">signed record</span></div>
+        <div class="hw-txt"><span class="num-k">03</span><h3>Accountable on record</h3><p>Every decision leaves a signed trail that partners, regulators and insurers can check.</p></div>
+      </article>
     </div>
   </div>
 </section>
@@ -1030,6 +1066,7 @@ footer { padding: clamp(56px, 7vw, 96px) 0 0; color: var(--text-3); font-size: .
     stepsEl.forEach((li, i) => li.classList.toggle('on', i === active));
     if (chip) { chip.setProgress(p); chip.setActive(active); }
   }
+  import('./js/how-viz.js').then(m => m.mountHowViz()).catch(() => {});
   const stackEl = document.getElementById('stack');
   const chipIO = new IntersectionObserver(es => {
     if (!es[0].isIntersecting) return; chipIO.disconnect();
@@ -1062,7 +1099,7 @@ footer { padding: clamp(56px, 7vw, 96px) 0 0; color: var(--text-3); font-size: .
   gsap.utils.toArray('[data-rise]').forEach(el => {
     gsap.to(el, { y: 0, opacity: 1, duration: 1.2, ease: 'expo.out', scrollTrigger: { trigger: el, start: 'top 90%' } });
   });
-  ['.cards', '.award-grid', '.how-rows', '.cta'].forEach(sel => {
+  ['.cards', '.award-grid', '.how-grid', '.cta'].forEach(sel => {
     const kids = document.querySelectorAll(sel + ' > [data-rise]');
     ScrollTrigger.create({ trigger: sel, start: 'top 88%', once: true, onEnter: () => gsap.to(kids, { y: 0, opacity: 1, duration: 1.2, ease: 'expo.out', stagger: .12, overwrite: true }) });
   });
