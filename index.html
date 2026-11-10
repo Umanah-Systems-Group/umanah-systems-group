@@ -323,6 +323,18 @@ footer { padding: clamp(56px, 7vw, 96px) 0 0; color: var(--text-3); font-size: .
 /* layer callouts and legend (phones and tablets; desktop keeps the labels on the slabs) */
 .rplat .cos, .platform .layers, .platform .steps-h { display: none; }
 
+
+/* platform on desktop: a tall section with sticky content walks through the four steps without moving sideways */
+@media (min-width: 961px) {
+  .js:not(.reduce) .platform { height: calc(100svh + 1400px); padding: 0; }
+  .js:not(.reduce) .platform .steps { margin-top: 22px; }
+  .js:not(.reduce) .platform .steps li { padding-top: 13px; padding-bottom: 13px; }
+  .js:not(.reduce) .platform .more { margin-top: 18px; }
+  .js:not(.reduce) .platform .wrap { position: sticky; top: 0; height: 100svh; min-height: 640px; align-content: center; padding-top: 72px; padding-bottom: 16px; box-sizing: border-box; }
+}
+@media (min-width: 2200px) { .js:not(.reduce) .platform { height: calc(100svh / 1.2 + 1400px); } .js:not(.reduce) .platform .wrap { height: calc(100svh / 1.2); } }
+@media (min-width: 2500px) { .js:not(.reduce) .platform { height: calc(100svh / 1.33 + 1400px); } .js:not(.reduce) .platform .wrap { height: calc(100svh / 1.33); } }
+
 /* ---------- stacked layouts: centre groups (Amaete's alignment rule) ---------- */
 @media (max-width: 60rem) {
   /* hero on phones: the film gets its own clear window, the words sit underneath it */
@@ -856,6 +868,20 @@ footer { padding: clamp(56px, 7vw, 96px) 0 0; color: var(--text-3); font-size: .
           <span class="go">daedyl.com <i aria-hidden="true">↗</i></span>
         </div>
       </a>
+      <a class="card" href="https://vigilantyx.umanahsystems.com" rel="noopener" data-rise>
+        <span class="live">Live</span>
+        <div class="art shot">
+          <div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>vigilantyx.umanahsystems.com</span></div>
+          <img src="img/vigilantyx.webp" alt="The Vigilantyx home page: a request box that reads “Check this release, contain anything bad, and prove it” above the line “Proof of what your software actually does.”" loading="lazy" width="1200" height="750">
+        </div>
+        <div class="body">
+          <span class="k">Cybersecurity</span>
+          <h3>Vigilantyx</h3>
+          <p class="q">Proof of what your software actually does.</p>
+          <p>Security for enterprise and government. It watches code, packages, servers, traffic and device firmware, tests changes in a sealed copy, lets a person approve every action, and seals it all in signed evidence anyone can check.</p>
+          <span class="go">vigilantyx.umanahsystems.com <i aria-hidden="true">↗</i></span>
+        </div>
+      </a>
       <a class="card" href="#contact" data-rise>
         <span class="live">Private preview</span>
         <div class="art shot">
@@ -868,6 +894,20 @@ footer { padding: clamp(56px, 7vw, 96px) 0 0; color: var(--text-3); font-size: .
           <p class="q">Describe a part. Get one you can build.</p>
           <p>A conversational engineering design studio. Describe a part in plain words, by voice or with an image, and it builds a real parametric CAD model, checks it, simulates its strength, poses robots in McCoy Motion, designs the board inside and keeps every revision. Reydious decides and records every step.</p>
           <span class="go">Ask for early access <i aria-hidden="true">→</i></span>
+        </div>
+      </a>
+      <a class="card" href="https://easley.umanahsystems.com" rel="noopener" data-rise>
+        <span class="live">Live</span>
+        <div class="art shot">
+          <div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>easley.umanahsystems.com</span></div>
+          <img src="img/easley.webp" alt="The Easley home page: spacecraft solar arrays in a test hall beside the line “Build spacecraft that fly, sooner.”" loading="lazy" width="1200" height="750">
+        </div>
+        <div class="body">
+          <span class="k">Mission engineering</span>
+          <h3>Easley</h3>
+          <p class="q">Build spacecraft that fly, sooner.</p>
+          <p>Spacecraft teams put the whole vehicle in one living model, run every analysis against it, and hand the digging to agents that show their work.</p>
+          <span class="go">easley.umanahsystems.com <i aria-hidden="true">↗</i></span>
         </div>
       </a>
       <a class="card" href="https://loqsat.com" rel="noopener" data-rise>
@@ -1122,7 +1162,8 @@ footer { padding: clamp(56px, 7vw, 96px) 0 0; color: var(--text-3); font-size: .
   /* platform: pin on wide screens and walk through the four steps */
   const mm = gsap.matchMedia();
   mm.add('(min-width: 961px)', () => {
-    const st = ScrollTrigger.create({ trigger: '.platform', start: 'top top', end: '+=1400', pin: true, scrub: true, onUpdate: s => {
+    // the section is tall and its content is sticky (CSS), so nothing is re-positioned while you scroll
+    const st = ScrollTrigger.create({ trigger: '.platform', start: 'top top', end: 'bottom bottom', scrub: true, onUpdate: s => {
       stackP = Math.min(1, s.progress * 1.6); active = Math.min(3, Math.floor(s.progress * 4)); layoutStack(stackP);
     } });
     return () => st.kill();
