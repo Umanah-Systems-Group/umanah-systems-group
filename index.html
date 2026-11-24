@@ -252,9 +252,7 @@ img, video { display: block; max-width: 100%; }
 .card .live::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--green); box-shadow: 0 0 10px var(--green); animation: blink 2.4s infinite; }
 .card .live.dev::before { background: var(--orange); box-shadow: 0 0 10px rgba(232,97,26,.7); animation: none; }
 .sec-head.sub { margin-top: clamp(80px, 10vw, 140px); }
-.cards.five { grid-template-columns: repeat(6, minmax(0, 1fr)); }
-.cards.five > .card { grid-column: span 2; }
-.cards.five > .card.wide { grid-column: span 3; }
+.cards.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 @keyframes blink { 50% { opacity: .35; } }
 .thesis { padding: clamp(110px, 14vw, 200px) 0; }
 
@@ -409,8 +407,7 @@ footer { padding: clamp(56px, 7vw, 96px) 0 0; color: var(--text-3); font-size: .
   .steps { text-align: left; width: 100%; max-width: 560px; }
   .stack-vis { max-width: 520px; order: -1; aspect-ratio: 1 / .82; }
   .cards { grid-template-columns: 1fr; max-width: 560px; margin: 0 auto; }
-  .cards.five { grid-template-columns: 1fr; }
-  .cards.five > .card, .cards.five > .card.wide { grid-column: auto; }
+  .cards.three { grid-template-columns: 1fr; }
   .card .body { align-items: center; text-align: center; }
   .card .badge { align-self: center; }
   .how-row { grid-template-columns: 1fr; justify-items: center; text-align: center; gap: 12px; }
@@ -949,12 +946,6 @@ footer { padding: clamp(56px, 7vw, 96px) 0 0; color: var(--text-3); font-size: .
           <span class="go">spattio.com <i aria-hidden="true">↗</i></span>
         </div>
       </a>
-    </div>
-    <div class="sec-head sub" id="uncrewed" data-rise>
-      <div><span class="tick">Uncrewed systems + hardware</span><h2 id="unc-h">Air, sea and the motion inside.</h2></div>
-      <p class="lede">The vehicles, their power, their actuators and the airspace checks for uncrewed flight and shipping. Galleion and Caelyx run today; the aircraft, the cargo fleet, the generator and the actuators are in development.</p>
-    </div>
-    <div class="cards five" aria-labelledby="unc-h">
       <a class="card" href="https://galleion.umanahsystems.com" rel="noopener" data-rise>
         <span class="live">Live</span>
         <div class="art shot">
@@ -983,6 +974,40 @@ footer { padding: clamp(56px, 7vw, 96px) 0 0; color: var(--text-3); font-size: .
           <span class="go">caelyx.umanahsystems.com <i aria-hidden="true">↗</i></span>
         </div>
       </a>
+      <a class="card" href="https://arddeon.umanahsystems.com" rel="noopener" data-rise>
+        <span class="live">Live</span>
+        <div class="art shot">
+          <div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>arddeon.umanahsystems.com</span></div>
+          <img src="img/arddeon.webp" alt="The Arddeon home page: a render of the Pulsiqe floating-piston generator above the line “Jet fuel in. Power out.”" loading="lazy" width="1200" height="750">
+        </div>
+        <div class="body">
+          <span class="k">Engine design studio</span>
+          <h3>Arddeon</h3>
+          <p class="q">Jet fuel in. Power out.</p>
+          <p>Arddeon is developing Pulsiqe, a floating-piston generator that turns JP-8, Jet A and diesel straight into electricity for uncrewed aircraft and boats.</p>
+          <span class="go">arddeon.umanahsystems.com <i aria-hidden="true">↗</i></span>
+        </div>
+      </a>
+      <a class="card" href="https://floorehs.umanahsystems.com" rel="noopener" data-rise>
+        <span class="live">Live</span>
+        <div class="art shot">
+          <div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>floorehs.umanahsystems.com</span></div>
+          <img src="img/floorehs.webp" alt="The FloorEHS home page: a 3D digital twin of a warehouse floor and its loading docks beside the line “One bad shift can cost millions.”" loading="lazy" width="1200" height="750">
+        </div>
+        <div class="body">
+          <span class="k">Warehouse safety and compliance</span>
+          <h3>FloorEHS</h3>
+          <p class="q">See it. Fix it first. Prove it.</p>
+          <p>A live digital twin of a warehouse that spots a blocked exit, a heat problem or a quota that can't be met before an inspector does, and keeps signed proof of every step taken.</p>
+          <span class="go">floorehs.umanahsystems.com <i aria-hidden="true">↗</i></span>
+        </div>
+      </a>
+    </div>
+    <div class="sec-head sub" id="uncrewed" data-rise>
+      <div><span class="tick">In development</span><h2 id="unc-h">Air, sea and the motion inside.</h2></div>
+      <p class="lede">The aircraft, the uncrewed cargo fleet and the actuators that come next. Each has its own site, and each is designed and tested in software before anything is built.</p>
+    </div>
+    <div class="cards three" aria-labelledby="unc-h">
       <a class="card" href="https://ravionics.com" rel="noopener" data-rise>
         <span class="live dev">In development</span>
         <div class="art shot">
@@ -1009,20 +1034,6 @@ footer { padding: clamp(56px, 7vw, 96px) 0 0; color: var(--text-3); font-size: .
           <p class="q">Ashore anywhere.</p>
           <p>An uncrewed fleet that carries containers from open ocean to the road: a ship that unloads itself, a barge that lands on the beach, a carrier that drives the box inland and a heavy-lift aircraft for the last mile.</p>
           <span class="go">maeviq.com <i aria-hidden="true">↗</i></span>
-        </div>
-      </a>
-      <a class="card" href="https://arddeon.umanahsystems.com" rel="noopener" data-rise>
-        <span class="live dev">In development</span>
-        <div class="art shot">
-          <div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>arddeon.umanahsystems.com</span></div>
-          <img src="img/arddeon.webp" alt="The Arddeon home page: a render of the Pulsiqe floating-piston generator above the line “Jet fuel in. Power out.”" loading="lazy" width="1200" height="750">
-        </div>
-        <div class="body">
-          <span class="k">Power for uncrewed craft</span>
-          <h3>Arddeon</h3>
-          <p class="q">Jet fuel in. Power out.</p>
-          <p>Arddeon is developing Pulsiqe, a floating-piston generator that turns JP-8, Jet A and diesel straight into electricity for uncrewed aircraft and boats.</p>
-          <span class="go">arddeon.umanahsystems.com <i aria-hidden="true">↗</i></span>
         </div>
       </a>
       <a class="card" href="https://torrqe.com" rel="noopener" data-rise>
@@ -1094,7 +1105,7 @@ footer { padding: clamp(56px, 7vw, 96px) 0 0; color: var(--text-3); font-size: .
         <p>Orbit, flight, autonomous machines, sensors and chips, with AI you can prove.</p>
       </div>
       <div><h4>Company</h4><ul><li><a href="#capabilities">Capabilities</a></li><li><a href="#platform">Platform</a></li><li><a href="#how">How we work</a></li><li><a href="#contact">Contact</a></li></ul></div>
-      <div><h4>Products</h4><ul><li><a href="/radius/">USG Radius</a></li><li><a href="https://loqsat.com" rel="noopener">LoqSat</a></li><li><a href="https://spattio.com" rel="noopener">Spattio</a></li><li><a href="https://daedyl.com" rel="noopener">Daedyl</a></li><li><a href="https://galleion.umanahsystems.com" rel="noopener">Galleion</a></li><li><a href="https://caelyx.umanahsystems.com" rel="noopener">Caelyx</a></li><li><a href="https://torrqe.com" rel="noopener">Torrqe</a></li></ul></div>
+      <div><h4>Products</h4><ul><li><a href="/radius/">USG Radius</a></li><li><a href="https://loqsat.com" rel="noopener">LoqSat</a></li><li><a href="https://spattio.com" rel="noopener">Spattio</a></li><li><a href="https://daedyl.com" rel="noopener">Daedyl</a></li><li><a href="https://galleion.umanahsystems.com" rel="noopener">Galleion</a></li><li><a href="https://caelyx.umanahsystems.com" rel="noopener">Caelyx</a></li><li><a href="https://torrqe.com" rel="noopener">Torrqe</a></li><li><a href="https://floorehs.umanahsystems.com" rel="noopener">FloorEHS</a></li></ul></div>
       <div><h4>Connect</h4><ul><li><a href="mailto:contact@umanahsystems.com">Email</a></li><li><a href="https://www.linkedin.com/company/umanah-systems" rel="noopener">LinkedIn</a></li><li><a href="privacy.html">Privacy</a></li></ul></div>
     </div>
     <div class="legal">
