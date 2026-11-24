@@ -250,6 +250,11 @@ img, video { display: block; max-width: 100%; }
 .card:hover .go i { transform: translate(3px, -3px); }
 .card .live { position: absolute; top: 50px; right: 26px; z-index: 2; display: inline-flex; align-items: center; gap: 7px; padding: 6px 11px; border-radius: 999px; background: rgba(8,9,12,.7); border: 1px solid var(--line-2); font-size: .74rem; color: var(--text-2); backdrop-filter: blur(6px); }
 .card .live::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--green); box-shadow: 0 0 10px var(--green); animation: blink 2.4s infinite; }
+.card .live.dev::before { background: var(--orange); box-shadow: 0 0 10px rgba(232,97,26,.7); animation: none; }
+.sec-head.sub { margin-top: clamp(80px, 10vw, 140px); }
+.cards.five { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+.cards.five > .card { grid-column: span 2; }
+.cards.five > .card.wide { grid-column: span 3; }
 @keyframes blink { 50% { opacity: .35; } }
 .thesis { padding: clamp(110px, 14vw, 200px) 0; }
 
@@ -404,6 +409,8 @@ footer { padding: clamp(56px, 7vw, 96px) 0 0; color: var(--text-3); font-size: .
   .steps { text-align: left; width: 100%; max-width: 560px; }
   .stack-vis { max-width: 520px; order: -1; aspect-ratio: 1 / .82; }
   .cards { grid-template-columns: 1fr; max-width: 560px; margin: 0 auto; }
+  .cards.five { grid-template-columns: 1fr; }
+  .cards.five > .card, .cards.five > .card.wide { grid-column: auto; }
   .card .body { align-items: center; text-align: center; }
   .card .badge { align-self: center; }
   .how-row { grid-template-columns: 1fr; justify-items: center; text-align: center; gap: 12px; }
@@ -943,6 +950,82 @@ footer { padding: clamp(56px, 7vw, 96px) 0 0; color: var(--text-3); font-size: .
         </div>
       </a>
     </div>
+    <div class="sec-head sub" data-rise>
+      <div><span class="tick">Uncrewed systems</span><h2 id="unc-h">Air and sea, on station.</h2></div>
+      <p class="lede">The vehicles, the power and the airspace checks for uncrewed flight and shipping. Galleion and Caelyx run today; the aircraft, the cargo fleet and the generator are in development.</p>
+    </div>
+    <div class="cards five" aria-labelledby="unc-h">
+      <a class="card wide" href="https://galleion.umanahsystems.com" rel="noopener" data-rise>
+        <span class="live">Live</span>
+        <div class="art shot">
+          <div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>galleion.umanahsystems.com</span></div>
+          <img src="img/galleion.webp" alt="The Galleion home page: a tilt-wing uncrewed aircraft drawn in orange lines over a terrain grid, beside the line “Always one on station.”" loading="lazy" width="1200" height="750">
+        </div>
+        <div class="body">
+          <span class="k">Uncrewed aircraft and vessels</span>
+          <h3>Galleion</h3>
+          <p class="q">Always one on station.</p>
+          <p>Designs, simulates and runs long-endurance uncrewed aircraft and boats, so a crew of four keeps one on watch, day and night. Ravionics and Maeviq design their vehicles in it.</p>
+          <span class="go">galleion.umanahsystems.com <i aria-hidden="true">↗</i></span>
+        </div>
+      </a>
+      <a class="card wide" href="https://caelyx.umanahsystems.com" rel="noopener" data-rise>
+        <span class="live">Live</span>
+        <div class="art shot">
+          <div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>caelyx.umanahsystems.com</span></div>
+          <img src="img/caelyx.webp" alt="The Caelyx home page: a 3D airspace view, drone traffic and an airport twin beside the line “Run the whole sky from one screen.”" loading="lazy" width="1200" height="750">
+        </div>
+        <div class="body">
+          <span class="k">Airspace assurance</span>
+          <h3>Caelyx</h3>
+          <p class="q">Run the whole sky from one screen.</p>
+          <p>Checks what is flying against what was planned, replays the airspace as a digital twin, and keeps a signed record of every finding. Advisory decision support for crewed and uncrewed flight.</p>
+          <span class="go">caelyx.umanahsystems.com <i aria-hidden="true">↗</i></span>
+        </div>
+      </a>
+      <a class="card" href="https://ravionics.com" rel="noopener" data-rise>
+        <span class="live dev">In development</span>
+        <div class="art shot">
+          <div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>ravionics.com</span></div>
+          <img src="img/ravionics.webp" alt="The Ravionics home page: the FREGATA tilt-wing aircraft above the words “Always Watching”." loading="lazy" width="1200" height="750">
+        </div>
+        <div class="body">
+          <span class="k">Long-endurance aircraft</span>
+          <h3>Ravionics</h3>
+          <p class="q">FREGATA. Always watching.</p>
+          <p>An unarmed, uncrewed tilt-wing aircraft that lifts off a ship’s deck like a helicopter, flies like an airplane and is designed to stay on watch for a full day.</p>
+          <span class="go">ravionics.com <i aria-hidden="true">↗</i></span>
+        </div>
+      </a>
+      <a class="card" href="https://maeviq.com" rel="noopener" data-rise>
+        <span class="live dev">In development</span>
+        <div class="art shot">
+          <div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>maeviq.com</span></div>
+          <img src="img/maeviq.webp" alt="The Maeviq home page: the Atlas heavy-lift cargo aircraft and the Esuk cargo barge beside the words “Ashore Anywhere”." loading="lazy" width="1200" height="750">
+        </div>
+        <div class="body">
+          <span class="k">Uncrewed cargo</span>
+          <h3>Maeviq</h3>
+          <p class="q">Ashore anywhere.</p>
+          <p>An uncrewed fleet that carries containers from open ocean to the road: a ship that unloads itself, a barge that lands on the beach, a carrier that drives the box inland and a heavy-lift aircraft for the last mile.</p>
+          <span class="go">maeviq.com <i aria-hidden="true">↗</i></span>
+        </div>
+      </a>
+      <a class="card" href="https://arddeon.umanahsystems.com" rel="noopener" data-rise>
+        <span class="live dev">In development</span>
+        <div class="art shot">
+          <div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>arddeon.umanahsystems.com</span></div>
+          <img src="img/arddeon.webp" alt="The Arddeon home page: a render of the Pulsiqe floating-piston generator above the line “Jet fuel in. Power out.”" loading="lazy" width="1200" height="750">
+        </div>
+        <div class="body">
+          <span class="k">Power for uncrewed craft</span>
+          <h3>Arddeon</h3>
+          <p class="q">Jet fuel in. Power out.</p>
+          <p>Arddeon is developing Pulsiqe, a floating-piston generator that turns JP-8, Jet A and diesel straight into electricity for uncrewed aircraft and boats.</p>
+          <span class="go">arddeon.umanahsystems.com <i aria-hidden="true">↗</i></span>
+        </div>
+      </a>
+    </div>
   </div>
 </section>
 
@@ -997,7 +1080,7 @@ footer { padding: clamp(56px, 7vw, 96px) 0 0; color: var(--text-3); font-size: .
         <p>Orbit, flight, autonomous machines, sensors and chips, with AI you can prove.</p>
       </div>
       <div><h4>Company</h4><ul><li><a href="#capabilities">Capabilities</a></li><li><a href="#platform">Platform</a></li><li><a href="#how">How we work</a></li><li><a href="#contact">Contact</a></li></ul></div>
-      <div><h4>Products</h4><ul><li><a href="/radius/">USG Radius</a></li><li><a href="https://loqsat.com" rel="noopener">LoqSat</a></li><li><a href="https://spattio.com" rel="noopener">Spattio</a></li><li><a href="https://daedyl.com" rel="noopener">Daedyl</a></li></ul></div>
+      <div><h4>Products</h4><ul><li><a href="/radius/">USG Radius</a></li><li><a href="https://loqsat.com" rel="noopener">LoqSat</a></li><li><a href="https://spattio.com" rel="noopener">Spattio</a></li><li><a href="https://daedyl.com" rel="noopener">Daedyl</a></li><li><a href="https://galleion.umanahsystems.com" rel="noopener">Galleion</a></li><li><a href="https://caelyx.umanahsystems.com" rel="noopener">Caelyx</a></li></ul></div>
       <div><h4>Connect</h4><ul><li><a href="mailto:contact@umanahsystems.com">Email</a></li><li><a href="https://www.linkedin.com/company/umanah-systems" rel="noopener">LinkedIn</a></li><li><a href="privacy.html">Privacy</a></li></ul></div>
     </div>
     <div class="legal">
@@ -1137,9 +1220,9 @@ footer { padding: clamp(56px, 7vw, 96px) 0 0; color: var(--text-3); font-size: .
   gsap.utils.toArray('[data-rise]').forEach(el => {
     gsap.to(el, { y: 0, opacity: 1, duration: 1.2, ease: 'expo.out', scrollTrigger: { trigger: el, start: 'top 90%' } });
   });
-  ['.cards', '.award-grid', '.how-grid', '.cta'].forEach(sel => {
-    const kids = document.querySelectorAll(sel + ' > [data-rise]');
-    ScrollTrigger.create({ trigger: sel, start: 'top 88%', once: true, onEnter: () => gsap.to(kids, { y: 0, opacity: 1, duration: 1.2, ease: 'expo.out', stagger: .12, overwrite: true }) });
+  document.querySelectorAll('.cards, .award-grid, .how-grid, .cta').forEach(grid => {
+    const kids = grid.querySelectorAll(':scope > [data-rise]');
+    ScrollTrigger.create({ trigger: grid, start: 'top 88%', once: true, onEnter: () => gsap.to(kids, { y: 0, opacity: 1, duration: 1.2, ease: 'expo.out', stagger: .12, overwrite: true }) });
   });
 
   /* mosaic tiles rise and unmask */
