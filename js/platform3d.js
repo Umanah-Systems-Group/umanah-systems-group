@@ -92,13 +92,13 @@ export function mountPlatform3D(host) {
   const [L0, L1, L2, L3, L4] = layers;
 
   /* products (top) */
-  const prodDefs = [['Chip design', -105, -110, .34], ['Space', 0, -125, .22], ['Earth data', 105, -105, .28], ['Robotics', -125, -10, .3], ['Cybersecurity', 120, 5, .18], ['Energy', -60, 100, .26], ['+ Next product', 70, 110, .12]];
+  const prodDefs = [['Chip design', -105, -110, .34], ['Space', 0, -125, .22], ['Earth data', 105, -105, .28], ['Robotics', -125, -10, .3], ['Cybersecurity', 120, 5, .18], ['Energy', -60, 100, .26], ['Drones + boats', 70, 110, .2]];
   const hub = cube(L0, 0, 0, .34, .26, OR, { emissive: OR, emissiveIntensity: .7, edge: 0xffb27a, edgeOpacity: .7 });
   tag(L0, 0, 0, TH / 2 + .34, 'Radius SDK', .13, { color: '#aab0bd' });
   const wireMat = new THREE.LineBasicMaterial({ color: 0x8ea2ff, transparent: true, opacity: .35 });
   const paths = [];
   const prods = prodDefs.map(([n, x, y, h], i) => {
-    const soon = i === 6;
+    const soon = false;
     const m = cube(L0, x, y, .24, h, soon ? 0x2a3040 : 0x46506a, soon ? { transparent: true, opacity: .35, edgeOpacity: .35 } : {});
     tag(L0, x, y, TH / 2 + h + .05, n, .15, { color: soon ? '#8a90a0' : '#dfe3ea' });
     const yy = TH / 2 + .01, [px, pz] = at(x, y);
