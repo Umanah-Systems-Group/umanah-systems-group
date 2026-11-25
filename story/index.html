@@ -694,6 +694,20 @@ html.flow .chain{margin-top:52px}
  </div>
 </section>
 
+<!-- 13c CRUCIBLE NETWORK -->
+<section class="sc" data-s="crunet" data-c="The network" style="--len:3.2">
+ <div class="pin">
+  <div class="words">
+   <h2 class="t on">Not one factory. <span style="color:var(--or)">A network.</span></h2>
+   <p class="lede t" data-at=".06">Crucible isn't one giant plant. It's a network of small production cells. The first one is planned for <b>Rancho Cucamonga, California</b>.</p>
+   <p class="lede t" data-at=".22">Our customers aren't in one place. The DoD, DARPA, the Navy and commercial buyers are spread across the whole country.</p>
+   <p class="lede t" data-at=".4">So Crucible is designed to put a cell <b>close to the customer</b>, wherever it's needed.</p>
+   <p class="say t" data-at=".6">Every cell runs the same playbook through Radius. <em>Same designs, same tests, same records.</em></p>
+  </div>
+  <div class="art"><svg id="crunet" viewBox="0 0 600 470" preserveAspectRatio="xMidYMid meet"></svg></div>
+ </div>
+</section>
+
 <!-- 14 CLOSE -->
 <section class="sc close" data-s="close" data-c="What's next" style="--len:2.2">
  <div class="pin solo">
@@ -870,6 +884,22 @@ const cells=crCos.map((c,i)=>{const g=mk(cBar,'g',{});const r=mk(g,'rect',{x:c.x
  return r});
 const chipLab=mk(cr,'text',{x:70,y:432,'text-anchor':'middle',style:'font-size:12.5px;font-weight:700',fill:'#ffb37a',opacity:0},'first');
 
+/* CRUCIBLE NETWORK */
+const cn=$('#crunet');
+const usDots='462,358 435,345 433,332 431,319 289,307 301,307 429,307 215,294 227,294 239,294 250,294 262,294 274,294 286,294 297,294 309,294 321,294 332,294 344,294 403,294 415,294 426,294 116,281 139,281 151,281 163,281 175,281 187,281 199,281 211,281 223,281 234,281 246,281 258,281 270,281 282,281 294,281 306,281 317,281 329,281 341,281 353,281 365,281 377,281 389,281 401,281 412,281 424,281 112,268 124,268 136,268 148,268 160,268 172,268 185,268 197,268 209,268 221,268 233,268 245,268 257,268 269,268 281,268 293,268 305,268 317,268 329,268 341,268 353,268 365,268 377,268 389,268 401,268 413,268 425,268 437,268 107,256 119,256 131,256 143,256 155,256 167,256 180,256 192,256 204,256 216,256 228,256 240,256 253,256 265,256 277,256 289,256 301,256 313,256 326,256 338,256 350,256 362,256 374,256 387,256 399,256 411,256 423,256 435,256 447,256 78,243 91,243 103,243 115,243 128,243 140,243 152,243 165,243 177,243 189,243 202,243 214,243 226,243 239,243 251,243 264,243 276,243 288,243 301,243 313,243 325,243 338,243 350,243 362,243 375,243 387,243 399,243 412,243 424,243 436,243 449,243 461,243 72,230 84,230 97,230 109,230 122,230 134,230 147,230 159,230 172,230 184,230 197,230 209,230 222,230 234,230 247,230 259,230 272,230 284,230 297,230 309,230 322,230 334,230 347,230 359,230 372,230 384,230 397,230 409,230 422,230 434,230 447,230 459,230 472,230 484,230 68,217 80,217 93,217 106,217 118,217 131,217 144,217 156,217 169,217 182,217 194,217 207,217 220,217 233,217 245,217 258,217 271,217 283,217 296,217 309,217 321,217 334,217 347,217 359,217 372,217 385,217 397,217 410,217 423,217 436,217 448,217 461,217 474,217 63,205 76,205 89,205 102,205 115,205 128,205 141,205 153,205 166,205 179,205 192,205 205,205 218,205 231,205 244,205 256,205 269,205 282,205 295,205 308,205 321,205 334,205 347,205 360,205 372,205 385,205 398,205 411,205 424,205 437,205 450,205 463,205 475,205 46,192 59,192 72,192 85,192 98,192 111,192 124,192 137,192 150,192 163,192 176,192 190,192 203,192 216,192 229,192 242,192 255,192 268,192 281,192 294,192 307,192 320,192 333,192 347,192 360,192 373,192 386,192 399,192 412,192 425,192 438,192 451,192 464,192 477,192 41,179 54,179 67,179 81,179 94,179 107,179 120,179 134,179 147,179 160,179 174,179 187,179 200,179 214,179 227,179 240,179 253,179 267,179 280,179 293,179 307,179 320,179 333,179 346,179 360,179 373,179 386,179 400,179 413,179 426,179 439,179 453,179 466,179 479,179 493,179 49,166 63,166 76,166 90,166 103,166 117,166 130,166 157,166 171,166 184,166 198,166 211,166 225,166 238,166 252,166 265,166 279,166 292,166 306,166 319,166 333,166 346,166 360,166 373,166 387,166 400,166 414,166 427,166 441,166 454,166 468,166 481,166 495,166 508,166 44,154 58,154 72,154 85,154 99,154 113,154 126,154 140,154 154,154 168,154 181,154 195,154 209,154 223,154 236,154 250,154 264,154 278,154 291,154 305,154 319,154 332,154 346,154 360,154 387,154 401,154 415,154 456,154 470,154 484,154 497,154 511,154 525,154 39,141 53,141 67,141 81,141 95,141 109,141 123,141 137,141 151,141 165,141 179,141 193,141 206,141 220,141 234,141 248,141 262,141 276,141 290,141 304,141 318,141 332,141 346,141 360,141 388,141 402,141 416,141 430,141 444,141 458,141 486,141 500,141 514,141 528,141 50,128 64,128 79,128 93,128 107,128 121,128 136,128 150,128 164,128 178,128 193,128 207,128 221,128 235,128 250,128 264,128 278,128 292,128 307,128 321,128 335,128 349,128 364,128 392,128 407,128 435,128 449,128 464,128 478,128 492,128 521,128 535,128 549,128 45,115 59,115 74,115 88,115 103,115 117,115 132,115 146,115 161,115 175,115 190,115 204,115 219,115 233,115 248,115 262,115 277,115 291,115 306,115 320,115 335,115 349,115 364,115 378,115 451,115 466,115 480,115 495,115 509,115 524,115 538,115 553,115 567,115 42,102 56,102 71,102 86,102 101,102 116,102 131,102 145,102 160,102 175,102 190,102 205,102 220,102 234,102 249,102 264,102 279,102 294,102 309,102 323,102 338,102 353,102 368,102 398,102 412,102 427,102 442,102 457,102 472,102 487,102 501,102 516,102 531,102 546,102 561,102 36,90 51,90 66,90 81,90 96,90 111,90 126,90 142,90 157,90 172,90 187,90 202,90 217,90 232,90 247,90 262,90 278,90 293,90 308,90 323,90 338,90 414,90 429,90 444,90 459,90 474,90 489,90 504,90 519,90 534,90 549,90 565,90 32,77 63,77 79,77 94,77 110,77 125,77 141,77 156,77 172,77 187,77 202,77 218,77 233,77 249,77 264,77 280,77 295,77 326,77 341,77 357,77 372,77 388,77 403,77 419,77 434,77 450,77 465,77 481,77 496,77 511,77 527,77 542,77'.split(' ').map(q=>q.split(',').map(Number));
+const dotG=mk(cn,'g',{});usDots.forEach(([x,y])=>mk(dotG,'circle',{cx:x,cy:y,r:2.6,fill:'#6b5848'}));
+const HOME=[98,249],CUST=[[473, 193], [480, 216], [102, 265], [384, 292], [408, 183], [55, 92], [200, 237], [306, 301], [526, 163], [231, 134]],CELLS=[[469, 208], [367, 289], [418, 181], [54, 97], [282, 293]];
+const custEls=CUST.map(([x,y])=>mk(cn,'path',{d:`M${x} ${y-6}l6 6l-6 6l-6-6z`,fill:'#a3968a',opacity:0}));
+const netLines=CELLS.map(([x,y])=>mk(cn,'path',{d:`M${HOME[0]} ${HOME[1]}Q${(HOME[0]+x)/2} ${Math.min(HOME[1],y)-70} ${x} ${y}`,fill:'none',stroke:'#ff6b1f','stroke-width':1.4,'stroke-dasharray':'4 5',opacity:.9}));
+const cellEls=CELLS.map(([x,y])=>{const g=mk(cn,'g',{opacity:0});mk(g,'circle',{cx:x,cy:y,r:11,fill:'rgba(255,107,31,.15)',stroke:'#ff6b1f','stroke-width':1.6,'stroke-dasharray':'3 3'});mk(g,'rect',{x:x-4,y:y-4,width:8,height:8,rx:1,fill:'#ff6b1f'});return g});
+const homeG=mk(cn,'g',{opacity:0});const homePulse=mk(homeG,'circle',{cx:HOME[0],cy:HOME[1],r:14,fill:'none',stroke:'#ff6b1f','stroke-width':2});
+mk(homeG,'circle',{cx:HOME[0],cy:HOME[1],r:9,fill:'#ff6b1f'});mk(homeG,'text',{x:HOME[0]+4,y:HOME[1]+34,'text-anchor':'middle',style:'font-size:14px;font-weight:700'},'Rancho Cucamonga');
+mk(homeG,'text',{x:HOME[0]+4,y:HOME[1]+52,'text-anchor':'middle',class:'lab'},'first cell');
+const netPk=mk(cn,'circle',{r:5,fill:'#ffd2ad',opacity:0});
+const netKey=mk(cn,'g',{opacity:0,transform:'translate(300 440)'});
+[['#ff6b1f','Crucible cell',-170],['#a3968a','Customer',-20],['#ffb37a','Design in, record back',105]].forEach(([c,t,x])=>{mk(netKey,'circle',{cx:x,cy:-4,r:5,fill:c});mk(netKey,'text',{x:x+11,y:0,class:'lab'},t)});
+const netLab=mk(cn,'text',{x:300,y:40,'text-anchor':'middle',class:'hd',style:'font-size:17px'},'');
+
 /* VIGILANTYX */
 const vg=$('#vig');
 mk(vg,'rect',{x:30,y:150,width:150,height:230,rx:14,fill:'rgba(20,15,11,.8)',stroke:'#5a4f46','stroke-dasharray':'5 6'});
@@ -983,6 +1013,11 @@ const H={
  crucible(p){crCos.forEach((c,i)=>{c.g.setAttribute('opacity',seg(p,.04+i*.04,.12+i*.04));draw(c.l1,seg(p,.22+i*.02,.34+i*.02));draw(c.l2,seg(p,.5+i*.02,.62+i*.02))});
   rBar.setAttribute('opacity',seg(p,.3,.4));cBar.setAttribute('opacity',seg(p,.45,.55));
   cells.forEach((r,i)=>{const on=i==0&&p>.7;r.setAttribute('stroke',on?'#ff6b1f':'#5a4f46');r.setAttribute('fill',on?'rgba(255,107,31,.18)':'#1a130e')});chipLab.setAttribute('opacity',seg(p,.72,.8))},
+ crunet(p){homeG.setAttribute('opacity',seg(p,.04,.12));custEls.forEach((e,i)=>e.setAttribute('opacity',seg(p,.18+i*.02,.24+i*.02)));
+  netLines.forEach((l,i)=>draw(l,seg(p,.4+i*.04,.5+i*.04)));cellEls.forEach((g,i)=>g.setAttribute('opacity',seg(p,.46+i*.04,.52+i*.04)));
+  netKey.setAttribute('opacity',seg(p,.6,.68));
+  netLab.textContent=p<.18?'Start: one cell':p<.4?'Customers are everywhere':p<.62?'Cells go where they are needed':'One playbook, through Radius';
+  cn._live=p>.66},
  layers(p){const P=window.__plat;if(P)P.setProgress(RM?1:seg(p,.04,.5))},
  gate(p){const runs=[{t:'LoqSat: propose a move',v:'Allowed · advisory only'},{t:'Daedyl: run a chip tool',v:'Allowed · logged'},{t:'Unknown app: change records',v:'Denied · logged'}];
   const k=Math.min(2,Math.floor(seg(p,.05,.95)*3)),lp=(seg(p,.05,.95)*3)-k;const r=runs[k];reqT.textContent=r.t;
@@ -1008,9 +1043,9 @@ const scenes=[...document.querySelectorAll('.sc')].map(el=>({el,name:el.dataset.
 const rail=$('#rail');scenes.forEach((sc,i)=>{sc.el.id='ch-'+sc.name;const a=document.createElement('a');a.href='#ch-'+sc.name;a.innerHTML='<span></span><i></i>';a.firstChild.textContent=sc.c;a.setAttribute('aria-label',sc.c);
  a.addEventListener('click',e=>{e.preventDefault();scrollTo({top:sc.el.offsetTop+(i?innerHeight*.3:0),behavior:RM?'auto':'smooth'})});rail.appendChild(a);sc.nav=a});
 const bar=$('#bar'),chap=$('#chap');let ticking=false;
-const TIMED={crucible:5,dice:2.4,moat:5,family:4,arch:4,proof:3.4,gate:10,vig:7};
+const TIMED={crunet:6,crucible:5,dice:2.4,moat:5,family:4,arch:4,proof:3.4,gate:10,vig:7};
 /* ambient motion: chimney smoke, birds, water, packets, hub pulse */
-const ambEls=[$('#blue'),$('#moat'),fam];let ambOn=false;
+const ambEls=[$('#blue'),$('#moat'),fam,$('#crunet')];let ambOn=false;
 function ambient(t){const vis=ambEls.some(e=>{const r=e.getBoundingClientRect();return r.bottom>0&&r.top<innerHeight});if(!vis||RM){ambOn=false;return}
  const s=t/1000;
  smoke.forEach((c,i)=>{const u=((s*.35+i/5)%1);c.setAttribute('cx',chim[0]+Math.sin(u*5+i)*8+u*22);c.setAttribute('cy',chim[1]-u*90);c.setAttribute('r',5+u*16);c.setAttribute('opacity',(1-u)*.38*Math.min(1,u*6))});
@@ -1019,6 +1054,8 @@ function ambient(t){const vis=ambEls.some(e=>{const r=e.getBoundingClientRect();
  water.setAttribute('transform',`translate(${Math.sin(s*1.3)*14} ${Math.sin(s*2.1)*2})`);
  pk.forEach((k,i)=>{const u=((s*.45+i/6)%1);k.el.setAttribute('x',k.x0+(k.x1-k.x0)*u-5);k.el.setAttribute('y',k.y0+(k.y1-k.y0)*u-5);k.el.setAttribute('opacity',fam._live?Math.sin(u*Math.PI):0)});
  hubRing.setAttribute('r',58+((s*.6)%1)*40);hubRing.setAttribute('opacity',fam._live?(1-((s*.6)%1))*.5:0);
+ homePulse.setAttribute('r',10+((s*.8)%1)*22);homePulse.setAttribute('opacity',1-((s*.8)%1));
+ if(cn._live){const k=Math.floor(s/2.4)%netLines.length,u=(s%2.4)/2.4,l=netLines[k],L=l.getTotalLength(),f=u<.5?u*2:2-u*2,pt=l.getPointAtLength(L*f);netPk.setAttribute('cx',pt.x);netPk.setAttribute('cy',pt.y);netPk.setAttribute('opacity',1);netPk.setAttribute('fill',u<.5?'#ffd2ad':'#ffb37a')}else netPk.setAttribute('opacity',0);
  requestAnimationFrame(ambient)}
 function wakeAmb(){if(!ambOn&&!RM){ambOn=true;requestAnimationFrame(ambient)}}
 function update(){ticking=false;wakeAmb();{const mid=innerHeight*.5;let ci=0;scenes.forEach((x,i)=>{if(x.el.getBoundingClientRect().top<mid)ci=i});chIdx=ci;scenes.forEach((x,i)=>{x.nav.classList.toggle('cur',i==ci);x.nav.classList.toggle('done',i<ci)})}if(RM)bgDraw(0);const flow=document.documentElement.classList.contains('flow');const vh=innerHeight,max=document.documentElement.scrollHeight-vh;bar.style.transform=`scaleX(${max>0?scrollY/max:0})`;
