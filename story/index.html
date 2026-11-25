@@ -220,10 +220,7 @@ html.flow .chain{margin-top:52px}
    <p class="sub">One person. One family of deep-tech companies. One shared layer they all run on.</p>
    <div class="chain" id="chain">
     <svg viewBox="0 0 1000 170" preserveAspectRatio="xMidYMid meet" id="chainSvg"></svg>
-    <div class="bubble t" data-at=".25" style="left:6%;top:-36px">Guy, how far?</div>
-    <div class="bubble t" data-at=".38" style="right:8%;top:-20px">Bro... what?</div>
    </div>
-   <p class="lede t" data-at=".45" style="margin:30px auto 0;font-size:16px">That's the look I get when I explain it. "Guy, how far?" is Nigerian for "Dude, what's going on here?" In America it's "Bro... what?"</p>
    <p class="say t" data-at=".55" style="margin:14px auto 0">I'm not here to defend it.<br><em>I'm here to show it.</em></p>
   </div>
   <div class="hint" id="hint">Scroll to start<i></i></div>
@@ -296,7 +293,6 @@ html.flow .chain{margin-top:52px}
    <p class="lede t" data-at=".1">NASA reuses its inventions across many fields. The same idea can live in a chip, a robot, and a satellite.</p>
    <p class="lede t" data-at=".3">So instead of one company, I designed a <b>family</b> of them, from the smallest part to the biggest machine.</p>
    <p class="say t" data-at=".55">That's called <em>vertically integrated</em>. The family can make its own parts, from the chip up.</p>
-   <p class="lede t" data-at=".75">This is where people say "guy, how far?" It's a lot. That's the point.</p>
   </div>
   <div class="art"><svg id="family" viewBox="0 0 600 560" preserveAspectRatio="xMidYMid meet"></svg></div>
  </div>
@@ -684,14 +680,27 @@ html.flow .chain{margin-top:52px}
  </div>
 </section>
 
+<!-- 13b CRUCIBLE -->
+<section class="sc" data-s="crucible" data-c="Crucible" style="--len:3">
+ <div class="pin">
+  <div class="words">
+   <h2 class="t on">Crucible: the same idea, <span style="color:var(--or)">for hardware.</span></h2>
+   <p class="lede t" data-at=".06">Radius is one shared foundation for <b>software</b>. Every company runs on it, so no company builds its own.</p>
+   <p class="lede t" data-at=".2"><b>Crucible</b> does the same for <b>hardware</b>. One shared place where designs become real, tested parts, for every company in the family.</p>
+   <p class="lede t" data-at=".36">Every part is assembled, stress tested and given its own record before it leaves. The same rule as Radius: nothing moves without a check.</p>
+   <p class="say t" data-at=".55">And it starts with <em>chips</em>.</p>
+  </div>
+  <div class="art"><svg id="cruc" viewBox="0 0 600 520" preserveAspectRatio="xMidYMid meet"></svg></div>
+ </div>
+</section>
+
 <!-- 14 CLOSE -->
 <section class="sc close" data-s="close" data-c="What's next" style="--len:2.2">
  <div class="pin solo">
   <div class="words" style="max-width:900px">
-   <p class="lede t" data-at=".02">Next comes <b>Crucible</b>, the hardware side, where designs become parts you can hold.</p>
-   <p class="lede t" data-at=".14">I'm not in Silicon Valley. I didn't go to those schools. I'm not in those networks.</p>
+   <p class="lede t" data-at=".14">I'm not in Silicon Valley. I think outside the box.</p>
    <p class="say t" data-at=".26">That's exactly why I could see this.</p>
-   <h1 class="t" data-at=".4" style="margin-top:22px">Help me take it<br><span style="color:var(--or)">off the screen.</span></h1>
+   <h1 class="t" data-at=".4" style="margin-top:22px">Let's take it<br><span style="color:var(--or)">off the screen.</span></h1>
    <p class="foot t" data-at=".5">Amaete Umanah, Systems Architect<br>Umanah Systems Group<br><a href="https://umanahsystems.com/">umanahsystems.com</a><br>We build mission-critical systems and infrastructure. Dual use, for government and commercial.</p>
   </div>
  </div>
@@ -846,6 +855,21 @@ const blocks=[...Array(4)].map((_,i)=>{const g=mk(gt,'g',{opacity:0,transform:`t
  if(i<3)mk(g,'path',{d:'M50 0h30',class:'lm'});return g});
 mk(gt,'text',{x:300,y:545,'text-anchor':'middle',class:'lab'},'The signed logbook: each page locked to the last');
 
+/* CRUCIBLE */
+const cr=$('#cruc');
+const crCos=['Chips','Robots','Drones','Sensors','Space'].map((n,i)=>{const x=70+i*115;const g=mk(cr,'g',{opacity:0});
+ mk(g,'rect',{x:x-44,y:40,width:88,height:40,rx:9,fill:'#1d1510',stroke:'#f3ece4'});mk(g,'text',{x,y:65,'text-anchor':'middle',style:'font-size:15px;font-weight:600'},n);
+ const l1=mk(cr,'path',{d:`M${x} 80V210`,class:'lm'}),l2=mk(cr,'path',{d:`M${x} 260V350`,class:i==0?'lo':'lm'});return{g,l1,l2,x}});
+const rBar=mk(cr,'g',{opacity:0});mk(rBar,'rect',{x:20,y:210,width:560,height:50,rx:10,fill:'rgba(42,22,8,.7)',stroke:'#ff6b1f'});
+mk(rBar,'text',{x:300,y:241,'text-anchor':'middle',class:'hd',style:'font-size:17px'},'Radius · shared software');
+const cBar=mk(cr,'g',{opacity:0});mk(cBar,'rect',{x:20,y:350,width:560,height:110,rx:12,fill:'#140f0b',stroke:'#f3ece4','stroke-width':1.5});
+mk(cBar,'text',{x:300,y:494,'text-anchor':'middle',class:'hd',style:'font-size:17px'},'Crucible · shared hardware');
+const cells=crCos.map((c,i)=>{const g=mk(cBar,'g',{});const r=mk(g,'rect',{x:c.x-44,y:368,width:88,height:74,rx:8,fill:'#1a130e',stroke:'#5a4f46','stroke-width':1.5});
+ if(i==0){mk(g,'rect',{x:c.x-16,y:383,width:32,height:32,rx:3,fill:'none',stroke:'#ffb37a','stroke-width':1.5});for(let k=0;k<4;k++){mk(g,'path',{d:`M${c.x-22} ${388+k*7.5}h6 M${c.x+16} ${388+k*7.5}h6`,stroke:'#ffb37a','stroke-width':1.2})}}
+ else{mk(g,'path',{d:`M${c.x-14} 405h28 M${c.x} 391v28`,stroke:'#5a4f46','stroke-width':1.5})}
+ return r});
+const chipLab=mk(cr,'text',{x:70,y:432,'text-anchor':'middle',style:'font-size:12.5px;font-weight:700',fill:'#ffb37a',opacity:0},'first');
+
 /* VIGILANTYX */
 const vg=$('#vig');
 mk(vg,'rect',{x:30,y:150,width:150,height:230,rx:14,fill:'rgba(20,15,11,.8)',stroke:'#5a4f46','stroke-dasharray':'5 6'});
@@ -956,6 +980,9 @@ const H={
  arch(p){lifeG.setAttribute('opacity',seg(p,.55,.65));bp.forEach((e,i)=>draw(e,seg(p,.04+i*.03,.14+i*.03)));treeTops.forEach(c=>c.setAttribute('opacity',seg(p,.6,.66)));dimG.setAttribute('opacity',seg(p,.64,.7));checks.forEach((g,i)=>g.setAttribute('opacity',seg(p,.1+i*.1,.16+i*.1)))},
  proof(p){const n=Math.round(seg(p,.25,.6)*12);$('#cnt').textContent=n;cards.forEach((c,i)=>{c.classList.toggle('on',i<n);c.classList.toggle('glow',c.classList.contains('d2')&&p>.78);})},
  dark(p){codeEl.style.opacity=seg(p,.42,.55)*(innerWidth<820?.3:.6);codeEl.style.transform=`translateY(${RM?0:-p*400}px)`},
+ crucible(p){crCos.forEach((c,i)=>{c.g.setAttribute('opacity',seg(p,.04+i*.04,.12+i*.04));draw(c.l1,seg(p,.22+i*.02,.34+i*.02));draw(c.l2,seg(p,.5+i*.02,.62+i*.02))});
+  rBar.setAttribute('opacity',seg(p,.3,.4));cBar.setAttribute('opacity',seg(p,.45,.55));
+  cells.forEach((r,i)=>{const on=i==0&&p>.7;r.setAttribute('stroke',on?'#ff6b1f':'#5a4f46');r.setAttribute('fill',on?'rgba(255,107,31,.18)':'#1a130e')});chipLab.setAttribute('opacity',seg(p,.72,.8))},
  layers(p){const P=window.__plat;if(P)P.setProgress(RM?1:seg(p,.04,.5))},
  gate(p){const runs=[{t:'LoqSat: propose a move',v:'Allowed · advisory only'},{t:'Daedyl: run a chip tool',v:'Allowed · logged'},{t:'Unknown app: change records',v:'Denied · logged'}];
   const k=Math.min(2,Math.floor(seg(p,.05,.95)*3)),lp=(seg(p,.05,.95)*3)-k;const r=runs[k];reqT.textContent=r.t;
@@ -981,7 +1008,7 @@ const scenes=[...document.querySelectorAll('.sc')].map(el=>({el,name:el.dataset.
 const rail=$('#rail');scenes.forEach((sc,i)=>{sc.el.id='ch-'+sc.name;const a=document.createElement('a');a.href='#ch-'+sc.name;a.innerHTML='<span></span><i></i>';a.firstChild.textContent=sc.c;a.setAttribute('aria-label',sc.c);
  a.addEventListener('click',e=>{e.preventDefault();scrollTo({top:sc.el.offsetTop+(i?innerHeight*.3:0),behavior:RM?'auto':'smooth'})});rail.appendChild(a);sc.nav=a});
 const bar=$('#bar'),chap=$('#chap');let ticking=false;
-const TIMED={dice:2.4,moat:5,family:4,arch:4,proof:3.4,gate:10,vig:7};
+const TIMED={crucible:5,dice:2.4,moat:5,family:4,arch:4,proof:3.4,gate:10,vig:7};
 /* ambient motion: chimney smoke, birds, water, packets, hub pulse */
 const ambEls=[$('#blue'),$('#moat'),fam];let ambOn=false;
 function ambient(t){const vis=ambEls.some(e=>{const r=e.getBoundingClientRect();return r.bottom>0&&r.top<innerHeight});if(!vis||RM){ambOn=false;return}
