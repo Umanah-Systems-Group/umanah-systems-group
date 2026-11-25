@@ -81,6 +81,14 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:1;back
 .die{width:clamp(70px,9vw,110px);aspect-ratio:1;position:relative;transform-style:preserve-3d}
 .die i{position:absolute;inset:0;border:2px solid var(--or);border-radius:16px;background:#1d1510;display:grid;grid-template:repeat(3,1fr)/repeat(3,1fr);padding:14%}
 .die i b{width:68%;aspect-ratio:1;border-radius:50%;background:var(--ink);place-self:center;visibility:hidden}
+.die i{animation:diefloat 3.2s ease-in-out infinite}.die:nth-child(2) i{animation-delay:-1.1s}.die:nth-child(3) i{animation-delay:-2.2s}
+@keyframes diefloat{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-10px) rotate(3deg)}}
+.card.on::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 35%,rgba(255,179,122,.22) 50%,transparent 65%);transform:translateX(-120%);animation:shine 1.1s ease-out .15s forwards;pointer-events:none}
+@keyframes shine{to{transform:translateX(120%)}}
+.card.on{animation:cardpop .45s cubic-bezier(.3,1.5,.5,1)}@keyframes cardpop{0%{transform:scale(.96)}60%{transform:scale(1.03)}100%{transform:none}}
+.spinhint{position:absolute;left:0;right:0;bottom:-34px;margin:auto;width:max-content;font-size:12.5px;color:var(--glow);background:rgba(20,14,10,.85);border:1px solid #4a3526;border-radius:99px;padding:5px 12px;pointer-events:none;z-index:5;animation:spinp 2.4s ease-in-out infinite;transition:opacity .5s}
+.spinhint.gone{opacity:0}@keyframes spinp{0%,100%{transform:translateX(-6px)}50%{transform:translateX(6px)}}
+@media(prefers-reduced-motion:reduce){.die i,.card.on,.card.on::after,.spinhint{animation:none}}
 /* ladder */
 .ladder{display:flex;gap:6px;align-items:flex-end;margin:18px auto 0;max-width:34em}
 .ladder div{flex:1;border-radius:6px 6px 2px 2px;background:#241b15;display:flex;align-items:flex-end;justify-content:center;font-size:13px;color:var(--mut);padding-bottom:4px;transition:background .5s}
@@ -186,6 +194,7 @@ html.flow .pin{position:relative;height:auto;min-height:0;overflow:visible;grid-
 html.flow .pin.solo{min-height:88svh;align-content:center}
 html.flow .art{height:clamp(260px,82vw,480px);max-height:none}
 html.flow .art.grow{height:auto}
+html.flow .art.stackart{height:auto;aspect-ratio:780/930;max-height:none;margin-bottom:40px}
 html.flow .cogrid{position:relative;inset:auto}
 html.flow .grid12{position:relative;inset:auto;grid-auto-rows:minmax(62px,auto)}
 html.flow .art.cards12{height:auto}
@@ -346,9 +355,8 @@ html.flow .chain{margin-top:52px}
    <p class="lede t" data-at=".38"><b>USG Radius</b> in the middle: the guard and the signed logbook. Ask, check, act, record.</p>
    <p class="lede t" data-at=".48"><b>A shared toolbox</b>: design, simulation, AI memory. Set up once, used by everyone.</p>
    <p class="lede t" data-at=".58"><b>Machines</b> at the bottom: chips, robots, satellites, sensors. That's where <b>Crucible</b>, the hardware side, comes in.</p>
-   <p class="note t" data-at=".66">Drag the model to turn it.</p>
   </div>
-  <div class="art stackart"><div class="rplat" id="stack" role="img" aria-label="USG Radius as a stack of layers. Products of every kind on top, then people and AI agents, then USG Radius with its guard and signed logbook, then the shared toolbox, and machines and systems at the bottom. A request from a product is asked, checked, acted on and recorded before it reaches a machine.">
+  <div class="art stackart"><div class="spinhint" id="spinhint">&#8634; Drag to spin</div><div class="rplat" id="stack" role="img" aria-label="USG Radius as a stack of layers. Products of every kind on top, then people and AI agents, then USG Radius with its guard and signed logbook, then the shared toolbox, and machines and systems at the bottom. A request from a product is asked, checked, acted on and recorded before it reaches a machine.">
 <svg class="stk" viewBox="0 0 780 890" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
 <defs><radialGradient id="stkGlow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#e8611a" stop-opacity=".35"/><stop offset="1" stop-color="#e8611a" stop-opacity="0"/></radialGradient></defs>
 <g class="ly ly-mach" style="--k:4">
@@ -760,7 +768,7 @@ const moatLab=mk(moat,'text',{x:300,y:490,'text-anchor':'middle',class:'lab'},'O
 const fam=$('#family');
 const fields=[['Semiconductors','Daedyl · Titanym'],['Electronics','Crucible · Torrqe · Caelyx'],['Sensing (next)','Hyve Grid · Rehzon Grid'],['Robotics','Lucent · McCoy Studio'],['Drones and cargo','Maeviq · Ravionics'],['Space and Earth','LoqSat · Ibom · Spattio · Easley']];
 const famEls=[],cx=300,cy=280;
-const hub=mk(fam,'g',{});mk(hub,'circle',{cx,cy,r:58,fill:'#1d1510',stroke:'#ff6b1f','stroke-width':2.5});
+const hubRing=mk(fam,'circle',{cx,cy,r:58,fill:'none',stroke:'#ff6b1f','stroke-width':1.5,opacity:0});const hub=mk(fam,'g',{});mk(hub,'circle',{cx,cy,r:58,fill:'#1d1510',stroke:'#ff6b1f','stroke-width':2.5});
 mk(hub,'text',{x:cx,y:cy-4,'text-anchor':'middle',class:'hd',style:'font-size:17px'},'NASA IP');mk(hub,'text',{x:cx,y:cy+18,'text-anchor':'middle',class:'lab'},'stacked');
 const pk=[];
 fields.forEach(([f,c],i)=>{const a=-Math.PI/2+i*Math.PI/3,x=cx+Math.cos(a)*205,y=cy+Math.sin(a)*195;
@@ -801,6 +809,11 @@ const houseLines=[
 ];
 const bp=houseLines.map(([d,c])=>mk(blue,'path',{d,class:c}));
 const treeTops=[[10,5.6,2.1,24],[-1,5.6,1.7,18]].map(([x,y,z,r])=>{const q=ISO(x,y,z);return mk(blue,'circle',{cx:q[0],cy:q[1],r,class:'ln',opacity:0})});
+const lifeG=mk(blue,'g',{opacity:0});
+const chim=ISO(1.55,1.55,6.1);
+const smoke=[...Array(5)].map(()=>mk(lifeG,'circle',{cx:chim[0],cy:chim[1],r:6,fill:'#a3968a',opacity:0}));
+const birds=[...Array(3)].map((_,i)=>mk(lifeG,'path',{d:'M-8 0q4-5 8 0q4-5 8 0',fill:'none',stroke:'#f3ece4','stroke-width':1.6,'stroke-linecap':'round'}));
+const winGlow=[[1.3,4,1.6],[4.8,4,1.6],[7.5,4,1]].map(([x,y,z])=>{const q=ISO(x,y,z);return mk(lifeG,'circle',{cx:q[0],cy:q[1],r:16,fill:'#ffb37a',opacity:.1})});
 const dimG=mk(blue,'g',{opacity:0});
 {const a=ISO(0,4.9,0),b=ISO(9,4.9,0);mk(dimG,'path',{d:`M${a[0]} ${a[1]}L${b[0]} ${b[1]}`,stroke:'#ff6b1f','stroke-width':1.2,'stroke-dasharray':'4 4'});
  [a,b].forEach(q=>mk(dimG,'path',{d:`M${q[0]} ${q[1]-7}v14`,stroke:'#ff6b1f','stroke-width':1.2}));
@@ -820,12 +833,12 @@ const codeEl=$('#code');codeEl.textContent=[...Array(60)].map((_,i)=>'   '.repea
 
 /* GATE */
 const gt=$('#gate');
-mk(gt,'path',{d:'M220 90v240 M380 90v240 M220 90h160',class:'lo'});
+mk(gt,'path',{d:'M150 90v240 M450 90v240 M150 90h300',class:'lo'});
 mk(gt,'text',{x:300,y:76,'text-anchor':'middle',class:'hd',style:'font-size:16px'},'Action Gate');
-const req=mk(gt,'g',{});mk(req,'rect',{x:-80,y:-22,width:160,height:44,rx:10,fill:'#1d1510',stroke:'#f3ece4'});
-const reqT=mk(req,'text',{'text-anchor':'middle',y:5,style:'font-size:13px'},'LoqSat: propose a move');
-const chk=['Who is asking?','What do they want?','Do they have permission?'].map((s,i)=>{const g=mk(gt,'g',{opacity:0});mk(g,'text',{x:300,y:118+i*26,'text-anchor':'middle',class:'lab',style:'font-size:13px'},s);return g});
-const verdict=mk(gt,'text',{x:300,y:360,'text-anchor':'middle',class:'hd',style:'font-size:18px',fill:'#ffb37a',opacity:0},'');
+const req=mk(gt,'g',{});mk(req,'rect',{x:-130,y:-24,width:260,height:48,rx:10,fill:'#1d1510',stroke:'#f3ece4'});
+const reqT=mk(req,'text',{'text-anchor':'middle',y:6,style:'font-size:16px'},'LoqSat: propose a move');
+const chk=['Who is asking?','What do they want?','Do they have permission?'].map((s,i)=>{const g=mk(gt,'g',{opacity:0});mk(g,'text',{x:300,y:122+i*30,'text-anchor':'middle',class:'lab',style:'font-size:16px'},s);return g});
+const verdict=mk(gt,'text',{x:300,y:368,'text-anchor':'middle',class:'hd',style:'font-size:20px',fill:'#ffb37a',opacity:0},'');
 const blocks=[...Array(4)].map((_,i)=>{const g=mk(gt,'g',{opacity:0,transform:`translate(${70+i*130} 470)`});
  mk(g,'rect',{x:-50,y:-34,width:100,height:68,rx:8,fill:'#1a130e',stroke:i==3?'#ff6b1f':'#5a4f46','stroke-width':1.5});
  mk(g,'text',{x:0,y:-10,'text-anchor':'middle',class:'lab',style:'font-size:12px'},'page '+(i+1));
@@ -847,8 +860,8 @@ const eye=mk(shield,'g',{});mk(eye,'path',{d:'M-30 0 Q0-24 30 0 Q0 24 -30 0Z',cl
 mk(vg,'text',{x:300,y:140,'text-anchor':'middle',class:'hd',style:'font-size:18px'},'Vigilantyx');
 const scanL=mk(vg,'path',{d:'M232 176h136',stroke:'#ffb37a','stroke-width':2,opacity:0});
 const pkDefs=[['KiCad 10',1],['Blender',1],['update.tar',0],['FreeCAD',1],['ROS 2',1]];
-const pkgs=pkDefs.map(([n,ok],i)=>{const g=mk(vg,'g',{});mk(g,'rect',{x:-46,y:-15,width:92,height:30,rx:7,fill:'#1d1510',stroke:'#f3ece4'});
- mk(g,'text',{'text-anchor':'middle',y:5,style:'font-size:12.5px'},n);const mark=mk(g,'g',{opacity:0});if(ok){mk(mark,'circle',{cx:-58,cy:0,r:9,fill:'#ff6b1f'});mk(mark,'path',{d:'M-62 0l3 3l6-6',stroke:'#0e0b09','stroke-width':2.2,fill:'none'})}else{mk(mark,'text',{'text-anchor':'middle',y:32,style:'font-size:12px;font-weight:700',fill:'#f3ece4'},'blocked')}return{g,ok,mark,i}});
+const pkgs=pkDefs.map(([n,ok],i)=>{const g=mk(vg,'g',{});mk(g,'rect',{x:-56,y:-17,width:112,height:34,rx:8,fill:'#1d1510',stroke:'#f3ece4'});
+ mk(g,'text',{'text-anchor':'middle',y:5.5,style:'font-size:14px'},n);const mark=mk(g,'g',{opacity:0});if(ok){mk(mark,'circle',{cx:-64,cy:0,r:9,fill:'#ff6b1f'});mk(mark,'path',{d:'M-68 0l3 3l6-6',stroke:'#0e0b09','stroke-width':2.2,fill:'none'})}else{mk(mark,'text',{'text-anchor':'middle',y:32,style:'font-size:12px;font-weight:700',fill:'#f3ece4'},'blocked')}return{g,ok,mark,i}});
 const vigLab=mk(vg,'text',{x:300,y:470,'text-anchor':'middle',class:'lab'},'');
 /* COMPANIES */
 const sectors=[
@@ -939,14 +952,14 @@ const H={
   water.setAttribute('opacity',seg(p,.66,.75));moatLab.textContent=p<.45?'One patent: easy to walk around':p<.72?'Stacked patents':'Stacked patents: a moat';
   moatLab.setAttribute('fill',p>.72?'#ffb37a':'#a3968a')},
  family(p){famEls.forEach((o,i)=>{const a=.1+i*.06;draw(o.line,seg(p,a,a+.08));o.g.setAttribute('opacity',seg(p,a+.05,a+.1));o.cn.setAttribute('opacity',seg(p,.52,.6))});
-  pk.forEach((k,i)=>{const u=((p*3+i/6)%1);const on=p>.48;k.el.setAttribute('x',k.x0+(k.x1-k.x0)*u-5);k.el.setAttribute('y',k.y0+(k.y1-k.y0)*u-5);k.el.setAttribute('opacity',on&&!RM?Math.sin(u*Math.PI):0)})},
- arch(p){bp.forEach((e,i)=>draw(e,seg(p,.04+i*.03,.14+i*.03)));treeTops.forEach(c=>c.setAttribute('opacity',seg(p,.6,.66)));dimG.setAttribute('opacity',seg(p,.64,.7));checks.forEach((g,i)=>g.setAttribute('opacity',seg(p,.1+i*.1,.16+i*.1)))},
- proof(p){const n=Math.round(seg(p,.25,.6)*12);$('#cnt').textContent=document.documentElement.classList.contains('flow')?12:n;cards.forEach((c,i)=>{c.classList.toggle('on',i<n);c.classList.toggle('glow',c.classList.contains('d2')&&p>.78);})},
+  fam._live=p>.48},
+ arch(p){lifeG.setAttribute('opacity',seg(p,.55,.65));bp.forEach((e,i)=>draw(e,seg(p,.04+i*.03,.14+i*.03)));treeTops.forEach(c=>c.setAttribute('opacity',seg(p,.6,.66)));dimG.setAttribute('opacity',seg(p,.64,.7));checks.forEach((g,i)=>g.setAttribute('opacity',seg(p,.1+i*.1,.16+i*.1)))},
+ proof(p){const n=Math.round(seg(p,.25,.6)*12);$('#cnt').textContent=n;cards.forEach((c,i)=>{c.classList.toggle('on',i<n);c.classList.toggle('glow',c.classList.contains('d2')&&p>.78);})},
  dark(p){codeEl.style.opacity=seg(p,.42,.55)*(innerWidth<820?.3:.6);codeEl.style.transform=`translateY(${RM?0:-p*400}px)`},
  layers(p){const P=window.__plat;if(P)P.setProgress(RM?1:seg(p,.04,.5))},
  gate(p){const runs=[{t:'LoqSat: propose a move',v:'Allowed · advisory only'},{t:'Daedyl: run a chip tool',v:'Allowed · logged'},{t:'Unknown app: change records',v:'Denied · logged'}];
   const k=Math.min(2,Math.floor(seg(p,.05,.95)*3)),lp=(seg(p,.05,.95)*3)-k;const r=runs[k];reqT.textContent=r.t;
-  const xx=lp<.35?60+lp/.35*240:lp<.65?300:300+(lp-.65)/.35*(k==2?0:220),yy=lp<.65?260:(k==2?260+(lp-.65)/.35*-110:260);req.setAttribute('transform',`translate(${xx} ${yy})`);
+  const xx=lp<.35?140+lp/.35*160:lp<.65?300:300+(lp-.65)/.35*(k==2?0:160),yy=lp<.65?260:(k==2?260+(lp-.65)/.35*-110:260);req.setAttribute('transform',`translate(${xx} ${yy})`);
   req.setAttribute('opacity',k==2&&lp>.65?1-(lp-.65)/.35:1);
   chk.forEach((g,i)=>g.setAttribute('opacity',lp>.3+i*.08&&lp<.9?1:.15));verdict.textContent=lp>.55?r.v:'';verdict.setAttribute('opacity',lp>.55?1:0);verdict.setAttribute('fill',k==2?'#f3ece4':'#ffb37a');
   blocks.forEach((b,i)=>b.setAttribute('opacity',i<1+k+(lp>.7?1:0)?1:.08))},
@@ -968,19 +981,35 @@ const scenes=[...document.querySelectorAll('.sc')].map(el=>({el,name:el.dataset.
 const rail=$('#rail');scenes.forEach((sc,i)=>{sc.el.id='ch-'+sc.name;const a=document.createElement('a');a.href='#ch-'+sc.name;a.innerHTML='<span></span><i></i>';a.firstChild.textContent=sc.c;a.setAttribute('aria-label',sc.c);
  a.addEventListener('click',e=>{e.preventDefault();scrollTo({top:sc.el.offsetTop+(i?innerHeight*.3:0),behavior:RM?'auto':'smooth'})});rail.appendChild(a);sc.nav=a});
 const bar=$('#bar'),chap=$('#chap');let ticking=false;
-function update(){ticking=false;{const mid=innerHeight*.5;let ci=0;scenes.forEach((x,i)=>{if(x.el.getBoundingClientRect().top<mid)ci=i});chIdx=ci;scenes.forEach((x,i)=>{x.nav.classList.toggle('cur',i==ci);x.nav.classList.toggle('done',i<ci)})}if(RM)bgDraw(0);const flow=document.documentElement.classList.contains('flow');const vh=innerHeight,max=document.documentElement.scrollHeight-vh;bar.style.transform=`scaleX(${max>0?scrollY/max:0})`;
- let anySim=false;
+const TIMED={dice:2.4,moat:5,family:4,arch:4,proof:3.4,gate:10,vig:7};
+/* ambient motion: chimney smoke, birds, water, packets, hub pulse */
+const ambEls=[$('#blue'),$('#moat'),fam];let ambOn=false;
+function ambient(t){const vis=ambEls.some(e=>{const r=e.getBoundingClientRect();return r.bottom>0&&r.top<innerHeight});if(!vis||RM){ambOn=false;return}
+ const s=t/1000;
+ smoke.forEach((c,i)=>{const u=((s*.35+i/5)%1);c.setAttribute('cx',chim[0]+Math.sin(u*5+i)*8+u*22);c.setAttribute('cy',chim[1]-u*90);c.setAttribute('r',5+u*16);c.setAttribute('opacity',(1-u)*.38*Math.min(1,u*6))});
+ birds.forEach((b,i)=>{const u=((s*.06+i*.13)%1);const x=-40+u*700,y=70+i*22+Math.sin(s*1.6+i)*8,f=1+Math.sin(s*9+i*2)*.45;b.setAttribute('transform',`translate(${x} ${y}) scale(1 ${f})`)});
+ winGlow.forEach((g,i)=>g.setAttribute('opacity',.08+.06*Math.sin(s*2.3+i*1.7)));
+ water.setAttribute('transform',`translate(${Math.sin(s*1.3)*14} ${Math.sin(s*2.1)*2})`);
+ pk.forEach((k,i)=>{const u=((s*.45+i/6)%1);k.el.setAttribute('x',k.x0+(k.x1-k.x0)*u-5);k.el.setAttribute('y',k.y0+(k.y1-k.y0)*u-5);k.el.setAttribute('opacity',fam._live?Math.sin(u*Math.PI):0)});
+ hubRing.setAttribute('r',58+((s*.6)%1)*40);hubRing.setAttribute('opacity',fam._live?(1-((s*.6)%1))*.5:0);
+ requestAnimationFrame(ambient)}
+function wakeAmb(){if(!ambOn&&!RM){ambOn=true;requestAnimationFrame(ambient)}}
+function update(){ticking=false;wakeAmb();{const mid=innerHeight*.5;let ci=0;scenes.forEach((x,i)=>{if(x.el.getBoundingClientRect().top<mid)ci=i});chIdx=ci;scenes.forEach((x,i)=>{x.nav.classList.toggle('cur',i==ci);x.nav.classList.toggle('done',i<ci)})}if(RM)bgDraw(0);const flow=document.documentElement.classList.contains('flow');const vh=innerHeight,max=document.documentElement.scrollHeight-vh;bar.style.transform=`scaleX(${max>0?scrollY/max:0})`;
+ let anySim=false,again=false;
  for(const s of scenes){const r=s.el.getBoundingClientRect();if(r.bottom<-vh||r.top>vh*1.2)continue;
-  let p;if(flow){const art=s.el.querySelector('.art');const ar=art?art.getBoundingClientRect():r;p=RM?1:cl((vh*.95-ar.top)/(art?Math.min(vh*.8,ar.height+vh*.25):r.height*.8));s.ts.forEach(t=>t.classList.toggle('on',t.getBoundingClientRect().top<vh*.94))}
+  let p;if(flow){const art=s.el.querySelector('.art');const ar=art?art.getBoundingClientRect():r;p=RM?1:cl((vh*.95-ar.top)/(art?Math.min(vh*.8,ar.height+vh*.25):r.height*.8));
+   if(TIMED[s.name]&&!RM){if(ar.top<vh*.75&&ar.bottom>vh*.1){if(s.t0==null)s.t0=performance.now()}else if(ar.top>vh||ar.bottom<0)s.t0=null;p=s.t0==null?0:cl((performance.now()-s.t0)/(TIMED[s.name]*1000));if(s.t0!=null&&p<1)again=true}s.ts.forEach(t=>t.classList.toggle('on',t.getBoundingClientRect().top<vh*.94))}
   else{p=RM?(r.top<vh*.5?1:0):cl(-r.top/(r.height-vh));s.ts.forEach(t=>t.classList.toggle('on',p>=+t.dataset.at||(RM&&r.top<vh)))}
   try{H[s.name]&&H[s.name](RM&&r.top<vh?1:p)}catch(e){}
   if(r.top<vh*.5&&r.bottom>vh*.5)chap.textContent=s.c;
   if(s.name=='sims'&&r.top<vh&&r.bottom>0)anySim=true}
- if(anySim&&!simsOn){simsOn=true;requestAnimationFrame(simFrame)}else if(!anySim)simsOn=false}
+ if(anySim&&!simsOn){simsOn=true;requestAnimationFrame(simFrame)}else if(!anySim)simsOn=false;
+ if(again&&!ticking){ticking=true;requestAnimationFrame(update)}}
 addEventListener('scroll',()=>{if(!ticking){ticking=true;requestAnimationFrame(update)}},{passive:true});
 addEventListener('resize',()=>{setFlow();update()});update();
 }
 </script>
+<script>{const h=document.getElementById('spinhint'),st=document.getElementById('stack');if(h&&st)st.addEventListener('pointerdown',()=>h.classList.add('gone'),{once:true})}</script>
 <script type="module">
 import('./js/platform.js').then(m=>{window.__plat=m.mountPlatform(document.getElementById('stack'))}).catch(()=>{});
 </script>

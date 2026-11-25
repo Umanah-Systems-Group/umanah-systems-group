@@ -182,7 +182,7 @@ export function mountPlatform3D(host) {
     cv.style.left = cvX + 'px'; cv.style.top = cvY + 'px';
     renderer.setSize(W, Hh, false); cv.style.width = W + 'px'; cv.style.height = Hh + 'px';
     cam.aspect = W / Hh; cam.updateProjectionMatrix();
-    const d = (W < 600 ? 19.5 : 22) * Math.max(1, (780 / 890) / (W / Hh)); cam.position.set(d * .6, d * .52, d * .6); cam.lookAt(0, .05, 0);
+    const d = (W < 600 ? 23 : 22) * Math.max(1, (780 / 890) / (W / Hh)); cam.position.set(d * .6, d * .52, d * .6); cam.lookAt(0, .05, 0);
   }
   new ResizeObserver(resize).observe(host); resize();
 
