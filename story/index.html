@@ -712,10 +712,10 @@ const icons=[
  'M-24 30h48 M-10 30v-12 M-10 18l14-30 M4-12l22 8 M26-4l6 10',
  'M-30-14h18 M12-14h18 M-21-14v6 M21-14v6 M-14-2h28l-6 12h-16z M-21-8l14 8 M21-8l-14 8',
  'M-10-10h20v20h-20z M-40-6h26v12h-26z M14-6h26v12h-26z M0 10v14 M-8 30a8 8 0 0 1 16 0'];
-const names=['Chips','Electronics','Sensing','Robots','Drones','Satellites'];
+const ORD=[0,1,3,4,2,5],names0=['Chips','Electronics','Sensing','Robots','Drones','Satellites'],names=ORD.map(k=>names0[k]);
 const chainEls=[];
-icons.forEach((d,i)=>{const g=mk(chainSvg,'g',{transform:`translate(${85+i*166},70)`});
- chainEls.push(mk(g,'path',{d,class:i==2?'lo':'ln'}));mk(g,'text',{y:76,'text-anchor':'middle',class:'lab'},names[i]+(i==2?' (next)':''));
+ORD.map(k=>icons[k]).forEach((d,i)=>{const g=mk(chainSvg,'g',{transform:`translate(${85+i*166},70)`});
+ chainEls.push(mk(g,'path',{d,class:i==4?'lo':'ln'}));mk(g,'text',{y:76,'text-anchor':'middle',class:'lab'},names[i]+(i==4?' (next)':''));
  if(i<5)chainEls.push(mk(chainSvg,'path',{d:`M${133+i*166} 70h70`,class:'lm','stroke-dasharray':'4 6'}));});
 
 /* DICE */
