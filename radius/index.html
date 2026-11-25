@@ -523,8 +523,50 @@ pre.code .k { color: var(--orange-hi); } pre.code .s { color: #9fd3a8; }
 /* diagram */
 .diag { padding: clamp(80px, 10vw, 140px) 0; border-top: 1px solid var(--line); }
 .diag .frame { margin-top: clamp(32px, 5vw, 56px); border: 1px solid var(--line-2); border-radius: 22px; background: radial-gradient(120% 80% at 50% 0%, rgba(232,97,26,.06), transparent 60%), #0a0b10; padding: clamp(10px, 2vw, 28px); overflow-x: auto; }
-.diag .frame .iso { min-width: 760px; }
-.diag .read { margin-top: 16px; color: var(--text-3); font-size: .8rem; text-align: center; }
+.iso-m { display: none; }
+@media (max-width: 47.99rem) {
+  .diag .frame { overflow: visible; padding: 22px 16px 24px; }
+  .diag .frame > .iso { display: none; }
+  .iso-m { display: grid; gap: 12px; text-align: center; }
+  .iso-m h3 { font: 600 .78rem/1.2 var(--display, system-ui); letter-spacing: .08em; text-transform: uppercase; color: var(--text); }
+  .iso-m ul { list-style: none; margin: 0; padding: 0; }
+  .m-cap { position: relative; display: grid; place-items: center; margin-bottom: 4px; }
+  .m-cap::before { content: ""; position: absolute; left: 0; right: 0; top: 50%; border-top: 1px solid var(--line-2); }
+  .m-cap span { position: relative; padding: 7px 16px; border: 1px solid var(--line-2); border-radius: 999px; background: #08090c; font: 600 .72rem/1 var(--display, system-ui); letter-spacing: .14em; text-transform: uppercase; }
+  .m-panel { border: 1px solid var(--line-2); border-radius: 14px; background: #11141c; padding: 14px 12px; display: grid; gap: 10px; }
+  .m-chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; }
+  .m-chips li, .m-bar li { font-size: .78rem; padding: 5px 11px; border: 1px solid var(--line-2); border-radius: 999px; background: rgba(255,255,255,.03); color: var(--text-2); }
+  .m-link { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 2px 0; }
+  .m-link i { flex: 1; max-width: 56px; height: 1px; background: linear-gradient(90deg, transparent, var(--orange)); }
+  .m-link i:last-child { transform: scaleX(-1); }
+  .m-link span { font-size: .66rem; letter-spacing: .1em; text-transform: uppercase; color: var(--text-3); padding: 4px 10px; border: 1px solid var(--line-2); border-radius: 999px; background: #08090c; }
+  .m-plate { position: relative; margin: 0 -6px; }
+  .m-plate .iso { min-width: 0; }
+  .m-badge { display: inline-grid; gap: 2px; justify-items: center; margin-top: -4px; padding: 8px 18px; border: 1px solid var(--orange); border-radius: 10px; background: #08090c; }
+  .m-badge b { font: 600 .9rem/1.1 var(--display, system-ui); letter-spacing: .16em; text-transform: uppercase; color: #f08040; }
+  .m-badge span { font-size: .72rem; color: var(--text-2); }
+  .m-nodes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .m-nodes li { display: grid; gap: 2px; padding: 9px 8px; border: 1px solid var(--line-2); border-radius: 10px; background: #11141c; }
+  .m-nodes b { font-size: .8rem; font-weight: 500; color: var(--text); }
+  .m-nodes span { font-size: .68rem; letter-spacing: .06em; color: var(--text-3); }
+  .m-card { border: 1px solid var(--line-2); border-radius: 12px; background: #11141c; padding: 14px 16px; display: grid; gap: 10px; }
+  .m-card dl { display: grid; gap: 7px; margin: 0; font-size: .8rem; }
+  .m-card dl div { display: flex; justify-content: space-between; gap: 12px; }
+  .m-card dt { color: var(--text-3); }
+  .m-card dd { margin: 0; color: var(--text); }
+  .m-card .g { color: #4ade80; } .m-card .o { color: #f08040; } .m-card .d { color: var(--text-3); }
+  .m-card table { width: 100%; border-collapse: collapse; font-size: .8rem; text-align: left; }
+  .m-card th { font-size: .64rem; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: var(--text-3); padding: 0 0 6px; }
+  .m-card td { padding: 5px 0; border-top: 1px solid var(--line); }
+  .m-card td:nth-child(2) { color: var(--text-2); } .m-card td:nth-child(3) { color: #f08040; }
+  .m-bar { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; }
+  .m-where { padding: 7px 12px; border: 1px solid rgba(232,97,26,.4); border-radius: 8px; background: #0d0f14; font-size: .66rem; letter-spacing: .12em; text-transform: uppercase; color: #f08040; }
+  .m-grps { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .m-grp { border: 1px solid var(--line-2); border-radius: 12px; background: #11141c; padding: 12px 10px; display: grid; gap: 8px; align-content: start; }
+  .m-grp ul { display: grid; gap: 5px; }
+  .m-grp li { font-size: .76rem; color: var(--text-2); }
+}
+@media (min-width: 48rem) { .diag .frame .iso { min-width: 0; } }
 
 /* industries */
 .ind { padding: clamp(80px, 10vw, 140px) 0; border-top: 1px solid var(--line); }
@@ -874,8 +916,135 @@ pre.code .k { color: var(--orange-hi); } pre.code .s { color: #9fd3a8; }
 <rect x="1031" y="933.0" width="117" height="32" rx="8" fill="rgba(255,255,255,.02)" stroke="rgba(255,255,255,.14)"/><circle cx="1046" cy="949.0" r="4" fill="#e8611a"/><text x="1057" y="953.5" class="iso-s">Power grids</text>
 <text x="1027.5" y="1007.0" class="iso-h" text-anchor="middle">MACHINES</text>
 </svg>
+<div class="iso-m">
+  <p class="m-cap"><span>People + AI agents</span></p>
+  <div class="m-panel"><h3>Products</h3><ul class="m-chips"><li>Daedyl</li><li>LoqSat</li><li>Spattio</li><li>Lucent</li><li>McCoy Studio</li><li>Vigilantyx</li></ul></div>
+  <div class="m-panel"><h3>Agents + automation</h3><ul class="m-chips"><li>Design agent</li><li>Planner</li><li>Inspector</li><li>Watchdog</li></ul></div>
+  <div class="m-panel"><h3>Kits + SDK</h3><ul class="m-chips"><li>Radius SDK</li><li>Plug-in kits</li><li>Keys</li><li>Webhooks</li></ul></div>
+  <div class="m-link" aria-hidden="true"><i></i><span>Ask</span><span>SDK</span><span>Kit</span><i></i></div>
+  <div class="m-plate">
+    <svg class="iso" viewBox="236 286 728 446" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="plateTopM" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1a1f2c"/><stop offset="1" stop-color="#121621"/></linearGradient><radialGradient id="glowM" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#e8611a" stop-opacity=".28"/><stop offset="1" stop-color="#e8611a" stop-opacity="0"/></radialGradient></defs>
+<ellipse cx="600" cy="520" rx="430" ry="230" fill="url(#glowM)"/>
+<polygon points="244.9,500.0 600.0,705.0 600.0,727.0 244.9,522.0" fill="#0c0e14" stroke="rgba(255,255,255,.14)"/>
+<polygon points="955.1,500.0 600.0,705.0 600.0,727.0 955.1,522.0" fill="#0f121a" stroke="rgba(255,255,255,.14)"/>
+<polygon points="600.0,295.0 955.1,500.0 600.0,705.0 244.9,500.0" fill="url(#plateTopM)" stroke="rgba(232,97,26,.55)" stroke-width="1.4"/>
+<line x1="635.5" y1="315.5" x2="280.4" y2="520.5" stroke="rgba(255,255,255,.05)"/>
+<line x1="564.5" y1="315.5" x2="919.6" y2="520.5" stroke="rgba(255,255,255,.05)"/>
+<line x1="671.0" y1="336.0" x2="315.9" y2="541.0" stroke="rgba(255,255,255,.05)"/>
+<line x1="529.0" y1="336.0" x2="884.1" y2="541.0" stroke="rgba(255,255,255,.05)"/>
+<line x1="706.5" y1="356.5" x2="351.5" y2="561.5" stroke="rgba(255,255,255,.05)"/>
+<line x1="493.5" y1="356.5" x2="848.5" y2="561.5" stroke="rgba(255,255,255,.05)"/>
+<line x1="742.0" y1="377.0" x2="387.0" y2="582.0" stroke="rgba(255,255,255,.05)"/>
+<line x1="458.0" y1="377.0" x2="813.0" y2="582.0" stroke="rgba(255,255,255,.05)"/>
+<line x1="777.5" y1="397.5" x2="422.5" y2="602.5" stroke="rgba(255,255,255,.05)"/>
+<line x1="422.5" y1="397.5" x2="777.5" y2="602.5" stroke="rgba(255,255,255,.05)"/>
+<line x1="813.0" y1="418.0" x2="458.0" y2="623.0" stroke="rgba(255,255,255,.05)"/>
+<line x1="387.0" y1="418.0" x2="742.0" y2="623.0" stroke="rgba(255,255,255,.05)"/>
+<line x1="848.5" y1="438.5" x2="493.5" y2="643.5" stroke="rgba(255,255,255,.05)"/>
+<line x1="351.5" y1="438.5" x2="706.5" y2="643.5" stroke="rgba(255,255,255,.05)"/>
+<line x1="884.1" y1="459.0" x2="529.0" y2="664.0" stroke="rgba(255,255,255,.05)"/>
+<line x1="315.9" y1="459.0" x2="671.0" y2="664.0" stroke="rgba(255,255,255,.05)"/>
+<line x1="919.6" y1="479.5" x2="564.5" y2="684.5" stroke="rgba(255,255,255,.05)"/>
+<line x1="280.4" y1="479.5" x2="635.5" y2="684.5" stroke="rgba(255,255,255,.05)"/>
+<line x1="591.3" y1="375.0" x2="600.0" y2="500.0" stroke="rgba(232,97,26,.28)" stroke-width="1.2"/>
+<line x1="591.3" y1="375.0" x2="600.0" y2="500.0" stroke="#f08040" stroke-width="2" class="iso-pulse" style="animation-delay:0.00s"/>
+<line x1="721.2" y1="420.0" x2="600.0" y2="500.0" stroke="rgba(232,97,26,.28)" stroke-width="1.2"/>
+<line x1="721.2" y1="420.0" x2="600.0" y2="500.0" stroke="#f08040" stroke-width="2" class="iso-pulse" style="animation-delay:0.37s"/>
+<line x1="807.8" y1="500.0" x2="600.0" y2="500.0" stroke="rgba(232,97,26,.28)" stroke-width="1.2"/>
+<line x1="807.8" y1="500.0" x2="600.0" y2="500.0" stroke="#f08040" stroke-width="2" class="iso-pulse" style="animation-delay:0.74s"/>
+<line x1="461.4" y1="440.0" x2="600.0" y2="500.0" stroke="rgba(232,97,26,.28)" stroke-width="1.2"/>
+<line x1="461.4" y1="440.0" x2="600.0" y2="500.0" stroke="#f08040" stroke-width="2" class="iso-pulse" style="animation-delay:1.11s"/>
+<line x1="755.9" y1="560.0" x2="600.0" y2="500.0" stroke="rgba(232,97,26,.28)" stroke-width="1.2"/>
+<line x1="755.9" y1="560.0" x2="600.0" y2="500.0" stroke="#f08040" stroke-width="2" class="iso-pulse" style="animation-delay:1.48s"/>
+<line x1="400.8" y1="520.0" x2="600.0" y2="500.0" stroke="rgba(232,97,26,.28)" stroke-width="1.2"/>
+<line x1="400.8" y1="520.0" x2="600.0" y2="500.0" stroke="#f08040" stroke-width="2" class="iso-pulse" style="animation-delay:1.85s"/>
+<line x1="496.1" y1="605.0" x2="600.0" y2="500.0" stroke="rgba(232,97,26,.28)" stroke-width="1.2"/>
+<line x1="496.1" y1="605.0" x2="600.0" y2="500.0" stroke="#f08040" stroke-width="2" class="iso-pulse" style="animation-delay:2.22s"/>
+<line x1="660.6" y1="630.0" x2="496.1" y2="605.0" stroke="rgba(232,97,26,.28)" stroke-width="1.2"/>
+<line x1="660.6" y1="630.0" x2="496.1" y2="605.0" stroke="#f08040" stroke-width="2" class="iso-pulse" style="animation-delay:2.59s"/>
+<line x1="591.3" y1="375.0" x2="721.2" y2="420.0" stroke="rgba(232,97,26,.28)" stroke-width="1.2"/>
+<line x1="591.3" y1="375.0" x2="721.2" y2="420.0" stroke="#f08040" stroke-width="2" class="iso-pulse" style="animation-delay:2.96s"/>
+<line x1="461.4" y1="440.0" x2="400.8" y2="520.0" stroke="rgba(232,97,26,.28)" stroke-width="1.2"/>
+<line x1="461.4" y1="440.0" x2="400.8" y2="520.0" stroke="#f08040" stroke-width="2" class="iso-pulse" style="animation-delay:3.33s"/>
+<line x1="807.8" y1="500.0" x2="755.9" y2="560.0" stroke="rgba(232,97,26,.28)" stroke-width="1.2"/>
+<line x1="807.8" y1="500.0" x2="755.9" y2="560.0" stroke="#f08040" stroke-width="2" class="iso-pulse" style="animation-delay:3.70s"/>
+<ellipse cx="591.3" cy="375.0" rx="36.6" ry="21.3" fill="rgba(232,97,26,.06)" stroke="rgba(232,97,26,.35)" stroke-width="1.2"/>
+<polygon points="570.6,349.0 591.3,361.0 591.3,387.0 570.6,375.0" fill="#141821"/>
+<polygon points="612.1,349.0 591.3,361.0 591.3,387.0 612.1,375.0" fill="#1b202c"/>
+<polygon points="591.3,337.0 612.1,349.0 591.3,361.0 570.6,349.0" fill="#262c3b" stroke="rgba(255,255,255,.18)" stroke-width=".8"/>
+<ellipse cx="721.2" cy="420.0" rx="36.6" ry="21.3" fill="rgba(232,97,26,.06)" stroke="rgba(232,97,26,.35)" stroke-width="1.2"/>
+<polygon points="700.5,404.0 721.2,416.0 721.2,432.0 700.5,420.0" fill="#141821"/>
+<polygon points="742.0,404.0 721.2,416.0 721.2,432.0 742.0,420.0" fill="#1b202c"/>
+<polygon points="721.2,392.0 742.0,404.0 721.2,416.0 700.5,404.0" fill="#262c3b" stroke="rgba(255,255,255,.18)" stroke-width=".8"/>
+<ellipse cx="461.4" cy="440.0" rx="36.6" ry="21.3" fill="rgba(232,97,26,.06)" stroke="rgba(232,97,26,.35)" stroke-width="1.2"/>
+<polygon points="440.7,410.0 461.4,422.0 461.4,452.0 440.7,440.0" fill="#141821"/>
+<polygon points="482.2,410.0 461.4,422.0 461.4,452.0 482.2,440.0" fill="#1b202c"/>
+<polygon points="461.4,398.0 482.2,410.0 461.4,422.0 440.7,410.0" fill="#262c3b" stroke="rgba(255,255,255,.18)" stroke-width=".8"/>
+<ellipse cx="807.8" cy="500.0" rx="36.6" ry="21.3" fill="rgba(232,97,26,.06)" stroke="rgba(232,97,26,.35)" stroke-width="1.2"/>
+<polygon points="787.1,488.0 807.8,500.0 807.8,512.0 787.1,500.0" fill="#141821"/>
+<polygon points="828.6,488.0 807.8,500.0 807.8,512.0 828.6,500.0" fill="#1b202c"/>
+<polygon points="807.8,476.0 828.6,488.0 807.8,500.0 787.1,488.0" fill="#262c3b" stroke="rgba(255,255,255,.18)" stroke-width=".8"/>
+<ellipse cx="600.0" cy="500.0" rx="56.1" ry="32.7" fill="rgba(232,97,26,.06)" stroke="rgba(232,97,26,.75)" stroke-width="1.2"/>
+<ellipse cx="600.0" cy="500.0" rx="56.1" ry="32.7" fill="none" stroke="#e8611a" stroke-width="1.5" class="iso-ring"/>
+<polygon points="555.0,486.0 600.0,512.0 600.0,526.0 555.0,500.0" fill="#1a100a"/>
+<polygon points="645.0,486.0 600.0,512.0 600.0,526.0 645.0,500.0" fill="#22150d"/>
+<polygon points="600.0,460.0 645.0,486.0 600.0,512.0 555.0,486.0" fill="#2a1a10" stroke="rgba(255,255,255,.18)" stroke-width=".8"/>
+<polygon points="568.8,470.0 600.0,488.0 600.0,518.0 568.8,500.0" fill="#22140b"/>
+<polygon points="631.2,470.0 600.0,488.0 600.0,518.0 631.2,500.0" fill="#2c190e"/>
+<polygon points="600.0,452.0 631.2,470.0 600.0,488.0 568.8,470.0" fill="#3a2213" stroke="rgba(255,255,255,.18)" stroke-width=".8"/>
+<polygon points="582.7,456.0 600.0,466.0 600.0,510.0 582.7,500.0" fill="#a8460f"/>
+<polygon points="617.3,456.0 600.0,466.0 600.0,510.0 617.3,500.0" fill="#c25213"/>
+<polygon points="600.0,446.0 617.3,456.0 600.0,466.0 582.7,456.0" fill="#e8611a" stroke="rgba(255,255,255,.18)" stroke-width=".8"/>
+<ellipse cx="400.8" cy="520.0" rx="36.6" ry="21.3" fill="rgba(232,97,26,.06)" stroke="rgba(232,97,26,.35)" stroke-width="1.2"/>
+<polygon points="380.0,498.0 400.8,510.0 400.8,532.0 380.0,520.0" fill="#141821"/>
+<polygon points="421.6,498.0 400.8,510.0 400.8,532.0 421.6,520.0" fill="#1b202c"/>
+<polygon points="400.8,486.0 421.6,498.0 400.8,510.0 380.0,498.0" fill="#262c3b" stroke="rgba(255,255,255,.18)" stroke-width=".8"/>
+<ellipse cx="755.9" cy="560.0" rx="36.6" ry="21.3" fill="rgba(232,97,26,.06)" stroke="rgba(232,97,26,.35)" stroke-width="1.2"/>
+<polygon points="735.1,542.0 755.9,554.0 755.9,572.0 735.1,560.0" fill="#141821"/>
+<polygon points="776.7,542.0 755.9,554.0 755.9,572.0 776.7,560.0" fill="#1b202c"/>
+<polygon points="755.9,530.0 776.7,542.0 755.9,554.0 735.1,542.0" fill="#262c3b" stroke="rgba(255,255,255,.18)" stroke-width=".8"/>
+<ellipse cx="496.1" cy="605.0" rx="36.6" ry="21.3" fill="rgba(232,97,26,.06)" stroke="rgba(232,97,26,.35)" stroke-width="1.2"/>
+<polygon points="475.3,571.0 496.1,583.0 496.1,617.0 475.3,605.0" fill="#141821"/>
+<polygon points="516.9,571.0 496.1,583.0 496.1,617.0 516.9,605.0" fill="#1b202c"/>
+<polygon points="496.1,559.0 516.9,571.0 496.1,583.0 475.3,571.0" fill="#262c3b" stroke="rgba(255,255,255,.18)" stroke-width=".8"/>
+<ellipse cx="660.6" cy="630.0" rx="36.6" ry="21.3" fill="rgba(232,97,26,.06)" stroke="rgba(232,97,26,.35)" stroke-width="1.2"/>
+<polygon points="639.8,616.0 660.6,628.0 660.6,642.0 639.8,630.0" fill="#141821"/>
+<polygon points="681.4,616.0 660.6,628.0 660.6,642.0 681.4,630.0" fill="#1b202c"/>
+<polygon points="660.6,604.0 681.4,616.0 660.6,628.0 639.8,616.0" fill="#262c3b" stroke="rgba(255,255,255,.18)" stroke-width=".8"/>
+</svg>
+    <p class="m-badge"><b>USG Radius</b><span>Guard + logbook</span></p>
+  </div>
+  <ul class="m-nodes"><li><b>Satellites</b><span>LoqSat</span></li><li><b>Earth data</b><span>Spattio</span></li><li><b>Robots</b><span>Lucent</span></li><li><b>Chip design</b><span>Daedyl</span></li><li><b>Factory machines</b><span>Crucible</span></li><li><b>Networks</b><span>Vigilantyx</span></li><li><b>Power grids</b><span>Hyve / Rehzon</span></li><li><b>Sensors</b><span>Rehzon Grid</span></li></ul>
+  <div class="m-card">
+    <h3>SAT-12, satellite</h3>
+    <dl>
+      <div><dt>Status</dt><dd class="g">In orbit</dd></div>
+      <div><dt>Asks to</dt><dd>Change orbit</dd></div>
+      <div><dt>Permission</dt><dd>Until 28 Jan</dd></div>
+      <div><dt>Inside limits</dt><dd class="g">Yes</dd></div>
+      <div><dt>Decision</dt><dd class="o">Allowed</dd></div>
+      <div><dt>Logbook</dt><dd class="d">EV-000418</dd></div>
+    </dl>
+  </div>
+  <div class="m-card">
+    <h3>Who may do what</h3>
+    <table><thead><tr><th>Who</th><th>May</th><th>Until</th></tr></thead><tbody>
+      <tr><td>LoqSat</td><td>Propose</td><td>Jan 28</td></tr>
+      <tr><td>Daedyl</td><td>Run tools</td><td>Owner</td></tr>
+      <tr><td>Agent</td><td>Read</td><td>1 hour</td></tr>
+      <tr><td>Operator</td><td>Approve</td><td>Shift</td></tr>
+    </tbody></table>
+  </div>
+  <ul class="m-bar"><li>Permissions</li><li>Limits</li><li>Approvals</li><li>End dates</li><li>Signed logbook</li><li>Replay</li><li>Audit</li></ul>
+  <p class="m-where">Your hardware, your cloud, the edge</p>
+  <div class="m-grps">
+    <div class="m-grp"><h3>Data</h3><ul><li>Telemetry</li><li>Sensors</li><li>Geospatial</li><li>Files</li></ul></div>
+    <div class="m-grp"><h3>Rules</h3><ul><li>Permissions</li><li>Limits</li><li>Schedules</li><li>Approvals</li></ul></div>
+    <div class="m-grp"><h3>AI models</h3><ul><li>Local models</li><li>Simulation</li><li>Digital twins</li><li>Memory</li></ul></div>
+    <div class="m-grp"><h3>Machines</h3><ul><li>Satellites</li><li>Robots</li><li>CNC + motors</li><li>Power grids</li></ul></div>
+  </div>
+</div>
     </div>
-    <p class="read">On a phone, swipe the drawing sideways to see all of it.</p>
   </div>
 </section>
 
