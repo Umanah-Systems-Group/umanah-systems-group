@@ -85,7 +85,7 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:1;back
 .ladder{display:flex;gap:6px;align-items:flex-end;margin:18px auto 0;max-width:34em}
 .ladder div{flex:1;border-radius:6px 6px 2px 2px;background:#241b15;display:flex;align-items:flex-end;justify-content:center;font-size:13px;color:var(--mut);padding-bottom:4px;transition:background .5s}
 .ladder div.hot{background:var(--or2);color:var(--ink)}
-.ladder div.hot.top{background:var(--or)}
+.ladder div{transition:background .35s,color .35s,transform .35s}.ladder div.hot.top{background:var(--or)}.ladder div.hot{animation:rung .5s both}@keyframes rung{0%{transform:scaleY(.9);filter:brightness(1)}50%{transform:scaleY(1.06);filter:brightness(1.5)}100%{transform:none;filter:none}}.ladder div{transform-origin:bottom}
 /* stamps */
 .grid12{position:absolute;inset:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(8px,1.4vw,16px)}
 .card{text-align:center;border:1.5px solid #332820;border-radius:12px;background:rgba(21,16,12,.92);position:relative;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:12px 10px 44px;overflow:hidden}
@@ -931,7 +931,7 @@ const H={
   shelfCnt.textContent=p>.28?'300+ labs · billions a year':''},
  nasa(p){const f=seg(p,.05,.22);dts.forEach((d,i)=>{const keep=i==0;d.setAttribute('opacity',keep?1:1-f*.9);d.setAttribute('fill',f>.5&&!keep?'#2a2019':'#5a4f46')});
   nasa.setAttribute('opacity',seg(p,.15,.25));dotsLab.textContent=f>.6?'One lab: NASA':'300+ federal labs';
-  [...lad.children].forEach((d,i)=>{d.classList.toggle('hot',p>.5&&i>=3);d.classList.toggle('top',p>.5&&i>=3)})},
+  {const on=document.documentElement.classList.contains('flow')?lad.getBoundingClientRect().top<innerHeight*.85:p>.5;if(on!==lad._on){lad._on=on;[...lad.children].forEach((d,i)=>{if(i<3)return;const k=i-3;d.style.transitionDelay=on?(k*.32)+'s':'0s';d.style.animationDelay=(k*.32)+'s';d.classList.toggle('hot',on);d.classList.toggle('top',on)})}}},
  moat(p){const w1=seg(p,.05,.3),bs=seg(p,.4,.68);const pt=wp.getPointAtLength(wp.getTotalLength()*(w1<1?w1:1));
   walker.setAttribute('transform',`translate(${pt.x} ${pt.y})`);walker.setAttribute('opacity',p<.42?1:1-seg(p,.42,.5));wp.setAttribute('opacity',p<.45?1:0);
   bricks.forEach((b,i)=>{const show=i==0?1:seg(bs,(i/bricks.length)*.8,(i/bricks.length)*.8+.2);const yy=i==0&&bs==0?400-36:b.y;const xx=i==0&&bs==0?273:b.x;
