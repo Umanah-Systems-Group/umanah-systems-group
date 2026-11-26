@@ -337,7 +337,7 @@ html.flow .chain{margin-top:52px}
  <div class="pin">
   <div class="words">
    <h2 class="t on">I'm a systems architect.</h2>
-   <p class="lede t" data-at=".1">That means I design how big things fit together. I spent <b>more than a year</b> vetting this IP, patent by patent, checking what stacks with what.</p>
+   <p class="lede t" data-at=".1">That means I design how big things fit together. I spent <b>years</b> vetting this IP, patent by patent, checking what stacks with what.</p>
    <p class="lede t" data-at=".3">I never planned to run every company myself. A venture studio brings in <b>experts</b> to lead each one.</p>
    <p class="lede t" data-at=".5">But finding those people takes time. So I didn't wait.</p>
    <p class="say t" data-at=".66"><em>I designed the solutions myself.</em></p>
@@ -749,7 +749,7 @@ html.flow .chain{margin-top:52px}
    <h2 class="t on">Why me?</h2>
    <p class="lede t" data-at=".06">Because I've been getting ready for this <b>since I was five</b>.</p>
    <p class="lede t" data-at=".2">I'm an electronics engineer and a systems architect. I see how chips, software, robots and factories fit together, because <b>I designed every layer myself</b>.</p>
-   <p class="lede t" data-at=".36">I spent more than a year vetting this IP. <b>12 solutions</b> were assessed awardable. <b>2</b> of them by DARPA too.</p>
+   <p class="lede t" data-at=".36">I spent years vetting this IP, patent by patent, checking what stacks with what. <b>12 solutions</b> were assessed awardable. <b>2</b> of them by DARPA too.</p>
    <p class="lede t" data-at=".5">Titanym, the chip company, has a <b>letter of support from the City of Rancho Cucamonga</b> and is in <b>NVIDIA Inception</b>.</p>
    <p class="say t" data-at=".64">I don't just have an idea.<br><em>I have the whole design.</em></p>
   </div>
@@ -972,7 +972,7 @@ const sap=mk(sd,'circle',{r:5,fill:'#ffd2ad',opacity:0});
 
 /* WHY ME */
 const wm=$('#whyme');
-const WM=[['Age 5','"You\'ll be an engineer."'],['Degree','Electronics engineering'],['Systems architect','Designs how big things fit'],['1+ year','Vetting NASA patents'],['12 awardable','Tradewinds · 2 also by DARPA'],['Radius','The shared layer, designed']];
+const WM=[['Age 5','"You\'ll be an engineer."'],['Degree','Electronics engineering'],['Systems architect','Designs how big things fit'],['Years of vetting','NASA IP, patent by patent'],['12 awardable','Tradewinds · 2 also by DARPA'],['Radius','The shared layer, designed']];
 mk(wm,'path',{d:'M110 50V470',stroke:'#3a2d22','stroke-width':3,'stroke-linecap':'round'});
 const wmLine=mk(wm,'path',{d:'M110 50V470',stroke:'#ff6b1f','stroke-width':3,'stroke-linecap':'round'});
 const wmN=WM.map(([a,b],i)=>{const y=60+i*80;const g=mk(wm,'g',{opacity:.18});const ring=mk(g,'circle',{cx:110,cy:y,r:20,fill:'none',stroke:'#ff6b1f','stroke-width':1.5,opacity:0});
@@ -1054,7 +1054,7 @@ function simFrame(t){
  });
  if(simsOn)requestAnimationFrame(simFrame)}
 
-const stepDefs=[['Found the IP','NASA patents, vetted 1+ year'],['Designed','Patents stacked into solutions'],['Awardable','12 by Tradewinds, 2 by DARPA'],['Simulated','McCoy, Easley, Galleion, Arddeon'],['Experts join','A leader for each company'],['Prototype','Real hardware, via Crucible'],['Pilot','Real customers testing it'],['Scale','Companies on their own']];
+const stepDefs=[['Found the IP','NASA patents, vetted for years'],['Designed','Patents stacked into solutions'],['Awardable','12 by Tradewinds, 2 by DARPA'],['Simulated','McCoy, Easley, Galleion, Arddeon'],['Experts join','A leader for each company'],['Prototype','Real hardware, via Crucible'],['Pilot','Real customers testing it'],['Scale','Companies on their own']];
 const stEls=stepDefs.map(([t,d],i)=>{const e=document.createElement('div');e.className='step';e.innerHTML='<div class="bar"></div><b></b><span></span>';e.children[0].style.height=(innerWidth<=820?26+i*7:44+i*18)+'px';e.children[0].textContent=i+1;e.children[1].textContent=t;e.children[2].textContent=d;$('#steps').appendChild(e);return e});
 const skEls=stepDefs.map(([t],i)=>{const k=document.createElement('span');k.innerHTML='<i></i>';k.firstChild.textContent=i+1;k.append(t);$('#stepkey').appendChild(k);return k});
 
