@@ -177,6 +177,10 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:1;back
 /* close */
 .close h1{font-size:clamp(40px,7vw,96px)}
 .foot{font-size:13px;color:var(--mut);margin-top:34px}
+a.src{color:inherit;text-decoration:underline;text-decoration-color:rgba(255,107,31,.6);text-underline-offset:3px}a.src:hover{color:var(--ink)}
+.gov{display:grid;gap:10px;max-width:520px;margin:18px auto 0}.gov a{display:block;text-align:center;text-decoration:none;color:var(--mut);font-size:15px;line-height:1.45;padding:12px 16px;border:1px solid #3a2d22;border-radius:12px;background:rgba(26,19,14,.75);transition:border-color .3s,transform .3s}
+.gov a:hover{border-color:var(--or);transform:translateY(-2px)}.gov a b{color:var(--ink)}.gov a i{display:block;font-style:normal;font-size:12px;color:var(--or);margin-top:4px;letter-spacing:.02em}
+.srcs{font-size:12px;color:var(--dim);max-width:560px;margin:14px auto 0;line-height:1.6}.srcs a{color:var(--mut)}
 .foot a{color:var(--glow)}
 .stackart .rplat{position:absolute;inset:0;max-width:none;margin:0}
 .stackart .rplat .stk{position:absolute;inset:0;width:100%;height:100%}
@@ -267,7 +271,8 @@ html.flow .chain{margin-top:52px}
   <div class="words">
    <h2 class="t on">That became a dream.</h2>
    <p class="lede t" data-at=".08">I wanted to start a <b>venture studio</b>: a company whose job is to start other companies.</p>
-   <p class="lede t" data-at=".22">So I got into <b>VC Lab</b>, a program that trains new venture investors. I studied how the money decides.</p>
+   <p class="lede t" data-at=".16">I wrote the book on it: <a class="src" href="https://www.amazon.com/dp/B0C7T5W8KF" target="_blank" rel="noopener"><b>The Venture Studio Blueprint</b></a>, published June 7, 2023. It has been a bestseller in its Amazon category for three years.</p>
+   <p class="lede t" data-at=".26">I also got into <b>VC Lab</b>, a program that trains new venture investors. I studied how the money decides.</p>
    <p class="say t" data-at=".42">And I learned something.<br><em>Most investors are guessing.</em></p>
    <p class="lede t" data-at=".62">Good guesses, smart guesses. But still guesses. I said to myself: no. There has to be a better way.</p>
   </div>
@@ -742,6 +747,49 @@ html.flow .chain{margin-top:52px}
  </div>
 </section>
 
+<!-- 13c2 MARKET -->
+<section class="sc" data-s="mkchips" data-c="Market: chips" style="--len:3">
+ <div class="pin">
+  <div class="words">
+   <h2 class="t on">The market wants this. <span style="color:var(--or)">Start with chips.</span></h2>
+   <p class="lede t" data-at=".06">Chips are already a <b>$1.5 trillion</b> a year market, and the forecasts keep going up.</p>
+   <p class="lede t" data-at=".2">The government is paying to bring chipmaking home. That is exactly where <b>Titanym</b> fits.</p>
+   <div class="gov t" data-at=".34"><a href="https://www.gao.gov/products/gao-26-109121" target="_blank" rel="noopener"><b>$31.5 billion</b> in CHIPS Act direct funding for U.S. chip plants.<i>GAO-26-109121 ↗</i></a><a href="https://www.darpa.mil/news/2018/next-phase-electronic-resurgence-initiative" target="_blank" rel="noopener"><b>Up to $1.5 billion</b> for DARPA's Electronics Resurgence Initiative, to renew U.S. electronics.<i>DARPA ↗</i></a></div>
+   <p class="say t" data-at=".6">Today: $1.5 trillion.<br><em>By 2030: $2.3 trillion.</em></p>
+   <p class="srcs t" data-at=".7">Sources: <a href="https://www.wsts.org/esraCMS/extension/media/f/WST/7618/WSTS_FC-Release-2026-May.pdf" target="_blank" rel="noopener">WSTS Spring 2026</a> · <a href="https://www.mckinsey.com/industries/semiconductors/our-insights/the-2-point-3-trillion-dollar-horizon-how-ai-is-rewriting-the-semiconductor-story" target="_blank" rel="noopener">McKinsey 2030 outlook</a>.<br>Dashed bars are our estimates: after each source's last forecast year, we assume growth slows to half the source's own rate.</p>
+  </div>
+  <div class="art"><svg id="mkchips" viewBox="0 0 600 520" preserveAspectRatio="xMidYMid meet"></svg></div>
+ </div>
+</section>
+
+<section class="sc" data-s="mkrobots" data-c="Market: robots" style="--len:3">
+ <div class="pin">
+  <div class="words">
+   <h2 class="t on">Then <span style="color:var(--or)">robots.</span></h2>
+   <p class="lede t" data-at=".06">Factories bought a record <b>$16.7 billion</b> of industrial robots in one year. Humanoid robots are next.</p>
+   <p class="lede t" data-at=".2">For the Defense Department, keeping a system running costs more than buying it. Inspection and maintenance robots, like <b>Lucent Robotics</b>, go straight at that cost.</p>
+   <div class="gov t" data-at=".34"><a href="https://www.gao.gov/products/gao-26-108140" target="_blank" rel="noopener">Keeping weapon systems running is <b>about 70%</b> of their lifetime cost. DoD spends <b>tens of billions</b> a year on it.<i>GAO-26-108140 ↗</i></a><a href="https://www.goldmansachs.com/insights/articles/the-global-market-for-robots-could-reach-38-billion-by-2035" target="_blank" rel="noopener"><b>250,000+</b> humanoid robots shipped in 2030, almost all for industry.<i>Goldman Sachs ↗</i></a></div>
+   <p class="say t" data-at=".6">Today: $17 billion in factory robots.<br><em>By 2050: a $5 trillion humanoid market.</em></p>
+   <p class="srcs t" data-at=".7">Sources: <a href="https://ifr.org/ifr-press-releases/news/global-robot-demand-in-factories-doubles-over-10-years" target="_blank" rel="noopener">IFR World Robotics</a> · <a href="https://www.goldmansachs.com/insights/articles/the-global-market-for-robots-could-reach-38-billion-by-2035" target="_blank" rel="noopener">Goldman Sachs</a> · <a href="https://www.morganstanley.com/insights/articles/humanoid-robot-market-5-trillion-by-2050" target="_blank" rel="noopener">Morgan Stanley</a>.<br>The 2024 bar is industrial robots; the 2035 and 2050 bars are humanoid robots.</p>
+  </div>
+  <div class="art"><svg id="mkrobots" viewBox="0 0 600 520" preserveAspectRatio="xMidYMid meet"></svg></div>
+ </div>
+</section>
+
+<section class="sc" data-s="mkspace" data-c="Market: space" style="--len:3">
+ <div class="pin">
+  <div class="words">
+   <h2 class="t on">And <span style="color:var(--or)">space.</span></h2>
+   <p class="lede t" data-at=".06">The space economy was <b>$630 billion</b> in 2023. It is forecast to nearly triple by 2035.</p>
+   <p class="lede t" data-at=".2">Satellites, launch, and the data they send down. <b>LoqSat, Spattio and Easley</b> are designed for exactly this.</p>
+   <div class="gov t" data-at=".34"><a href="https://www.saffm.hq.af.mil/Portals/84/documents/FY26/FY26%20Budget%20Overview.pdf" target="_blank" rel="noopener"><b>$26.3 billion</b> requested for the U.S. Space Force in fiscal 2026.<i>U.S. Space Force budget ↗</i></a><a href="https://www.weforum.org/publications/space-the-1-8-trillion-opportunity-for-global-economic-growth/" target="_blank" rel="noopener"><b>$1.8 trillion</b> space economy by 2035, growing about 9% a year, faster than the world economy.<i>World Economic Forum ↗</i></a></div>
+   <p class="say t" data-at=".6">Three markets. All growing.<br><em>One family, designed for all three.</em></p>
+   <p class="srcs t" data-at=".7">Sources: <a href="https://www.weforum.org/publications/space-the-1-8-trillion-opportunity-for-global-economic-growth/" target="_blank" rel="noopener">World Economic Forum and McKinsey</a>.<br>Dashed bars are our estimates: 2030 uses the source's own 9% a year; after 2035 we assume growth slows to half that.</p>
+  </div>
+  <div class="art"><svg id="mkspace" viewBox="0 0 600 520" preserveAspectRatio="xMidYMid meet"></svg></div>
+ </div>
+</section>
+
 <!-- 13d WHY ME -->
 <section class="sc" data-s="whyme" data-c="Why me" style="--len:3">
  <div class="pin">
@@ -761,8 +809,8 @@ html.flow .chain{margin-top:52px}
 <section class="sc close" data-s="close" data-c="What's next" style="--len:1.7">
  <div class="pin solo">
   <div class="words" style="max-width:900px">
-   <p class="lede t" data-at="0">I'm not in Silicon Valley. I think outside the box.</p>
-   <p class="say t" data-at=".06">That's exactly why I could see this.</p>
+   <p class="lede t" data-at="0">The IP is vetted. The designs are done. The market is waiting.</p>
+   <p class="say t" data-at=".06">Now it's time to make it real.</p>
    <h1 class="t" data-at=".14" style="margin-top:22px">Let's take it<br><span style="color:var(--or)">off the screen.</span></h1>
    <p class="foot t" data-at=".22">Amaete Umanah, Systems Architect<br>Umanah Systems Group<br><a href="https://umanahsystems.com/">umanahsystems.com</a><br>We build mission-critical systems and infrastructure. Dual use, for government and commercial.</p>
   </div>
@@ -989,6 +1037,31 @@ const rg=mk(mk(cr,'defs',{}),'linearGradient',{id:'swG'});mk(rg,'stop',{offset:0
 const rSweep=mk(rBar,'rect',{x:20,y:211,width:90,height:48,fill:'url(#swG)',opacity:0});
 const crLog=mk(cr,'text',{x:300,y:513,'text-anchor':'middle',class:'lab',opacity:0},'');
 
+/* MARKET charts */
+const fmtB=v=>v>=1000?'$'+(v/1000).toFixed(2).replace(/\.?0+$/,'')+'T':'$'+(v<100?v.toFixed(1).replace(/\.0$/,''):Math.round(v))+'B';
+function mkChart(svg,title,D){const X0=60,X1=570,Y0=430,Y1=110,n=D.length,gap=16,w=(X1-X0-gap*(n-1))/n,mx=Math.max(...D.map(d=>d.v));
+ mk(svg,'text',{x:300,y:44,'text-anchor':'middle',class:'hd',style:'font-size:19px'},title);
+ mk(svg,'path',{d:`M${X0-10} ${Y0}H${X1+10}`,stroke:'#5a4f46','stroke-width':1.5});
+ for(let k=1;k<=3;k++)mk(svg,'path',{d:`M${X0-10} ${Y0-(Y0-Y1)*k/3}H${X1+10}`,stroke:'#2a2019','stroke-dasharray':'2 6'});
+ const bars=D.map((d,i)=>{const x=X0+i*(w+gap),h=Math.max(3,(Y0-Y1)*d.v/mx);
+  const r=mk(svg,'rect',{x,y:Y0,width:w,height:0,rx:6,fill:d.e?'rgba(255,107,31,.08)':'url(#mkG'+svg.id+')',stroke:d.e?'#ff8a47':'none','stroke-width':1.6,'stroke-dasharray':d.e?'5 4':''});
+  const val=mk(svg,'text',{x:x+w/2,y:Y0-8,'text-anchor':'middle',style:`font-size:${n>5?15:17}px;font-weight:800`,fill:d.e?'#ffb37a':'#f3ece4',opacity:0},'');
+  mk(svg,'text',{x:x+w/2,y:Y0+24,'text-anchor':'middle',style:'font-size:15px;font-weight:700'},d.y);
+  mk(svg,'text',{x:x+w/2,y:Y0+43,'text-anchor':'middle',class:'lab',style:'font-size:12.5px'},d.l);
+  return{r,val,h,x,d,cx:x+w/2}});
+ const gd=mk(mk(svg,'defs',{}),'linearGradient',{id:'mkG'+svg.id,x1:0,y1:0,x2:0,y2:1});mk(gd,'stop',{offset:0,'stop-color':'#ff8a47'});mk(gd,'stop',{offset:1,'stop-color':'#b84a0f'});
+ const line=mk(svg,'path',{d:'M'+bars.map(b=>`${b.cx} ${Y0-b.h-42}`).join('L'),fill:'none',stroke:'#ffd2ad','stroke-width':1.6,'stroke-dasharray':'1 0',opacity:.85});
+ const dot=mk(svg,'circle',{r:5,fill:'#ffd2ad',opacity:0});const glow=mk(svg,'rect',{x:bars[n-1].x-4,y:Y0-bars[n-1].h-4,width:w+8,height:bars[n-1].h+8,rx:9,fill:'none',stroke:'#ff6b1f','stroke-width':2,opacity:0});
+ const pub=D.filter(d=>!d.e),pl=pub[pub.length-1];const mult=mk(svg,'text',{x:300,y:78,'text-anchor':'middle',style:'font-size:15px;font-weight:700',fill:'#ffb37a',opacity:0},svg.id=='mkrobots'?'Humanoids: $38B in 2035, $5T by 2050':'×'+(pl.v/D[0].v).toFixed(1)+' from '+D[0].y+' to '+pl.y+', published forecasts only');
+ mk(svg,'g',{});const key=mk(svg,'g',{transform:'translate(300 505)'});mk(key,'rect',{x:-200,y:-11,width:14,height:12,rx:3,fill:'#ff6b1f'});mk(key,'text',{x:-180,y:0,class:'lab',style:'font-size:13px'},'Published forecast or data');
+ if(D.some(d=>d.e)){mk(key,'rect',{x:40,y:-11,width:14,height:12,rx:3,fill:'none',stroke:'#ff8a47','stroke-dasharray':'3 2'});mk(key,'text',{x:60,y:0,class:'lab',style:'font-size:13px'},'Our estimate')}
+ const o={p(p){bars.forEach((b,i)=>{const e=ease(seg(p,.06+i*.07,.2+i*.07)),h=b.h*e;b.r.setAttribute('y',Y0-h);b.r.setAttribute('height',h);b.val.setAttribute('y',Y0-h-9);b.val.setAttribute('opacity',e>0?1:0);b.val.textContent=fmtB(b.d.v*e)});
+   draw(line,seg(p,.55,.75));mult.setAttribute('opacity',seg(p,.72,.8));o.live=p>.75},
+  amb(s){if(!o.live){dot.setAttribute('opacity',0);glow.setAttribute('opacity',0);return}const L=line.getTotalLength(),u=(s*.28)%1,pt=line.getPointAtLength(L*u);dot.setAttribute('cx',pt.x);dot.setAttribute('cy',pt.y);dot.setAttribute('opacity',Math.sin(u*Math.PI));glow.setAttribute('opacity',.25+.35*Math.sin(s*2.6))},svg};return o}
+const MK={mkchips:mkChart($('#mkchips'),'Global chip market, per year',[{y:'2026',l:'Today',v:1510},{y:'2027',l:'Next year',v:1900},{y:'2030',l:'~5 years',v:2300},{y:'2035',l:'~10 years',v:3000,e:1},{y:'2040',l:'~15 years',v:3930,e:1},{y:'2045',l:'~20 years',v:5140,e:1}]),
+ mkrobots:mkChart($('#mkrobots'),'Robot markets, per year',[{y:'2024',l:'Factory robots',v:16.7},{y:'2035',l:'Humanoids',v:38},{y:'2050',l:'Humanoids',v:5000}]),
+ mkspace:mkChart($('#mkspace'),'Global space economy, per year',[{y:'2023',l:'Latest data',v:630},{y:'2030',l:'~5 years',v:1150,e:1},{y:'2035',l:'~10 years',v:1800},{y:'2040',l:'~15 years',v:2240,e:1},{y:'2045',l:'~20 years',v:2800,e:1}])};
+
 /* VIGILANTYX */
 const vg=$('#vig');
 mk(vg,'rect',{x:30,y:150,width:150,height:230,rx:14,fill:'rgba(20,15,11,.8)',stroke:'#5a4f46','stroke-dasharray':'5 6'});
@@ -1102,6 +1175,7 @@ const H={
  seed(p){seedG.setAttribute('opacity',seg(p,0,.08));draw(trunk,seg(p,.1,.32));brs.forEach((o,i)=>{draw(o.b,seg(p,.3+i*.06,.44+i*.06));o.g.setAttribute('opacity',seg(p,.4+i*.06,.48+i*.06))});
   famLab.setAttribute('opacity',seg(p,.7,.8));famDots.forEach((d,i)=>d.setAttribute('opacity',seg(p,.7+(i>>2)*.03,.76+(i>>2)*.03)));sd._live=p>.6},
  whyme(p){const f=seg(p,.04,.8);draw(wmLine,f);wmN.forEach((n,i)=>n.g.setAttribute('opacity',f*420+50>=n.y-4?1:.18));wm._live=p>.82},
+ mkchips(p){MK.mkchips.p(p)},mkrobots(p){MK.mkrobots.p(p)},mkspace(p){MK.mkspace.p(p)},
  crucible(p){crCos.forEach((c,i)=>{c.g.setAttribute('opacity',seg(p,.04+i*.04,.12+i*.04));draw(c.l1,seg(p,.22+i*.02,.34+i*.02));draw(c.l2,seg(p,.5+i*.02,.62+i*.02))});
   rBar.setAttribute('opacity',seg(p,.3,.4));cBar.setAttribute('opacity',seg(p,.45,.55));
   cells.forEach((r,i)=>{const on=i==0&&p>.7;r.setAttribute('stroke',on?'#ff6b1f':'#5a4f46');r.setAttribute('fill',on?'rgba(255,107,31,.18)':'#1a130e')});chipLab.setAttribute('opacity',seg(p,.72,.8));cr._live=p>.66;crLog.setAttribute('opacity',seg(p,.7,.8))},
@@ -1135,9 +1209,9 @@ const scenes=[...document.querySelectorAll('.sc')].map(el=>({el,name:el.dataset.
 const rail=$('#rail');scenes.forEach((sc,i)=>{sc.el.id='ch-'+sc.name;const a=document.createElement('a');a.href='#ch-'+sc.name;a.innerHTML='<span></span><i></i>';a.firstChild.textContent=sc.c;a.setAttribute('aria-label',sc.c);
  a.addEventListener('click',e=>{e.preventDefault();scrollTo({top:sc.el.offsetTop+(i?innerHeight*.3:0),behavior:RM?'auto':'smooth'})});rail.appendChild(a);sc.nav=a});
 const bar=$('#bar'),chap=$('#chap');let ticking=false;
-const TIMED={seed:5,whyme:5,crunet:6,crucible:5,dice:2.4,moat:5,family:4,arch:4,proof:3.4,gate:10,vig:7};
+const TIMED={mkchips:4.5,mkrobots:4,mkspace:4.5,seed:5,whyme:5,crunet:6,crucible:5,dice:2.4,moat:5,family:4,arch:4,proof:3.4,gate:10,vig:7};
 /* ambient motion: chimney smoke, birds, water, packets, hub pulse */
-const ambEls=[chainSvg,$('#blue'),$('#moat'),fam,$('#crunet'),sd,wm,cr];let ambOn=false;
+const ambEls=[chainSvg,$('#blue'),$('#moat'),fam,$('#crunet'),sd,wm,cr,MK.mkchips.svg,MK.mkrobots.svg,MK.mkspace.svg];let ambOn=false;
 function ambient(t){const vis=ambEls.some(e=>{const r=e.getBoundingClientRect();return r.bottom>0&&r.top<innerHeight});if(!vis||RM){ambOn=false;return}
  const s=t/1000;
  smoke.forEach((c,i)=>{const u=((s*.35+i/5)%1);c.setAttribute('cx',chim[0]+Math.sin(u*5+i)*8+u*22);c.setAttribute('cy',chim[1]-u*90);c.setAttribute('r',5+u*16);c.setAttribute('opacity',(1-u)*.38*Math.min(1,u*6))});
@@ -1149,6 +1223,7 @@ function ambient(t){const vis=ambEls.some(e=>{const r=e.getBoundingClientRect();
  homePulse.setAttribute('r',10+((s*.8)%1)*22);homePulse.setAttribute('opacity',1-((s*.8)%1));
  if(cn._live){const k=Math.floor(s/2.4)%netLines.length,u=(s%2.4)/2.4,l=netLines[k],L=l.getTotalLength(),f=u<.5?u*2:2-u*2,pt=l.getPointAtLength(L*f);netPk.setAttribute('cx',pt.x);netPk.setAttribute('cy',pt.y);netPk.setAttribute('opacity',1);netPk.setAttribute('fill',u<.5?'#ffd2ad':'#ffb37a')}else netPk.setAttribute('opacity',0);
  {const u=(s*.18)%1,x=85+u*830;chainPk.setAttribute('cx',x);chainPk.setAttribute('cy',70);chainPk.setAttribute('opacity',s>3.2?Math.sin(u*Math.PI):0);icons.forEach((_,i)=>{const ic=chainIcons[i];if(!ic)return;const near=Math.abs(x-(85+i*166))<40&&s>3.2;ic.setAttribute('class',near||i==4?'lo':'ln')})}
+ Object.values(MK).forEach(c=>c.amb(s));
  if(sd._live){seedGlow.setAttribute('r',22+Math.sin(s*2)*6);const k=Math.floor(s/1.6)%4,u=(s%1.6)/1.6,Lt=trunk.getTotalLength(),b=brs[k].b,Lb=b.getTotalLength();
   const pt=u<.45?trunk.getPointAtLength(Lt*u/.45):b.getPointAtLength(Lb*Math.min(1,(u-.45)/.45));sap.setAttribute('cx',pt.x);sap.setAttribute('cy',pt.y);sap.setAttribute('opacity',u<.92?1:0);
   brs.forEach((o,i)=>{const on=i==k&&u>.88;o.ring.setAttribute('opacity',on?1:Math.max(0,+o.ring.getAttribute('opacity')-.03));o.ring.setAttribute('r',on?22:Math.min(34,+o.ring.getAttribute('r')+.4))});
