@@ -812,11 +812,26 @@ html.flow .chain{margin-top:52px}
    <h2 class="t on">Twelve designs. <span style="color:var(--or)">Two go first.</span></h2>
    <p class="lede t" data-at=".06">I'll say it plainly. I haven't scaled a company yet. I haven't exited. I don't have a paying customer.</p>
    <p class="say t" data-at=".16">Here's what I do have.</p>
-   <p class="lede t" data-at=".26"><b>Titanym</b>, the chip company: assessed awardable by DARPA and Tradewinds, support from the <b>City of Rancho Cucamonga</b> for its first plant, and a member of <b>NVIDIA Inception</b>.</p>
+   <p class="lede t" data-at=".26"><b>Titanym</b>, the chip company: assessed awardable by DARPA and Tradewinds, a member of <b>NVIDIA Inception</b>, and a letter from the <b>City of Rancho Cucamonga</b> to the U.S. CHIPS Program Office backing its first plant. The city projects <b>100 to 150 jobs</b> in the first phase and <b>more than 1,500</b> at full operation.</p>
    <p class="lede t" data-at=".42"><b>Lucent Robotics</b>, robots that build and repair structures in space: assessed awardable by DARPA and Tradewinds, with letters of support from <b>Voyager Technologies</b>, <b>Spacebilt</b> and <b>Oceaneering Space Systems</b>, written before a line of software existed.</p>
    <p class="say t" data-at=".6">Everything else waits its turn on the same foundation.<br><em>Not twelve bets at once. Two, in order.</em></p>
   </div>
   <div class="art"><svg id="two" viewBox="0 0 600 520" preserveAspectRatio="xMidYMid meet"></svg></div>
+ </div>
+</section>
+
+<!-- 13f TEAM -->
+<section class="sc" data-s="team" data-c="The team" style="--len:2.8">
+ <div class="pin">
+  <div class="words">
+   <h2 class="t on">And I'm <span style="color:var(--or)">not alone.</span></h2>
+   <p class="lede t" data-at=".06">Each of the two comes with a seasoned engineer who has already committed to it.</p>
+   <p class="lede t" data-at=".2"><b>David Parre</b>, my co-founder, for chips: <b>30+ years</b> of silicon design at Meta, Google, Broadcom, Intel, NXP, Cadence and STMicroelectronics, with <b>20+ chips</b> taken to tapeout, down to 3nm and 2nm.</p>
+   <p class="lede t" data-at=".34">David is a big reason Radius runs on the <b>NVIDIA DGX Spark</b> today, and that work helped get Titanym into NVIDIA Inception.</p>
+   <p class="lede t" data-at=".46"><b>Luke Bilger</b>, for robots: <b>30 years</b> of robotics, motion control and automated production systems. UCLA mechanical engineering. He was at Ellipse Technologies through its <b>$421M</b> acquisition, and now runs his own engineering firm, US Mechatronics.</p>
+   <p class="say t" data-at=".62">Both have full-time jobs today.<br><em>Both join full time when we raise.</em></p>
+  </div>
+  <div class="art"><svg id="team" viewBox="0 0 600 520" preserveAspectRatio="xMidYMid meet"></svg></div>
  </div>
 </section>
 
@@ -1082,7 +1097,7 @@ const tw=$('#two');
 const twMini=[...Array(12)].map((_,i)=>{const x=75+(i%6)*90,y=40+Math.floor(i/6)*44,hot=i==0||i==2;const g=mk(tw,'g',{opacity:0});
  const r=mk(g,'rect',{x:x-36,y:y,width:72,height:30,rx:7,fill:'#1a130e',stroke:hot?'#ff6b1f':'#3a2d22','stroke-width':hot?2:1.2});
  mk(g,'text',{x,y:y+19.5,'text-anchor':'middle',style:'font-size:11px;font-weight:600',fill:hot?'#f3ece4':'#6b5848'},['Titanym','Ohnera','Lucent','Spattio','LoqSat','Rehzon','BlueQor','Caelyx','HyveGrid','Maeviq','Ravionics','Stohnn'][i]);return{g,r,hot}});
-const TW=[{n:'Titanym',k:'Chips',x:30,st:['DARPA: awardable','Tradewinds: awardable','Rancho Cucamonga: city support','NVIDIA Inception: member']},
+const TW=[{n:'Titanym',k:'Chips',x:30,st:['DARPA: awardable','Tradewinds: awardable','Rancho Cucamonga: letter to CHIPS','NVIDIA Inception: member']},
  {n:'Lucent Robotics',k:'Robots that build and repair in space',x:310,st:['DARPA: awardable','Tradewinds: awardable','Voyager Technologies: support','Spacebilt: support','Oceaneering: support']}];
 const twCards=TW.map((c,ci)=>{const g=mk(tw,'g',{opacity:0});const box=mk(g,'rect',{x:c.x,y:150,width:260,height:330,rx:14,fill:'rgba(26,19,14,.92)',stroke:'#ff6b1f','stroke-width':2});
  const ring=mk(g,'rect',{x:c.x-5,y:145,width:270,height:340,rx:17,fill:'none',stroke:'#ff6b1f','stroke-width':1.5,opacity:0});
@@ -1091,6 +1106,19 @@ const twCards=TW.map((c,ci)=>{const g=mk(tw,'g',{opacity:0});const box=mk(g,'rec
  const st=c.st.map((t,i)=>{const sg=mk(g,'g',{opacity:0});const y=268+i*40;mk(sg,'rect',{x:c.x+16,y:y-15,width:228,height:30,rx:8,fill:'#21160e',stroke:'#3a2d22'});
   mk(sg,'circle',{cx:c.x+32,cy:y,r:8,fill:'#ff6b1f'});mk(sg,'path',{d:`M${c.x+28} ${y}l3 3l5-6`,fill:'none',stroke:'#1a120c','stroke-width':2});mk(sg,'text',{x:c.x+48,y:y+4.5,style:'font-size:12.5px;font-weight:600'},t);return sg});
  const lnk=mk(tw,'path',{d:`M${ci==0?75:255} 70Q${ci==0?120:300} 110 ${c.x+130} 150`,fill:'none',stroke:'#ff6b1f','stroke-width':1.5,'stroke-dasharray':'4 4'});return{g,box,ring,st,lnk}});
+
+/* TEAM */
+const tm=$('#team');
+const TM=[{n:'David Parre',r:'Co-founder · chips',co:'Titanym',x:30,stats:[[30,'years in silicon','',1],[20,'chips to tapeout','',1],[2,'nm, the newest node']]},
+ {n:'Luke Bilger',r:'Robots and automation',co:'Lucent Robotics',x:310,stats:[[30,' years in robotics'],[15,' direct reports led'],[421,'million exit he was part of','$']]}];
+const tmC=TM.map((t,ti)=>{const g=mk(tm,'g',{opacity:0});const cx=t.x+130;
+ mk(g,'rect',{x:t.x,y:40,width:260,height:300,rx:14,fill:'rgba(26,19,14,.92)',stroke:'#5a4f46','stroke-width':1.5});
+ const av=mk(g,'circle',{cx,cy:96,r:30,fill:'#21160e',stroke:'#ff6b1f','stroke-width':2});mk(g,'text',{x:cx,y:104,'text-anchor':'middle',class:'hd',style:'font-size:22px',fill:'#ffb37a'},t.n.split(' ').map(w=>w[0]).join(''));
+ mk(g,'text',{x:cx,y:152,'text-anchor':'middle',class:'hd',style:'font-size:20px'},t.n);mk(g,'text',{x:cx,y:174,'text-anchor':'middle',class:'lab',style:'font-size:14px'},t.r);
+ const nums=t.stats.map(([v,l,pre='',plus],i)=>{const y=212+i*40;mk(g,'path',{d:`M${t.x+22} ${y+12}H${t.x+238}`,stroke:'#2e241c'});const tx=mk(g,'text',{x:t.x+24,y});const nt=mk(tx,'tspan',{style:'font-size:22px;font-weight:800',fill:'#ff6b1f'},'0');mk(tx,'tspan',{dx:3,style:'font-size:14px',fill:'#d8cdc1'},l.trim());return{nt,v,pre,plus}});
+ const co=mk(tm,'g',{opacity:0});mk(co,'rect',{x:t.x+40,y:410,width:180,height:44,rx:10,fill:'rgba(42,22,8,.8)',stroke:'#ff6b1f','stroke-width':1.8});mk(co,'text',{x:cx,y:438,'text-anchor':'middle',style:'font-size:16px;font-weight:700'},t.co);
+ const ln=mk(tm,'path',{d:`M${cx} 340V410`,stroke:'#ff6b1f','stroke-width':2,'stroke-dasharray':'5 5'});const pk=mk(tm,'circle',{cx,cy:340,r:5,fill:'#ffd2ad',opacity:0});return{g,nums,co,ln,pk,cx,av}});
+const tmNote=mk(tm,'text',{x:300,y:490,'text-anchor':'middle',class:'lab',opacity:0},'Committed today · full time when we raise');
 
 /* VIGILANTYX */
 const vg=$('#vig');
@@ -1207,6 +1235,7 @@ const H={
  whyme(p){const f=seg(p,.04,.8);draw(wmLine,f);wmN.forEach((n,i)=>n.g.setAttribute('opacity',f*420+50>=n.y-4?1:.18));wm._live=p>.82},
  mkchips(p){MK.mkchips.p(p)},mkrobots(p){MK.mkrobots.p(p)},mkspace(p){MK.mkspace.p(p)},
  two(p){twMini.forEach((m,i)=>m.g.setAttribute('opacity',(m.hot?1:1-seg(p,.12,.22)*.65)*seg(p,i*.008,.06+i*.008)));twCards.forEach((c,ci)=>{draw(c.lnk,seg(p,.14+ci*.08,.24+ci*.08));c.g.setAttribute('opacity',seg(p,.2+ci*.16,.3+ci*.16));c.g.setAttribute('transform',`translate(0 ${(1-ease(seg(p,.2+ci*.16,.3+ci*.16)))*24})`);c.st.forEach((sg,i)=>sg.setAttribute('opacity',seg(p,.3+ci*.16+i*.035,.34+ci*.16+i*.035)))});tw._live=p>.7},
+ team(p){tmC.forEach((c,i)=>{const a=.04+i*.2;c.g.setAttribute('opacity',seg(p,a,a+.1));c.g.setAttribute('transform',`translate(0 ${(1-ease(seg(p,a,a+.1)))*20})`);c.nums.forEach((n,k)=>n.nt.textContent=n.pre+Math.round(n.v*ease(seg(p,a+.08+k*.04,a+.2+k*.04)))+(n.plus?'+':''));draw(c.ln,seg(p,a+.22,a+.3));c.co.setAttribute('opacity',seg(p,a+.26,a+.34))});tmNote.setAttribute('opacity',seg(p,.66,.74));tm._live=p>.7},
  crucible(p){crCos.forEach((c,i)=>{c.g.setAttribute('opacity',seg(p,.04+i*.04,.12+i*.04));draw(c.l1,seg(p,.22+i*.02,.34+i*.02));draw(c.l2,seg(p,.5+i*.02,.62+i*.02))});
   rBar.setAttribute('opacity',seg(p,.3,.4));cBar.setAttribute('opacity',seg(p,.45,.55));
   cells.forEach((r,i)=>{const on=i==0&&p>.7;r.setAttribute('stroke',on?'#ff6b1f':'#5a4f46');r.setAttribute('fill',on?'rgba(255,107,31,.18)':'#1a130e')});chipLab.setAttribute('opacity',seg(p,.72,.8));cr._live=p>.66;crLog.setAttribute('opacity',seg(p,.7,.8))},
@@ -1240,9 +1269,9 @@ const scenes=[...document.querySelectorAll('.sc')].map(el=>({el,name:el.dataset.
 const rail=$('#rail');scenes.forEach((sc,i)=>{sc.el.id='ch-'+sc.name;const a=document.createElement('a');a.href='#ch-'+sc.name;a.innerHTML='<span></span><i></i>';a.firstChild.textContent=sc.c;a.setAttribute('aria-label',sc.c);
  a.addEventListener('click',e=>{e.preventDefault();scrollTo({top:sc.el.offsetTop+(i?innerHeight*.3:0),behavior:RM?'auto':'smooth'})});rail.appendChild(a);sc.nav=a});
 const bar=$('#bar'),chap=$('#chap');let ticking=false;
-const TIMED={two:5,mkchips:4.5,mkrobots:4,mkspace:4.5,seed:5,whyme:5,crunet:6,crucible:5,dice:2.4,moat:5,family:4,arch:4,proof:3.4,gate:10,vig:7};
+const TIMED={team:4.5,two:5,mkchips:4.5,mkrobots:4,mkspace:4.5,seed:5,whyme:5,crunet:6,crucible:5,dice:2.4,moat:5,family:4,arch:4,proof:3.4,gate:10,vig:7};
 /* ambient motion: chimney smoke, birds, water, packets, hub pulse */
-const ambEls=[chainSvg,$('#blue'),$('#moat'),fam,$('#crunet'),sd,wm,cr,tw,MK.mkchips.svg,MK.mkrobots.svg,MK.mkspace.svg];let ambOn=false;
+const ambEls=[chainSvg,$('#blue'),$('#moat'),fam,$('#crunet'),sd,wm,cr,tw,tm,MK.mkchips.svg,MK.mkrobots.svg,MK.mkspace.svg];let ambOn=false;
 function ambient(t){const vis=ambEls.some(e=>{const r=e.getBoundingClientRect();return r.bottom>0&&r.top<innerHeight});if(!vis||RM){ambOn=false;return}
  const s=t/1000;
  smoke.forEach((c,i)=>{const u=((s*.35+i/5)%1);c.setAttribute('cx',chim[0]+Math.sin(u*5+i)*8+u*22);c.setAttribute('cy',chim[1]-u*90);c.setAttribute('r',5+u*16);c.setAttribute('opacity',(1-u)*.38*Math.min(1,u*6))});
@@ -1256,6 +1285,7 @@ function ambient(t){const vis=ambEls.some(e=>{const r=e.getBoundingClientRect();
  {const u=(s*.18)%1,x=85+u*830;chainPk.setAttribute('cx',x);chainPk.setAttribute('cy',70);chainPk.setAttribute('opacity',s>3.2?Math.sin(u*Math.PI):0);icons.forEach((_,i)=>{const ic=chainIcons[i];if(!ic)return;const near=Math.abs(x-(85+i*166))<40&&s>3.2;ic.setAttribute('class',near||i==4?'lo':'ln')})}
  Object.values(MK).forEach(c=>c.amb(s));
  twCards.forEach((c,ci)=>{const u=((s*.5+ci*.5)%1);c.ring.setAttribute('opacity',tw._live?(1-u)*.6:0);c.ring.setAttribute('stroke-width',1+u*3)});
+ tmC.forEach((c,i)=>{const u=((s*.6+i*.5)%1);c.pk.setAttribute('cy',340+u*70);c.pk.setAttribute('opacity',tm._live?Math.sin(u*Math.PI):0);c.av.setAttribute('stroke-width',tm._live?2+1.5*Math.sin(s*2.4+i*1.6):2)});
  if(sd._live){seedGlow.setAttribute('r',22+Math.sin(s*2)*6);const k=Math.floor(s/1.6)%4,u=(s%1.6)/1.6,Lt=trunk.getTotalLength(),b=brs[k].b,Lb=b.getTotalLength();
   const pt=u<.45?trunk.getPointAtLength(Lt*u/.45):b.getPointAtLength(Lb*Math.min(1,(u-.45)/.45));sap.setAttribute('cx',pt.x);sap.setAttribute('cy',pt.y);sap.setAttribute('opacity',u<.92?1:0);
   brs.forEach((o,i)=>{const on=i==k&&u>.88;o.ring.setAttribute('opacity',on?1:Math.max(0,+o.ring.getAttribute('opacity')-.03));o.ring.setAttribute('r',on?22:Math.min(34,+o.ring.getAttribute('r')+.4))});
