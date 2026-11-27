@@ -284,12 +284,12 @@ html.flow .chain{margin-top:52px}
 </section>
 
 <!-- 1b GUESS VS PROVEN -->
-<section class="sc" data-s="g190" data-c="Guess or proof" style="--len:2.6">
+<section class="sc" data-s="g190" data-c="People or proof" style="--len:2.6">
  <div class="pin">
   <div class="words">
-   <h2 class="t on">They guess. <span style="color:var(--or)">I start from what's proven.</span></h2>
-   <p class="lede t" data-at=".08">Most investors bet on a pitch deck and a hunch.</p>
-   <p class="lede t" data-at=".3">Meanwhile, the U.S. government spends <a class="src" href="https://ncses.nsf.gov/pubs/nsf26317" target="_blank" rel="noopener"><b>over $190 billion a year</b></a> on research. Already paid for. Already tested.</p>
+   <h2 class="t on">They bet on people. <span style="color:var(--or)">I bet on proof first.</span></h2>
+   <p class="lede t" data-at=".08">Most investors say they bet on the founder and the team. That's still a bet on people.</p>
+   <p class="lede t" data-at=".3"><b>I bet on proof first:</b> inventions the government already paid for and tested. It spends <a class="src" href="https://ncses.nsf.gov/pubs/nsf26317" target="_blank" rel="noopener"><b>over $190 billion a year</b></a> on research. Then I build the team around them.</p>
    <p class="say t" data-at=".6">Why guess,<br><em>when the work is already done?</em></p>
   </div>
   <div class="art"><svg id="g190" viewBox="0 0 600 520" preserveAspectRatio="xMidYMid meet"></svg></div>
@@ -1104,10 +1104,10 @@ tgShow(0);
 
 /* GUESS VS PROVEN */
 const gS=$('#g190');
-const gL=mk(gS,'g',{});mk(gL,'text',{x:150,y:70,'text-anchor':'middle',class:'hd',style:'font-size:27px'},'A guess');
+const gL=mk(gS,'g',{});mk(gL,'text',{x:150,y:70,'text-anchor':'middle',class:'hd',style:'font-size:27px'},'A bet on people');
 const gDice=[0,1,2].map(i=>{const g=mk(gL,'g',{});mk(g,'rect',{x:-30,y:-30,width:60,height:60,rx:12,fill:'#1a130e',stroke:'#ff6b1f','stroke-width':2.5});
  [[-12,-12],[0,0],[12,12]].slice(0,i+1).forEach(([x,y])=>mk(g,'circle',{cx:x,cy:y,r:5,fill:'#f3ece4'}));return{g,x:150+(i-1)*72,y:230}});
-mk(gL,'text',{x:150,y:330,'text-anchor':'middle',class:'lab',style:'font-size:21px'},'a deck and a hunch');
+mk(gL,'text',{x:150,y:330,'text-anchor':'middle',class:'lab',style:'font-size:21px'},'a founder, a team, a deck');
 mk(gS,'path',{d:'M300 90V430',stroke:'#3a312a','stroke-width':1.5,'stroke-dasharray':'4 6'});
 mk(gS,'text',{x:300,y:262,'text-anchor':'middle',class:'lab',style:'font-size:20px;letter-spacing:.1em'},'VS');
 const gR=mk(gS,'g',{});mk(gR,'text',{x:450,y:70,'text-anchor':'middle',class:'hd',style:'font-size:27px',fill:'#ffb37a'},'Proven research');
