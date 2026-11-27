@@ -283,12 +283,25 @@ html.flow .chain{margin-top:52px}
  </div>
 </section>
 
+<!-- 1b GUESS VS PROVEN -->
+<section class="sc" data-s="g190" data-c="Guess or proof" style="--len:2.6">
+ <div class="pin">
+  <div class="words">
+   <h2 class="t on">They guess. <span style="color:var(--or)">I start from what's proven.</span></h2>
+   <p class="lede t" data-at=".08">Most investors bet on a pitch deck and a hunch.</p>
+   <p class="lede t" data-at=".3">Meanwhile, the U.S. government spends <a class="src" href="https://ncses.nsf.gov/pubs/nsf26317" target="_blank" rel="noopener"><b>over $190 billion a year</b></a> on research. Already paid for. Already tested.</p>
+   <p class="say t" data-at=".6">Why guess,<br><em>when the work is already done?</em></p>
+  </div>
+  <div class="art"><svg id="g190" viewBox="0 0 600 520" preserveAspectRatio="xMidYMid meet"></svg></div>
+ </div>
+</section>
+
 <!-- 2 SHELF -->
 <section class="sc" data-s="shelf" data-c="The shelf" style="--len:2.8">
  <div class="pin">
   <div class="words panel">
    <h2 class="t on">The better way was sitting on a shelf.</h2>
-   <p class="lede t" data-at=".1">Today the U.S. government spends <a class="src" href="https://ncses.nsf.gov/pubs/nsf26317" target="_blank" rel="noopener"><b>over $190 billion a year</b></a> on research. Rockets, materials, chips, sensors, medicine.</p>
+   <p class="lede t" data-at=".1">That research covers rockets, materials, chips, sensors and medicine.</p>
    <p class="lede t" data-at=".28">There are more than <b>300 federal labs</b> doing this work.</p>
    <p class="say t" data-at=".46">When the research is done, most of it just sits there.<br><em>Paid for. Proven. Waiting.</em></p>
    <p class="lede t" data-at=".66">That's called <b>federal IP</b>: inventions the government owns and lets companies license.</p>
@@ -1088,6 +1101,21 @@ function tgShow(k){if(k===tgK)return;tgK=k;tgFl.innerHTML='';tgPk=[];const[f,t]=
 function tgMove(u){tgPk.forEach((o,i)=>{const f=(u+i*.17)%1,pt=o.p.getPointAtLength(f*o.L);o.c.setAttribute('cx',pt.x);o.c.setAttribute('cy',pt.y);o.c.setAttribute('opacity',Math.sin(f*Math.PI))})}
 tgShow(0);
 
+/* GUESS VS PROVEN */
+const gS=$('#g190');
+const gL=mk(gS,'g',{});mk(gL,'text',{x:150,y:70,'text-anchor':'middle',class:'hd',style:'font-size:27px'},'A guess');
+const gDice=[0,1,2].map(i=>{const g=mk(gL,'g',{});mk(g,'rect',{x:-30,y:-30,width:60,height:60,rx:12,fill:'#1a130e',stroke:'#ff6b1f','stroke-width':2.5});
+ [[-12,-12],[0,0],[12,12]].slice(0,i+1).forEach(([x,y])=>mk(g,'circle',{cx:x,cy:y,r:5,fill:'#f3ece4'}));return{g,x:150+(i-1)*72,y:230}});
+mk(gL,'text',{x:150,y:330,'text-anchor':'middle',class:'lab',style:'font-size:21px'},'a deck and a hunch');
+mk(gS,'path',{d:'M300 90V430',stroke:'#3a312a','stroke-width':1.5,'stroke-dasharray':'4 6'});
+mk(gS,'text',{x:300,y:262,'text-anchor':'middle',class:'lab',style:'font-size:20px;letter-spacing:.1em'},'VS');
+const gR=mk(gS,'g',{});mk(gR,'text',{x:450,y:70,'text-anchor':'middle',class:'hd',style:'font-size:27px',fill:'#ffb37a'},'Proven research');
+const gNum=mk(gR,'text',{x:450,y:150,'text-anchor':'middle',class:'hd',style:'font-size:62px',fill:'#ff6b1f'},'$0');
+mk(gR,'text',{x:450,y:180,'text-anchor':'middle',class:'lab',style:'font-size:21px'},'a year, on research');
+const gBk=[...Array(20)].map((_,i)=>{const c=i%5,r=Math.floor(i/5);return mk(gR,'rect',{x:372+c*32,y:380-r*44,width:26,height:38,rx:3,fill:'rgba(255,107,31,.2)',stroke:'#ff6b1f','stroke-width':1.5,opacity:0})});
+mk(gR,'path',{d:'M362 422H538',stroke:'#f3ece4','stroke-width':2});
+const gCap=mk(gR,'text',{x:450,y:452,'text-anchor':'middle',class:'lab',style:'font-size:21px',opacity:0},'Paid for. Tested. Waiting.');
+
 /* CRUCIBLE */
 const cr=$('#cruc');
 const crCos=['Chips','Robots','Drones','Sensors','Space'].map((n,i)=>{const x=70+i*115;const g=mk(cr,'g',{opacity:0});
@@ -1334,6 +1362,9 @@ function setFlow(){document.documentElement.classList.toggle('flow',FLOW())}setF
 /* SCENE handlers */
 const H={
  hero(p){$('#hint').style.opacity=1-seg(p,0,.08)},
+ g190(p){const roll=seg(p,.02,.4);gDice.forEach((d,i)=>{const a=RM?0:(1-ease(roll))*(540+i*120)+Math.sin(p*30+i)*(p<.4?8:0);d.g.setAttribute('transform',`translate(${d.x} ${d.y-(RM?0:Math.sin(roll*Math.PI)*40)}) rotate(${a})`)});
+  gL.setAttribute('opacity',1-seg(p,.5,.7)*.65);const m=ease(seg(p,.3,.72));gNum.textContent='$'+Math.round(190*m)+'B'+(m>=1?'+':'');
+  gBk.forEach((b,i)=>b.setAttribute('opacity',seg(p,.3+i*.02,.36+i*.02)));gCap.setAttribute('opacity',seg(p,.74,.82))},
  dice(p){dice.forEach((o,k)=>{const sp=seg(p,.25+k*.04,.62);const r=RM?0:(1-ease(sp))*(720+k*180);o.d.style.transform=`rotateX(${r}deg) rotateY(${r*.7}deg) translateY(${RM?0:Math.sin(sp*Math.PI)*-40}px)`;
   setFace(k,sp<1?1+Math.floor((p*40+k*3))%6:[3,5,2][k])})},
  shelf(p){shelfG.setAttribute('transform',`translate(${RM?0:-p*260} ${RM?0:-p*180})`);dust.forEach((d,i)=>{d.setAttribute('cx',(i*97)%600);d.setAttribute('cy',((i*53)+p*300+i*7)%520)});
@@ -1399,7 +1430,7 @@ const scenes=[...document.querySelectorAll('.sc')].map(el=>({el,name:el.dataset.
 const rail=$('#rail');scenes.forEach((sc,i)=>{sc.el.id='ch-'+sc.name;const a=document.createElement('a');a.href='#ch-'+sc.name;a.innerHTML='<span></span><i></i>';a.firstChild.textContent=sc.c;a.setAttribute('aria-label',sc.c);
  a.addEventListener('click',e=>{e.preventDefault();scrollTo({top:sc.el.offsetTop+(i?innerHeight*.3:0),behavior:RM?'auto':'smooth'})});rail.appendChild(a);sc.nav=a});
 const bar=$('#bar'),chap=$('#chap');let ticking=false;
-const TIMED={whynow:5,money:5,next:5,team:4.5,two:5,mkchips:4.5,mkrobots:4,mkspace:4.5,seed:5,whyme:5,crunet:6,crucible:5,dice:2.4,moat:5,family:4,arch:4,proof:3.4,gate:10,vig:7,together:14};
+const TIMED={g190:5,whynow:5,money:5,next:5,team:4.5,two:5,mkchips:4.5,mkrobots:4,mkspace:4.5,seed:5,whyme:5,crunet:6,crucible:5,dice:2.4,moat:5,family:4,arch:4,proof:3.4,gate:10,vig:7,together:14};
 /* ambient motion: chimney smoke, birds, water, packets, hub pulse */
 const ambEls=[tgS,chainSvg,$('#blue'),$('#moat'),fam,$('#crunet'),sd,wm,cr,tw,tm,wn,mn,nx,MK.mkchips.svg,MK.mkrobots.svg,MK.mkspace.svg];let ambOn=false;
 function ambient(t){const vis=ambEls.some(e=>{const r=e.getBoundingClientRect();return r.bottom>0&&r.top<innerHeight});if(!vis||RM){ambOn=false;return}
