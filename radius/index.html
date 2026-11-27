@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>USG Radius | Umanah Systems Group</title>
-<meta name="description" content="USG Radius is the shared foundation Umanah Systems Group products run on. Before anything acts, it checks that it is allowed and keeps a signed record.">
+<meta name="description" content="USG Radius is the shared brain Umanah Systems Group companies build with: one set of tools, one memory and one factory, so what one company learns, every company uses.">
 <meta name="theme-color" content="#08090c">
 <link rel="icon" href="/images/favicon.png">
 <link rel="canonical" href="https://www.umanahsystems.com/radius/">
 <meta property="og:type" content="website">
 <meta property="og:title" content="USG Radius | Umanah Systems Group">
-<meta property="og:description" content="Nothing acts without permission. Nothing happens off the record.">
+<meta property="og:description" content="One brain for everything we build.">
 <meta property="og:url" content="https://www.umanahsystems.com/radius/">
 <meta property="og:image" content="https://www.umanahsystems.com/img/og-v2.jpg">
 <meta name="twitter:card" content="summary_large_image">
@@ -604,6 +604,70 @@ pre.code .k { color: var(--orange-hi); } pre.code .s { color: #9fd3a8; }
   .ind .tick { display: flex; justify-content: center; }
 }
 @media (max-width: 560px) { .ind-cards { max-width: 420px; margin: 0 auto; } .ind-cards > .ic { flex-basis: 100%; } }
+
+/* companies helping companies */
+.tg { display: grid; justify-items: center; gap: 18px; }
+.tg-net { width: min(100%, 640px); height: auto; display: block; overflow: visible; }
+.tg-net .ln0 { fill: none; stroke: rgba(255,255,255,.07); stroke-width: 1; stroke-dasharray: 3 6; animation: tgdash 6s linear infinite; }
+@keyframes tgdash { to { stroke-dashoffset: -90; } }
+.tg-net .ring { fill: none; stroke: rgba(232,97,26,.25); stroke-width: 1; }
+.tg-net .ring.r2 { stroke-dasharray: 2 8; animation: tgspin 40s linear infinite; transform-origin: 320px 320px; }
+@keyframes tgspin { to { transform: rotate(360deg); } }
+.tg-net .hub { fill: #0d0f14; stroke: var(--orange); stroke-width: 1.6; }
+.tg-net .hub-glow { fill: url(#tgGlow); transform-origin: 320px 320px; animation: tgbreath 3.2s ease-in-out infinite; }
+@keyframes tgbreath { 50% { transform: scale(1.18); opacity: .6; } }
+.tg-net .hub-t { font: 600 15px var(--display); letter-spacing: .16em; fill: var(--orange-hi); }
+.tg-net .hub-s { font: 500 12px var(--body); fill: var(--text-2); }
+.tg-net .nd circle { fill: #11141c; stroke: rgba(255,255,255,.18); stroke-width: 1.2; transition: fill .5s, stroke .5s, r .5s; }
+.tg-net .nd text { font: 600 16px var(--display); fill: var(--text-2); transition: fill .5s; }
+.tg-net .nd text.k { font: 500 11.5px var(--body); fill: var(--text-3, #6b7180); letter-spacing: .02em; }
+.tg-net .nd.on circle { fill: var(--orange); stroke: var(--orange-hi); }
+.tg-net .nd.on text { fill: var(--text); }
+.tg-net .nd.on text.k { fill: var(--orange-hi); }
+.tg-net .fl { fill: none; stroke: var(--orange-hi); stroke-width: 2.4; stroke-linecap: round; opacity: 0; transition: opacity .5s; }
+.tg-net .fl.on { opacity: 1; }
+.tg-net .pk { fill: #fff; filter: drop-shadow(0 0 6px rgba(240,128,64,.9)); }
+.tg-cap { display: grid; justify-items: center; text-align: center; gap: 8px; min-height: 6.4em; max-width: 36em; }
+.tg-route { margin: 0; font: 600 clamp(1.25rem, 1rem + 1vw, 1.75rem)/1.15 var(--display); letter-spacing: -.015em; color: var(--text); transition: opacity .4s, transform .4s; }
+.tg-route span { color: var(--orange); font-weight: 500; }
+.tg-say { margin: 0; color: var(--text-2); font-size: var(--s-lead); line-height: 1.5; transition: opacity .4s, transform .4s; }
+.tg.swap .tg-route, .tg.swap .tg-say { opacity: 0; transform: translateY(8px); }
+.tg-dots { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+.tg-dots button { width: 34px; height: 6px; border-radius: 6px; border: 0; padding: 0; background: rgba(255,255,255,.14); cursor: pointer; position: relative; overflow: hidden; }
+.tg-dots button::after { content: ""; position: absolute; inset: 0; background: var(--orange); transform: scaleX(0); transform-origin: left; }
+.tg-dots button[aria-pressed="true"]::after { animation: tgbar var(--tgd, 5s) linear forwards; }
+@keyframes tgbar { to { transform: scaleX(1); } }
+@media (max-width: 560px) { .tg-net .nd text { font-size: 22px; } .tg-net .nd text.k { font-size: 15px; } .tg-net .hub-t { font-size: 18px; } .tg-net .hub-s { font-size: 14px; } }
+@media (prefers-reduced-motion: reduce) { .tg-net .ln0, .tg-net .ring.r2, .tg-net .hub-glow { animation: none; } }
+
+/* plugging in, centered with a live picture */
+.plug .wrap { grid-template-columns: minmax(0, 1fr); justify-items: center; text-align: center; }
+.plug .intro { display: grid; justify-items: center; text-align: center; }
+.plug .intro .lede { margin: 0 auto; }
+.plug ul { justify-content: center; }
+.plug ul li { justify-content: center; }
+.pg { width: min(100%, 640px); }
+.pg svg { width: 100%; height: auto; display: block; overflow: visible; }
+.pg .pg-ring { fill: #0d0f14; stroke: var(--orange); stroke-width: 1.6; }
+.pg .pg-ring2 { fill: none; stroke: rgba(232,97,26,.3); stroke-dasharray: 3 7; transform-origin: 400px 180px; animation: tgspin 30s linear infinite; }
+.pg .pg-big { font: 600 15px var(--display); letter-spacing: .16em; fill: var(--orange-hi); }
+.pg .src rect { fill: #11141c; stroke: rgba(255,255,255,.16); }
+.pg .src text { font: 500 14px var(--body); fill: var(--text); }
+.pg .src .kit { fill: var(--orange-dim); stroke: var(--orange); }
+.pg .src .kit-t { font: 600 9.5px var(--display); letter-spacing: .12em; fill: var(--orange-hi); }
+.pg .wire { fill: none; stroke: rgba(232,97,26,.3); stroke-width: 1.2; }
+.pg .go { fill: none; stroke: var(--orange-hi); stroke-width: 2; stroke-linecap: round; stroke-dasharray: 8 260; animation: pgflow 2.8s linear infinite; }
+.pg .back { fill: none; stroke: #f0f2f5; stroke-opacity: .7; stroke-width: 1.6; stroke-linecap: round; stroke-dasharray: 5 260; animation: pgback 2.8s linear infinite; }
+@keyframes pgflow { from { stroke-dashoffset: 268; } to { stroke-dashoffset: 0; } }
+@keyframes pgback { from { stroke-dashoffset: 0; } to { stroke-dashoffset: 265; } }
+@media (prefers-reduced-motion: reduce) { .pg .go, .pg .back, .pg .pg-ring2 { animation: none; } }
+.box { text-align: center; align-items: center; }
+.pv { margin-left: auto; margin-right: auto; }
+.diag .sec-head { grid-template-columns: 1fr; justify-items: center; text-align: center; }
+.diag .sec-head .lede { justify-self: center; margin: 0 auto; }
+.r-hero .copy { text-align: center; display: grid; justify-items: center; }
+.r-hero .lede, .r-hero .crumb { margin-left: auto; margin-right: auto; }
+.r-hero .chips, .r-hero .actions { justify-content: center; }
 </style>
 </head>
 <body>
@@ -642,19 +706,19 @@ pre.code .k { color: var(--orange-hi); } pre.code .s { color: #9fd3a8; }
   <div class="wrap">
     <div class="copy">
       <a class="crumb" href="/"><span aria-hidden="true">←</span> Umanah Systems Group</a>
-      <span class="tick" data-intro>USG Radius · One foundation for machines, AI and software</span>
-      <h1 id="h1">Nothing acts without permission. <em>Nothing happens off the record.</em></h1>
-      <p class="lede" data-intro>USG Radius is the shared foundation every Umanah Systems Group product is designed to run on. Tools are made once, and every product reuses them.</p>
-      <p class="lede" data-intro>Before anything acts, USG Radius checks that it is allowed, and writes it down in a signed record nobody can quietly change.</p>
+      <span class="tick" data-intro>USG Radius · The brain our companies build with</span>
+      <h1 id="h1">One brain for <em>everything we build.</em></h1>
+      <p class="lede" data-intro>USG Radius is where Umanah Systems Group companies design, test and build mission-critical hardware together. One set of tools, one memory, one factory.</p>
+      <p class="lede" data-intro>What one company learns, every company uses. And every part keeps its full story, from the first drawing to the day it ships.</p>
       <div class="actions" data-intro>
-        <a class="btn" href="#idea">See the idea <span class="arr" aria-hidden="true">→</span></a>
+        <a class="btn" href="#together">See them work together <span class="arr" aria-hidden="true">→</span></a>
         <a class="btn ghost" href="#contact">Get in touch</a>
       </div>
-      <div class="chips" data-intro><span>Permission checked</span><span>Limits kept</span><span>Record signed</span></div>
+      <div class="chips" data-intro><span>Shared tools</span><span>Shared lessons</span><span>Every part traced</span></div>
     </div>
 
-    <div class="console" id="panel" role="img" aria-label="The USG Radius console. Requests arrive from machines, AI agents and people. Each one is checked for who is asking, permission, limits and approved version, then allowed or refused and written into a signed logbook.">
-      <div class="c-bar" aria-hidden="true"><i></i><i></i><i></i><b>USG Radius console</b><span class="clock">00:00:00</span></div>
+    <div class="console" id="panel" role="img" aria-label="The USG Radius console follows parts from our companies through four steps: designed, simulated, built in Crucible and tested. A part that fails goes back to design, and every step is saved to the part's history.">
+      <div class="c-bar" aria-hidden="true"><i></i><i></i><i></i><b>USG Radius · parts in progress</b><span class="clock">00:00:00</span></div>
       <div class="c-main" aria-hidden="true">
         <div class="c-ring">
           <svg viewBox="0 0 200 200">
@@ -663,21 +727,21 @@ pre.code .k { color: var(--orange-hi); } pre.code .s { color: #9fd3a8; }
             <circle class="seg" cx="100" cy="100" r="80"/><circle class="seg" cx="100" cy="100" r="80"/><circle class="seg" cx="100" cy="100" r="80"/><circle class="seg" cx="100" cy="100" r="80"/>
             <g class="orbit"><circle cx="100" cy="6" r="3.2"/></g>
           </svg>
-          <div class="c-verdict"><b id="cv">Checking</b><small id="cvs">step 0 of 4</small></div>
+          <div class="c-verdict"><b id="cv">Building</b><small id="cvs">step 0 of 4</small></div>
         </div>
         <div class="c-req">
-          <small class="k">Incoming request</small>
-          <div class="c-who swap"><span class="av"></span><div><b id="cwho">Robot arm, cell 4</b><span id="ckind">Machine</span></div></div>
-          <h3 class="swap" id="cact">Load a new part program</h3>
+          <small class="k">Part in progress</small>
+          <div class="c-who swap"><span class="av"></span><div><b id="cwho">Titanym</b><span id="ckind">Chips for harsh places</span></div></div>
+          <h3 class="swap" id="cact">Test chip, rev B</h3>
           <ul class="c-checks">
-            <li><span>Who is asking</span><em>waiting</em><span class="bar"><i></i></span></li>
-            <li><span>Has permission</span><em>waiting</em><span class="bar"><i></i></span></li>
-            <li><span>Inside the limits</span><em>waiting</em><span class="bar"><i></i></span></li>
-            <li><span>Approved version</span><em>waiting</em><span class="bar"><i></i></span></li>
+            <li><span>Designed</span><em>waiting</em><span class="bar"><i></i></span></li>
+            <li><span>Simulated</span><em>waiting</em><span class="bar"><i></i></span></li>
+            <li><span>Built</span><em>waiting</em><span class="bar"><i></i></span></li>
+            <li><span>Tested</span><em>waiting</em><span class="bar"><i></i></span></li>
           </ul>
         </div>
       </div>
-      <div class="c-log" aria-hidden="true"><small>Signed logbook, each entry sealed with the one before it</small><div class="chain" id="chain"></div></div>
+      <div class="c-log" aria-hidden="true"><small>Part history: every step saved, each one linked to the step before</small><div class="chain" id="chain"></div></div>
     </div>
   </div>
 </section>
@@ -686,16 +750,16 @@ pre.code .k { color: var(--orange-hi); } pre.code .s { color: #9fd3a8; }
   <div class="wrap">
     <div class="intro" data-rise>
       <span class="tick">USG Radius</span>
-      <h2 id="pos-h" class="say">USG Radius is the software platform every Umanah Systems Group product runs on. It connects machines, sensors, AI and software from any maker into <em>one governed network</em>, checks every action before it happens, and keeps a signed record of all of it.</h2>
+      <h2 id="pos-h" class="say">USG Radius is the shared brain behind every Umanah Systems Group company. Our companies plug into <em>the same tools, the same memory and the same factory</em>, so a lesson learned building a drone can make a better motor, a better robot or a better chip.</h2>
     </div>
     <div data-rise>
       <span class="k-cap">USG RADIUS</span>
       <div class="caps">
-        <details open><summary>Permissions + limits</summary><p>Who may do what, where, and until when. Every permission has an owner and an end date, and every machine has lines it must stay inside.</p></details>
-        <details><summary>Signed logbook</summary><p>Every request, yes and no, is written into a signed record nobody can quietly change, ready for a review, an audit or an investigation.</p></details>
-        <details><summary>Shared toolbox</summary><p>AI, memory, simulation and design tools, made once and reused by every product instead of rebuilt each time.</p></details>
-        <details><summary>Digital twins</summary><p>Try a proposed action on a virtual copy first. The copy gives advice; the permission check still makes the call.</p></details>
-        <details><summary>Radius SDK + plug-in kits</summary><p>Small kits so any software, robot or sensor can connect, from our products or another maker's, without being rewritten.</p></details>
+        <details open><summary>Shared workshop</summary><p>Design, simulation, circuit board and engine tools, set up once and used by every company instead of bought and rebuilt each time.</p></details>
+        <details><summary>Test before you build</summary><p>Every part is pushed through its hardest days on a virtual copy first, so problems are fixed on screen, where they are cheap.</p></details>
+        <details><summary>Design to factory</summary><p>A finished design goes straight to Crucible's machines. No re-drawing, no lost files, no guessing which version is right.</p></details>
+        <details><summary>Part history</summary><p>Every part keeps its full story: who designed it, how it was tested, where it was made and where it went. Nobody can quietly change it.</p></details>
+        <details><summary>Plug-in kits</summary><p>Small kits so any tool, robot or sensor can join, from our companies or another maker's, without being rewritten.</p></details>
       </div>
     </div>
   </div>
@@ -704,19 +768,19 @@ pre.code .k { color: var(--orange-hi); } pre.code .s { color: #9fd3a8; }
 <section class="diag" id="how" aria-labelledby="how-h">
   <div class="wrap">
     <div class="sec-head" data-rise>
-      <div><span class="tick">How it fits together</span><h2 id="how-h">One layer between every decision and every machine.</h2></div>
-      <p class="lede">People, AI agents and our products ask. USG Radius checks, connects and records. Data, rules, AI models and machines plug in underneath.</p>
+      <div><span class="tick">How it fits together</span><h2 id="how-h">One brain. Every company plugged in.</h2></div>
+      <p class="lede">Our companies sit on top. USG Radius in the middle shares tools, data and lessons between them. Factories, machines and sensors plug in underneath.</p>
     </div>
     <div class="frame" data-rise>
 <svg class="iso" viewBox="0 0 1200 1021" role="img" aria-labelledby="iso-t iso-d" xmlns="http://www.w3.org/2000/svg">
-<title id="iso-t">How USG Radius works</title>
-<desc id="iso-d">People, AI agents and Umanah Systems Group products sit on top and reach USG Radius through its kits. In the middle, the USG Radius plate connects satellites, robots, sensors, power grids, chip design tools, factory machines and networks, with every request checked and recorded. Underneath, Radius plugs into data, rules, AI models and machines.</desc>
+<title id="iso-t">How USG Radius connects our companies</title>
+<desc id="iso-d">Our companies, people and AI agents sit on top and reach USG Radius through its kits. In the middle, the USG Radius plate is the shared brain that links satellites, robots, chip design, the Crucible factory, engines, flight data and networks, and passes lessons between them. Underneath, it plugs into data, tools, AI models and machines.</desc>
 <defs><linearGradient id="plateTop" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1a1f2c"/><stop offset="1" stop-color="#121621"/></linearGradient><radialGradient id="glow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#e8611a" stop-opacity=".28"/><stop offset="1" stop-color="#e8611a" stop-opacity="0"/></radialGradient></defs>
 <line x1="40" y1="44" x2="1160" y2="44" stroke="rgba(255,255,255,.14)"/>
 <rect x="470" y="30" width="260" height="28" rx="14" fill="#08090c" stroke="rgba(255,255,255,.14)"/>
 <text x="600" y="49" class="iso-cap" text-anchor="middle">PEOPLE + AI AGENTS</text>
 <g class="iso-panel"><rect x="80" y="78" width="300" height="122" rx="14" fill="#11141c" stroke="rgba(255,255,255,.14)"/>
-<text x="230.0" y="104" class="iso-h" text-anchor="middle">PRODUCTS</text>
+<text x="230.0" y="104" class="iso-h" text-anchor="middle">COMPANIES</text>
 <rect x="96.0" y="120" width="57.6" height="24" rx="12" fill="rgba(255,255,255,.03)" stroke="rgba(255,255,255,.14)"/><text x="124.8" y="136" class="iso-s" text-anchor="middle">Daedyl</text>
 <rect x="159.6" y="120" width="57.6" height="24" rx="12" fill="rgba(255,255,255,.03)" stroke="rgba(255,255,255,.14)"/><text x="188.4" y="136" class="iso-s" text-anchor="middle">LoqSat</text>
 <rect x="223.2" y="120" width="64.2" height="24" rx="12" fill="rgba(255,255,255,.03)" stroke="rgba(255,255,255,.14)"/><text x="255.3" y="136" class="iso-s" text-anchor="middle">Spattio</text>
@@ -796,6 +860,9 @@ pre.code .k { color: var(--orange-hi); } pre.code .s { color: #9fd3a8; }
 <line x1="496.1" y1="605.0" x2="600.0" y2="500.0" stroke="#f08040" stroke-width="2" class="iso-pulse" style="animation-delay:2.22s"/>
 <line x1="660.6" y1="630.0" x2="496.1" y2="605.0" stroke="rgba(232,97,26,.28)" stroke-width="1.2"/>
 <line x1="660.6" y1="630.0" x2="496.1" y2="605.0" stroke="#f08040" stroke-width="2" class="iso-pulse" style="animation-delay:2.59s"/>
+<path d="M400.8,520.0 Q400,460 461.4,440.0" fill="none" stroke="rgba(232,97,26,.28)" stroke-width="1.2"/><path d="M400.8,520.0 Q400,460 461.4,440.0" fill="none" stroke="#f08040" stroke-width="2" class="iso-pulse" style="animation-delay:.6s"/>
+<path d="M660.6,630.0 Q760,600 755.9,560.0" fill="none" stroke="rgba(232,97,26,.28)" stroke-width="1.2"/><path d="M660.6,630.0 Q760,600 755.9,560.0" fill="none" stroke="#f08040" stroke-width="2" class="iso-pulse" style="animation-delay:1.6s"/>
+<path d="M807.8,500.0 Q620,560 400.8,520.0" fill="none" stroke="rgba(232,97,26,.28)" stroke-width="1.2"/><path d="M807.8,500.0 Q620,560 400.8,520.0" fill="none" stroke="#f08040" stroke-width="2" class="iso-pulse" style="animation-delay:2.4s"/>
 <line x1="591.3" y1="375.0" x2="721.2" y2="420.0" stroke="rgba(232,97,26,.28)" stroke-width="1.2"/>
 <line x1="591.3" y1="375.0" x2="721.2" y2="420.0" stroke="#f08040" stroke-width="2" class="iso-pulse" style="animation-delay:2.96s"/>
 <line x1="461.4" y1="440.0" x2="400.8" y2="520.0" stroke="rgba(232,97,26,.28)" stroke-width="1.2"/>
@@ -833,12 +900,12 @@ pre.code .k { color: var(--orange-hi); } pre.code .s { color: #9fd3a8; }
 <polygon points="582.7,456.0 600.0,466.0 600.0,510.0 582.7,500.0" fill="#a8460f"/>
 <polygon points="617.3,456.0 600.0,466.0 600.0,510.0 617.3,500.0" fill="#c25213"/>
 <polygon points="600.0,446.0 617.3,456.0 600.0,466.0 582.7,456.0" fill="#e8611a" stroke="rgba(255,255,255,.18)" stroke-width=".8"/>
-<g class="iso-node"><rect x="545.0" y="416.0" width="110.0" height="22" rx="11" fill="#e8611a" stroke="#e8611a"/><text x="600.0" y="431.0" class="iso-s iso-dark" text-anchor="middle">Guard + logbook</text><text x="600.0" y="410.0" class="iso-t" text-anchor="middle">USG Radius</text></g>
+<g class="iso-node"><rect x="545.0" y="416.0" width="110.0" height="22" rx="11" fill="#e8611a" stroke="#e8611a"/><text x="600.0" y="431.0" class="iso-s iso-dark" text-anchor="middle">Shared brain</text><text x="600.0" y="410.0" class="iso-t" text-anchor="middle">USG Radius</text></g>
 <ellipse cx="400.8" cy="520.0" rx="36.6" ry="21.3" fill="rgba(232,97,26,.06)" stroke="rgba(232,97,26,.35)" stroke-width="1.2"/>
 <polygon points="380.0,498.0 400.8,510.0 400.8,532.0 380.0,520.0" fill="#141821"/>
 <polygon points="421.6,498.0 400.8,510.0 400.8,532.0 421.6,520.0" fill="#1b202c"/>
 <polygon points="400.8,486.0 421.6,498.0 400.8,510.0 380.0,498.0" fill="#262c3b" stroke="rgba(255,255,255,.18)" stroke-width=".8"/>
-<g class="iso-node"><rect x="342.6" y="454.0" width="116.4" height="22" rx="11" fill="#1b2030" stroke="rgba(255,255,255,.14)"/><text x="400.8" y="469.0" class="iso-s" text-anchor="middle">Factory machines</text><text x="400.8" y="448.0" class="iso-t" text-anchor="middle">Crucible</text></g>
+<g class="iso-node"><rect x="342.6" y="454.0" width="116.4" height="22" rx="11" fill="#1b2030" stroke="rgba(255,255,255,.14)"/><text x="400.8" y="469.0" class="iso-s" text-anchor="middle">The factory</text><text x="400.8" y="448.0" class="iso-t" text-anchor="middle">Crucible</text></g>
 <ellipse cx="755.9" cy="560.0" rx="36.6" ry="21.3" fill="rgba(232,97,26,.06)" stroke="rgba(232,97,26,.35)" stroke-width="1.2"/>
 <polygon points="735.1,542.0 755.9,554.0 755.9,572.0 735.1,560.0" fill="#141821"/>
 <polygon points="776.7,542.0 755.9,554.0 755.9,572.0 776.7,560.0" fill="#1b202c"/>
@@ -848,28 +915,28 @@ pre.code .k { color: var(--orange-hi); } pre.code .s { color: #9fd3a8; }
 <polygon points="475.3,571.0 496.1,583.0 496.1,617.0 475.3,605.0" fill="#141821"/>
 <polygon points="516.9,571.0 496.1,583.0 496.1,617.0 516.9,605.0" fill="#1b202c"/>
 <polygon points="496.1,559.0 516.9,571.0 496.1,583.0 475.3,571.0" fill="#262c3b" stroke="rgba(255,255,255,.18)" stroke-width=".8"/>
-<g class="iso-node"><rect x="453.9" y="527.0" width="84.4" height="22" rx="11" fill="#1b2030" stroke="rgba(255,255,255,.14)"/><text x="496.1" y="542.0" class="iso-s" text-anchor="middle">Power grids</text><text x="496.1" y="521.0" class="iso-t" text-anchor="middle">Hyve / Rehzon</text></g>
+<g class="iso-node"><rect x="449.1" y="527.0" width="94" height="22" rx="11" fill="#1b2030" stroke="rgba(255,255,255,.14)"/><text x="496.1" y="542.0" class="iso-s" text-anchor="middle">Engines + power</text><text x="496.1" y="521.0" class="iso-t" text-anchor="middle">Arddeon</text></g>
 <ellipse cx="660.6" cy="630.0" rx="36.6" ry="21.3" fill="rgba(232,97,26,.06)" stroke="rgba(232,97,26,.35)" stroke-width="1.2"/>
 <polygon points="639.8,616.0 660.6,628.0 660.6,642.0 639.8,630.0" fill="#141821"/>
 <polygon points="681.4,616.0 660.6,628.0 660.6,642.0 681.4,630.0" fill="#1b202c"/>
 <polygon points="660.6,604.0 681.4,616.0 660.6,628.0 639.8,616.0" fill="#262c3b" stroke="rgba(255,255,255,.18)" stroke-width=".8"/>
-<g class="iso-node"><rect x="631.2" y="572.0" width="58.8" height="22" rx="11" fill="#1b2030" stroke="rgba(255,255,255,.14)"/><text x="660.6" y="587.0" class="iso-s" text-anchor="middle">Sensors</text><text x="660.6" y="566.0" class="iso-t" text-anchor="middle">Rehzon Grid</text></g>
+<g class="iso-node"><rect x="620.6" y="572.0" width="80" height="22" rx="11" fill="#1b2030" stroke="rgba(255,255,255,.14)"/><text x="660.6" y="587.0" class="iso-s" text-anchor="middle">Flight data</text><text x="660.6" y="566.0" class="iso-t" text-anchor="middle">Caelyx</text></g>
 <g><rect x="480" y="697.0" width="240" height="34" rx="8" fill="#08090c" stroke="#e8611a"/><text x="600" y="720.0" class="iso-big" text-anchor="middle">USG RADIUS</text></g>
-<g class="iso-card"><rect x="24" y="330" width="232" height="190" rx="12" fill="#11141c" stroke="rgba(255,255,255,.14)"/><text x="40" y="356" class="iso-h">SAT-12  ·  Satellite</text>
-<text x="40" y="384" class="iso-s" fill="#9aa0ae">Status</text><text x="240" y="384" class="iso-s" text-anchor="end" fill="#4ade80">In orbit</text>
-<text x="40" y="406" class="iso-s" fill="#9aa0ae">Asks to</text><text x="240" y="406" class="iso-s" text-anchor="end" fill="#f0f2f5">Change orbit</text>
-<text x="40" y="428" class="iso-s" fill="#9aa0ae">Permission</text><text x="240" y="428" class="iso-s" text-anchor="end" fill="#f0f2f5">Until 28 Jan</text>
-<text x="40" y="450" class="iso-s" fill="#9aa0ae">Inside limits</text><text x="240" y="450" class="iso-s" text-anchor="end" fill="#4ade80">Yes</text>
-<text x="40" y="472" class="iso-s" fill="#9aa0ae">Decision</text><text x="240" y="472" class="iso-s" text-anchor="end" fill="#f08040">Allowed</text>
-<text x="40" y="494" class="iso-s" fill="#9aa0ae">Logbook</text><text x="240" y="494" class="iso-s" text-anchor="end" fill="#9aa0ae">EV-000418</text>
+<g class="iso-card"><rect x="24" y="330" width="232" height="190" rx="12" fill="#11141c" stroke="rgba(255,255,255,.14)"/><text x="40" y="356" class="iso-h">ACTUATOR  ·  REV C</text>
+<text x="40" y="384" class="iso-s" fill="#9aa0ae">Made by</text><text x="240" y="384" class="iso-s" text-anchor="end" fill="#f0f2f5">Torrqe</text>
+<text x="40" y="406" class="iso-s" fill="#9aa0ae">Designed in</text><text x="240" y="406" class="iso-s" text-anchor="end" fill="#f0f2f5">McCoy Studio</text>
+<text x="40" y="428" class="iso-s" fill="#9aa0ae">Simulated</text><text x="240" y="428" class="iso-s" text-anchor="end" fill="#4ade80">Passed</text>
+<text x="40" y="450" class="iso-s" fill="#9aa0ae">Built in</text><text x="240" y="450" class="iso-s" text-anchor="end" fill="#f0f2f5">Crucible</text>
+<text x="40" y="472" class="iso-s" fill="#9aa0ae">Goes into</text><text x="240" y="472" class="iso-s" text-anchor="end" fill="#f08040">Lucent robot arm</text>
+<text x="40" y="494" class="iso-s" fill="#9aa0ae">History</text><text x="240" y="494" class="iso-s" text-anchor="end" fill="#9aa0ae">Every step saved</text>
 </g>
-<g class="iso-card"><rect x="944" y="330" width="232" height="150" rx="12" fill="#11141c" stroke="rgba(255,255,255,.14)"/><text x="960" y="356" class="iso-h">Who may do what</text><text x="960" y="378" class="iso-t">WHO</text><text x="1040" y="378" class="iso-t">MAY</text><text x="1112" y="378" class="iso-t">UNTIL</text>
-<text x="960" y="402" class="iso-s">LoqSat</text><text x="1040" y="402" class="iso-s" fill="#9aa0ae">Propose</text><text x="1112" y="402" class="iso-s" fill="#f08040">Jan 28</text>
-<text x="960" y="422" class="iso-s">Daedyl</text><text x="1040" y="422" class="iso-s" fill="#9aa0ae">Run tools</text><text x="1112" y="422" class="iso-s" fill="#f08040">Owner</text>
-<text x="960" y="442" class="iso-s">Agent</text><text x="1040" y="442" class="iso-s" fill="#9aa0ae">Read</text><text x="1112" y="442" class="iso-s" fill="#f08040">1 hour</text>
-<text x="960" y="462" class="iso-s">Operator</text><text x="1040" y="462" class="iso-s" fill="#9aa0ae">Approve</text><text x="1112" y="462" class="iso-s" fill="#f08040">Shift</text>
+<g class="iso-card"><rect x="944" y="330" width="232" height="150" rx="12" fill="#11141c" stroke="rgba(255,255,255,.14)"/><text x="960" y="356" class="iso-h">Who helps whom</text><text x="960" y="378" class="iso-t">FROM</text><text x="1040" y="378" class="iso-t">SHARES</text><text x="1112" y="378" class="iso-t">WITH</text>
+<text x="960" y="402" class="iso-s">Caelyx</text><text x="1040" y="402" class="iso-s" fill="#9aa0ae">Flights</text><text x="1112" y="402" class="iso-s" fill="#f08040">Ravionics</text>
+<text x="960" y="422" class="iso-s">Caelyx</text><text x="1040" y="422" class="iso-s" fill="#9aa0ae">Flights</text><text x="1112" y="422" class="iso-s" fill="#f08040">Arddeon</text>
+<text x="960" y="442" class="iso-s">Torrqe</text><text x="1040" y="442" class="iso-s" fill="#9aa0ae">Motors</text><text x="1112" y="442" class="iso-s" fill="#f08040">Lucent</text>
+<text x="960" y="462" class="iso-s">Crucible</text><text x="1040" y="462" class="iso-s" fill="#9aa0ae">Parts</text><text x="1112" y="462" class="iso-s" fill="#f08040">Everyone</text>
 </g>
-<rect x="230" y="771.0" width="740" height="30" rx="8" fill="#0d0f14" stroke="rgba(255,255,255,.14)"/><text x="600" y="791.0" class="iso-s" text-anchor="middle">Permissions  ·  Limits  ·  Approvals  ·  End dates   |   Signed logbook  ·  Replay  ·  Audit</text>
+<rect x="230" y="771.0" width="740" height="30" rx="8" fill="#0d0f14" stroke="rgba(255,255,255,.14)"/><text x="600" y="791.0" class="iso-s" text-anchor="middle">Shared tools  ·  Shared data  ·  Shared lessons   |   Part history  ·  Replay  ·  Proof</text>
 <rect x="230" y="809.0" width="740" height="26" rx="8" fill="#0d0f14" stroke="rgba(232,97,26,.4)"/><text x="600" y="827.0" class="iso-t iso-or" text-anchor="middle">YOUR HARDWARE  ·  YOUR CLOUD  ·  THE EDGE</text>
 <line x1="140.5" y1="837.0" x2="128.5" y2="877.0" stroke="rgba(255,255,255,.14)" stroke-dasharray="2 5"/>
 <line x1="156.5" y1="837.0" x2="150.5" y2="877.0" stroke="rgba(255,255,255,.14)" stroke-dasharray="2 5"/>
@@ -888,11 +955,11 @@ pre.code .k { color: var(--orange-hi); } pre.code .s { color: #9fd3a8; }
 <line x1="473.5" y1="837.0" x2="479.5" y2="877.0" stroke="rgba(255,255,255,.14)" stroke-dasharray="2 5"/>
 <line x1="489.5" y1="837.0" x2="501.5" y2="877.0" stroke="rgba(255,255,255,.14)" stroke-dasharray="2 5"/>
 <rect x="325" y="881.0" width="265" height="98" rx="12" fill="#11141c" stroke="rgba(255,255,255,.14)"/>
-<rect x="337" y="893.0" width="117" height="32" rx="8" fill="rgba(255,255,255,.02)" stroke="rgba(255,255,255,.14)"/><circle cx="352" cy="909.0" r="4" fill="#e8611a"/><text x="363" y="913.5" class="iso-s">Permissions</text>
-<rect x="461" y="893.0" width="117" height="32" rx="8" fill="rgba(255,255,255,.02)" stroke="rgba(255,255,255,.14)"/><circle cx="476" cy="909.0" r="4" fill="#e8611a"/><text x="487" y="913.5" class="iso-s">Limits</text>
-<rect x="337" y="933.0" width="117" height="32" rx="8" fill="rgba(255,255,255,.02)" stroke="rgba(255,255,255,.14)"/><circle cx="352" cy="949.0" r="4" fill="#e8611a"/><text x="363" y="953.5" class="iso-s">Schedules</text>
-<rect x="461" y="933.0" width="117" height="32" rx="8" fill="rgba(255,255,255,.02)" stroke="rgba(255,255,255,.14)"/><circle cx="476" cy="949.0" r="4" fill="#e8611a"/><text x="487" y="953.5" class="iso-s">Approvals</text>
-<text x="457.5" y="1007.0" class="iso-h" text-anchor="middle">RULES</text>
+<rect x="337" y="893.0" width="117" height="32" rx="8" fill="rgba(255,255,255,.02)" stroke="rgba(255,255,255,.14)"/><circle cx="352" cy="909.0" r="4" fill="#e8611a"/><text x="363" y="913.5" class="iso-s">CAD</text>
+<rect x="461" y="893.0" width="117" height="32" rx="8" fill="rgba(255,255,255,.02)" stroke="rgba(255,255,255,.14)"/><circle cx="476" cy="909.0" r="4" fill="#e8611a"/><text x="487" y="913.5" class="iso-s">Circuit boards</text>
+<rect x="337" y="933.0" width="117" height="32" rx="8" fill="rgba(255,255,255,.02)" stroke="rgba(255,255,255,.14)"/><circle cx="352" cy="949.0" r="4" fill="#e8611a"/><text x="363" y="953.5" class="iso-s">Engine tools</text>
+<rect x="461" y="933.0" width="117" height="32" rx="8" fill="rgba(255,255,255,.02)" stroke="rgba(255,255,255,.14)"/><circle cx="476" cy="949.0" r="4" fill="#e8611a"/><text x="487" y="953.5" class="iso-s">Chip tools</text>
+<text x="457.5" y="1007.0" class="iso-h" text-anchor="middle">TOOLS</text>
 <line x1="710.5" y1="837.0" x2="698.5" y2="877.0" stroke="rgba(255,255,255,.14)" stroke-dasharray="2 5"/>
 <line x1="726.5" y1="837.0" x2="720.5" y2="877.0" stroke="rgba(255,255,255,.14)" stroke-dasharray="2 5"/>
 <line x1="742.5" y1="837.0" x2="742.5" y2="877.0" stroke="rgba(255,255,255,.14)" stroke-dasharray="2 5"/>
@@ -913,12 +980,12 @@ pre.code .k { color: var(--orange-hi); } pre.code .s { color: #9fd3a8; }
 <rect x="907" y="893.0" width="117" height="32" rx="8" fill="rgba(255,255,255,.02)" stroke="rgba(255,255,255,.14)"/><circle cx="922" cy="909.0" r="4" fill="#e8611a"/><text x="933" y="913.5" class="iso-s">Satellites</text>
 <rect x="1031" y="893.0" width="117" height="32" rx="8" fill="rgba(255,255,255,.02)" stroke="rgba(255,255,255,.14)"/><circle cx="1046" cy="909.0" r="4" fill="#e8611a"/><text x="1057" y="913.5" class="iso-s">Robots</text>
 <rect x="907" y="933.0" width="117" height="32" rx="8" fill="rgba(255,255,255,.02)" stroke="rgba(255,255,255,.14)"/><circle cx="922" cy="949.0" r="4" fill="#e8611a"/><text x="933" y="953.5" class="iso-s">CNC + motors</text>
-<rect x="1031" y="933.0" width="117" height="32" rx="8" fill="rgba(255,255,255,.02)" stroke="rgba(255,255,255,.14)"/><circle cx="1046" cy="949.0" r="4" fill="#e8611a"/><text x="1057" y="953.5" class="iso-s">Power grids</text>
+<rect x="1031" y="933.0" width="117" height="32" rx="8" fill="rgba(255,255,255,.02)" stroke="rgba(255,255,255,.14)"/><circle cx="1046" cy="949.0" r="4" fill="#e8611a"/><text x="1057" y="953.5" class="iso-s">Drones + boats</text>
 <text x="1027.5" y="1007.0" class="iso-h" text-anchor="middle">MACHINES</text>
 </svg>
 <div class="iso-m">
   <p class="m-cap"><span>People + AI agents</span></p>
-  <div class="m-panel"><h3>Products</h3><ul class="m-chips"><li>Daedyl</li><li>LoqSat</li><li>Spattio</li><li>Lucent</li><li>McCoy Studio</li><li>Vigilantyx</li></ul></div>
+  <div class="m-panel"><h3>Companies</h3><ul class="m-chips"><li>Daedyl</li><li>LoqSat</li><li>Spattio</li><li>Lucent</li><li>McCoy Studio</li><li>Vigilantyx</li></ul></div>
   <div class="m-panel"><h3>Agents + automation</h3><ul class="m-chips"><li>Design agent</li><li>Planner</li><li>Inspector</li><li>Watchdog</li></ul></div>
   <div class="m-panel"><h3>Kits + SDK</h3><ul class="m-chips"><li>Radius SDK</li><li>Plug-in kits</li><li>Keys</li><li>Webhooks</li></ul></div>
   <div class="m-link" aria-hidden="true"><i></i><span>Ask</span><span>SDK</span><span>Kit</span><i></i></div>
@@ -962,6 +1029,9 @@ pre.code .k { color: var(--orange-hi); } pre.code .s { color: #9fd3a8; }
 <line x1="496.1" y1="605.0" x2="600.0" y2="500.0" stroke="#f08040" stroke-width="2" class="iso-pulse" style="animation-delay:2.22s"/>
 <line x1="660.6" y1="630.0" x2="496.1" y2="605.0" stroke="rgba(232,97,26,.28)" stroke-width="1.2"/>
 <line x1="660.6" y1="630.0" x2="496.1" y2="605.0" stroke="#f08040" stroke-width="2" class="iso-pulse" style="animation-delay:2.59s"/>
+<path d="M400.8,520.0 Q400,460 461.4,440.0" fill="none" stroke="rgba(232,97,26,.28)" stroke-width="1.2"/><path d="M400.8,520.0 Q400,460 461.4,440.0" fill="none" stroke="#f08040" stroke-width="2" class="iso-pulse" style="animation-delay:.6s"/>
+<path d="M660.6,630.0 Q760,600 755.9,560.0" fill="none" stroke="rgba(232,97,26,.28)" stroke-width="1.2"/><path d="M660.6,630.0 Q760,600 755.9,560.0" fill="none" stroke="#f08040" stroke-width="2" class="iso-pulse" style="animation-delay:1.6s"/>
+<path d="M807.8,500.0 Q620,560 400.8,520.0" fill="none" stroke="rgba(232,97,26,.28)" stroke-width="1.2"/><path d="M807.8,500.0 Q620,560 400.8,520.0" fill="none" stroke="#f08040" stroke-width="2" class="iso-pulse" style="animation-delay:2.4s"/>
 <line x1="591.3" y1="375.0" x2="721.2" y2="420.0" stroke="rgba(232,97,26,.28)" stroke-width="1.2"/>
 <line x1="591.3" y1="375.0" x2="721.2" y2="420.0" stroke="#f08040" stroke-width="2" class="iso-pulse" style="animation-delay:2.96s"/>
 <line x1="461.4" y1="440.0" x2="400.8" y2="520.0" stroke="rgba(232,97,26,.28)" stroke-width="1.2"/>
@@ -1012,38 +1082,53 @@ pre.code .k { color: var(--orange-hi); } pre.code .s { color: #9fd3a8; }
 <polygon points="681.4,616.0 660.6,628.0 660.6,642.0 681.4,630.0" fill="#1b202c"/>
 <polygon points="660.6,604.0 681.4,616.0 660.6,628.0 639.8,616.0" fill="#262c3b" stroke="rgba(255,255,255,.18)" stroke-width=".8"/>
 </svg>
-    <p class="m-badge"><b>USG Radius</b><span>Guard + logbook</span></p>
+    <p class="m-badge"><b>USG Radius</b><span>Shared brain</span></p>
   </div>
-  <ul class="m-nodes"><li><b>Satellites</b><span>LoqSat</span></li><li><b>Earth data</b><span>Spattio</span></li><li><b>Robots</b><span>Lucent</span></li><li><b>Chip design</b><span>Daedyl</span></li><li><b>Factory machines</b><span>Crucible</span></li><li><b>Networks</b><span>Vigilantyx</span></li><li><b>Power grids</b><span>Hyve / Rehzon</span></li><li><b>Sensors</b><span>Rehzon Grid</span></li></ul>
+  <ul class="m-nodes"><li><b>Satellites</b><span>LoqSat</span></li><li><b>Earth data</b><span>Spattio</span></li><li><b>Robots</b><span>Lucent</span></li><li><b>Chip design</b><span>Daedyl</span></li><li><b>The factory</b><span>Crucible</span></li><li><b>Networks</b><span>Vigilantyx</span></li><li><b>Engines + power</b><span>Arddeon</span></li><li><b>Flight data</b><span>Caelyx</span></li></ul>
   <div class="m-card">
-    <h3>SAT-12, satellite</h3>
+    <h3>Torrqe actuator, rev C</h3>
     <dl>
-      <div><dt>Status</dt><dd class="g">In orbit</dd></div>
-      <div><dt>Asks to</dt><dd>Change orbit</dd></div>
-      <div><dt>Permission</dt><dd>Until 28 Jan</dd></div>
-      <div><dt>Inside limits</dt><dd class="g">Yes</dd></div>
-      <div><dt>Decision</dt><dd class="o">Allowed</dd></div>
-      <div><dt>Logbook</dt><dd class="d">EV-000418</dd></div>
+      <div><dt>Designed in</dt><dd>McCoy Studio</dd></div>
+      <div><dt>Simulated</dt><dd class="g">Passed</dd></div>
+      <div><dt>Built in</dt><dd>Crucible</dd></div>
+      <div><dt>Tested</dt><dd class="g">Passed</dd></div>
+      <div><dt>Goes into</dt><dd class="o">Lucent robot arm</dd></div>
+      <div><dt>History</dt><dd class="d">Every step saved</dd></div>
     </dl>
   </div>
   <div class="m-card">
-    <h3>Who may do what</h3>
-    <table><thead><tr><th>Who</th><th>May</th><th>Until</th></tr></thead><tbody>
-      <tr><td>LoqSat</td><td>Propose</td><td>Jan 28</td></tr>
-      <tr><td>Daedyl</td><td>Run tools</td><td>Owner</td></tr>
-      <tr><td>Agent</td><td>Read</td><td>1 hour</td></tr>
-      <tr><td>Operator</td><td>Approve</td><td>Shift</td></tr>
+    <h3>Who helps whom</h3>
+    <table><thead><tr><th>From</th><th>Shares</th><th>With</th></tr></thead><tbody>
+      <tr><td>Caelyx</td><td>Flights</td><td>Ravionics, Maeviq</td></tr>
+      <tr><td>Caelyx</td><td>Flights</td><td>Arddeon</td></tr>
+      <tr><td>Torrqe</td><td>Motors</td><td>Lucent</td></tr>
+      <tr><td>Crucible</td><td>Parts</td><td>Everyone</td></tr>
     </tbody></table>
   </div>
-  <ul class="m-bar"><li>Permissions</li><li>Limits</li><li>Approvals</li><li>End dates</li><li>Signed logbook</li><li>Replay</li><li>Audit</li></ul>
+  <ul class="m-bar"><li>Shared tools</li><li>Shared data</li><li>Shared lessons</li><li>Part history</li><li>Replay</li><li>Proof</li></ul>
   <p class="m-where">Your hardware, your cloud, the edge</p>
   <div class="m-grps">
     <div class="m-grp"><h3>Data</h3><ul><li>Telemetry</li><li>Sensors</li><li>Geospatial</li><li>Files</li></ul></div>
-    <div class="m-grp"><h3>Rules</h3><ul><li>Permissions</li><li>Limits</li><li>Schedules</li><li>Approvals</li></ul></div>
+    <div class="m-grp"><h3>Tools</h3><ul><li>CAD</li><li>Circuit boards</li><li>Engine tools</li><li>Chip tools</li></ul></div>
     <div class="m-grp"><h3>AI models</h3><ul><li>Local models</li><li>Simulation</li><li>Digital twins</li><li>Memory</li></ul></div>
-    <div class="m-grp"><h3>Machines</h3><ul><li>Satellites</li><li>Robots</li><li>CNC + motors</li><li>Power grids</li></ul></div>
+    <div class="m-grp"><h3>Machines</h3><ul><li>Satellites</li><li>Robots</li><li>CNC + motors</li><li>Drones + boats</li></ul></div>
   </div>
 </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec together" id="together" aria-labelledby="tg-h">
+  <div class="wrap">
+    <div class="center" data-rise>
+      <span class="tick">Companies helping companies</span>
+      <h2 id="tg-h">What one company learns, every company uses.</h2>
+      <p class="lede">Our companies don't work alone. Through USG Radius, flight data, motors, chips, designs and lessons move from one company to the next. That is how a family of companies builds better than any one could alone.</p>
+    </div>
+    <div class="tg" id="tg" data-rise>
+      <svg class="tg-net" viewBox="0 0 640 640" role="img" aria-labelledby="tg-t"><title id="tg-t">Our companies arranged in a circle around USG Radius, with lessons and parts moving between them through the center</title></svg>
+      <div class="tg-cap" aria-live="polite"><p class="tg-route" id="tgr">Caelyx <span>to</span> Ravionics + Maeviq</p><p class="tg-say" id="tgs">Caelyx sees how the sky really flies.</p></div>
+      <div class="tg-dots" role="group" aria-label="Pick a story"></div>
     </div>
   </div>
 </section>
@@ -1052,13 +1137,13 @@ pre.code .k { color: var(--orange-hi); } pre.code .s { color: #9fd3a8; }
   <div class="wrap">
     <div class="center" data-rise>
       <span class="tick">The problem</span>
-      <h2 id="prob-h">Machines and AI are starting to act on their own.</h2>
-      <p class="lede">Most can't prove who allowed it. Rules live in documents, not inside the systems. When something goes wrong, the logs show what happened, but not who said yes or why.</p>
+      <h2 id="prob-h">Building hard things is slow and scattered.</h2>
+      <p class="lede">Every hardware company starts from zero. It buys the same tools, learns the same lessons alone, and loses track of how each part was made.</p>
     </div>
     <div class="three">
-      <article class="box pbox" data-rise><span class="n">01</span><svg class="pv pv-sign" viewBox="0 0 220 92" aria-hidden="true"><rect x="1" y="1" width="218" height="90" rx="10" class="pv-frame"/><text x="18" y="28" class="pv-k">PERMISSION</text><path class="pv-sig" d="M18 62c10-14 18-16 22-6s10 10 18-2 14-12 18 0 12 8 22-4"/><line x1="18" y1="72" x2="118" y2="72" class="pv-line"/><text x="18" y="86" class="pv-k">signed by</text><text x="70" y="86" class="pv-q">???</text><g class="pv-stamp"><rect x="138" y="34" width="66" height="30" rx="5"/><text x="171" y="54" text-anchor="middle">NO OWNER</text></g></svg><h3>Nobody can prove who said yes</h3><p>A machine or AI can act without a clear, written permission that has an end date.</p></article>
-      <article class="box pbox" data-rise><span class="n">02</span><svg class="pv pv-swap" viewBox="0 0 220 92" aria-hidden="true"><rect x="1" y="1" width="218" height="90" rx="10" class="pv-frame"/><text x="18" y="28" class="pv-k">APPROVED</text><text x="18" y="50" class="pv-v">model v1.4</text><text x="122" y="28" class="pv-k">RUNNING</text><g class="pv-roll"><text x="122" y="50" class="pv-v">model v1.4</text><text x="122" y="50" class="pv-v pv-bad">model v2.0</text></g><line x1="18" y1="66" x2="202" y2="66" class="pv-line"/><circle cx="24" cy="78" r="4" class="pv-dot"/><text x="34" y="82" class="pv-k pv-status">nobody signed off</text></svg><h3>Things change without anyone noticing</h3><p>Software, settings and AI models get swapped out without anyone signing off.</p></article>
-      <article class="box pbox" data-rise><span class="n">03</span><svg class="pv pv-log" viewBox="0 0 220 92" aria-hidden="true"><rect x="1" y="1" width="218" height="90" rx="10" class="pv-frame"/><g class="pv-rows"><rect x="16" y="14" width="150" height="6" rx="3"/><rect x="16" y="28" width="120" height="6" rx="3"/><rect x="16" y="42" width="140" height="6" rx="3" class="pv-gap"/><rect x="16" y="56" width="100" height="6" rx="3"/><rect x="16" y="70" width="132" height="6" rx="3"/></g><text x="178" y="49" class="pv-q" text-anchor="middle">?</text></svg><h3>The record has gaps</h3><p>Ordinary logs can be edited, lost, or missing the one detail an investigator needs.</p></article>
+      <article class="box pbox" data-rise><span class="n">01</span><svg class="pv pv-sign" viewBox="0 0 220 92" aria-hidden="true"><rect x="1" y="1" width="218" height="90" rx="10" class="pv-frame"/><text x="18" y="28" class="pv-k">SAME DESIGN TOOL</text><path class="pv-sig" d="M18 62c10-14 18-16 22-6s10 10 18-2 14-12 18 0 12 8 22-4"/><line x1="18" y1="72" x2="118" y2="72" class="pv-line"/><text x="18" y="86" class="pv-k">set up by</text><text x="70" y="86" class="pv-q">each one</text><g class="pv-stamp"><rect x="138" y="34" width="66" height="30" rx="5"/><text x="171" y="54" text-anchor="middle">BOUGHT 5×</text></g></svg><h3>Every company rebuilds the same tools</h3><p>Each team buys, sets up and learns the same software on its own, and a lesson learned in one never reaches the others.</p></article>
+      <article class="box pbox" data-rise><span class="n">02</span><svg class="pv pv-swap" viewBox="0 0 220 92" aria-hidden="true"><rect x="1" y="1" width="218" height="90" rx="10" class="pv-frame"/><text x="18" y="28" class="pv-k">DESIGN</text><text x="18" y="50" class="pv-v">bracket rev C</text><text x="122" y="28" class="pv-k">FACTORY</text><g class="pv-roll"><text x="122" y="50" class="pv-v">bracket rev C</text><text x="122" y="50" class="pv-v pv-bad">bracket rev B</text></g><line x1="18" y1="66" x2="202" y2="66" class="pv-line"/><circle cx="24" cy="78" r="4" class="pv-dot"/><text x="34" y="82" class="pv-k pv-status">nobody told the factory</text></svg><h3>Designs and factories don't talk</h3><p>A drawing changes, the factory keeps making the old one, and the mistake shows up months later.</p></article>
+      <article class="box pbox" data-rise><span class="n">03</span><svg class="pv pv-log" viewBox="0 0 220 92" aria-hidden="true"><rect x="1" y="1" width="218" height="90" rx="10" class="pv-frame"/><g class="pv-rows"><rect x="16" y="14" width="150" height="6" rx="3"/><rect x="16" y="28" width="120" height="6" rx="3"/><rect x="16" y="42" width="140" height="6" rx="3" class="pv-gap"/><rect x="16" y="56" width="100" height="6" rx="3"/><rect x="16" y="70" width="132" height="6" rx="3"/></g><text x="178" y="49" class="pv-q" text-anchor="middle">?</text></svg><h3>Nobody can show a part's full story</h3><p>When a part fails, it takes weeks to find who designed it, how it was tested and where it was made.</p></article>
     </div>
   </div>
 </section>
@@ -1068,19 +1153,19 @@ pre.code .k { color: var(--orange-hi); } pre.code .s { color: #9fd3a8; }
     <div class="ws-head" data-rise>
       <span class="tick">The idea</span>
       <h2 id="idea-h">A shared workshop for real systems.</h2>
-      <p class="lede">Every product is a builder. The builders borrow the same tools, a guard checks every use, and a logbook writes it all down. Make a tool once, and every product gets it.</p>
+      <p class="lede">Every company is a builder. They share one workshop: the same tools, the same memory and the same factory. Set a tool up once, and every company gets it.</p>
     </div>
     <div class="intro" data-rise>
       <ol class="layers">
-        <li><b>The shared toolbox</b><span>AI, design tools, memory and simulation, made once and reused by every product.</span></li>
-        <li><b>The limits</b><span>The lines each machine and product has to stay inside, written where the system can check them.</span></li>
-        <li><b>The permissions</b><span>Who may do what, where, and until when. Every permission has an owner and an end date.</span></li>
-        <li><b>The double-check</b><span>Keeps confirming that software, settings and AI versions still match what was approved.</span></li>
-        <li><b>The plug-in kits</b><span>Simple kits so any software, robot or sensor can connect without being rewritten.</span></li>
-        <li><b>The logbook</b><span>A signed record of every decision, ready for a review, an audit or an investigation.</span></li>
+        <li><b>The shared toolbox</b><span>Design, simulation, circuit board, chip and engine tools, set up once and used by every company.</span></li>
+        <li><b>The shared memory</b><span>What one company learns, every company can find: test results, flight data, what broke and why.</span></li>
+        <li><b>The test bench</b><span>Virtual copies of parts and machines, so designs are pushed hard before any metal is cut.</span></li>
+        <li><b>The factory link</b><span>Finished designs go straight to Crucible's machines, the right version every time.</span></li>
+        <li><b>The part history</b><span>Every part's full story, from first drawing to delivery, that nobody can quietly change.</span></li>
+        <li><b>The plug-in kits</b><span>Simple kits so any tool, robot or sensor can join without being rewritten.</span></li>
       </ol>
     </div>
-    <div class="rplat" id="stack" role="img" aria-label="USG Radius as a stack of layers. Products of every kind on top, then people and AI agents, then USG Radius with its guard and signed logbook, then the shared toolbox, and machines and systems at the bottom. A request from a product is asked, checked, acted on and recorded before it reaches a machine.">
+    <div class="rplat" id="stack" role="img" aria-label="USG Radius as a stack of layers. Our companies on top, then people and AI agents, then USG Radius, the shared brain with every part's history, then the shared toolbox, and machines and factories at the bottom. A part is designed, simulated, built and tested on its way through.">
 <svg class="stk" viewBox="0 0 780 890" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
 <defs><radialGradient id="stkGlow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#e8611a" stop-opacity=".35"/><stop offset="1" stop-color="#e8611a" stop-opacity="0"/></radialGradient></defs>
 <g class="ly ly-mach" style="--k:4">
@@ -1237,7 +1322,7 @@ pre.code .k { color: var(--orange-hi); } pre.code .s { color: #9fd3a8; }
 <line class="pl-grid" x1="158.8" y1="203.5" x2="467.1" y2="381.5"/>
 <line class="pl-grid" x1="659.8" y1="225.8" x2="351.5" y2="403.8"/>
 <line class="pl-grid" x1="120.2" y1="225.8" x2="428.5" y2="403.8"/>
-<text class="sd" transform="matrix(0.8660,0.5,0,1,93.8,270.0)">→ Products</text>
+<text class="sd" transform="matrix(0.8660,0.5,0,1,93.8,270.0)">→ Our companies</text>
 <polyline class="wire" points="394.3,140.5 299.1,195.5 390.0,248.0"/>
 <polyline class="wire-f" data-i="0" style="animation-delay:-0.00s" points="394.3,140.5 299.1,195.5 390.0,248.0"/>
 <polyline class="wire" points="498.3,185.5 390.0,248.0 390.0,248.0"/>
@@ -1303,12 +1388,12 @@ pre.code .k { color: var(--orange-hi); } pre.code .s { color: #9fd3a8; }
 <text class="lb pd-lb" x="251.4" y="232.0" text-anchor="middle">Energy</text>
 <text class="lb pd-lb" x="355.4" y="314.0" text-anchor="middle">Drones + boats</text>
 <text class="lb sm" x="390.0" y="216.0" text-anchor="middle">Radius SDK</text>
-<text class="st-lb" data-i="0" x="147.5" y="448.0" text-anchor="middle">Ask</text>
-<text class="st-lb" data-i="1" x="216.8" y="488.0" text-anchor="middle">Check</text>
-<text class="st-lb" data-i="2" x="286.1" y="528.0" text-anchor="middle">Act</text>
-<text class="st-lb" data-i="3" x="355.4" y="568.0" text-anchor="middle">Record</text>
-<text class="lb sm" x="622.9" y="489.0">Logbook</text>
-<text class="lb sm core-lb" x="485.3" y="509.0" text-anchor="middle">Guard</text>
+<text class="st-lb" data-i="0" x="147.5" y="448.0" text-anchor="middle">Design</text>
+<text class="st-lb" data-i="1" x="216.8" y="488.0" text-anchor="middle">Simulate</text>
+<text class="st-lb" data-i="2" x="286.1" y="528.0" text-anchor="middle">Build</text>
+<text class="st-lb" data-i="3" x="355.4" y="568.0" text-anchor="middle">Test</text>
+<text class="lb sm" x="622.9" y="489.0">Part history</text>
+<text class="lb sm core-lb" x="485.3" y="509.0" text-anchor="middle">Brain</text>
 <text class="lb mc-lb" data-i="0" x="511.3" y="769.0">Satellites</text>
 <text class="lb mc-lb" data-i="1" x="589.2" y="724.0">Robots</text>
 <text class="lb mc-lb" data-i="2" x="662.8" y="681.5">Chip tools</text>
@@ -1334,27 +1419,27 @@ pre.code .k { color: var(--orange-hi); } pre.code .s { color: #9fd3a8; }
   <div class="wrap">
     <div class="center" data-rise>
       <span class="tick">See it work</span>
-      <h2 id="see-h">From request to record. Every step checked.</h2>
-      <p class="lede">Pick a change and watch what USG Radius does with it.</p>
-      <div class="toggle" role="group" aria-label="Choose a change">
-        <button type="button" data-mode="allow" aria-pressed="true">Approved change</button>
-        <button type="button" data-mode="refuse" aria-pressed="false">Unapproved change</button>
+      <h2 id="see-h">From idea to part.</h2>
+      <p class="lede">Follow one part through USG Radius. Pick what happens on the test bench.</p>
+      <div class="toggle" role="group" aria-label="Choose what happens">
+        <button type="button" data-mode="allow" aria-pressed="true">Part passes</button>
+        <button type="button" data-mode="refuse" aria-pressed="false">Test fails</button>
       </div>
-      <p class="req-line" id="reqline"><span>who <b>Plant operator</b></span><span>wants to <b>Deploy configuration 7.2</b></span><span>on <b>Line controller</b></span></p>
+      <p class="req-line" id="reqline"><span>part <b>Torrqe actuator, rev C</b></span><span>for <b>Lucent robot arm</b></span><span>made in <b>Crucible cell 1</b></span></p>
     </div>
     <div class="pipe" id="pipe">
       <svg class="track" aria-hidden="true"><path class="rail"/><path class="lit"/><circle class="pkt" r="6" cx="-20" cy="-20"/></svg>
       <div class="nodes">
-        <div class="node"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 12h12m-4-5 5 5-5 5"/><path d="M20 5v14"/></svg></span><small>01</small><b>Request</b><span>Something asks to act</span><div class="res"></div></div>
-        <div class="node"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3 5 6v5c0 4.5 3 8 7 10 4-2 7-5.5 7-10V6z"/><path d="m9 12 2 2 4-4"/></svg></span><small>02</small><b>Check</b><span>Is it allowed?</span><div class="res"></div></div>
-        <div class="node"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 18h16M4 6h16" stroke-dasharray="2 3"/><path d="M8 15l3-4 3 2 3-5"/></svg></span><small>03</small><b>Limits</b><span>Inside the lines?</span><div class="res"></div></div>
-        <div class="node"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 4v6m0 0-6 8m6-8 6 8"/><circle cx="12" cy="4" r="1.5"/></svg></span><small>04</small><b>Decide</b><span>Yes or no</span><div class="res"></div></div>
-        <div class="node"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h3"/></svg></span><small>05</small><b>Record</b><span>Signed in the logbook</span><div class="res"></div></div>
+        <div class="node"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 20l4-1L19 8l-3-3L5 16z"/><path d="M14 7l3 3"/></svg></span><small>01</small><b>Design</b><span>Draw the part</span><div class="res"></div></div>
+        <div class="node"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 18h16M4 6h16" stroke-dasharray="2 3"/><path d="M8 15l3-4 3 2 3-5"/></svg></span><small>02</small><b>Simulate</b><span>Test the copy</span><div class="res"></div></div>
+        <div class="node"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="3"/><path d="M12 3v3m0 12v3M3 12h3m12 0h3M5.6 5.6l2.1 2.1m8.6 8.6 2.1 2.1M5.6 18.4l2.1-2.1m8.6-8.6 2.1-2.1"/></svg></span><small>03</small><b>Build</b><span>Made in Crucible</span><div class="res"></div></div>
+        <div class="node"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3 5 6v5c0 4.5 3 8 7 10 4-2 7-5.5 7-10V6z"/><path d="m9 12 2 2 4-4"/></svg></span><small>04</small><b>Test</b><span>Prove it for real</span><div class="res"></div></div>
+        <div class="node"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 8l9-5 9 5v8l-9 5-9-5z"/><path d="M3 8l9 5 9-5M12 13v8"/></svg></span><small>05</small><b>Deliver</b><span>Ships with its history</span><div class="res"></div></div>
       </div>
     </div>
     <div class="verdict" id="verdict" aria-live="polite">
-      <div><b id="vt">Allowed</b><p id="vd">The operator has an active permission, configuration 7.2 is the approved version and every value is inside its limits, so the change goes ahead.</p></div>
-      <div class="ev">Written in the logbook<br><code id="ve">EV-000000</code><br><code id="vh"></code></div>
+      <div><b id="vt">Delivered</b><p id="vd">Drawn in McCoy Studio, pushed hard on its virtual copy, made in Crucible and proven on the bench. Every step is saved, so anyone can see how it was made.</p></div>
+      <div class="ev">Saved to the part's history<br><code id="ve">EV-000000</code><br><code id="vh"></code></div>
     </div>
     <div class="center" style="margin:0"><button type="button" class="replay" id="replay">Play it again</button></div>
   </div>
@@ -1364,18 +1449,18 @@ pre.code .k { color: var(--orange-hi); } pre.code .s { color: #9fd3a8; }
   <div class="wrap">
     <div class="center" data-rise>
       <span class="tick">Try it first</span>
-      <h2 id="twin-h">Test the future before it happens.</h2>
-      <p class="lede">A digital twin is a virtual copy of a real system. USG Radius can try a proposed action on the copy first and show what might go wrong. The copy gives advice. The permission check still makes the call.</p>
+      <h2 id="twin-h">Test it before you build it.</h2>
+      <p class="lede">A digital twin is a virtual copy of a real part or machine. Before Crucible cuts any metal, the copy is pushed through its hardest days and shows what might break. Problems get fixed on screen, where they are cheap.</p>
     </div>
-    <div class="twin" id="twin" data-rise aria-label="A proposed action is played out on the digital twin as several possible paths. Paths that cross a limit are flagged; the safe plan goes on to the permission check." role="img">
+    <div class="twin" id="twin" data-rise aria-label="A new design is tested on its digital twin many ways. Runs that cross a limit are flagged, and only the design that passes goes on to the factory." role="img">
       <canvas></canvas>
-      <span class="tw-state">Proposed action received</span>
-      <div class="tw-tags" aria-hidden="true"><span><b>Now</b> proposed action</span><span>possible paths on the twin</span><span><b>Then</b> permission check</span></div>
+      <span class="tw-state">New design received</span>
+      <div class="tw-tags" aria-hidden="true"><span><b>Now</b> new design</span><span>hard tests on the copy</span><span><b>Then</b> the factory</span></div>
     </div>
     <div class="three steps3">
-      <article class="box" data-rise><span class="n">01</span><h3>Proposed action</h3><p>A person, a model or a machine asks to do something.</p><span class="bar"><i></i></span></article>
-      <article class="box" data-rise><span class="n">02</span><h3>Simulated outcomes</h3><p>The copy plays out the possible paths and flags any that cross a limit.</p><span class="bar"><i></i></span></article>
-      <article class="box" data-rise><span class="n">03</span><h3>Checked before it runs</h3><p>Only then does the real request go to the permission check.</p><span class="bar"><i></i></span></article>
+      <article class="box" data-rise><span class="n">01</span><h3>New design</h3><p>A company finishes a drawing of a part, a robot or a whole drone.</p><span class="bar"><i></i></span></article>
+      <article class="box" data-rise><span class="n">02</span><h3>Pushed to the limit</h3><p>The copy is run through heat, load and wear, and any run that breaks a limit is flagged.</p><span class="bar"><i></i></span></article>
+      <article class="box" data-rise><span class="n">03</span><h3>Then it gets built</h3><p>Only the design that passes goes to Crucible, and what was learned is shared with every company.</p><span class="bar"><i></i></span></article>
     </div>
   </div>
 </section>
@@ -1385,14 +1470,14 @@ pre.code .k { color: var(--orange-hi); } pre.code .s { color: #9fd3a8; }
     <div class="center" data-rise>
       <span class="tick">Guarded by Vigilantyx</span>
       <h2 id="guard-h">Nothing new gets in unchecked.</h2>
-      <p class="lede">Vigilantyx is the security company of Umanah Systems Group, and USG Radius is its first client. Before a new version of a shared tool can go live on USG Radius, Vigilantyx checks it first.</p>
+      <p class="lede">Vigilantyx is the security company of Umanah Systems Group, and USG Radius is its first client. Before a new version of a shared tool reaches any company, Vigilantyx checks it first.</p>
     </div>
     <div class="three">
       <article class="box" data-rise><span class="n">01</span><h3>Checked by Vigilantyx</h3><p>Every new version is scanned for known security holes, leaked keys and risky build settings. A serious problem that already has a fix stops the update. A check that could not run counts as a fail, never a pass.</p></article>
-      <article class="box" data-rise><span class="n">02</span><h3>Tested for real</h3><p>Only then does the new version run a real job, and every product that uses it runs its own tests against it.</p></article>
+      <article class="box" data-rise><span class="n">02</span><h3>Tested for real</h3><p>Only then does the new version run a real job, and every company that uses it runs its own tests against it.</p></article>
       <article class="box" data-rise><span class="n">03</span><h3>Switched, with an undo</h3><p>The new version goes live only when every step passes. The previous one is kept, so the change can be undone.</p></article>
     </div>
-    <div class="center" data-rise style="margin-top:40px"><p class="lede">It works both ways. Vigilantyx also watches the code and websites of every product on USG Radius, and each Vigilantyx scan asks USG Radius for permission first and lands in the same signed record.</p></div>
+    <div class="center" data-rise style="margin-top:40px"><p class="lede">It works both ways. Vigilantyx also watches the code and websites of every company on USG Radius, and every finding goes into the same history.</p></div>
   </div>
 </section>
 
@@ -1402,11 +1487,11 @@ pre.code .k { color: var(--orange-hi); } pre.code .s { color: #9fd3a8; }
     <h2 id="ind-h" class="huge"><span class="ln">One platform.</span> <span class="ln">Every kind of machine.</span></h2>
     <div class="ind-row" data-rise><h3>Space<small>Satellites, orbits and the ground systems that talk to them.</small></h3><div class="ind-cards"><a class="ic" href="https://loqsat.com" rel="noopener"><span class="lab">LoqSat</span><div class="ph"><img src="/img/loqsat.webp" alt="The LoqSat home page" loading="lazy" width="1200" height="750"></div><p>Routes collision warnings between satellite operators and asks USG Radius before it proposes a manoeuvre. Advice, never a command.</p><span class="st on">Connected</span></a><a class="ic" href="https://ibomspace.com" rel="noopener"><span class="lab">Ibom Space</span><div class="ph"><img src="/img/satellite.webp" alt="An Ibom Space satellite with its solar wings open" loading="lazy"></div><p>Satellite parts and an in-orbit servicing tug, designed and simulated in Easley.</p><span class="st ">Signed up, waiting for its software</span></a><a class="ic" href="https://easley.umanahsystems.com" rel="noopener"><span class="lab">Easley</span><div class="ph"><img src="/img/easley.webp" alt="The Easley home page" loading="lazy"></div><p>The mission engineering platform for spacecraft: one living model, every analysis run against it, and agents that show their work.</p><span class="st on">Connected</span></a></div></div>
     <div class="ind-row" data-rise><h3>Earth data<small>Answers about place and time you can prove.</small></h3><div class="ind-cards"><a class="ic" href="https://spattio.com" rel="noopener"><span class="lab">Spattio GroundTruth</span><div class="ph"><img src="/img/spattio.webp" alt="The Spattio GroundTruth home page" loading="lazy" width="1200" height="750"></div><p>Checks every answer against an independent source and keeps a signed record you can hand to an adjuster, a court or an auditor.</p><span class="st on">Connected</span></a></div></div>
-    <div class="ind-row" data-rise><h3>Robotics + inspection<small>Machines that move, inspect and report.</small></h3><div class="ind-cards"><a class="ic" href="/lucent-robotics.html"><span class="lab">Lucent Robotics</span><div class="ph"><img src="/img/robotics.webp" alt="A robotic arm with a sensor head" loading="lazy" width="1200" height="750"></div><p>Robots for infrastructure inspection that stay inside the limits you set, with every action on the record.</p><span class="st on">Connected</span></a><div class="ic"><span class="lab">McCoy Studio</span><div class="ph"><img src="/img/mccoy.webp" alt="McCoy Studio running a simulation" loading="lazy"></div><p>Design studio from Lucent Robotics: parts, boards and simulations, each change a new revision.</p><span class="st on">Connected</span></div></div></div>
-    <div class="ind-row" data-rise><h3>Semiconductors<small>Chips designed, simulated and proven.</small></h3><div class="ind-cards"><a class="ic" href="https://daedyl.com" rel="noopener"><span class="lab">Daedyl</span><div class="ph"><img src="/img/daedyl.webp" alt="The Daedyl home page" loading="lazy" width="1200" height="750"></div><p>Every design tool job in Daedyl asks USG Radius first, and every answer goes in the logbook. The first product connected.</p><span class="st on">Connected</span></a><a class="ic" href="/titanym.html" rel="noopener"><span class="lab">Titanym</span><div class="ph"><img src="/images/titanym-preview.jpg" alt="Titanym SiGe-on-sapphire process qualification" loading="lazy"></div><p>Qualifies SiGe-on-sapphire materials for extreme-environment electronics. Its process runs through Daedyl, so every step is checked and recorded.</p><span class="st next">Builds on Daedyl</span></a></div></div>
+    <div class="ind-row" data-rise><h3>Robotics + inspection<small>Machines that move, inspect and report.</small></h3><div class="ind-cards"><a class="ic" href="/lucent-robotics.html"><span class="lab">Lucent Robotics</span><div class="ph"><img src="/img/robotics.webp" alt="A robotic arm with a sensor head" loading="lazy" width="1200" height="750"></div><p>Robots for infrastructure inspection that stay inside the limits you set, with every action on the record.</p><span class="st on">Connected</span></a><div class="ic"><span class="lab">McCoy Studio</span><div class="ph"><img src="/img/mccoy.webp" alt="McCoy Studio running a simulation" loading="lazy"></div><p>Design studio from Lucent Robotics: parts, boards and simulations, each change a new revision. Parts drawn here go straight to Crucible.</p><span class="st on">Connected</span></div></div></div>
+    <div class="ind-row" data-rise><h3>Semiconductors<small>Chips designed, simulated and proven.</small></h3><div class="ind-cards"><a class="ic" href="https://daedyl.com" rel="noopener"><span class="lab">Daedyl</span><div class="ph"><img src="/img/daedyl.webp" alt="The Daedyl home page" loading="lazy" width="1200" height="750"></div><p>Daedyl's chip design tools run on USG Radius, and every job is saved to the chip's history. The first company connected.</p><span class="st on">Connected</span></a><a class="ic" href="/titanym.html" rel="noopener"><span class="lab">Titanym</span><div class="ph"><img src="/images/titanym-preview.jpg" alt="Titanym SiGe-on-sapphire process qualification" loading="lazy"></div><p>Qualifies SiGe-on-sapphire materials for extreme-environment electronics. Its process runs through Daedyl, so every step is checked and recorded.</p><span class="st next">Builds on Daedyl</span></a></div></div>
     <div class="ind-row" data-rise><h3>Cybersecurity<small>Keeping critical systems running and recoverable.</small></h3><div class="ind-cards"><a class="ic" href="https://vigilantyx.umanahsystems.com" rel="noopener"><span class="lab">Vigilantyx</span><div class="ph"><img src="/img/vigilantyx.webp" alt="The Vigilantyx home page" loading="lazy"></div><p>Stands guard in front of USG Radius: every shared tool update is checked before it goes live. Also watches code, packages, servers and firmware, and seals it all in signed evidence.</p><span class="st on">Connected · Guards USG Radius</span></a></div></div>
-    <div class="ind-row" data-rise><h3>Energy + sensing<small>Power, grids and the sensors that watch them.</small></h3><div class="ind-cards"><div class="ic"><span class="lab">Hyve Grid</span><div class="ph"><b>Hyve Grid</b></div><p>Sensor company from Umanah Systems Group.</p><span class="st ">Signed up, waiting for its software</span></div><a class="ic" href="/rehzon-grid.html"><span class="lab">Rehzon Grid</span><div class="ph"><b>Rehzon Grid</b></div><p>Sensor company from Umanah Systems Group.</p><span class="st ">Signed up, waiting for its software</span></a><a class="ic" href="https://arddeon.umanahsystems.com" rel="noopener"><span class="lab">Arddeon</span><div class="ph film-ph"><img src="/img/film/arddeon.webp" alt="A cutaway of the Pulsiqe floating-piston generator showing its pistons and coils" loading="lazy" width="960" height="600"></div><p>Pulsiqe, a floating-piston generator that turns jet fuel and diesel into electricity for uncrewed aircraft and boats. Its studio runs NASA engine tools on USG Radius.</p><span class="st on">Connected</span></a></div></div>
-    <div class="ind-row" data-rise><h3>Drones + uncrewed systems<small>Aircraft, boats and ground vehicles that run without a crew: UAS, UAVs and USVs.</small></h3><div class="ind-cards four"><a class="ic" href="https://galleion.umanahsystems.com" rel="noopener"><span class="lab">Galleion</span><div class="ph film-ph"><img src="/img/film/galleion.webp" alt="A tilt-wing uncrewed aircraft drawn in glowing orange lines over a terrain grid" loading="lazy" width="960" height="600"></div><p>Designs, simulates and runs long-endurance uncrewed aircraft and boats, using the shared vehicle tools on USG Radius. Ravionics and Maeviq design their vehicles here.</p><span class="st on">Connected</span></a><a class="ic" href="https://caelyx.umanahsystems.com" rel="noopener"><span class="lab">Caelyx</span><div class="ph film-ph"><img src="/img/film/caelyx.webp" alt="Dusk over an airport runway with a city skyline lit up behind it" loading="lazy" width="960" height="600"><video class="film" muted loop playsinline preload="none" poster="/img/film/caelyx.webp" aria-hidden="true"><source src="/img/film/caelyx.mp4" type="video/mp4"></video></div><p>Checks what is flying against what was planned, replays the airspace as a digital twin and keeps a signed record of every finding. Advice, never a command.</p><span class="st on">Connected</span></a><a class="ic" href="https://ravionics.com" rel="noopener"><span class="lab">Ravionics</span><div class="ph film-ph"><img src="/img/film/ravionics.webp" alt="The FREGATA tilt-wing aircraft turning on a lit landing pad" loading="lazy" width="960" height="600"><video class="film" muted loop playsinline preload="none" poster="/img/film/ravionics.webp" aria-hidden="true"><source src="/img/film/ravionics.mp4" type="video/mp4"></video></div><p>FREGATA: an unarmed tilt-wing aircraft that lifts off a ship’s deck and is designed to stay on watch for a full day.</p><span class="st next">Ready to connect through Galleion</span></a><a class="ic" href="https://maeviq.com" rel="noopener"><span class="lab">Maeviq</span><div class="ph film-ph"><img src="/img/film/maeviq.webp" alt="The Maeviq Atlas cargo aircraft and an uncrewed cargo barge at sea" loading="lazy" width="960" height="600"><video class="film" muted loop playsinline preload="none" poster="/img/film/maeviq.webp" aria-hidden="true"><source src="/img/film/maeviq.mp4" type="video/mp4"></video></div><p>An uncrewed cargo fleet from open ocean to the road: a self-unloading ship, a beach-landing barge and a heavy-lift aircraft.</p><span class="st next">Ready to connect through Galleion</span></a></div></div>
+    <div class="ind-row" data-rise><h3>Energy + sensing<small>Power, grids and the sensors that watch them.</small></h3><div class="ind-cards"><div class="ic"><span class="lab">Hyve Grid</span><div class="ph"><b>Hyve Grid</b></div><p>Sensor company from Umanah Systems Group.</p><span class="st ">Signed up, waiting for its software</span></div><a class="ic" href="/rehzon-grid.html"><span class="lab">Rehzon Grid</span><div class="ph"><b>Rehzon Grid</b></div><p>Sensor company from Umanah Systems Group.</p><span class="st ">Signed up, waiting for its software</span></a><a class="ic" href="https://arddeon.umanahsystems.com" rel="noopener"><span class="lab">Arddeon</span><div class="ph film-ph"><img src="/img/film/arddeon.webp" alt="A cutaway of the Pulsiqe floating-piston generator showing its pistons and coils" loading="lazy" width="960" height="600"></div><p>Pulsiqe, a floating-piston generator that turns jet fuel and diesel into electricity for uncrewed aircraft and boats. Its studio runs NASA engine tools on USG Radius and is designed to learn from Caelyx flight data.</p><span class="st on">Connected</span></a></div></div>
+    <div class="ind-row" data-rise><h3>Drones + uncrewed systems<small>Aircraft, boats and ground vehicles that run without a crew: UAS, UAVs and USVs.</small></h3><div class="ind-cards four"><a class="ic" href="https://galleion.umanahsystems.com" rel="noopener"><span class="lab">Galleion</span><div class="ph film-ph"><img src="/img/film/galleion.webp" alt="A tilt-wing uncrewed aircraft drawn in glowing orange lines over a terrain grid" loading="lazy" width="960" height="600"></div><p>Designs, simulates and runs long-endurance uncrewed aircraft and boats, using the shared vehicle tools on USG Radius. Ravionics and Maeviq design their vehicles here.</p><span class="st on">Connected</span></a><a class="ic" href="https://caelyx.umanahsystems.com" rel="noopener"><span class="lab">Caelyx</span><div class="ph film-ph"><img src="/img/film/caelyx.webp" alt="Dusk over an airport runway with a city skyline lit up behind it" loading="lazy" width="960" height="600"><video class="film" muted loop playsinline preload="none" poster="/img/film/caelyx.webp" aria-hidden="true"><source src="/img/film/caelyx.mp4" type="video/mp4"></video></div><p>Checks what is flying against what was planned, replays the airspace as a digital twin and is designed to share what it learns with Ravionics, Maeviq and Arddeon.</p><span class="st on">Connected</span></a><a class="ic" href="https://ravionics.com" rel="noopener"><span class="lab">Ravionics</span><div class="ph film-ph"><img src="/img/film/ravionics.webp" alt="The FREGATA tilt-wing aircraft turning on a lit landing pad" loading="lazy" width="960" height="600"><video class="film" muted loop playsinline preload="none" poster="/img/film/ravionics.webp" aria-hidden="true"><source src="/img/film/ravionics.mp4" type="video/mp4"></video></div><p>FREGATA: an unarmed tilt-wing aircraft that lifts off a ship’s deck and is designed to stay on watch for a full day.</p><span class="st next">Ready to connect through Galleion</span></a><a class="ic" href="https://maeviq.com" rel="noopener"><span class="lab">Maeviq</span><div class="ph film-ph"><img src="/img/film/maeviq.webp" alt="The Maeviq Atlas cargo aircraft and an uncrewed cargo barge at sea" loading="lazy" width="960" height="600"><video class="film" muted loop playsinline preload="none" poster="/img/film/maeviq.webp" aria-hidden="true"><source src="/img/film/maeviq.mp4" type="video/mp4"></video></div><p>An uncrewed cargo fleet from open ocean to the road: a self-unloading ship, a beach-landing barge and a heavy-lift aircraft.</p><span class="st next">Ready to connect through Galleion</span></a></div></div>
     <div class="ind-row" data-rise><h3>Hardware + manufacturing<small>Parts designed, made and traced from design to delivery.</small></h3><div class="ind-cards"><a class="ic" href="/crucible.html"><span class="lab">Crucible</span><div class="ph"><b>Crucible</b></div><p>The USG hardware foundation: design, CNC, motors, sensors and actuators.</p><span class="st ">Signed up, waiting for its software</span></a><a class="ic" href="https://torrqe.com" rel="noopener"><span class="lab">Torrqe</span><div class="ph film-ph"><img src="/img/film/torrqe.webp" alt="A Torrqe precision actuator turning under studio light" loading="lazy" width="960" height="600"><video class="film" muted loop playsinline preload="none" poster="/img/film/torrqe.webp" aria-hidden="true"><source src="/img/film/torrqe.mp4" type="video/mp4"></video></div><p>Precision actuators and the parts inside them: reducers, motor control, bearings, gears and brakes, for robots, drones and vehicles.</p><span class="st ">Signed up, waiting for its software</span></a><a class="ic" href="https://boykin.umanahsystems.com" rel="noopener"><span class="lab">Boykin</span><div class="ph"><img src="/img/boykin.webp" alt="The Boykin home page" loading="lazy" width="1200" height="750"></div><p>Circuit board design: describe the board and Boykin picks the parts, lays it out, routes it and runs the checks.</p><span class="st on">Connected</span></a></div></div>
   </div>
 </section>
@@ -1415,19 +1500,24 @@ pre.code .k { color: var(--orange-hi); } pre.code .s { color: #9fd3a8; }
   <div class="wrap">
     <div class="intro" data-rise>
       <span class="tick">Plugging in</span>
-      <h2 id="plug-h"><span class="ln">Plugs in.</span> <span class="ln">Doesn't take over.</span></h2>
-      <p class="lede">USG Radius doesn't drive your machines. It answers one question before they act: is this allowed? Your software keeps doing its job, and a small kit connects it.</p>
-      <ul><li>Simple kits</li><li>Clear permissions</li><li>Constant checks</li><li>Signed records</li></ul>
+      <h2 id="plug-h"><span class="ln">Works with what</span> <span class="ln">you already have.</span></h2>
+      <p class="lede">USG Radius doesn't replace your tools or your machines. A small kit connects them, so your software keeps doing its job and gains the shared tools, data and lessons.</p>
+      <ul><li>Small kits</li><li>Your tools stay</li><li>Shared lessons</li><li>Full part history</li></ul>
     </div>
-    <div data-rise>
-<pre class="code" aria-label="A request to USG Radius"><code>{
-  <span class="k">"action"</span>: <span class="s">"deploy.configuration"</span>,
-  <span class="k">"actor"</span>: <span class="s">"operator-01"</span>,
-  <span class="k">"authority"</span>: <span class="s">"lease-ref"</span>,
-  <span class="k">"scope"</span>: <span class="s">"mission-application"</span>,
-  <span class="k">"context"</span>: { <span class="k">"config_version"</span>: <span class="s">"v1.8"</span> }
-}</code></pre>
-      <p class="code-cap">The shape of a request as it reaches USG Radius.</p>
+    <div class="pg" data-rise role="img" aria-label="Your design software, machines, sensors, robots and AI each connect through a small kit into USG Radius, and shared tools and lessons flow back to them.">
+      <svg viewBox="0 0 560 360" aria-hidden="true">
+<path class="wire" d="M232,40 C300,40 300,180 342,180"/><path class="go" d="M232,40 C300,40 300,180 342,180" style="animation-delay:0.0s"/><path class="back" d="M232,40 C300,40 300,180 342,180" style="animation-delay:1.3s"/>
+<g class="src"><rect x="10" y="20" width="178" height="40" rx="10"/><text x="99" y="45" text-anchor="middle">Your design software</text><rect class="kit" x="192" y="29" width="40" height="22" rx="6"/><text class="kit-t" x="212" y="43.5" text-anchor="middle">KIT</text></g>
+<path class="wire" d="M232,110 C300,110 300,180 342,180"/><path class="go" d="M232,110 C300,110 300,180 342,180" style="animation-delay:0.5s"/><path class="back" d="M232,110 C300,110 300,180 342,180" style="animation-delay:1.8s"/>
+<g class="src"><rect x="10" y="90" width="178" height="40" rx="10"/><text x="99" y="115" text-anchor="middle">Your machines</text><rect class="kit" x="192" y="99" width="40" height="22" rx="6"/><text class="kit-t" x="212" y="113.5" text-anchor="middle">KIT</text></g>
+<path class="wire" d="M232,180 C300,180 300,180 342,180"/><path class="go" d="M232,180 C300,180 300,180 342,180" style="animation-delay:1.0s"/><path class="back" d="M232,180 C300,180 300,180 342,180" style="animation-delay:2.3s"/>
+<g class="src"><rect x="10" y="160" width="178" height="40" rx="10"/><text x="99" y="185" text-anchor="middle">Your sensors</text><rect class="kit" x="192" y="169" width="40" height="22" rx="6"/><text class="kit-t" x="212" y="183.5" text-anchor="middle">KIT</text></g>
+<path class="wire" d="M232,250 C300,250 300,180 342,180"/><path class="go" d="M232,250 C300,250 300,180 342,180" style="animation-delay:1.5s"/><path class="back" d="M232,250 C300,250 300,180 342,180" style="animation-delay:2.8s"/>
+<g class="src"><rect x="10" y="230" width="178" height="40" rx="10"/><text x="99" y="255" text-anchor="middle">Your robots</text><rect class="kit" x="192" y="239" width="40" height="22" rx="6"/><text class="kit-t" x="212" y="253.5" text-anchor="middle">KIT</text></g>
+<path class="wire" d="M232,320 C300,320 300,180 342,180"/><path class="go" d="M232,320 C300,320 300,180 342,180" style="animation-delay:2.0s"/><path class="back" d="M232,320 C300,320 300,180 342,180" style="animation-delay:3.3s"/>
+<g class="src"><rect x="10" y="300" width="178" height="40" rx="10"/><text x="99" y="325" text-anchor="middle">Your AI</text><rect class="kit" x="192" y="309" width="40" height="22" rx="6"/><text class="kit-t" x="212" y="323.5" text-anchor="middle">KIT</text></g>
+        <g class="pg-hub"><circle cx="400" cy="180" r="74" class="pg-ring2"/><circle cx="400" cy="180" r="58" class="pg-ring"/><text x="400" y="176" text-anchor="middle" class="pg-big">USG</text><text x="400" y="198" text-anchor="middle" class="pg-big">RADIUS</text></g>
+      </svg>
     </div>
   </div>
 </section>
@@ -1436,8 +1526,8 @@ pre.code .k { color: var(--orange-hi); } pre.code .s { color: #9fd3a8; }
   <div class="globe" id="globe" aria-hidden="true"></div>
   <div class="wrap">
     <span class="tick">Work with us</span>
-    <h2 id="ct-h">Set the rules. Check every action. Keep the record.</h2>
-    <p class="lede">USG Radius is not available to the public. We speak with teams whose machines, software or AI can't afford to get it wrong.</p>
+    <h2 id="ct-h">Design it. Build it.<br>Prove it.</h2>
+    <p class="lede">USG Radius is not open to the public yet. We work with teams building machines that can't afford to fail.</p>
     <a class="mail" href="mailto:contact@umanahsystems.com">contact@umanahsystems.com</a>
     <div class="actions">
       <a class="btn" href="mailto:contact@umanahsystems.com?subject=USG%20Radius">Email us <span class="arr" aria-hidden="true">→</span></a>
@@ -1452,10 +1542,10 @@ pre.code .k { color: var(--orange-hi); } pre.code .s { color: #9fd3a8; }
   <div class="wrap">
     <a class="brand" href="/">
       <svg viewBox="0 0 40 40" aria-hidden="true"><path d="M20 3 35 11.5v17L20 37 5 28.5v-17Z" fill="none" stroke="#e8611a" stroke-width="1.6"/><path d="M20 3v17m0 0 15 8.5M20 20 5 28.5" stroke="#f0f2f5" stroke-opacity=".5" stroke-width="1.2"/><circle cx="20" cy="20" r="2.6" fill="#e8611a"/></svg>
-      <span>USG Radius<small>One foundation for trustworthy machines, AI and software.</small></span>
+      <span>USG Radius<small>The shared brain our companies build with.</small></span>
     </a>
     <nav aria-label="Footer">
-      <a href="/">Home</a><a href="#idea">The idea</a><a href="#see">See it work</a><a href="#connected">Industries</a><a href="#contact">Contact</a><a href="/privacy.html">Privacy</a>
+      <a href="/">Home</a><a href="#together">Working together</a><a href="#idea">The idea</a><a href="#see">See it work</a><a href="#connected">Industries</a><a href="#contact">Contact</a><a href="/privacy.html">Privacy</a>
     </nav>
     <div class="legal">
       <span>© 2026 Umanah Systems Group. USG Radius is a Umanah Systems Group architecture.</span>
@@ -1487,7 +1577,7 @@ pre.code .k { color: var(--orange-hi); } pre.code .s { color: #9fd3a8; }
   addEventListener('keydown', e => { if (e.key === 'Escape') setMenu(false); });
 
   /* console, pipeline, twin and globe */
-  import('/js/radius-fx.js').then(m => { m.mountConsole(document.getElementById('panel')); m.mountPipeline(document.getElementById('pipe')); m.mountTwin(document.getElementById('twin')); m.mountGlobe(document.getElementById('globe')); }).catch(() => {});
+  import('/js/radius-fx.js').then(m => { m.mountTogether(document.getElementById('tg')); m.mountConsole(document.getElementById('panel')); m.mountPipeline(document.getElementById('pipe')); m.mountTwin(document.getElementById('twin')); m.mountGlobe(document.getElementById('globe')); }).catch(() => {});
 
   /* platform picture */
   const stackEl = document.getElementById('stack');

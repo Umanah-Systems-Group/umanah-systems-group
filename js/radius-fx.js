@@ -16,6 +16,10 @@ const icons = {
   machine: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4" y="9" width="16" height="11" rx="2"/><path d="M9 9V5h6v4M8 14h2m4 0h2"/></svg>',
   agent: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l2.2 4.6L19 8.3l-3.5 3.3.9 4.9L12 14.2l-4.4 2.3.9-4.9L5 8.3l4.8-.7z"/></svg>',
   person: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c1.2-3.6 4-5.5 7-5.5s5.8 1.9 7 5.5"/></svg>',
+  chip: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="7" y="7" width="10" height="10" rx="1.5"/><path d="M10 3v4m4-4v4m-4 10v4m4-4v4M3 10h4m-4 4h4m10-4h4m-4 4h4"/></svg>',
+  gear: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="3"/><path d="M12 3v3m0 12v3M3 12h3m12 0h3M5.6 5.6l2.1 2.1m8.6 8.6 2.1 2.1M5.6 18.4l2.1-2.1m8.6-8.6 2.1-2.1"/></svg>',
+  drone: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 12h18M12 8v8"/><path d="M7 12l-3 4m13-4 3 4"/><circle cx="12" cy="12" r="2"/></svg>',
+  bolt: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M13 3 5 14h6l-1 7 8-11h-6z"/></svg>',
   orbit: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="2.5"/><ellipse cx="12" cy="12" rx="9.5" ry="4" transform="rotate(-25 12 12)"/></svg>'
 };
 
@@ -30,11 +34,12 @@ export function mountConsole(root) {
   const tick = () => { clock.textContent = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false }); };
   tick(); setInterval(tick, 1000);
   const reqs = [
-    { who: 'Robot arm, cell 4', kind: 'Machine', ic: 'machine', act: 'Load a new part program', fail: -1 },
-    { who: 'Design agent', kind: 'AI agent', ic: 'agent', act: 'Send a chip layout to fabrication', fail: 3, why: 'Version not approved' },
-    { who: 'Satellite LS-2', kind: 'Machine', ic: 'orbit', act: 'Fire thrusters to avoid a collision', fail: -1 },
-    { who: 'Grid controller', kind: 'Machine', ic: 'machine', act: 'Move load to the reserve feeder', fail: 2, why: 'Outside the limits' },
-    { who: 'Plant operator', kind: 'Person', ic: 'person', act: 'Deploy configuration 7.2', fail: -1 }
+    { who: 'Titanym', kind: 'Chips for harsh places', ic: 'chip', act: 'Test chip, rev B', steps: ['in Daedyl', 'passed', 'Crucible cell 1', 'passed'], fail: -1 },
+    { who: 'Torrqe', kind: 'Motors + actuators', ic: 'gear', act: 'Actuator for a Lucent robot arm', steps: ['in McCoy Studio', 'passed', 'Crucible cell 2', 'passed'], fail: -1 },
+    { who: 'Maeviq', kind: 'Heavy cargo drones', ic: 'drone', act: 'Wing spar, rev A', steps: ['in Galleion', 'passed', 'Crucible cell 3', 'passed'], fail: 1, why: 'Too heavy' },
+    { who: 'Arddeon', kind: 'Engines + power', ic: 'bolt', act: 'Generator piston, rev D', steps: ['NASA engine tools', 'passed', 'Crucible cell 1', 'passed'], fail: -1 },
+    { who: 'Ravionics', kind: 'Watch drones', ic: 'drone', act: 'Tail boom, rev B', steps: ['in Galleion', 'Caelyx flight data', 'Crucible cell 3', 'passed'], fail: -1 },
+    { who: 'Lucent Robotics', kind: 'Robots for space', ic: 'machine', act: 'Repair arm gripper', steps: ['in McCoy Studio', 'passed', 'Crucible cell 2', 'passed'], fail: 3, why: 'Grip too weak' }
   ];
   const chain = q('#chain');
   let i = 0, visible = true;
@@ -46,14 +51,14 @@ export function mountConsole(root) {
     q('#cwho').textContent = r.who; q('#ckind').textContent = r.kind; q('.c-who .av').innerHTML = icons[r.ic]; q('#cact').textContent = r.act;
     checks.forEach(li => { li.className = ''; li.querySelector('em').textContent = 'waiting'; });
     segs.forEach(s => { s.classList.remove('no'); s.style.strokeDasharray = `0 ${CIRC}`; });
-    q('#cv').textContent = 'Checking'; q('#cvs').textContent = 'step 0 of 4';
+    q('#cv').textContent = 'Building'; q('#cvs').textContent = 'step 0 of 4';
     root.classList.remove('swapping');
     await wait(500);
-    const words = ['known', 'granted', 'inside', 'matches'];
+    const words = r.steps;
     for (let k = 0; k < 4; k++) {
       const li = checks[k];
       if (r.fail >= 0 && k > r.fail) { li.classList.add('skip'); li.querySelector('em').textContent = 'not reached'; continue; }
-      li.querySelector('em').textContent = 'checking';
+      li.querySelector('em').textContent = 'working';
       await wait(420);
       const bad = k === r.fail;
       li.classList.add(bad ? 'fail' : 'done'); li.querySelector('em').textContent = bad ? r.why.toLowerCase() : words[k];
@@ -63,8 +68,8 @@ export function mountConsole(root) {
     }
     const ok = r.fail < 0;
     root.classList.add(ok ? 'ok' : 'no');
-    q('#cv').textContent = ok ? 'Allowed' : 'Refused';
-    const e = await logEntry(`${r.who}|${r.act}|${ok ? 'allowed' : 'refused'}`);
+    q('#cv').textContent = ok ? 'Passed' : 'Fix it';
+    const e = await logEntry(`${r.who}|${r.act}|${ok ? 'passed' : 'back to design'}`);
     q('#cvs').textContent = e.id;
     const b = document.createElement('div'); b.className = 'blk ' + (ok ? 'ok' : 'no');
     b.innerHTML = `<b>${e.id}</b><span>${e.hash.slice(0, 12)}</span>`;
@@ -84,10 +89,10 @@ export function mountPipeline(root) {
   const rail = svg.querySelector('.rail'), lit = svg.querySelector('.lit'), pkt = svg.querySelector('.pkt');
   const verdict = document.getElementById('verdict'), toggles = [...document.querySelectorAll('.toggle button')];
   const modes = {
-    allow: { line: ['Plant operator', 'Deploy configuration 7.2', 'Line controller'], res: ['received', 'permission active', 'inside every limit', 'allowed', 'signed'], stop: -1,
-      title: 'Allowed', text: 'The operator has an active permission, configuration 7.2 is the approved version and every value is inside its limits, so the change goes ahead.' },
-    refuse: { line: ['Plant operator', 'Deploy configuration 7.3', 'Line controller'], res: ['received', 'permission active', '7.3 is not approved', 'refused', 'signed'], stop: 2,
-      title: 'Refused', text: 'Same operator, same permission, but configuration 7.3 was never approved. It stops at the limits check and never reaches the line. The refusal is signed into the logbook too.' }
+    allow: { line: ['Torrqe actuator, rev C', 'Lucent robot arm', 'Crucible cell 1'], res: ['drawn in McCoy Studio', 'held every load', 'made in Crucible', 'passed on the bench', 'shipped to Lucent'], bad: [],
+      title: 'Delivered', text: 'Drawn in McCoy Studio, pushed hard on its virtual copy, made in Crucible and proven on the bench. Every step is saved, so anyone can see how it was made.' },
+    refuse: { line: ['Torrqe actuator, rev D', 'Lucent robot arm', 'Crucible cell 1'], res: ['drawn in McCoy Studio', 'held every load', 'made in Crucible', 'runs too hot', 'held back, fix the design'], bad: [3, 4],
+      title: 'Back to design', text: 'Rev D runs too hot on the bench, so it never ships. The lesson is saved to its history and shared, so the next design, at Torrqe and every other company, starts smarter.' }
   };
   let len = 1, pts = [];
   function layout() {
@@ -129,20 +134,20 @@ export function mountPipeline(root) {
       const L = segLen(k);
       if (!(await animateTo(at, L, k ? 700 : 300, my))) return;
       at = L;
-      const n = nodes[k], bad = k === M.stop || (M.stop >= 0 && k === 3);
+      const n = nodes[k], bad = M.bad.includes(k);
       if (bad) { root.classList.add('refused'); n.classList.add('stop'); } else n.classList.add('hit');
       n.querySelector('.res').textContent = M.res[k];
       if (k === 4) {
         const e = await logEntry(M.line.join('|') + '|' + M.title);
         if (my !== token) return;
-        n.querySelector('.res').textContent = e.id + ' signed';
+        n.querySelector('.res').textContent = e.id + ' saved';
         document.getElementById('vt').textContent = M.title;
         document.getElementById('vd').textContent = M.text;
         document.getElementById('ve').textContent = e.id;
         document.getElementById('vh').textContent = 'sha256 ' + e.hash.slice(0, 16);
-        verdict.classList.add(M.stop < 0 ? 'ok' : 'no'); verdict.style.opacity = 1;
+        verdict.classList.add(M.bad.length ? 'no' : 'ok'); verdict.style.opacity = 1;
       }
-      await wait(bad && k === M.stop ? 900 : 260);
+      await wait(bad && k === M.bad[0] ? 900 : 260);
     }
     pkt.style.opacity = 0;
   }
@@ -182,7 +187,7 @@ export function mountTwin(root) {
     boxes.forEach((b, i) => { b.classList.toggle('on', i === k); b.style.setProperty('--dur', ['1.2s', '3.4s', '2.2s'][i]); });
     const bad = paths.filter(p => Math.min(...[...Array(21)].map((_, j) => yAt(p, j / 20))) < limY()).length;
     root.classList.toggle('flag', k === 1); root.classList.toggle('pass', k === 2);
-    state.textContent = k === 0 ? 'Proposed action received' : k === 1 ? `Simulating ${N} possible paths` : `${bad} of ${N} paths cross a limit. The safe plan goes to the check`;
+    state.textContent = k === 0 ? 'New design received' : k === 1 ? `Running ${N} hard tests on the copy` : `${bad} of ${N} runs cross a limit. The design that passes goes to the factory`;
   }
   function draw(now) {
     requestAnimationFrame(draw);
@@ -339,4 +344,85 @@ export async function mountGlobe(host) {
   }
   if (reduce) arcs.forEach(a => { a.t = .6; });
   requestAnimationFrame(frame);
+}
+
+/* ---------- companies helping companies ---------- */
+export function mountTogether(root) {
+  if (!root) return;
+  const svg = root.querySelector('svg'), NS = 'http://www.w3.org/2000/svg';
+  const C = 320, RAD = 236;
+  const nodes = [
+    ['caelyx', 'Caelyx', 'flight data'], ['ravionics', 'Ravionics', 'watch drones'], ['maeviq', 'Maeviq', 'cargo drones'],
+    ['torrqe', 'Torrqe', 'motors'], ['lucent', 'Lucent', 'robots'], ['titanym', 'Titanym', 'tough chips'],
+    ['daedyl', 'Daedyl', 'chip design'], ['crucible', 'Crucible', 'the factory'], ['mccoy', 'McCoy Studio', 'design'],
+    ['vigilantyx', 'Vigilantyx', 'security'], ['public', 'Public records', 'NASA and more'], ['arddeon', 'Arddeon', 'engines']
+  ];
+  const stories = [
+    { from: ['caelyx'], to: ['ravionics', 'maeviq'], route: 'Caelyx <span>to</span> Ravionics + Maeviq', say: 'Caelyx sees how the sky really flies. Ravionics and Maeviq are designed to use it to plan safer, longer flights.' },
+    { from: ['caelyx', 'public'], to: ['arddeon'], route: 'Caelyx + public records <span>to</span> Arddeon', say: 'Arddeon learns from Caelyx flight data and from public engine records and NASA tools, to make better engines.' },
+    { from: ['torrqe'], to: ['lucent', 'maeviq'], route: 'Torrqe <span>to</span> Lucent + Maeviq', say: "Torrqe's motors and actuators are designed to move Lucent's robots and Maeviq's drones." },
+    { from: ['mccoy'], to: ['crucible', 'lucent'], route: 'McCoy Studio <span>to</span> Crucible', say: 'A part is designed and tested in McCoy Studio, then sent straight to Crucible to be made.' },
+    { from: ['daedyl'], to: ['titanym', 'lucent'], route: 'Daedyl <span>to</span> Titanym <span>to</span> Lucent', say: "Daedyl designs the chips, Titanym makes them tough enough for heat and space, and Lucent's robots are designed to carry them." },
+    { from: ['vigilantyx'], to: ['caelyx', 'torrqe', 'daedyl', 'crucible', 'arddeon', 'lucent'], route: 'Vigilantyx <span>to</span> everyone', say: 'Vigilantyx checks every shared tool before any company uses it.' }
+  ];
+  const el = (t, a, p) => { const e = document.createElementNS(NS, t); for (const k in a) e.setAttribute(k, a[k]); (p || svg).appendChild(e); return e; };
+  const defs = el('defs', {}); const rg = el('radialGradient', { id: 'tgGlow' }, defs);
+  el('stop', { offset: 0, 'stop-color': '#e8611a', 'stop-opacity': .45 }, rg); el('stop', { offset: 1, 'stop-color': '#e8611a', 'stop-opacity': 0 }, rg);
+  const pos = {};
+  nodes.forEach(([id], i) => { const a = -Math.PI / 2 + i * 2 * Math.PI / nodes.length; pos[id] = [C + RAD * Math.cos(a), C + RAD * Math.sin(a)]; });
+  el('circle', { class: 'ring', cx: C, cy: C, r: RAD });
+  el('circle', { class: 'ring r2', cx: C, cy: C, r: RAD - 40 });
+  nodes.forEach(([id]) => el('path', { class: 'ln0', d: `M${pos[id][0].toFixed(1)},${pos[id][1].toFixed(1)} L${C},${C}` }));
+  const flows = el('g', {});
+  el('circle', { class: 'hub-glow', cx: C, cy: C, r: 110 });
+  el('circle', { class: 'hub', cx: C, cy: C, r: 62 });
+  el('text', { class: 'hub-t', x: C, y: C - 2, 'text-anchor': 'middle' }).textContent = 'USG RADIUS';
+  el('text', { class: 'hub-s', x: C, y: C + 18, 'text-anchor': 'middle' }).textContent = 'the shared brain';
+  const ndEl = {};
+  nodes.forEach(([id, name, kind]) => {
+    const [x, y] = pos[id], g = el('g', { class: 'nd' });
+    el('circle', { cx: x, cy: y, r: 9 }, g);
+    const below = y >= C - 10, ty = below ? y + 30 : y - 34;
+    el('text', { x, y: ty, 'text-anchor': 'middle' }, g).textContent = name;
+    el('text', { class: 'k', x, y: ty + 17, 'text-anchor': 'middle' }, g).textContent = kind;
+    ndEl[id] = g;
+  });
+  const curve = (a, b) => { // a -> hub -> b, bending through the center
+    const [x1, y1] = pos[a], [x2, y2] = pos[b];
+    const m1 = [(x1 + C) / 2, (y1 + C) / 2], m2 = [(x2 + C) / 2, (y2 + C) / 2];
+    return `M${x1.toFixed(1)},${y1.toFixed(1)} Q${m1[0].toFixed(1)},${m1[1].toFixed(1)} ${C},${C} Q${m2[0].toFixed(1)},${m2[1].toFixed(1)} ${x2.toFixed(1)},${y2.toFixed(1)}`;
+  };
+  const route = root.querySelector('#tgr'), sayEl = root.querySelector('#tgs'), dots = root.querySelector('.tg-dots');
+  const DUR = 5200;
+  root.style.setProperty('--tgd', DUR + 'ms');
+  const btns = stories.map((st, i) => { const b = document.createElement('button'); b.type = 'button'; b.setAttribute('aria-label', st.route.replace(/<[^>]+>/g, '')); b.setAttribute('aria-pressed', 'false'); b.addEventListener('click', () => show(i, true)); dots.appendChild(b); return b; });
+  let cur = -1, timer = 0, onScreen = false, raf = 0, pk = [];
+  function show(i, user) {
+    cur = i; const st = stories[i];
+    btns.forEach((b, k) => { b.setAttribute('aria-pressed', 'false'); if (k === i) { void b.offsetWidth; b.setAttribute('aria-pressed', 'true'); } });
+    root.classList.add('swap');
+    setTimeout(() => { route.innerHTML = st.route; sayEl.textContent = st.say; root.classList.remove('swap'); }, 320);
+    Object.values(ndEl).forEach(g => g.classList.remove('on'));
+    [...st.from, ...st.to].forEach(id => ndEl[id].classList.add('on'));
+    flows.innerHTML = ''; pk = [];
+    st.from.forEach(a => st.to.forEach(b => {
+      const pth = el('path', { class: 'fl', d: curve(a, b) }, flows);
+      const L = pth.getTotalLength(); pth.style.strokeDasharray = `${L} ${L}`; pth.style.strokeDashoffset = L;
+      requestAnimationFrame(() => { pth.classList.add('on'); pth.style.transition = 'stroke-dashoffset 1.4s cubic-bezier(.22,1,.36,1), opacity .5s'; pth.style.strokeDashoffset = 0; });
+      for (let k = 0; k < 2; k++) pk.push({ p: pth, L, c: el('circle', { class: 'pk', r: 4.5, cx: -50, cy: -50 }, flows), off: k / 2 });
+    }));
+    clearTimeout(timer);
+    if (!reduce) timer = setTimeout(() => { if (onScreen) show((cur + 1) % stories.length); else waitShow(); }, DUR);
+  }
+  function waitShow() { const t = setInterval(() => { if (onScreen) { clearInterval(t); show((cur + 1) % stories.length); } }, 400); }
+  const t0 = performance.now();
+  function tick(now) {
+    raf = requestAnimationFrame(tick);
+    if (!onScreen || reduce) return;
+    const u = ((now - t0) / 1900) % 1;
+    pk.forEach(o => { const f = (u + o.off) % 1, pt = o.p.getPointAtLength(f * o.L); o.c.setAttribute('cx', pt.x); o.c.setAttribute('cy', pt.y); o.c.style.opacity = f < .06 ? f / .06 : f > .94 ? (1 - f) / .06 : 1; });
+  }
+  new IntersectionObserver(es => { onScreen = es[0].isIntersecting; if (onScreen && cur < 0) show(0); }, { threshold: .25 }).observe(root);
+  raf = requestAnimationFrame(tick);
+  if (reduce) show(0);
 }
