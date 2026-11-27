@@ -377,7 +377,7 @@ html.flow .chain{margin-top:52px}
    <p class="lede t" data-at=".18">So I submitted them to <b>Tradewinds</b>, the Defense Department's marketplace for vetted solutions, run by its AI office (the CDAO).</p>
    <div class="t" data-at=".25"><span class="count" id="cnt">0</span> <span class="say">assessed <em>awardable</em></span></div>
    <p class="lede t" data-at=".62">Awardable means government reviewers assessed it as ready for agencies to buy.</p>
-   <p class="say t" data-at=".78">And 3 of those 12, <em>Titanym</em>, <em>Ravionics</em> and <em>Lucent Robotics</em>, were also assessed awardable by <em>DARPA</em>, the Pentagon's research agency.</p>
+   <p class="say t" data-at=".78">And 2 of those 12, <em>Titanym</em> and <em>Ravionics</em>, were also assessed awardable by <em>DARPA</em>, the Pentagon's research agency.</p>
   </div>
   <div class="art cards12"><div class="grid12" id="grid12"></div></div>
  </div>
@@ -857,7 +857,7 @@ html.flow .chain{margin-top:52px}
    <h2 class="t on">Why me?</h2>
    <p class="lede t" data-at=".06">Because I've been getting ready for this <b>since I was five</b>.</p>
    <p class="lede t" data-at=".2">I'm an electronics engineer and a systems architect. I see how chips, software, robots and factories fit together, because <b>I designed every layer myself</b>.</p>
-   <p class="lede t" data-at=".36">I spent years vetting this IP, patent by patent, checking what stacks with what. <b>12 solutions</b> were assessed awardable. <b>3</b> of them by DARPA too.</p>
+   <p class="lede t" data-at=".36">I spent years vetting this IP, patent by patent, checking what stacks with what. <b>12 solutions</b> were assessed awardable. <b>2</b> of them by DARPA too.</p>
    <p class="lede t" data-at=".5">Titanym, the chip company, has a <b>letter of support from the City of Rancho Cucamonga</b> and is in <b>NVIDIA Inception</b>.</p>
    <p class="say t" data-at=".64">I don't just have an idea.<br><em>I have the whole design.</em></p>
   </div>
@@ -873,7 +873,7 @@ html.flow .chain{margin-top:52px}
    <p class="lede t" data-at=".06">I'll say it plainly. I haven't scaled a company yet. I haven't exited. I don't have a paying customer.</p>
    <p class="say t" data-at=".16">Here's what I do have.</p>
    <p class="lede t" data-at=".26"><b>Titanym</b>, the chip company: assessed awardable by DARPA and Tradewinds, a member of <b>NVIDIA Inception</b>, and a letter from the <b>City of Rancho Cucamonga</b> to the U.S. CHIPS Program Office backing its first plant. The city projects <b>100 to 150 jobs</b> in the first phase and <b>more than 1,500</b> at full operation.</p>
-   <p class="lede t" data-at=".42"><b>Lucent Robotics</b>, robots that build and repair structures in space: assessed awardable by DARPA and Tradewinds, with letters of support from <b>Voyager Technologies</b>, <b>Spacebilt</b> and <b>Oceaneering Space Systems</b>, written before a line of software existed.</p>
+   <p class="lede t" data-at=".42"><b>Lucent Robotics</b>, robots that build and repair structures in space: assessed awardable by Tradewinds, with letters of support from <b>Voyager Technologies</b>, <b>Spacebilt</b> and <b>Oceaneering Space Systems</b>, written before a line of software existed.</p>
    <p class="say t" data-at=".6">Everything else waits its turn on the same foundation.<br><em>Not twelve bets at once. Two, in order.</em></p>
   </div>
   <div class="art"><svg id="two" viewBox="0 0 600 520" preserveAspectRatio="xMidYMid meet"></svg></div>
@@ -1053,7 +1053,7 @@ const checks=['Read the patent','Test the claims','Find what stacks','Map the fi
 
 /* PROOF grid */
 const awd=[['Titanym','U.S. chip foundry: two advanced chip types on one sapphire base'],['Ohnera','A breath test that spots infection before symptoms'],['Lucent Robotics','Robots that assemble structures on their own, even in orbit'],['Spattio Labs','A place-and-time layer that keeps AI grounded in facts'],['LoqSat','Neutral traffic coordination for satellites, on NASA IP'],['Rehzon Grid','Battery-free sensors that prove cargo is real and untouched'],['BlueQor','Clean water with no chemicals and no refills'],['Caelyx Systems','Near-real-time audit and decision help for autonomous flight'],['HyveGrid','Battery-free sensor network that watches bee health'],['Maeviq','Large heavy-lift cargo aircraft that take off straight up'],['Ravionics','Aircraft that stay up for long watches over key sites'],['Stohnn','Cooling for data centers with no compressor']];
-const DP=['Titanym','Ravionics','Lucent Robotics'];const g12=$('#grid12');const cards=awd.map(([n,d])=>{const e=document.createElement('div');e.className='card'+(DP.includes(n)?' d2':'');e.innerHTML='<span class="cn"></span><span class="cd"></span><span class="stamp">AWARDABLE</span>'+(DP.includes(n)?'<span class="darpa">DARPA too</span>':'');
+const DP=['Titanym','Ravionics'];const g12=$('#grid12');const cards=awd.map(([n,d])=>{const e=document.createElement('div');e.className='card'+(DP.includes(n)?' d2':'');e.innerHTML='<span class="cn"></span><span class="cd"></span><span class="stamp">AWARDABLE</span>'+(DP.includes(n)?'<span class="darpa">DARPA too</span>':'');
  e.children[0].textContent=n;e.children[1].textContent=d;g12.appendChild(e);return e});
 
 /* CODE rain */
@@ -1169,7 +1169,7 @@ const sap=mk(sd,'circle',{r:5,fill:'#ffd2ad',opacity:0});
 
 /* WHY ME */
 const wm=$('#whyme');
-const WM=[['Age 5','"You\'ll be an engineer."'],['Degree','Electronics engineering'],['Systems architect','Designs how big things fit'],['Years of vetting','NASA IP, patent by patent'],['12 awardable','Tradewinds · 3 also by DARPA'],['Radius','The shared layer, designed']];
+const WM=[['Age 5','"You\'ll be an engineer."'],['Degree','Electronics engineering'],['Systems architect','Designs how big things fit'],['Years of vetting','NASA IP, patent by patent'],['12 awardable','Tradewinds · 2 also by DARPA'],['Radius','The shared layer, designed']];
 mk(wm,'path',{d:'M110 50V470',stroke:'#3a2d22','stroke-width':3,'stroke-linecap':'round'});
 const wmLine=mk(wm,'path',{d:'M110 50V470',stroke:'#ff6b1f','stroke-width':3,'stroke-linecap':'round'});
 const wmN=WM.map(([a,b],i)=>{const y=60+i*80;const g=mk(wm,'g',{opacity:.18});const ring=mk(g,'circle',{cx:110,cy:y,r:20,fill:'none',stroke:'#ff6b1f','stroke-width':1.5,opacity:0});
@@ -1217,7 +1217,7 @@ const twMini=[...Array(12)].map((_,i)=>{const x=75+(i%6)*90,y=40+Math.floor(i/6)
  const r=mk(g,'rect',{x:x-36,y:y,width:72,height:30,rx:7,fill:'#1a130e',stroke:hot?'#ff6b1f':'#3a2d22','stroke-width':hot?2:1.2});
  mk(g,'text',{x,y:y+19.5,'text-anchor':'middle',style:'font-size:11px;font-weight:600',fill:hot?'#f3ece4':'#6b5848'},['Titanym','Ohnera','Lucent','Spattio','LoqSat','Rehzon','BlueQor','Caelyx','HyveGrid','Maeviq','Ravionics','Stohnn'][i]);return{g,r,hot}});
 const TW=[{n:'Titanym',k:'Chips',x:30,st:['DARPA: awardable','Tradewinds: awardable','Rancho Cucamonga: letter to CHIPS','NVIDIA Inception: member']},
- {n:'Lucent Robotics',k:'Robots that build and repair in space',x:310,st:['DARPA: awardable','Tradewinds: awardable','Voyager Technologies: support','Spacebilt: support','Oceaneering: support']}];
+ {n:'Lucent Robotics',k:'Robots that build and repair in space',x:310,st:['Tradewinds: awardable','Voyager Technologies: support','Spacebilt: support','Oceaneering: support']}];
 const twCards=TW.map((c,ci)=>{const g=mk(tw,'g',{opacity:0});const box=mk(g,'rect',{x:c.x,y:150,width:260,height:330,rx:14,fill:'rgba(26,19,14,.92)',stroke:'#ff6b1f','stroke-width':2});
  const ring=mk(g,'rect',{x:c.x-5,y:145,width:270,height:340,rx:17,fill:'none',stroke:'#ff6b1f','stroke-width':1.5,opacity:0});
  mk(g,'text',{x:c.x+130,y:186,'text-anchor':'middle',class:'hd',style:'font-size:22px'},c.n);mk(g,'text',{x:c.x+130,y:208,'text-anchor':'middle',class:'lab',style:'font-size:14px'},c.k);
@@ -1336,7 +1336,7 @@ function simFrame(t){
  });
  if(simsOn)requestAnimationFrame(simFrame)}
 
-const stepDefs=[['Found the IP','NASA patents, vetted for years'],['Designed','Patents stacked into solutions'],['Awardable','12 by Tradewinds, 3 by DARPA'],['Simulated','McCoy, Easley, Galleion, Arddeon'],['Experts join','A leader for each company'],['Prototype','Real hardware, via Crucible'],['Pilot','Real customers testing it'],['Scale','Companies on their own']];
+const stepDefs=[['Found the IP','NASA patents, vetted for years'],['Designed','Patents stacked into solutions'],['Awardable','12 by Tradewinds, 2 by DARPA'],['Simulated','McCoy, Easley, Galleion, Arddeon'],['Experts join','A leader for each company'],['Prototype','Real hardware, via Crucible'],['Pilot','Real customers testing it'],['Scale','Companies on their own']];
 const stEls=stepDefs.map(([t,d],i)=>{const e=document.createElement('div');e.className='step';e.innerHTML='<div class="bar"></div><b></b><span></span>';e.children[0].style.height=(innerWidth<=820?26+i*7:44+i*18)+'px';e.children[0].textContent=i+1;e.children[1].textContent=t;e.children[2].textContent=d;$('#steps').appendChild(e);return e});
 const skEls=stepDefs.map(([t],i)=>{const k=document.createElement('span');k.innerHTML='<i></i>';k.firstChild.textContent=i+1;k.append(t);$('#stepkey').appendChild(k);return k});
 
