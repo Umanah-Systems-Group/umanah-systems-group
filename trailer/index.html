@@ -160,9 +160,67 @@ a{color:inherit}
 }
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.r,.c12,.w5,.tile,.q,.stk i{opacity:1!important;transform:none!important}.bar .fill{width:var(--w)!important}}
 
+
+/* icons, labs, stat, questions, clock */
+.ic5{display:flex;flex-wrap:wrap;justify-content:center;gap:14px;margin-top:30px}
+.ic{width:130px;padding:18px 10px 14px;border:1px solid var(--line);border-radius:18px;background:var(--bg2);opacity:0;transform:translateY(16px) scale(.94);transition:all .6s cubic-bezier(.3,1.4,.5,1) var(--d)}
+.on .ic{opacity:1;transform:none;border-color:rgba(255,107,31,.45);box-shadow:0 0 30px rgba(255,107,31,.12)}
+.ic svg{width:64px;height:64px;display:block;margin:0 auto 10px;overflow:visible}
+.ic svg *,.qc svg *{fill:none;stroke:var(--or);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.ic span{font:700 15px/1 Inter;color:var(--ink)}
+.on .ic .arm{transform-origin:25px 37px;animation:armm 3s ease-in-out infinite}
+@keyframes armm{50%{transform:rotate(-18deg)}}
+.on .ic .prop{animation:propb .25s linear infinite}
+@keyframes propb{50%{opacity:.35}}
+.on .ic svg .wave,.on .tile svg .wave{animation:wave 2s ease-out infinite}.on .ic svg .wave.b{animation-delay:.5s}
+.on .ic:last-child svg{animation:floaty 4s ease-in-out infinite}
+@keyframes floaty{50%{transform:translateY(-6px) rotate(-4deg)}}
+.labsw{margin-top:30px}
+.labs{display:grid;grid-template-columns:repeat(30,1fr);gap:6px;width:min(620px,100%);margin:0 auto}
+.labs i{aspect-ratio:1;border-radius:50%;background:#3a2b20;opacity:.0;transition:opacity .3s ease var(--d)}
+.on .labs i{opacity:1}
+.labs i.pick{background:var(--or);box-shadow:0 0 0 0 rgba(255,107,31,.8)}
+.on .labs i.pick{animation:pick 1.6s ease-out infinite 8.2s;transform:scale(1.6)}
+@keyframes pick{0%{box-shadow:0 0 0 0 rgba(255,107,31,.8)}100%{box-shadow:0 0 0 14px rgba(255,107,31,0)}}
+.on .labs.dim i:not(.pick){opacity:.25;transition:opacity 1s ease}
+.stat{display:flex;flex-direction:column;align-items:center;margin:6px auto 10px}
+.stat small{font-size:15px;color:var(--mut);margin-top:6px}
+.qi{display:flex;justify-content:center;gap:clamp(14px,3vw,40px);margin:30px auto 0}
+.qc{position:relative;width:150px;height:150px;border:1px solid var(--line);border-radius:22px;background:var(--bg2);display:grid;place-items:center;opacity:0;transform:scale(.9);transition:all .7s cubic-bezier(.3,1.4,.5,1) var(--d)}
+.on .qc{opacity:1;transform:none}
+.qc svg{width:70px;height:70px;overflow:visible}
+.qc b{position:absolute;right:-12px;top:-16px;font:800 46px/1 Archivo,Inter,sans-serif;color:var(--or);text-shadow:0 0 24px rgba(255,107,31,.5)}
+.on .qc b{animation:tilt 3s ease-in-out infinite calc(var(--d) + .8s)}
+.on .qc .bub{animation:blink 1.4s ease-in-out infinite}
+.on .qc .fl2{stroke-dasharray:4 6;animation:dash 1.2s linear infinite}
+@keyframes dash{to{stroke-dashoffset:-20}}
+.on .qc .grow{transform-origin:50px 50px;animation:grow 2.4s ease-in-out infinite}
+@keyframes grow{0%,100%{transform:scaleY(.4)}50%{transform:scaleY(1)}}
+.clock{position:relative;width:200px;height:200px;margin:26px auto 6px}
+.clock svg{width:100%;height:100%;transform:rotate(-90deg)}
+.clock .cbg{fill:none;stroke:#2a1c12;stroke-width:10}
+.clock .cfg{fill:none;stroke:var(--or);stroke-width:10;stroke-linecap:round;stroke-dasharray:528;stroke-dashoffset:528;transition:stroke-dashoffset 2.6s cubic-bezier(.3,.7,.2,1) .8s;filter:drop-shadow(0 0 10px rgba(255,107,31,.5))}
+.on .clock .cfg{stroke-dashoffset:264}
+.clock .hand{transform-origin:100px 100px;transition:transform 2.6s cubic-bezier(.3,.7,.2,1) .8s}
+.clock .hand path{stroke:var(--ink);stroke-width:4;stroke-linecap:round;transform:rotate(90deg);transform-origin:100px 100px}
+.on .clock .hand{transform:rotate(180deg)}
+.clock span{position:absolute;inset:0;display:grid;place-items:center;font:800 40px/1 Archivo,Inter,sans-serif;color:var(--ink);padding-top:0}
+@media(max-width:760px){.ic{width:96px;padding:14px 6px 10px}.ic svg{width:48px;height:48px}.labs{grid-template-columns:repeat(20,1fr);gap:4px}.qc{width:96px;height:96px}.qc svg{width:46px;height:46px}.qc b{font-size:32px}}
+
 /* film mode, used to record the video */
 .film .hero,.film .foot,.film .down{display:none}
-.film .scene{height:100vh;min-height:0;padding:24px 6vw 96px;overflow:hidden}.film h2{font-size:46px}.film .viz{margin-top:20px}.film .hub{width:400px}.film .stacks{height:190px}.film .lede{font-size:18px;margin:.4em auto}.film .k{margin-bottom:12px}.film .how{font-size:110px;margin-top:8px}.film .q{font-size:52px}.film .ask h2{font-size:84px}
+.film .scene{height:100vh;min-height:0;padding:30px 5vw 110px;overflow:hidden}
+.film .scene h2,.film .scene .lede,.film .scene .say,.film .scene .src,.film .q,.film .tile p,.film .side p,.film .stat small{display:none}
+.film .viz{margin-top:24px;width:min(1120px,100%)}
+.film .grid12{gap:16px}.film .c12{font-size:17px;padding:22px 8px 44px}.film .c12 .st{font-size:12px}.film .how{font-size:150px;margin-top:20px}
+.film .ic5{gap:22px}.film .ic{width:184px;padding:34px 10px 22px}.film .ic svg{width:120px;height:120px}.film .ic span{font-size:20px}
+.film .side{padding:30px 24px}.film .die{width:70px;height:70px;font-size:42px}.film .big{font-size:84px}.film .labs{width:760px}
+.film .stacks{height:300px}.film .stk i{height:52px}.film .stk b{font-size:14px;top:-34px}.film .lg{font-size:16px}
+.film .hub{width:720px;max-width:none}.film [data-s="world"] .viz{margin-top:0}
+.film .tile{padding:40px 18px 34px}.film .tile svg{width:110px;height:110px}.film .tile h3{font-size:28px}
+.film .stat .big{font-size:120px}.film .bars{width:820px;gap:16px}.film .bar{font-size:18px;grid-template-columns:180px 1fr 60px}.film .bar .tr{height:28px}
+.film .qi{gap:60px;margin-top:0}.film .qc{width:240px;height:240px}.film .qc svg{width:120px;height:120px}.film .qc b{font-size:80px}
+.film .clock{width:300px;height:300px}.film .clock span{font-size:64px}.film .ask h2{font-size:64px}
 </style>
 </head>
 <body>
@@ -179,7 +237,6 @@ a{color:inherit}
 
 <section class="scene" id="open" data-s="open">
  <div class="wrap">
-  <span class="k r"><i>01</i>Cold open</span>
   <h2 class="r" style="--d:.1s">Twelve hardware designs.<br>No products. No customers.</h2>
   <p class="lede r" style="--d:.4s">And the Defense Department assessed <b>all twelve</b> as awardable.</p>
   <div class="viz"><div class="grid12" id="g12"></div></div>
@@ -189,17 +246,15 @@ a{color:inherit}
 
 <section class="scene" data-s="who">
  <div class="wrap">
-  <span class="k r"><i>02</i>Who is this?</span>
   <h2 class="r" style="--d:.1s">I'm Amaete Umanah.</h2>
   <p class="lede r" style="--d:.8s">When I was five, my mom told me I'd be an engineer. <b>I believed her.</b></p>
   <p class="lede r" style="--d:2.4s">Today I'm designing a family of companies that make:</p>
-  <div class="words5"><span class="w5" style="--d:3.4s">Chips</span><span class="w5" style="--d:3.8s">Robots</span><span class="w5" style="--d:4.2s">Drones</span><span class="w5" style="--d:4.6s">Sensors</span><span class="w5" style="--d:5s">Satellites</span></div>
+  <div class="ic5"><div class="ic" style="--d:3.20s"><svg viewBox="0 0 64 64"><rect x="16" y="16" width="32" height="32" rx="4"/><rect x="25" y="25" width="14" height="14" rx="2"/><path d="M24 16v-7M32 16v-7M40 16v-7M24 48v7M32 48v7M40 48v7M16 24H9M16 32H9M16 40H9M48 24h7M48 32h7M48 40h7"/></svg><span>Chips</span></div><div class="ic" style="--d:3.75s"><svg viewBox="0 0 64 64"><path d="M14 54h22M25 54V40"/><circle cx="25" cy="37" r="4"/><path class="arm" d="M25 37l12-14l10 6"/><path d="M47 29l5-3M47 29l4 5"/></svg><span>Robots</span></div><div class="ic" style="--d:4.30s"><svg viewBox="0 0 64 64"><rect x="26" y="28" width="12" height="8" rx="3"/><path d="M26 30L16 22M38 30l10-8M26 34l-10 8M38 34l10 8"/><g class="prop"><path d="M10 22h12M42 22h12M10 42h12M42 42h12"/></g></svg><span>Drones</span></div><div class="ic" style="--d:4.85s"><svg viewBox="0 0 64 64"><circle cx="32" cy="40" r="5"/><path class="wave" d="M22 30a14 14 0 0 1 20 0"/><path class="wave b" d="M15 23a24 24 0 0 1 34 0"/><path d="M32 45v10"/></svg><span>Sensors</span></div><div class="ic" style="--d:5.40s"><svg viewBox="0 0 64 64"><rect x="27" y="27" width="10" height="10" rx="2"/><path d="M27 32H12M37 32h15"/><rect x="6" y="26" width="10" height="12"/><rect x="48" y="26" width="10" height="12"/><path d="M32 27v-7"/><circle cx="32" cy="18" r="2"/></svg><span>Satellites</span></div></div>
  </div>
 </section>
 
 <section class="scene" data-s="secret">
  <div class="wrap">
-  <span class="k r"><i>03</i>The secret</span>
   <h2 class="r" style="--d:.1s">Most investors guess.<br><em>I don't guess.</em></h2>
   <div class="viz vs">
    <div class="side r" style="--d:.8s"><h3>A bet on people</h3><div class="dice"><span class="die">⚂</span><span class="die">⚄</span><span class="die">⚀</span></div><p style="margin-top:14px;font-size:15px">A founder, a team, a deck</p></div>
@@ -207,13 +262,13 @@ a{color:inherit}
    <div class="side r" style="--d:2s"><h3>U.S. research, every year</h3><div class="big"><span id="cnt190">$0</span></div><p style="margin-top:10px;font-size:15px"><a href="https://ncses.nsf.gov/pubs/nsf26317" target="_blank" rel="noopener">Federal research spending, NSF ↗</a></p></div>
   </div>
   <div class="viz r" style="--d:3s"><div class="shelf" id="shelf"></div><div class="tag3">PAID FOR · TESTED · WAITING</div></div>
+  <div class="viz r labsw" style="--d:6s"><div class="labs" id="labs"></div><div class="tag3">300+ FEDERAL LABS · <span style="color:var(--or)">ONE CHOSEN</span></div></div>
   <p class="lede r" style="--d:6s">I found <b>one federal lab</b>, and spent years going through its inventions, patent by patent.</p>
  </div>
 </section>
 
 <section class="scene" data-s="twist">
  <div class="wrap">
-  <span class="k r"><i>04</i>The twist</span>
   <h2 class="r" style="--d:.1s">I stacked the inventions<br><em>like building blocks.</em></h2>
   <div class="viz" style="margin-top:56px"><div class="stacks" id="stacks"></div>
    <div class="lg r" style="--d:6s"><span>Assessed awardable · Tradewinds</span><span class="o">Also awardable · DARPA</span></div></div>
@@ -223,7 +278,6 @@ a{color:inherit}
 
 <section class="scene" data-s="world">
  <div class="wrap">
-  <span class="k r"><i>05</i>The world</span>
   <h2 class="r" style="--d:.1s">One shared AI brain.<br><em>Every company builds with it.</em></h2>
   <div class="viz r" style="--d:.6s"><svg class="hub" id="hub" viewBox="-300 -230 600 460"></svg></div>
   <p class="lede r" style="--d:1.6s">Twelve companies can't each start from zero. One learns something, and <b>every company gets smarter.</b></p>
@@ -233,7 +287,6 @@ a{color:inherit}
 
 <section class="scene" data-s="stakes">
  <div class="wrap">
-  <span class="k r"><i>06</i>The stakes</span>
   <h2 class="r" style="--d:.1s">Chips. Robots. Sensors. Space.<br><em>Built here.</em></h2>
   <div class="viz four">
    <div class="tile" style="--d:.8s"><svg viewBox="0 0 64 64"><rect x="16" y="16" width="32" height="32" rx="4"/><rect x="25" y="25" width="14" height="14" rx="2"/><path d="M24 16v-7M32 16v-7M40 16v-7M24 48v7M32 48v7M40 48v7M16 24H9M16 32H9M16 40H9M48 24h7M48 32h7M48 40h7"/></svg><h3>Chips</h3><p>A California city sent a letter of support to the CHIPS office, backing our first chip plant.</p></div>
@@ -246,8 +299,8 @@ a{color:inherit}
 
 <section class="scene" data-s="timing">
  <div class="wrap">
-  <span class="k r"><i>07</i>Timing</span>
   <h2 class="r" style="--d:.1s">The founder of Idealab built<br><em>more than 150 companies.</em></h2>
+  <div class="stat r" style="--d:.5s"><span class="big" id="cnt150">0</span><small>companies from one studio</small></div>
   <p class="lede r" style="--d:.8s">Then he studied why startups succeed. The number one reason:</p>
   <div class="viz bars r" style="--d:1.2s">
    <div class="bar top"><span class="nm">Timing</span><span class="tr"><span class="fill" style="--w:100%;--d:1.6s"></span></span><span class="v">42%</span></div>
@@ -263,18 +316,22 @@ a{color:inherit}
 
 <section class="scene" data-s="hook">
  <div class="wrap qs">
-  <span class="k r"><i>08</i>The hook</span>
   <div class="q" style="--d:.2s">Which lab<em>?</em></div>
   <div class="q" style="--d:1.8s">How does the brain work<em>?</em></div>
   <div class="q" style="--d:3.4s">What comes after the twelve<em>?</em></div>
+  <div class="qi">
+   <div class="qc" style="--d:.2s"><svg viewBox="0 0 64 64"><path d="M26 10h12M28 10v16L14 50a4 4 0 0 0 4 6h28a4 4 0 0 0 4-6L36 26V10"/><path class="bub" d="M24 44h16"/></svg><b>?</b></div>
+   <div class="qc" style="--d:1.8s"><svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="8"/><circle cx="12" cy="16" r="4"/><circle cx="52" cy="16" r="4"/><circle cx="12" cy="48" r="4"/><circle cx="52" cy="48" r="4"/><path class="fl2" d="M15 19l11 8M49 19l-11 8M15 45l11-8M49 45l-11-8"/></svg><b>?</b></div>
+   <div class="qc" style="--d:3.4s"><svg viewBox="0 0 64 64"><path d="M10 50h8V38h-8zM22 50h8V28h-8zM34 50h8V20h-8z"/><path class="grow" d="M46 50h8V10h-8z"/></svg><b>?</b></div>
+  </div>
   <p class="lede r" style="--d:5s">That's the full story. <b>It doesn't fit in five minutes.</b></p>
  </div>
 </section>
 
 <section class="scene ask" data-s="ask">
  <div class="wrap">
-  <span class="k r"><i>09</i>The ask</span>
   <h2 class="r" style="--d:.1s">Give me<br><em>30 minutes.</em></h2>
+  <div class="clock r" style="--d:.4s"><svg viewBox="0 0 200 200"><circle cx="100" cy="100" r="84" class="cbg"/><circle cx="100" cy="100" r="84" class="cfg"/></svg><span>30:00</span></div>
   <p class="say r" style="--d:.8s">I'll show you everything.</p>
   <div class="cta r" style="--d:1.4s"><a class="btn p" href="mailto:amaete@umanahsystems.com?subject=30%20minutes%20with%20USG">Book 30 minutes</a><a class="btn s" href="../story/">Read the full story →</a></div>
   <p class="foot">Amaete Umanah, Systems Architect<br>Umanah Systems Group · <a href="https://umanahsystems.com/">umanahsystems.com</a><br>Mission-critical hardware and software. Dual use, for government and commercial. No weapons.<br>Music: "Documentary Cinematic" by Leberch, via Pixabay.</p>
@@ -289,6 +346,8 @@ const N=['Titanym','Ohnera','Lucent Robotics','Spattio Labs','LoqSat','Rehzon Gr
 $('#g12').innerHTML=N.map((n,i)=>`<div class="c12" style="--d:${(.9+i*.22).toFixed(2)}s">${n}<span class="st">AWARDABLE</span></div>`).join('');
 // 3: shelf
 $('#shelf').innerHTML=Array.from({length:20},(_,i)=>`<span class="blk" style="--d:${(3.4+i*.12).toFixed(2)}s"></span>`).join('');
+// labs
+(()=>{const L=document.getElementById('labs');let h='';for(let i=0;i<300;i++)h+=`<i${i==137?' class="pick"':''} style="--d:${(6.2+((i*37)%300)/300*1.6).toFixed(2)}s"></i>`;L.innerHTML=h})();
 // 4: stacks
 const DP=['Titanym','Ravionics'];
 $('#stacks').innerHTML=N.map((n,i)=>{const h=3+(i*7%3);const dp=DP.includes(n);let s='';for(let j=0;j<h;j++)s+=`<i style="--d:${(.5+i*.12+j*.35).toFixed(2)}s"></i>`;
@@ -306,7 +365,8 @@ $('#stacks').innerHTML=N.map((n,i)=>{const h=3+(i*7%3);const dp=DP.includes(n);l
 function count(el,to,dur,delay){setTimeout(()=>{const t0=performance.now();(function f(t){const u=Math.min(1,(t-t0)/dur),e=1-Math.pow(1-u,3);el.textContent='$'+Math.round(to*e)+'B'+(u>=1?'+':'');if(u<1)requestAnimationFrame(f)})(t0)},delay)}
 // reveal
 const seen=new WeakSet();
-function show(sec){if(seen.has(sec))return;seen.add(sec);sec.classList.add('on');if(sec.dataset.s==='secret')count($('#cnt190'),190,2600,2400)}
+function show(sec){if(seen.has(sec))return;seen.add(sec);sec.classList.add('on');if(sec.dataset.s==='secret'){count($('#cnt190'),190,2600,2400);setTimeout(()=>$('#labs').classList.add('dim'),8000)}if(sec.dataset.s==='timing')count2($('#cnt150'),150,2000,600)}
+function count2(el,to,dur,delay){setTimeout(()=>{const t0=performance.now();(function f(t){const u=Math.min(1,(t-t0)/dur),e=1-Math.pow(1-u,3);el.textContent=Math.round(to*e)+(u>=1?'+':'');if(u<1)requestAnimationFrame(f)})(t0)},delay)}
 window.__show=s=>show(document.querySelector(`[data-s="${s}"]`));
 if(!film){const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)show(e.target)}),{threshold:.35});document.querySelectorAll('.scene').forEach(s=>io.observe(s));}
 </script>
